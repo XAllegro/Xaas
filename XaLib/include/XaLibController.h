@@ -10,7 +10,7 @@
 #include <XaLibSql.h>
 #include <XaLibChar.h>
 #include <XaLibCrypto.h>
-#include <XaLibMail.h>
+//#include <XaLibMail.h>
 #include <XaLibTime.h>
 #include <XaLibCurl.h>
 #include <XaLibWs.h>

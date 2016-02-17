@@ -11,8 +11,8 @@
 #include <XaLibSql.h>
 #include <XaLibChar.h>
 #include <XaLibCrypto.h>
-#include <XaLibSession.h>
-#include <XaLibMail.h>
+//#include <XaLibSession.h>
+//#include <XaLibMail.h>
 #include <XaLibTime.h>
 #include <XaLibCurl.h>
 #include <XaLibGui.h>
@@ -22,7 +22,7 @@
 
 extern XaLibLog LOG;
 extern XaLibHttp HTTP;
-//extern XaLibDb DB_SESSION;
+extern XaLibDb DB_SESSION;
 extern XaLibDb DB_READ;
 extern XaLibDb DB_WRITE;
 extern XaLibDb DB_LOG;

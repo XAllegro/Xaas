@@ -26,11 +26,11 @@
 #include <XaUserAddressMailType.h>
 #include <XaUserAddressGeoType.h>
 
-#include <XaAddress.h>
-#include <XaLabel.h>
-#include <XaLanguage.h>
+//#include <XaAddress.h>
+//#include <XaLabel.h>
+//#include <XaLanguage.h>
 //#include <XaDomain.h>
-#include <XaCurrency.h>
+//#include <XaCurrency.h>
 #include <XaUserRole.h>
 #include <XaUserProfile.h>
 //#include <XaLibRbGpIo.h>

@@ -26,7 +26,7 @@ OBJ=$(OBJDIR)XaLibBase.o $(OBJDIR)XaLibAction.o $(OBJDIR)XaLibModel.o $(OBJDIR)X
     $(OBJDIR)XaLibDom.o $(OBJDIR)XaLibChar.o $(OBJDIR)XaLibCurl.o $(OBJDIR)XaLibError.o \
     $(OBJDIR)XaLibLog.o \
     $(OBJDIR)XaLibTime.o $(OBJDIR)XaLibWs.o $(OBJDIR)XaLibGui.o $(OBJDIR)XaLibController.o $(OBJDIR)XaLibControllerBackEnd.o $(OBJDIR)XaLibControllerFrontEnd.o\
-    $(OBJDIR)XaUserLogin.o $(OBJDIR)XaUserLoginUi.o $(OBJDIR)XaLanguage.o \
+    $(OBJDIR)XaUserLogin.o $(OBJDIR)XaUserLoginUi.o \
     $(OBJDIR)XaLibRbUart.o
 
 #MACROS
@@ -138,8 +138,8 @@ $(OBJDIR)XaLanguage.o: XaLanguage.cpp
 #	$(CPP) -c XaCurrency.cpp -o $(OBJDIR)XaCurrency.o $(CPPFLAGS)
 #$(OBJDIR)XaDomain.o: XaDomain.cpp 
 #	$(CPP) -c XaDomain.cpp -o $(OBJDIR)XaDomain.o $(CPPFLAGS)
-$(OBJDIR)XaLibMail.o: XaLibMail.cpp 
-	$(CPP) -c XaLibMail.cpp -o $(OBJDIR)XaLibMail.o $(CPPFLAGS)
+#$(OBJDIR)XaLibMail.o: XaLibMail.cpp 
+#	$(CPP) -c XaLibMail.cpp -o $(OBJDIR)XaLibMail.o $(CPPFLAGS)
 $(OBJDIR)XaLibRbUart.o: XaLibRbUart.cpp 
 	$(CPP) -c XaLibRbUart.cpp -o $(OBJDIR)XaLibRbUart.o $(CPPFLAGS)
 $(OBJDIR)XaLibRbGpIo.o: XaLibRbGpIo.cpp 
