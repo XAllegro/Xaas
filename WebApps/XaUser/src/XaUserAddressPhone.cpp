@@ -7,21 +7,23 @@ XaUserAddressPhone::XaUserAddressPhone(){
 
 void XaUserAddressPhone::Dispatcher (const string &CalledEvent) {
 
-	if (CalledEvent=="Create"){
+    if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
-		 this->Read();
+        this->Read();
+    } else if (CalledEvent=="ReadForUpdateFrm"){
+        this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
-		 this->List();
+        this->List();
     } else if (CalledEvent=="Update"){
-		 this->Update();
+	this->Update();
     } else if (CalledEvent=="Delete"){
-		 this->Delete();
+	this->Delete();
     } else {
 
-		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
-		throw 42;
-	}
+	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
+	throw 42;
+    }
 };
 
 void XaUserAddressPhone::Create() {
@@ -62,6 +64,17 @@ void XaUserAddressPhone::Read() {
 	
 	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressPhone",FieldsToRead,{"id"},{HTTP.GetHttpParam("id")});
 	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
+};
+
+void XaUserAddressPhone::ReadForUpdateFrm() {
+
+	string Id=HTTP.GetHttpParam("id");
+
+	vector<string> ReturnedFields={"id","name","description"};
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressPhone",{ReturnedFields},{"id"},{Id});
+
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 };
 
 void XaUserAddressPhone::List() {

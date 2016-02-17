@@ -683,6 +683,11 @@ function XaListTpl (ModelName,DataName) {
 
         if (DataRowNumber>0) {
 
+            var target=document.getElementById('ListContainer').parentNode.id;
+
+            /* Is it always true? */
+            var CallObj=RootElement+"Ui";
+
             FindFields();
 
             Content+="<table>";
@@ -694,11 +699,18 @@ function XaListTpl (ModelName,DataName) {
             Content+="</tr>";
 
             for (i=1;i<=DataRowNumber;i++) {
-	            Content+="<tr>";
-        	    for (var j=1; j<=FieldsToList.length; j++) {
-	                Content+="<td>"+BuildField(i,j)+"</td>";
-        	    };
-	            Content+="</tr>";
+
+                var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
+                var OuReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
+                OuReadCallUrl+="&lay=include";
+
+		DblClickAction="XaCallAction('','"+OuReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+                Content+="<tr ondblclick=\"javascript:"+DblClickAction+";\">";
+                for (var j=1; j<=FieldsToList.length; j++) {
+                    Content+="<td>"+BuildField(i,j)+"</td>";
+                };
+                Content+="</tr>";
             }
             Content+="</table>";
         } else {

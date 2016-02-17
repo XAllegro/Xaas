@@ -1,12 +1,26 @@
 <div id="ReadContainer">
 
 	<a id="UpdateLink" href="#">update</a>
+	&#32;&#32;
+	<a id="DeleteLink" href="#">delete</a>
+
 	<script>
+		var XmlDoc=XaParseXml(XaModel);
+		var RootElement=XmlDoc.documentElement.nodeName;
+
+		/* is it always true? */
+		var CallObj=RootElement+'Ui';
+
 		document.getElementById('UpdateLink').onclick= function() {
 			var target=document.getElementById('ReadContainer').parentNode.id;
-			XaCallAction('','obj=XaOuUi&evt=UpdateFrm&id='+RowId+'&lay=modal',target,'','','yes',target,'','StringHtml','yes','','');
-		}
+			XaCallAction('','obj='+CallObj+'&evt=UpdateFrm&id='+RowId+'&lay=modal',target,'','','yes',target,'','StringHtml','yes','','');
+		};
+		document.getElementById('DeleteLink').onclick= function() {
+			var target=document.getElementById('ReadContainer').parentNode.id;
+			XaCallAction('','obj='+CallObj+'&evt=Delete&id='+RowId+'&lay=modal',target,'','','yes',target,'','StringHtml','yes','','');
+		};
 	</script>
+
 	<br/>
 	<br/>
 

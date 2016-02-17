@@ -22,6 +22,8 @@ void XaOuUi::Dispatcher (const string &CalledEvent) {
         this->UpdateFrm();
     } else if (CalledEvent=="Update") {
         this->Update();
+    } else if (CalledEvent=="Delete") {
+        this->Delete();
     } else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42:: Requested Event Does Not Exists -> "+CalledEvent);
@@ -287,6 +289,14 @@ void XaOuUi::Update() {
 	auto Fields=UpdatePrepare({"XaOu"},"/XaOu/fieldset/field","XaOu");
 	XaLibCurl LibCurl;
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaOu","Update",get<0>(Fields),get<1>(Fields)));
+	CheckResponse(CallResponse);
+	RESPONSE.Content="OK";
+};
+
+void XaOuUi::Delete() {
+
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaOu","Delete",{"id"},{HTTP.GetHttpParam("id")}));
 	CheckResponse(CallResponse);
 	RESPONSE.Content="OK";
 };

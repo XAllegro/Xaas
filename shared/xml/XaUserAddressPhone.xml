@@ -9,14 +9,24 @@
         <method>POST</method>
         <class>form-1-column</class>
     </form>
+	<update_form>
+        <controller>XaUserUi</controller>
+        <id>XaUserAddressPhone</id>
+        <name>XaUserAddressPhone</name>
+        <obj>XaUserAddressPhoneUi</obj>
+        <evt>Update</evt>
+        <async>true</async>
+        <method>POST</method>
+        <class>form-1-column</class>
+    </update_form>
     <fieldset id="XaUserAddressPhone" name="XaUserAddressPhone">
         <legend>create&#32;a&#32;new&#32;address&#32;phone</legend>
         <field id="XaUser_ID" name="XaUser_ID">
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>
-            <type>input-number</type>
+            <type>input-text</type>
             <label>XaUser_ID</label>
-            <placeholder>XaUser_ID</placeholder>
+            <placeholder>XaUser_ID:&#32;gestire&#32;in&#32;XaUser&#32;ListAsOptions</placeholder>
             <default></default>
             <required>yes</required>
             <read>yes</read>
@@ -28,10 +38,13 @@
 		<field id="XaUserAddressPhoneType_ID" name="XaUserAddressPhoneType_ID">
 			<id>XaUserAddressPhoneType_ID</id>
 			<name>XaUserAddressPhoneType_ID</name>
-			<type>select</type>
-			<label>Phone Type</label>
-			<options></options>
-			<placeholder>Phone Type</placeholder>
+			<type>select-single</type>
+			<label>Phone&#32;Type</label>
+			<options>
+                <obj>XaUserAddressPhoneTypeUi</obj>
+                <evt>ListAsOptions</evt>
+            </options>
+			<placeholder>Phone&#32;Type</placeholder>
 			<default></default>
             <required>yes</required>
             <read>yes</read>
@@ -43,10 +56,13 @@
 		<field id="XaUserAddressPhoneCode_ID" name="XaUserAddressPhoneCode_ID">
 			<id>XaUserAddressPhoneCode_ID</id>
 			<name>XaUserAddressPhoneCode_ID</name>
-			<type>select</type>
-			<label>Phone Code</label>
-			<options></options>
-			<placeholder>Phone Code</placeholder>
+			<type>select-single</type>
+			<label>Phone&#32;Code</label>
+			<options>
+                <obj>XaUserAddressPhoneCodeUi</obj>
+                <evt>ListAsOptions</evt>
+            </options>
+			<placeholder>Phone&#32;Code</placeholder>
 			<default></default>
             <required>yes</required>
             <read>yes</read>
@@ -58,9 +74,9 @@
 		<field id="number" name="number">
 			<id>number</id>
 			<name>number</name>
-			<type>input-number</type>
-			<label>Number</label>
-			<placeholder>Insert number address</placeholder>
+			<type>input-text</type>
+			<label>Phone&#32;Number</label>
+			<placeholder>Insert&#32;Number&#32;Address</placeholder>
 			<default></default>
             <required>yes</required>
             <read>yes</read>

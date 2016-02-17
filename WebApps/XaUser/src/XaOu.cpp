@@ -21,8 +21,8 @@ void XaOu::Dispatcher (const string &CalledEvent) {
 		 this->ReadForUpdateFrm();
     } else if (CalledEvent=="Update"){
 		 this->Update();
-    //} else if (CalledEvent=="Delete"){
-		 //this->Delete();
+    } else if (CalledEvent=="Delete"){
+		 this->Delete();
     } else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42:: Requested Event Does Not Exists -> "+CalledEvent);
@@ -72,16 +72,6 @@ void XaOu::Create() {
 	XaLibSql::Update(DB_WRITE,"XaOu",{"tree_path"},{TreePath},{"id"},{FromIntToString(NextId)});
 	RESPONSE.Content=CreateResponse(NextId);
 };
-
-
-/*
-
-XaOuModel::Delete(){
-};
-
-XaOuModel::XaOuModel(){
-};
-*/
 
 void XaOu::ListAsOptions() {
 
@@ -247,6 +237,15 @@ void XaOu::Update() {
 	
 	RESPONSE.Content=UpdateResponse(Updated);
 
+};
+
+void XaOu::Delete(){
+
+	string Id=HTTP.GetHttpParam("id");
+	
+	int Deleted=DeleteExecute("XaOu",Id);
+	
+	RESPONSE.Content=DeleteResponse(Deleted);
 };
 
 XaOu::~XaOu(){

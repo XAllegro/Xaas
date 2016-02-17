@@ -9,6 +9,8 @@
 
     <body id="body">
 
+        <!--header id="header"><xsl:call-template name="XaGuiHeaderInternet"/></header-->
+
         <div class="container" style="left:0;top:0">
             <form style="height:99%" class="form form-1-column" id="Login" name="Login" method="POST" action="?obj=XaUserLoginUi&amp;evt=Login">
 

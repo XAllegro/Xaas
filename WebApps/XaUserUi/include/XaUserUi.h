@@ -23,6 +23,8 @@ class XaUserUi : public XaLibAction {
 		void LogoutFrm();
 
 		void List();
+		void Read();
+		void UpdateFrm();
 
 		//void XaUserLoginAddFrm();
 		//void XaUserLoginAdd();

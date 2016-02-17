@@ -9,10 +9,13 @@ void XaUser::Dispatcher (const string &CalledEvent) {
         this->Login();
     } else if (CalledEvent=="Logout"){
 		this->Logout();
+    } else if (CalledEvent=="ReadForUpdateFrm"){
+		this->ReadForUpdateFrm();
+    } else if (CalledEvent=="Read"){
+		this->Read();
     } else if (CalledEvent=="List"){
 		this->List();
     } else {
-
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
 	}
@@ -86,7 +89,28 @@ void XaUser::Logout () {
 void XaUser::Create (){
 };
 
-void XaUser::Read (){
+void XaUser::Read() {
+
+	string Id=HTTP.GetHttpParam("id");
+
+	vector<string> ReadFields=ReadPrepare({"XaUser"},"/XaUser/fieldset/field",0);
+
+	string Qry="SELECT name,surname FROM XaUser WHERE id="+Id;
+	
+	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+
+	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
+};
+
+void XaUser::ReadForUpdateFrm() {
+
+	string Id=HTTP.GetHttpParam("id");
+
+	vector<string> ReadFields=ReadPrepare({"XaUser"},"/XaUser/fieldset/field",0);
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUser",{ReadFields},{"id"},{Id});
+
+	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
 void XaUser::Update (){

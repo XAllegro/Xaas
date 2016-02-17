@@ -19,6 +19,7 @@ class XaOuUi : public XaLibAction {
 		void Read();
 		void UpdateFrm();
 		void Update();
+		void Delete();
 
     protected:
 

@@ -13,6 +13,7 @@ class XaUserAddressPhone : public XaLibModel {
         
         void Create();
         void Read();
+        void ReadForUpdateFrm();
         void Update();
         void Delete();
         void List();

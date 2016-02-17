@@ -17,13 +17,13 @@ class XaOu : public XaLibModel {
 		void Read();
 		void ReadForUpdateFrm();
 		void Update();
+		void Delete();
  
     protected:
 
     public:
 
         void Dispatcher (const string &CalledEvent);
-        
 
         XaOu();
         ~XaOu();

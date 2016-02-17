@@ -16,6 +16,10 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		this->LogoutFrm();
 	} else if (CalledEvent=="List"){
 		this->List();
+	} else if (CalledEvent=="Read"){
+		this->Read();
+	} else if (CalledEvent=="UpdateFrm"){
+		this->UpdateFrm();
 	} else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
@@ -2501,6 +2505,58 @@ void XaUserUi::List () {
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
 	Templates.push_back("XaGuiUserList");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserUi::Read () {
+
+	string Id=HTTP.GetHttpParam("id");
+
+	AddJsVarFile("XaModel","XaUser");
+	AddJsVarString("XaGuiStyle","default");
+	AddJsVarString("RowId",Id);
+	
+	/* data */
+
+	vector <string> FieldsValues ={};
+	FieldsValues.push_back(Id);
+
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Read",{"id"},{FieldsValues}));
+	CheckResponse(CallResponse);
+	
+	AddJsVarString("XaData",CallResponse);
+
+	/* end of data */
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaGuiRead");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+
+};
+
+void XaUserUi::UpdateFrm() {
+
+	AddJsVarFile("XaModel","XaUser");
+	AddJsVarString("XaGuiStyle","default");
+
+	/* data */
+
+	vector <string> FieldsValues ={};
+	FieldsValues.push_back(HTTP.GetHttpParam("id"));
+
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","ReadForUpdateFrm",{"id"},{FieldsValues}));
+	CheckResponse(CallResponse);
+
+	AddJsVarString("XaData",CallResponse);
+
+	/* end of data */
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaGuiUpdateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
