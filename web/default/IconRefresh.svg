@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: IcoMoon.io -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" fill="#000000" height="32" width="32" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 32 32">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<path fill="#FFF" d="M29.974,0c-1.12,0-2.026,0.908-2.026,2.026v4.724c-2.284-2.766-4.916-6.75-12.16-6.75-8.704,0-15.788,7.082-15.788,15.788s7.084,15.788,15.788,15.788c6.836,0,12.864-4.366,15.004-10.864,0.354-1.082-0.234-2.248-1.316-2.604s-2.248,0.232-2.604,1.314c-1.58,4.802-6.034,8.028-11.084,8.028-6.432,0-11.664-5.232-11.664-11.664s5.232-11.64,11.664-11.64c4.554,0,7.084,2.834,9.148,5.806h-5.094c-1.12,0-2.026,0.908-2.026,2.026,0,1.12,0.908,2.026,2.026,2.026h10.132c1.118,0.004,2.026-0.904,2.026-2.022v-9.956c0-1.118-0.908-2.026-2.026-2.026z"/>
+</svg>

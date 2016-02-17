@@ -1,0 +1,219 @@
+<params>
+    <param>
+        <key>AppName</key>
+        <value>MyApplication</value>
+        <description>String</description>
+    </param>
+    <param>
+        <key>ServerUrl</key>
+        <value>localhost</value>
+        <description>localhost server</description>
+    </param>
+    <param>
+        <key>GuiStyle</key>
+        <value>default</value>
+        <description>application Layout</description>
+    </param>
+    <param>
+        <key>SharedDir</key>
+        <value>/XAllegro/Xaas/shared/</value>
+        <description>shared content</description>
+    </param>
+    <param>
+        <key>AccessControl</key>
+        <value>no</value>
+        <description>enable access control</description>
+    </param>
+    <param>
+        <key>HtmlDir</key>
+        <value>/XAllegro/Xaas/WebApps/XaUser/html/</value>
+        <description>xsl directory</description>
+    </param>
+    <param>
+        <key>XmlDir</key>
+        <value>/XAllegro/Xaas/WebApps/XaUser/xml/</value>
+        <description>xml file directory</description>
+    </param>
+    <param>
+        <key>XslDir</key>
+        <value>/XAllegro/Xaas/WebApps/XaUser/xsl/</value>
+        <description>xsl directory</description>
+    </param>
+    <param>
+        <key>LogUseDb</key>
+        <value>no</value>
+        <description>enable log on Batabase</description>
+    </param>
+    <param>
+        <key>LogDir</key>
+        <value>/XAllegro/Xaas/logs/</value>
+        <description>log file directory</description>
+    </param>
+    <param>
+        <key>LogFile</key>
+        <value>Myfile.log</value>
+        <description>log file name</description>
+    </param>
+    <param>
+        <key>LogLevel</key>
+        <value>1</value>
+        <description>0=no log 1=all 2=only error</description>
+    </param>
+    <param>
+        <key>SessionEnable</key>
+        <value>yes</value>
+        <description>Enable or disable Session</description>
+    </param>
+    <param>
+        <key>SessionIdLength</key>
+        <value>40</value>
+        <description>SessionId length</description>
+    </param>
+    <param>
+        <key>SessionParamLength</key>
+        <value>64</value>
+        <description>SessionId length</description>
+    </param>
+    <param>
+        <key>SessionValueLength</key>
+        <value>2048</value>
+        <description>SessionId length</description>
+    </param>
+    <param>
+        <key>DefaultObject</key>
+        <value>XaUser</value>
+        <description>Default Object</description>
+    </param>
+    <param>
+        <key>DefaultEvent</key>
+        <value>LoginFrm</value>
+        <description>Default Event</description>
+    </param>
+    <param>
+        <key>DefaultLanguage</key>
+        <value>en</value>
+        <description>SessionId length</description>
+    </param>
+    <param>
+        <key>DefaultBrand</key>
+        <value>brand</value>
+        <description>SessionId length</description>
+    </param>
+    <param>
+        <key>DefaultDevice</key>
+        <value>computer</value>
+        <description>computer tablet smartphone</description>
+    </param>
+    <param>
+        <key>WsEnable</key>
+        <value>yes</value>
+        <description>Enable ws for actions</description>
+    </param>
+    <param>
+        <key>WsEnablePlain</key>
+        <value>yes</value>
+        <description>Enable not encrypted ws</description>
+    </param>
+    <param>
+        <key>WsEnableLog</key>
+        <value>yes</value>
+        <description>Enable ws Log</description>
+    </param>
+    <param>
+        <key>DatabaseEnable</key>
+        <value>yes</value>
+        <description>Enable or disable Database Connession</description>
+    </param>
+    <param>
+        <key>DatabaseEnableMulti</key>
+        <value>yes</value>
+        <description>Enable or disable Database Connession</description>
+    </param>
+
+<!-- WRITE DATABASE -->
+    <param>
+        <key>DbWriteHost</key>
+        <value>127.0.0.1</value>
+    </param>
+    <param>
+        <key>DbWritePort</key>
+        <value>3306</value>
+    </param>
+    <param>
+        <key>DbWriteDatabase</key>
+        <value>Xaas</value>
+    </param>
+    <param>
+        <key>DbWriteUser</key>
+        <value>User</value>
+    </param>
+    <param>
+        <key>DbWritePassword</key>
+        <value>Password</value>
+    </param>
+
+<!-- READ DATABASE -->
+    <param>
+        <key>DbReadHost</key>
+        <value>127.0.0.1</value>
+    </param>
+    <param>
+        <key>DbReadPort</key>
+        <value>3306</value>
+    </param>
+    <param>
+        <key>DbReadDatabase</key>
+        <value>Xaas</value>
+    </param>
+    <param>
+        <key>DbReadUser</key>
+        <value>user</value>
+    </param>
+    <param>
+        <key>DbReadPassword</key>
+        <value>password</value>
+    </param>
+
+<!-- SESSION DATABASE -->
+    <param>
+        <key>DbSessionHost</key>
+        <value>127.0.0.1</value>
+    </param>
+    <param>
+        <key>DbSessionPort</key>
+        <value>3306</value>
+    </param>
+    <param>
+        <key>DbSessionDatabase</key>
+        <value>Xaas</value>
+    </param>
+    <param>
+        <key>DbSessionUser</key>
+        <value>user</value>
+    </param>
+    <param>
+        <key>DbSessionPassword</key>
+        <value>Password</value>
+    </param>
+<!-- LOG DATABASE -->
+    <param>
+        <key>DbLogHost</key>
+        <value>127.0.0.1</value>
+    </param>
+    <param>
+        <key>DbLogPort</key>
+        <value>3306</value>
+    </param>
+    <param>
+        <key>DbLogDatabase</key>
+        <value>Xaas</value>
+    </param>
+    <param>
+        <key>DbLogUser</key>
+        <value>User</value>
+    </param>
+    <param>
+        <key>DbLogPassword</key>
+        <value>Password</value>
+    </param>
+</params>

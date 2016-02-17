@@ -1,0 +1,58 @@
+<XaUser>
+    <form>
+        <controller>XaUserUi</controller>
+        <id>XaUser</id>
+        <name>XaUser</name>
+        <obj>XaUserUi</obj>
+        <evt>Create</evt>
+        <async>true</async>
+        <method>POST</method>
+        <class>form-1-column</class>
+    </form>
+    <update_form>
+        <controller>XaUserUi</controller>
+        <id>XaUser</id>
+        <name>XaUser</name>
+        <obj>XaUserUi</obj>
+        <evt>Update</evt>
+        <async>true</async>
+        <method>POST</method>
+        <class>form-1-column</class>
+    </update_form>
+    <fieldset id="XaUser" name="XaUser">
+        <legend>create&#32;a&#32;new&#32;user</legend>
+	<update_legend>update&#32;a&#32;user</update_legend>
+        <field id="name" name="name">
+            <id>name</id>
+            <name>name</name>
+            <type>input-text</type>
+            <label>name</label>
+            <placeholder>name</placeholder>
+            <default></default>
+            <create>yes</create>
+            <required>yes</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>yes</update>
+            <search>yes</search>
+            <db_type>string</db_type>
+            <size></size>
+        </field>
+        <field id="surname" name="surname">
+            <id>surname</id>
+            <name>surname</name>
+            <type>input-text</type>
+            <label>surname</label>
+            <placeholder>name</placeholder>
+            <default></default>
+            <create>yes</create>
+            <required>yes</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>yes</update>
+            <search>yes</search>
+            <db_type>string</db_type>
+            <size></size>
+        </field>
+    </fieldset>
+</XaUser>

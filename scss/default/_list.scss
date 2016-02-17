@@ -1,0 +1,88 @@
+/*
+    Project: XAAS
+    Alessandro Mariotti
+    alex@xallegro.com
+*/
+@import '_variables';
+
+.list {
+    width: 100%;
+    background-color: $ListBackgroundColor;
+    opacity:$ForeGroundOpacity;
+    font-size: $ListFontSize;
+    border-radius:$BorderRadius;
+
+    .title {
+
+        color:$ListHeaderFontColor;
+        height: $ListTitleHeight;
+
+        td {
+            background:$ListHeaderBackgroundColor;
+            border-radius:$BorderRadius;
+            height:$ListTitleHeight;
+
+            span {
+                padding: 0.5%;
+                line-height: $ListTitleHeight;
+            }
+
+            .RightToolbar {
+
+                float:right;
+                width:10%;
+                height:100%;
+
+                li {
+                    display: inline-block;
+                }
+
+                .FunctionIcon {
+                    width: 45%;
+                    height: 100%;
+                    background-repeat:no-repeat;
+                    background-position: center center;
+                    margin-left: 4%;
+                    background-size: auto 60%;
+                }
+
+                .Refresh {
+                    float:right;
+                    background-image:url('IconRefresh.svg');
+                }
+
+                .Expand {
+                    float:right;
+                    background-image:url('IconExpand.svg');
+                }
+            }
+        }
+    }
+
+    .header {
+
+        color:$ListFontColor;
+
+        th {
+            text-align: left;
+            border-bottom:2px solid #DDDDDD;
+            padding: 0.5%;
+            text-transform: uppercase;
+        }
+    }
+
+    .row {
+
+        color:$ListFontColor;
+
+        td {
+            border-bottom:1px solid #DDDDDD;
+            padding: 0.5%;
+        }
+    }
+
+    tr:hover td {
+        background-color: $ListRowBackgroundColorHover;
+        color:$ListRowFontColorHover;
+    }
+}

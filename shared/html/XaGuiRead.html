@@ -1,0 +1,19 @@
+<div id="ReadContainer">
+
+	<a id="UpdateLink" href="#">update</a>
+	<script>
+		document.getElementById('UpdateLink').onclick= function() {
+			var target=document.getElementById('ReadContainer').parentNode.id;
+			XaCallAction('','obj=XaOuUi&evt=UpdateFrm&id='+RowId+'&lay=modal',target,'','','yes',target,'','StringHtml','yes','','');
+		}
+	</script>
+	<br/>
+	<br/>
+
+	<div id="DataContainer">
+		<script>
+			var Tpl=new XaReadTpl(XaModel,XaData);
+			XaInnerHtmlWithScripts('DataContainer',Tpl.GetRead());
+		</script>
+	</div>
+</div>

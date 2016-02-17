@@ -1,0 +1,157 @@
+/*
+	Project: XAAS
+	Alessandro Mariotti
+	alex@xallegro.com
+*/
+@import '_variables';
+
+.form {
+        opacity:$ForeGroundOpacity;
+
+    width: 100%;
+    background-color: $FormBackgroundColor;
+    font-size: $FormFontSize;
+    padding-bottom:0.5%;
+    border-radius:$BorderRadius;
+
+    fieldset {
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom:2%;
+
+        legend {
+            padding-left: 2%;
+            padding-top: 1%;
+            padding-bottom: 1.5%;
+            text-transform:uppercase;
+            white-space:nowrap;
+            float:left;
+            font-size: $FormLegendFontSize;
+        }
+
+        ul {
+            clear: both;
+            margin: 0 auto;
+            text-align: center;
+
+            li {
+                margin: 0 auto;
+                text-align: center;
+                margin-top:1.5%;
+
+                label {
+                    text-align:right;
+                    display:inline-block;
+                    text-transform: capitalize;	
+                    margin-right: 1%;
+                    font-size: $FormFontSize;
+                }
+
+                label:after {
+                    content: ":";
+                }
+
+                input, textarea, select {
+
+                    color:$FormFontColor;
+                    padding:0.5vh;
+                    border-radius:$BorderRadius;
+                    border:1px solid $FormInputBorderColor;
+                    font-size: $FormFontSize;
+                }
+
+                textarea {
+                     font-size: $FormFontSize;
+                        /*$FormFontSize:$FontSize/100*90; //75%*/
+                }
+            }
+        }
+    }
+
+    button {
+        font-family: inherit;
+        font-size: inherit;
+        border: 1px solid $FormButtonBackgroundColor;
+        border-radius: $BorderRadius;
+        /*background: #4C9028;*/
+        background-color: $FormButtonBackgroundColor;
+        color: $FormButtonFontColor;
+        text-align: center;
+        bottom: 0.5vw;
+        margin: 0.5vw;
+        text-transform: capitalize;
+        outline:none;
+    }
+
+    button:hover {
+        opacity:.75;
+        cursor: pointer;
+        outline:none;
+    }
+
+    button:active {
+        border: 1px solid brown;
+        opacity:.75;
+        outline:none;
+    }
+}
+
+.form input:focus,.form textarea:focus,.form select:focus   {
+    border:1px solid $FormInputColorFocus;
+}
+
+.form input:focus:invalid, .form textarea:focus:invalid, .form select:focus:invalid {
+    background: $FormBackgroundColor url(FormInvalid.png) no-repeat 98% center;
+    border-color: $FormInputColorInvalid;
+}
+
+.form input:required:valid,.form textarea:required:valid,.form select:required:valid {
+    background: $FormBackgroundColor url(FormValid.png) no-repeat 98% center;
+    border-color: $FormInputColorValid;
+}
+/*
+.form input:required:invalid,.form textarea:required:invalid {
+	background: $FormBackgroundColor url(img/london/FormInvalid.png) no-repeat 98% center;
+	border-color: $FormInputColorInvalid;
+	background-position:99% 50%;
+	box-shadow:none;
+}
+*/
+.form input:required, .form textarea:required, .form select:required {
+    background: $FormBackgroundColor url(FormRequired.png) no-repeat 98% center;
+}
+
+.form input:focus,.form textarea:focus,
+.form input:focus:invalid, .form textarea:focus:invalid,
+.form input:required:valid,.form textarea:required:valid,
+.form input:required, .form textarea:required {
+    background-position:99% 50%;
+    box-shadow:none;
+    outline: none;
+}
+
+.form select:focus, .form select:focus:invalid, .form select:required:valid, .form select:required {
+    background-position:95% 50%;
+    box-shadow:none;
+    outline: none;
+}
+
+
+.form-1-column {
+
+    ul {
+        width:99%;
+    }
+
+    label {
+        width:25%;
+    }
+
+    input, textarea {
+        width:45%;
+    }
+
+    select {
+        width:45.5%;
+    }
+}
