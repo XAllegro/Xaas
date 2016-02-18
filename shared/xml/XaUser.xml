@@ -54,5 +54,25 @@
             <db_type>string</db_type>
             <size></size>
         </field>
+        <field id="tree_parent_ID" name="tree_parent_ID">
+            <id>tree_parent_ID</id>
+            <name>tree_parent_ID</name>
+            <type>select-single-ou-tree</type>
+            <options>
+                <obj>XaOuUi</obj>
+                <evt>ListAsOptions</evt>
+            </options>
+            <label>tree_parent_ID</label>
+            <placeholder>tree_parent_ID</placeholder>
+            <default>tree_parent_ID</default>
+            <create>yes</create>
+            <required>no</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>no</update>
+            <search>yes</search>
+            <size></size>
+            <db_type>string</db_type>
+        </field>
     </fieldset>
 </XaUser>

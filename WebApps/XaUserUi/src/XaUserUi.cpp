@@ -18,6 +18,10 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		this->List();
 	} else if (CalledEvent=="Read"){
 		this->Read();
+	} else if (CalledEvent=="CreateFrm"){
+		this->CreateFrm();
+	} else if (CalledEvent=="Create"){
+		this->Create();
 	} else if (CalledEvent=="UpdateFrm"){
 		this->UpdateFrm();
 	} else if (CalledEvent=="Update"){
@@ -2539,6 +2543,26 @@ void XaUserUi::Read () {
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 
+};
+
+void XaUserUi::CreateFrm() {
+
+	AddJsVarFile("XaModel","XaUser");
+	AddJsVarString("XaGuiStyle","default");
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaGuiCreateFrm");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserUi::Create() {
+
+	auto Fields=CreatePrepare({"XaUser"},"/XaUser/fieldset/field","XaUser");
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Create",get<0>(Fields),get<1>(Fields)));
+	CheckResponse(CallResponse);
+	RESPONSE.Content="OK";
 };
 
 void XaUserUi::UpdateFrm() {

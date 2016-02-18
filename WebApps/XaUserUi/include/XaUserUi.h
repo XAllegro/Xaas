@@ -24,6 +24,8 @@ class XaUserUi : public XaLibAction {
 
 		void List();
 		void Read();
+		void CreateFrm();
+		void Create();
 		void UpdateFrm();
 		void Update();
 		void Delete();
