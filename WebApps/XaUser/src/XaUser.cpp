@@ -9,10 +9,14 @@ void XaUser::Dispatcher (const string &CalledEvent) {
         this->Login();
     } else if (CalledEvent=="Logout"){
 		this->Logout();
-    } else if (CalledEvent=="ReadForUpdateFrm"){
-		this->ReadForUpdateFrm();
     } else if (CalledEvent=="Read"){
 		this->Read();
+    } else if (CalledEvent=="ReadForUpdateFrm"){
+		this->ReadForUpdateFrm();
+    } else if (CalledEvent=="Update"){
+		this->Update();
+    } else if (CalledEvent=="Delete"){
+		this->Delete();
     } else if (CalledEvent=="List"){
 		this->List();
     } else {
@@ -113,10 +117,29 @@ void XaUser::ReadForUpdateFrm() {
 	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
-void XaUser::Update (){
+void XaUser::Update() {
+
+	string Id=HTTP.GetHttpParam("id");
+	int UpdateId=XaLibBase::FromStringToInt(Id);
+
+	vector<string> FieldName;	
+	vector<string> FieldValue;
+
+	UpdatePrepare({"XaUser"},"/XaUser/fieldset/field",FieldName,FieldValue);
+
+	int Updated=UpdateExecute("XaUser",FieldName,FieldValue,UpdateId);	
+	
+	RESPONSE.Content=UpdateResponse(Updated);
+
 };
 
-void XaUser::Delete (){
+void XaUser::Delete(){
+
+	string Id=HTTP.GetHttpParam("id");
+	
+	int Deleted=DeleteExecute("XaUser",Id);
+	
+	RESPONSE.Content=DeleteResponse(Deleted);
 };
 
 void XaUser::List (){
@@ -129,6 +152,7 @@ void XaUser::List (){
 	Qry+=" LEFT JOIN XaUserType ON X.XaUserType_ID=XaUserType.id";
 	Qry+=" LEFT JOIN XaUserRole ON X.XaUserRole_ID=XaUserRole.id";
 	Qry+=" WHERE X.tree_parent_ID="+TreeParentId;
+	Qry+=" AND X.status=1";
 	
 	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
 

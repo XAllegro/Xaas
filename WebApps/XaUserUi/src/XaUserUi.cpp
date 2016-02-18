@@ -20,6 +20,10 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		this->Read();
 	} else if (CalledEvent=="UpdateFrm"){
 		this->UpdateFrm();
+	} else if (CalledEvent=="Update"){
+		this->Update();
+	} else if (CalledEvent=="Delete"){
+		this->Delete();
 	} else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
@@ -2504,7 +2508,7 @@ void XaUserUi::List () {
 	/* end of data */
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaGuiUserList");
+	Templates.push_back("XaGuiList");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
@@ -2559,6 +2563,23 @@ void XaUserUi::UpdateFrm() {
 	Templates.push_back("XaGuiUpdateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserUi::Update() {
+
+	auto Fields=UpdatePrepare({"XaUser"},"/XaUser/fieldset/field","XaUser");
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Update",get<0>(Fields),get<1>(Fields)));
+	CheckResponse(CallResponse);
+	RESPONSE.Content="OK";
+};
+
+void XaUserUi::Delete() {
+
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Delete",{"id"},{HTTP.GetHttpParam("id")}));
+	CheckResponse(CallResponse);
+	RESPONSE.Content="OK";
 };
 
 XaUserUi::~XaUserUi(){

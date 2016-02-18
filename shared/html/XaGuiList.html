@@ -1,6 +1,10 @@
-<div class="container">
-    <script>
-        var Tpl=new XaListTpl(WsData);
-        document.write(Tpl.GetList());
-    </script>
+<div id="ListContainer">
+
+	<div id="DataContainer">
+		<script>
+			var Tpl=new XaListTpl(XaModel,XaData);
+			XaInnerHtmlWithScripts('DataContainer',Tpl.GetList());
+		</script>
+	</div>
+
 </div>
