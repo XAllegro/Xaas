@@ -25,8 +25,8 @@
 			<id>name</id>
 			<name>name</name>
 			<type>input-text</type>
-			<label>Address Type</label>
-			<placeholder>Insert Address Type</placeholder>
+			<label>Address&#32;Type</label>
+			<placeholder>Insert&#32;Address&#32;Type</placeholder>
 			<default></default>
             <required>yes</required>
             <read>yes</read>
@@ -39,7 +39,7 @@
             <id>description</id>
             <name>description</name>
             <type>input-textarea</type>
-            <label>description</label>
+            <label>Description</label>
             <placeholder>description</placeholder>
             <default></default>
             <required>no</required>

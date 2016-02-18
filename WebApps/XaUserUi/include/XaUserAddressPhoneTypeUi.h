@@ -10,6 +10,7 @@ class XaUserAddressPhoneTypeUi : public XaLibAction {
         void CreateFrm();
         void Create();
         
+        void List();
         void ListAsOptions();
 
 	void UpdateFrm();

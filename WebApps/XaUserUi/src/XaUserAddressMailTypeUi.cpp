@@ -10,6 +10,8 @@ void XaUserAddressMailTypeUi::Dispatcher (const string &CalledEvent) {
 	this->CreateFrm();
     } else if (CalledEvent=="Create") {
         this->Create();
+    } else if (CalledEvent=="List") {
+        this->List();
     } else if (CalledEvent=="ListAsOptions") {
         this->ListAsOptions();
     } else if (CalledEvent=="UpdateFrm") {
@@ -43,6 +45,27 @@ void XaUserAddressMailTypeUi::Create() {
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaUserAddressMailType","Create",get<0>(Fields),get<1>(Fields)));
     CheckResponse(CallResponse);
     RESPONSE.Content="OK";
+};
+
+void XaUserAddressMailTypeUi::List () {
+
+    AddJsVarFile("XaModel","XaUserAddressMailType");
+    AddJsVarString("XaGuiStyle","default");
+
+    /* data */
+
+    XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUserAddressMailType","List",{""},{""}));
+    CheckResponse(CallResponse);
+
+    AddJsVarString("XaData",CallResponse);
+
+    /* end of data */
+
+    vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+    Templates.push_back("XaGuiList");
+
+    RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
 
 void XaUserAddressMailTypeUi::ListAsOptions() {

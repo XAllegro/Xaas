@@ -10,6 +10,8 @@ void XaUserAddressPhoneCodeUi::Dispatcher (const string &CalledEvent) {
 	this->CreateFrm();
     } else if (CalledEvent=="Create") {
         this->Create();
+    } else if (CalledEvent=="List") {
+        this->List();
     } else if (CalledEvent=="ListAsOptions") {
         this->ListAsOptions();
     } else if (CalledEvent=="UpdateFrm") {
@@ -43,6 +45,27 @@ void XaUserAddressPhoneCodeUi::Create() {
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaUserAddressPhoneCode","Create",get<0>(Fields),get<1>(Fields)));
     CheckResponse(CallResponse);
     RESPONSE.Content="OK";
+};
+
+void XaUserAddressPhoneCodeUi::List () {
+
+    AddJsVarFile("XaModel","XaUserAddressPhoneCode");
+    AddJsVarString("XaGuiStyle","default");
+
+    /* data */
+
+    XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUserAddressPhoneCode","List",{""},{""}));
+    CheckResponse(CallResponse);
+
+    AddJsVarString("XaData",CallResponse);
+
+    /* end of data */
+
+    vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+    Templates.push_back("XaGuiList");
+
+    RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
 
 void XaUserAddressPhoneCodeUi::ListAsOptions() {
