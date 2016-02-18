@@ -7,21 +7,23 @@ XaUserAddressGeo::XaUserAddressGeo(){
 
 void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
 
-	if (CalledEvent=="Create"){
+    if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
-		 this->Read();
+	this->Read();
+    } else if (CalledEvent=="ReadForUpdateFrm") {
+        this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
-		 this->List();
+        this->List();
     } else if (CalledEvent=="Update"){
-		 this->Update();
+	this->Update();
     } else if (CalledEvent=="Delete"){
-		 this->Delete();
+	this->Delete();
     } else {
 
-		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
-		throw 42;
-	}
+	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
+	throw 42;
+    }
 };
 
 void XaUserAddressGeo::Create() {
@@ -55,6 +57,17 @@ void XaUserAddressGeo::Read() {
 	
 	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeo",FieldsToRead,{"id"},{HTTP.GetHttpParam("id")});
 	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
+};
+
+void XaUserAddressGeo::ReadForUpdateFrm() {
+
+	string Id=HTTP.GetHttpParam("id");
+
+	vector<string> ReturnedFields={"id","XaUser_ID","XaUserAddressGeoType_ID","country","region","province","city","street","number","post_code","address","latitude","longitude"};
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeo",{ReturnedFields},{"id"},{Id});
+
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 };
 
 void XaUserAddressGeo::List() {

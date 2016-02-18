@@ -63,7 +63,7 @@ void XaUserAddressMail::ReadForUpdateFrm() {
 
 	string Id=HTTP.GetHttpParam("id");
 
-	vector<string> ReturnedFields={"id","name","description"};
+	vector<string> ReturnedFields={"id","XaUser_ID","XaUserAddressMailType_ID","email"};
 
 	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressMail",{ReturnedFields},{"id"},{Id});
 
