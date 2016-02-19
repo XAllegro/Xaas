@@ -542,6 +542,11 @@ function XaUpdateFormTpl (ModelName,DataName) {
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
             Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\""+FType+"\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
 
+        } else if (FType==="input-email") {
+
+            Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+            Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"email\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
+
         } else if (FType==="input-textarea") {
 
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";

@@ -1,7 +1,9 @@
-<div class="container" id="UpdateContainer">
-	<script>
-		var target=document.getElementById('UpdateContainer').parentNode.id;
-		var Tpl=new XaUpdateFormTpl(XaModel,XaData);
-		XaInnerHtmlWithScripts(target,Tpl.GetForm());
-	</script>
+<div id="ParentUpdateContainer">
+	<div class="container" id="UpdateContainer">
+		<script>
+			var target=document.getElementById('UpdateContainer').parentNode.id;
+			var Tpl=new XaUpdateFormTpl(XaModel,XaData);
+			XaInnerHtmlWithScripts(target,Tpl.GetForm());
+		</script>
+	</div>
 </div>

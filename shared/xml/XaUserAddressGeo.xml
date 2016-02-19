@@ -21,6 +21,7 @@
     </update_form>
     <fieldset id="XaUserAddressGeo" name="XaUserAddressGeo">
         <legend>create&#32;a&#32;new&#32;address</legend>
+		<update_legend>update&#32;a&#32;address</update_legend>
         <field id="XaUser_ID" name="XaUser_ID">
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>

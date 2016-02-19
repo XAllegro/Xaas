@@ -21,6 +21,7 @@
     </update_form>
     <fieldset id="XaUserAddressPhone" name="XaUserAddressPhone">
         <legend>create&#32;a&#32;new&#32;address&#32;phone</legend>
+		<update_legend>update&#32;a&#32;address&#32;phone</update_legend>
         <field id="XaUser_ID" name="XaUser_ID">
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>

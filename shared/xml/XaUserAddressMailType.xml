@@ -21,6 +21,7 @@
     </update_form>
     <fieldset id="XaUserAddressMailType" name="XaUserAddressMailType">
         <legend>create&#32;a&#32;new&#32;address&#32;mail&#32;type</legend>
+		<update_legend>update&#32;a&#32;address&#32;mail&#32;type</update_legend>
 		<field id="name" name="name">
 			<id>name</id>
 			<name>name</name>

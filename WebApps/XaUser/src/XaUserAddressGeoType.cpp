@@ -47,11 +47,11 @@ void XaUserAddressGeoType::ReadForUpdateFrm() {
 
 	string Id=HTTP.GetHttpParam("id");
 
-	vector<string> ReturnedFields={"id","name","description"};
+	vector<string> ReadFields=ReadPrepare({"XaUserAddressGeoType"},"/XaUserAddressGeoType/fieldset/field",0);
 
-	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeoType",{ReturnedFields},{"id"},{Id});
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeoType",{ReadFields},{"id"},{Id});
 
-	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
+	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
 void XaUserAddressGeoType::List() {

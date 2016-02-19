@@ -21,6 +21,7 @@
     </update_form>
     <fieldset id="XaUserAddressMail" name="XaUserAddressMail">
         <legend>create&#32;a&#32;new&#32;address&#32;mail</legend>
+		<update_legend>update&#32;a&#32;address&#32;mail</update_legend>
         <field id="XaUser_ID" name="XaUser_ID">
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>

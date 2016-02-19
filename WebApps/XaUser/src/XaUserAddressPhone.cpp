@@ -70,11 +70,11 @@ void XaUserAddressPhone::ReadForUpdateFrm() {
 
 	string Id=HTTP.GetHttpParam("id");
 
-	vector<string> ReturnedFields={"id","XaUser_ID","XaUserAddressPhoneType_ID","XaUserAddressPhoneCode_ID","number"};
+	vector<string> ReadFields=ReadPrepare({"XaUserAddressPhone"},"/XaUserAddressPhone/fieldset/field",0);
 
-	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressPhone",{ReturnedFields},{"id"},{Id});
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressPhone",{ReadFields},{"id"},{Id});
 
-	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
+	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
 void XaUserAddressPhone::List() {
