@@ -29,11 +29,15 @@ $ForeGroundOpacity:0.95;
 $FontColor:#222222;
 $BorderRadius:0.2em;
 $HeaderHeight:4vh;
-$HeaderBackgroundColor:#2D353A;
+/*$HeaderBackgroundColor:#2D353A;*/
+$HeaderBackgroundColor:#2c3e50;
 $HeaderFontColor:#DDDDDD;
 $HeaderFontSize:$FontSize/100*80; //80%
 $HeaderLineHeight:3.7vh;
-$HeaderToolbarLiBackgroundColor:#1A2228;
+/*$HeaderToolbarLiBackgroundColor:#1A2228;*/
+$HeaderToolbarLiBackgroundColor:#34495e;
+
+
 $HeaderToolbarLiBackgroundColorHover:#FF9900;
 $HeaderToolbarLiBackgroundColorTarget:#77B710;
 $HeaderToolbarLiFontColorHover:#FFFFFF;
@@ -55,6 +59,13 @@ $LogoHeight:4.5vh;
 
 $ContainerBackgroundColor:#DDDDDD;
 $ContainerBackgroundColorRgb:221,221,221;
+
+/*DASHBOARD*/
+$DashboardFontColor:#EEEEEE;
+$DashboardFontSize:$FontSize/100*120;
+$DashboardLinkColorHover:#FF9900;
+$DashboardLinkColorActive:#77B710;
+
 
 $FormFontColor:#222222;
 $FormBackgroundColor:#fefefe;
