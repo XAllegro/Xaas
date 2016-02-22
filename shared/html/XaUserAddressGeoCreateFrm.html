@@ -1,0 +1,70 @@
+<div class="container">
+    <script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>
+
+	<form class="form form-1-column" id="XaUserAddressGeo" name="XaUserAddressGeo" enctype="multipart/form-data" method="POST" action="javascript:XaCallAction('','obj=XaUserAddressGeoUi&amp;evt=Create','','POST',true,0,'','XaUserAddressGeo','StringText','','yes','');">
+	
+		<input id="latitude" name="XaUserAddressGeo-latitude" type="hidden">
+		<input id="longitude" name="XaUserAddressGeo-longitude" type="hidden">
+
+		<fieldset>
+			<legend>create a new address</legend>
+			<ul>
+				<li>
+					<label id="1-label" for="XaUserAddressGeo-XaUser_ID">XaUser_ID</label>
+					<input id="XaUserAddressGeo-XaUser_ID" name="XaUserAddressGeo-XaUser_ID" placeholder="XaUser_ID:&#32;gestire&#32;in&#32;XaUser&#32;ListAsOptions" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="2-label" for="XaUserAddressGeo-XaUserAddressGeoType_ID">AddressGeoType</label>
+					<select id="XaUserAddressGeo-XaUserAddressGeoType_ID" name="XaUserAddressGeo-XaUserAddressGeoType_ID" type="select-single" placeholder="" required="required" autofocus="autofocus">
+					</select>
+					<script>XaCreateOptions('','obj=XaUserAddressGeoTypeUi&evt=ListAsOptions','XaUserAddressGeo-XaUserAddressGeoType_ID','');</script>
+				</li>
+				<li>
+					<label id="3-label" for="XaUserAddressGeo-address">Address</label>
+					<input id="autocomplete" name="XaUserAddressGeo-address" placeholder="insert an complete address ..." required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="4-label" for="XaUserAddressGeo-country">Country</label>
+					<input id="country" name="XaUserAddressGeo-country" placeholder="country" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="5-label" for="XaUserAddressGeo-region">Region</label>
+					<input id="administrative_area_level_1" name="XaUserAddressGeo-region" placeholder="region" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="6-label" for="XaUserAddressGeo-province">Province</label>
+					<input id="administrative_area_level_2" name="XaUserAddressGeo-province" placeholder="province" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="7-label" for="XaUserAddressGeo-city">City</label>
+					<input id="locality" name="XaUserAddressGeo-city" placeholder="city" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="8-label" for="XaUserAddressGeo-street">Street</label>
+					<input id="route" name="XaUserAddressGeo-street" placeholder="street" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="9-label" for="XaUserAddressGeo-number">Number</label>
+					<input id="street_number" name="XaUserAddressGeo-number" placeholder="number" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="10-label" for="XaUserAddressGeo-post_code">CAP</label>
+					<input id="postal_code" name="XaUserAddressGeo-post_code" placeholder="post_code" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="10-label" for="XaUserAddressGeo-zone">Zona</label>
+					<input id="zone" name="XaUserAddressGeo-zone" placeholder="gestire la zona ..." autofocus="autofocus" type="input-text">
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<button type="reset">Reset</button>
+			<button type="submit">Save</button>
+		</fieldset>
+	
+	</form>
+
+	<script>loadScript();</script>
+</div>
+
+

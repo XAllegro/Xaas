@@ -27,11 +27,11 @@ void XaUserAddressGeoUi::Dispatcher (const string &CalledEvent) {
 
 void XaUserAddressGeoUi::CreateFrm() {
 
-    AddJsVarFile("XaModel","XaUserAddressGeo");
+    //AddJsVarFile("XaModel","XaUserAddressGeo");
     AddJsVarString("XaGuiStyle","default");
 
     vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-    Templates.push_back("XaGuiCreateFrm");
+    Templates.push_back("XaUserAddressGeoCreateFrm");
 
     RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
@@ -73,7 +73,7 @@ void XaUserAddressGeoUi::UpdateFrm() {
     /* end of data */
 
     vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-    Templates.push_back("XaGuiUpdateFrm");
+    Templates.push_back("XaUserAddressGeoUpdateFrm");
 
     RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
