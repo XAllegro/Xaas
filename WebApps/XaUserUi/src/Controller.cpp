@@ -24,6 +24,7 @@
 #include <XaUserLoginUi.h>
 #include <XaOuTypeUi.h>
 #include <XaOuUi.h>
+#include <XaRbacRoleUi.h>
 #include <XaUserUi.h>
 #include <XaPages.h>
 #include <XaUserAddressGeoTypeUi.h>
@@ -159,6 +160,11 @@ void Controller::ExecuteEvent() {
 
 		unique_ptr<XaOuUi> OuUi (new XaOuUi());
 		OuUi->Execute();
+
+	} else if(REQUEST.CalledObject=="XaRbacRoleUi") {
+
+		unique_ptr<XaRbacRoleUi> RbacRoleUi (new XaRbacRoleUi());
+		RbacRoleUi->Execute();
 
 	} else if(REQUEST.CalledObject=="XaUserUi") {
 

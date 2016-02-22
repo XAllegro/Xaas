@@ -15,6 +15,7 @@
 /**** APPLICATION ****/
 #include <XaOuType.h>
 #include <XaOu.h>
+#include <XaRbacRole.h>
 #include <XaUser.h>
 #include <XaUserLogin.h>
 //#include <XaPages.h>
@@ -31,7 +32,6 @@
 //#include <XaLanguage.h>
 //#include <XaDomain.h>
 //#include <XaCurrency.h>
-#include <XaUserRole.h>
 #include <XaUserProfile.h>
 //#include <XaLibRbGpIo.h>
 #include <XaLibWs.h>
@@ -128,6 +128,9 @@ void Controller::ExecuteWs(XaLibWs& Ws){
 	} else if(REQUEST.CalledObject=="XaOu") {
 		unique_ptr<XaOu> Ou (new XaOu());
 		Ou->Execute();
+	} else if(REQUEST.CalledObject=="XaRbacRole") {
+		unique_ptr<XaRbacRole> RbacRole (new XaRbacRole());
+		RbacRole->Execute();
 	} else if(REQUEST.CalledObject=="XaUser") {
 		unique_ptr<XaUser> User (new XaUser());
 		User->Execute();

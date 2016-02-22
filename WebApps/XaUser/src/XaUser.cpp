@@ -194,9 +194,8 @@ void XaUser::List (){
 
 	vector<string> ReturnedFields={"id","name","surname","XaUserType_ID","XaUserRole_ID","tree_parent_ID"};
 
-	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID, XaUserRole.name AS XaUserRole_ID, XaOu.name AS tree_parent_ID FROM XaUser X";
+	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID, XaOu.name AS tree_parent_ID FROM XaUser X";
 	Qry+=" LEFT JOIN XaUserType ON X.XaUserType_ID=XaUserType.id";
-	Qry+=" LEFT JOIN XaUserRole ON X.XaUserRole_ID=XaUserRole.id";
 	Qry+=" LEFT JOIN XaOu ON X.tree_parent_ID=XaOu.id";
 	Qry+=" WHERE X.tree_parent_ID="+TreeParentId;
 	Qry+=" AND X.status=1";
