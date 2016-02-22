@@ -54,8 +54,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="address" name="address">
-			<id>address</id>
+		<field id="autocomplete" name="address">
+			<id>autocomplete</id>
 			<name>address</name>
 			<type>input-text</type>
 			<label>Address</label>
@@ -82,8 +82,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="region" name="region">
-			<id>region</id>
+		<field id="administrative_area_level_1" name="region">
+			<id>administrative_area_level_1</id>
 			<name>region</name>
 			<type>input-text</type>
 			<label>Region</label>
@@ -96,8 +96,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="province" name="province">
-			<id>province</id>
+		<field id="administrative_area_level_2" name="province">
+			<id>administrative_area_level_2</id>
 			<name>province</name>
 			<type>input-text</type>
 			<label>Province</label>
@@ -110,8 +110,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="city" name="city">
-			<id>city</id>
+		<field id="locality" name="city">
+			<id>locality</id>
 			<name>city</name>
 			<type>input-text</type>
 			<label>City</label>
@@ -124,8 +124,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="street" name="street">
-			<id>street</id>
+		<field id="route" name="street">
+			<id>route</id>
 			<name>street</name>
 			<type>input-text</type>
 			<label>Street</label>
@@ -138,8 +138,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="number" name="number">
-			<id>number</id>
+		<field id="street_number" name="number">
+			<id>street_number</id>
 			<name>number</name>
 			<type>input-text</type>
 			<label>Number</label>
@@ -152,8 +152,8 @@
             <search>yes</search>
             <size></size>
 		</field>
-		<field id="post_code" name="post_code">
-			<id>post_code</id>
+		<field id="postal_code" name="post_code">
+			<id>postal_code</id>
 			<name>post_code</name>
 			<type>input-text</type>
 			<label>Cap</label>
@@ -166,10 +166,24 @@
             <search>yes</search>
             <size></size>
 		</field>
+		<field id="zone" name="zone">
+			<id>zone</id>
+			<name>zone</name>
+			<type>input-text</type>
+			<label>Zona</label>
+			<placeholder>gestire&#32;la&#32;zona&#32;...</placeholder>
+			<default></default>
+            <required>no</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>yes</update>
+            <search>yes</search>
+            <size></size>
+		</field>
 		<field id="latitude" name="latitude">
 			<id>latitude</id>
 			<name>latitude</name>
-			<type>input-text</type>
+			<type>input-hidden</type>
 			<label>Latitude</label>
 			<placeholder>Latitude</placeholder>
 			<default></default>
@@ -183,7 +197,7 @@
 		<field id="longitude" name="longitude">
 			<id>longitude</id>
 			<name>longitude</name>
-			<type>input-text</type>
+			<type>input-hidden</type>
 			<label>Longitude</label>
 			<placeholder>Longitude</placeholder>
 			<default></default>

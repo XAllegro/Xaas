@@ -1,0 +1,140 @@
+<div id="ParentUpdateContainer">
+	<div class="container" id="UpdateContainer">
+		<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>
+		<script>loadScript();</script>
+		<script>
+			function UpdateFormTpl (ModelName,DataName) {
+
+				var XmlDoc=XaParseXml(ModelName);
+				var XmlDataDoc=XaParseXml(DataName);
+
+				var RootElement=XmlDoc.documentElement.nodeName;
+
+				var FieldsNumber=XaXmlCountElementByXpath(XmlDoc,"//fieldset/field");
+
+				var Controller=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/controller");    
+				var Id=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/id");
+				var Name=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/name");
+				var Obj=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/obj");
+				var Evt=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/evt");
+				var Async=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/async");
+				var Method=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/method");
+				var Class=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/update_form/class");
+				var EncType="multipart/form-data";
+
+				function BuildAction(){
+
+					var Action="javascript:XaCallAction('','obj="+Obj+"&amp;evt="+Evt+"','','"+Method+"',"+Async+",0,'','"+Id+"','StringText','','yes','');";
+					return Action;
+				};
+
+				function BuildField (FieldId) {
+
+				  var Field="";
+
+				  var FRead=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/read");
+
+				  
+
+				  if (FRead==="yes") {
+
+					var FId=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/id");
+
+					
+					var FName=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/name");
+					var FType=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/type");
+					var FLabel=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/label");
+					var FPlaceholder=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/placeholder");
+					var FDefault=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/default");
+					var FRequired=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/required");
+					
+					if (FRequired==="yes") {
+						FRequiredClause=" required=\"required\" ";
+					} else {
+						FRequiredClause="";
+					};
+
+					var FUpdate=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/update");
+
+					if (FUpdate!=="yes") {
+						FUpdateClause=" disabled=\"yes\" ";
+					} else {
+						FUpdateClause="";
+					};
+
+					var FSearch=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/search");
+					var FSize=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/size");
+
+					var FieldExtId=FId;
+					var FieldExtName=RootElement+"-"+FName;
+
+					var LId=FieldId+"-label";
+					var LName=FieldExtName+"-label";
+
+					var Fvalue =XaXmlGetElementValueByXpath(XmlDataDoc,"//read/"+FName);
+
+					if (FType==="input-text") {
+
+						Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+						Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\""+FType+"\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
+
+					} else if (FType==="input-hidden") {
+
+						Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"hidden\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
+
+					} else if (FType==="select-single") {
+
+						Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+						Field+="<select id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\""+FType+"\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" ></select>";
+
+					} else {
+						
+					}
+
+				  }
+
+				return Field;
+				};
+				
+				this.GetForm = function () {
+
+					var Content="<form class=\"form "+Class+"\" id=\""+Id+"\""+ " name=\""+Name+"\" enctype=\""+EncType+ "\" method=\""+Method+"\""+ " action=\""+BuildAction()+ "\">";
+
+					var RowId =XaXmlGetElementValueByXpath(XmlDataDoc,"//read/id");
+					var FieldExtName=RootElement+"-id";
+
+					Content+="<fieldset>";
+					Content+="<legend>"+ XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/update_legend")+"</legend>";
+
+					Content+="<input type=\"hidden\" name=\""+FieldExtName+"\" value=\""+RowId+"\" />";
+
+					Content+="<ul>";
+
+					for(var i=0;i<FieldsNumber;i++) {
+						var j=i+1;
+						Content+="<li>"+BuildField(j)+"</li>";
+					};
+
+					Content+="</ul>";
+					Content+="</fieldset>";
+					Content+="<fieldset><button type=\"reset\">Reset</button><button type=\"submit\">Save</button></fieldset>";
+					Content+="</form>";
+
+					return Content;
+				};
+			};
+		</script>
+		<script>
+			var target=document.getElementById('UpdateContainer').parentNode.id;
+			var Tpl=new UpdateFormTpl(XaModel,XaData);
+			
+			/*aggiunge il valore corrente e le option della select XaUserAddressGeoType*/
+			var XmlDoc=XaParseXml(XaModel);
+			var XmlDataDoc=XaParseXml(XaData);
+			var Fvalue =XaXmlGetElementValueByXpath(XmlDataDoc,"//read/XaUserAddressGeoType_ID");		
+			XaCreateOptions('','obj=XaUserAddressGeoTypeUi&evt=ListAsOptions','XaUserAddressGeoType_ID',Fvalue);
+			
+			XaInnerHtmlWithScripts(target,Tpl.GetForm());
+		</script>
+	</div>
+</div>
