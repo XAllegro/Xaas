@@ -24,7 +24,8 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 #User OBJ
-OBJ=$(OBJDIR)Controller.o $(OBJDIR)XaPages.o $(OBJDIR)XaOuTypeUi.o $(OBJDIR)XaOuUi.o $(OBJDIR)XaUserUi.o $(OBJDIR)XaRbacRoleUi.o \
+OBJ=$(OBJDIR)Controller.o $(OBJDIR)XaPages.o $(OBJDIR)XaOuTypeUi.o $(OBJDIR)XaOuUi.o $(OBJDIR)XaUserUi.o $(OBJDIR)XaUserTypeUi.o \
+    $(OBJDIR)XaRbacRoleUi.o \
     $(OBJDIR)XaUserAddressGeoTypeUi.o $(OBJDIR)XaUserAddressMailTypeUi.o $(OBJDIR)XaUserAddressPhoneCodeUi.o $(OBJDIR)XaUserAddressPhoneTypeUi.o \
     $(OBJDIR)XaUserAddressMailUi.o $(OBJDIR)XaUserAddressPhoneUi.o $(OBJDIR)XaUserAddressGeoUi.o
 
@@ -57,6 +58,8 @@ $(OBJDIR)XaOuUi.o: XaOuUi.cpp
 	$(CPP) -c XaOuUi.cpp -o $(OBJDIR)XaOuUi.o $(CPPFLAGS)
 $(OBJDIR)XaUserUi.o: XaUserUi.cpp
 	$(CPP) -c XaUserUi.cpp -o $(OBJDIR)XaUserUi.o $(CPPFLAGS)
+$(OBJDIR)XaUserTypeUi.o: XaUserTypeUi.cpp
+	$(CPP) -c XaUserTypeUi.cpp -o $(OBJDIR)XaUserTypeUi.o $(CPPFLAGS)
 $(OBJDIR)XaRbacRoleUi.o: XaRbacRoleUi.cpp
 	$(CPP) -c XaRbacRoleUi.cpp -o $(OBJDIR)XaRbacRoleUi.o $(CPPFLAGS)
 $(OBJDIR)XaUserAddressGeoTypeUi.o: XaUserAddressGeoTypeUi.cpp

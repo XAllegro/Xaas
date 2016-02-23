@@ -24,8 +24,9 @@
 #include <XaUserLoginUi.h>
 #include <XaOuTypeUi.h>
 #include <XaOuUi.h>
-#include <XaRbacRoleUi.h>
+#include <XaUserTypeUi.h>
 #include <XaUserUi.h>
+#include <XaRbacRoleUi.h>
 #include <XaPages.h>
 #include <XaUserAddressGeoTypeUi.h>
 #include <XaUserAddressMailTypeUi.h>
@@ -161,15 +162,20 @@ void Controller::ExecuteEvent() {
 		unique_ptr<XaOuUi> OuUi (new XaOuUi());
 		OuUi->Execute();
 
-	} else if(REQUEST.CalledObject=="XaRbacRoleUi") {
-
-		unique_ptr<XaRbacRoleUi> RbacRoleUi (new XaRbacRoleUi());
-		RbacRoleUi->Execute();
-
 	} else if(REQUEST.CalledObject=="XaUserUi") {
 
 		unique_ptr<XaUserUi> UserUi (new XaUserUi());
 		UserUi->Execute();
+
+	} else if(REQUEST.CalledObject=="XaUserTypeUi") {
+
+		unique_ptr<XaUserTypeUi> UserTypeUi (new XaUserTypeUi());
+		UserTypeUi->Execute();
+
+	} else if(REQUEST.CalledObject=="XaRbacRoleUi") {
+
+		unique_ptr<XaRbacRoleUi> RbacRoleUi (new XaRbacRoleUi());
+		RbacRoleUi->Execute();
 
 	} else if(REQUEST.CalledObject=="XaPages") {
 

@@ -15,9 +15,10 @@
 /**** APPLICATION ****/
 #include <XaOuType.h>
 #include <XaOu.h>
-#include <XaRbacRole.h>
 #include <XaUser.h>
+#include <XaUserType.h>
 #include <XaUserLogin.h>
+#include <XaRbacRole.h>
 //#include <XaPages.h>
 #include <XaUserAddressPhone.h>
 #include <XaUserAddressMail.h>
@@ -128,12 +129,15 @@ void Controller::ExecuteWs(XaLibWs& Ws){
 	} else if(REQUEST.CalledObject=="XaOu") {
 		unique_ptr<XaOu> Ou (new XaOu());
 		Ou->Execute();
-	} else if(REQUEST.CalledObject=="XaRbacRole") {
-		unique_ptr<XaRbacRole> RbacRole (new XaRbacRole());
-		RbacRole->Execute();
 	} else if(REQUEST.CalledObject=="XaUser") {
 		unique_ptr<XaUser> User (new XaUser());
 		User->Execute();
+	} else if(REQUEST.CalledObject=="XaUserType") {
+		unique_ptr<XaUserType> UserType (new XaUserType());
+		UserType->Execute();
+	} else if(REQUEST.CalledObject=="XaRbacRole") {
+		unique_ptr<XaRbacRole> RbacRole (new XaRbacRole());
+		RbacRole->Execute();
 	} else if(REQUEST.CalledObject=="XaUserAddressPhone") {
 		unique_ptr<XaUserAddressPhone> AddressPhone (new XaUserAddressPhone());
 		AddressPhone->Execute();
