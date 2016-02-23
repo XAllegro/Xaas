@@ -19,7 +19,7 @@
 #include <XaUserType.h>
 #include <XaUserLogin.h>
 #include <XaRbacRole.h>
-//#include <XaPages.h>
+
 #include <XaUserAddressPhone.h>
 #include <XaUserAddressMail.h>
 #include <XaUserAddressGeo.h>
@@ -28,13 +28,6 @@
 #include <XaUserAddressMailType.h>
 #include <XaUserAddressGeoType.h>
 
-//#include <XaAddress.h>
-//#include <XaLabel.h>
-//#include <XaLanguage.h>
-//#include <XaDomain.h>
-//#include <XaCurrency.h>
-#include <XaUserProfile.h>
-//#include <XaLibRbGpIo.h>
 #include <XaLibWs.h>
 
 int main (void) {
