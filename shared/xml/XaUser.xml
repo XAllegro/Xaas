@@ -54,22 +54,22 @@
             <db_type>string</db_type>
             <size></size>
         </field>
-        <field id="tree_parent_ID" name="tree_parent_ID">
-            <id>tree_parent_ID</id>
-            <name>tree_parent_ID</name>
-            <type>select-single-ou-tree</type>
+        <field id="XaUserType_ID" name="XaUserType_ID">
+            <id>XaUserType_ID</id>
+            <name>XaUserType_ID</name>
+            <type>select-single</type>
             <options>
-                <obj>XaOuUi</obj>
+                <obj>XaUserTypeUi</obj>
                 <evt>ListAsOptions</evt>
             </options>
-            <label>tree_parent_ID</label>
-            <placeholder>tree_parent_ID</placeholder>
-            <default>tree_parent_ID</default>
+            <label>XaUserType_ID</label>
+            <placeholder>XaUserType_ID</placeholder>
+            <default>XaUserType_ID</default>
             <create>yes</create>
-            <required>no</required>
+            <required>yes</required>
             <read>yes</read>
             <list>yes</list>
-            <update>no</update>
+            <update>yes</update>
             <search>yes</search>
             <size></size>
             <db_type>string</db_type>

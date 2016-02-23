@@ -358,8 +358,9 @@ function XaTreeBranchRead(controller,url,TargetId) {
 
                 var OuReadCallUrl="obj=XaOuUi&evt=Read&id="+id;
                 OuReadCallUrl+="&lay=include";
-                var UserListCallUrl="obj=XaUserUi&evt=List&tree_parent_ID="+id;
-		UserListCallUrl+="&lay=include";
+		// use role instead of parent
+                //var UserListCallUrl="obj=XaUserUi&evt=List&tree_parent_ID="+id;
+		//UserListCallUrl+="&lay=include";
 
                 var Element='<li id="'+id+'">'+
 
@@ -367,7 +368,8 @@ function XaTreeBranchRead(controller,url,TargetId) {
                     '<a id="a-'+id+ '" class="close" href=\'javascript:'+BranchCall+';\'></a>'+
 
                     /*LIST ELEMENT BRANCH*/
-                    '<a class="name" href="javascript:XaCallAction(\'\',\''+UserListCallUrl+'\',\'Detail\',\'\',\'\',\'yes\',\'Detail\',\'\',\'StringHtml\',\'yes\',\'\',\'\');">'+name+'</a>'+
+                    //'<a class="name" href="javascript:XaCallAction(\'\',\''+UserListCallUrl+'\',\'Detail\',\'\',\'\',\'yes\',\'Detail\',\'\',\'StringHtml\',\'yes\',\'\',\'\');">'+name+'</a>'+
+                    name+
                     /*READ THE OU WITH EDIT*/
                     '<a class="edit" href="javascript:XaCallAction(\'\',\''+OuReadCallUrl+'\',\'Detail\',\'\',\'\',\'yes\',\'Detail\',\'\',\'StringHtml\',\'yes\',\'\',\'\');"></a>'+
 

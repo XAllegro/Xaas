@@ -11,6 +11,8 @@ void XaUserType::Dispatcher (const string &CalledEvent) {
 		this->Create();
     } else if (CalledEvent=="List"){
 		 this->List();
+    } else if (CalledEvent=="ListAsOptions"){
+		 this->ListAsOptions();
     } else if (CalledEvent=="Read"){
 		 this->Read();
     } else if (CalledEvent=="ReadForUpdateFrm"){
@@ -45,6 +47,53 @@ void XaUserType::List (){
 
 	RESPONSE.Content=ListResponse(DbRes,ListFields);
 
+};
+
+void XaUserType::ListAsOptions() {
+
+	vector<string> WhereFields={};
+	vector<string> WhereValues={};
+	vector<string> OrderByFields={};
+	vector<string> GroupByFields={};
+
+	/* only option with id=passed value */
+	string CurrentValue=HTTP.GetHttpParam("value");
+	if (CurrentValue!="NoHttpParam") {
+		WhereFields.push_back("id");
+		WhereValues.push_back(CurrentValue);
+	}
+	
+	/*LIMIT*/
+	string PassedLimit=HTTP.GetHttpParam("limit");
+	int Limit={0};
+
+	if (PassedLimit!="NoHttpParam") {
+		Limit=FromStringToInt(PassedLimit);
+	};
+
+	/*ORDER BY*/
+	OrderByFields.push_back("name");
+	string PassedOrderBy=HTTP.GetHttpParam("order_by");
+	
+	if (PassedOrderBy!="NoHttpParam") {
+		OrderByFields.push_back(PassedOrderBy);
+	};
+	
+	/*STATUS*/
+	string PassedStatus=HTTP.GetHttpParam("status");
+	
+	if (PassedStatus!="NoHttpParam") {
+
+		WhereFields.push_back("status");
+		WhereValues.push_back(PassedStatus);
+	};
+
+	//vector<string> ReturnedFields=ListPrepare({"XaOuType"},"/XaOuType/fieldset/field");
+
+	vector<string> ReturnedFields={"id","name"};
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserType",{ReturnedFields},{WhereFields}, {WhereValues}, {OrderByFields},{GroupByFields},Limit);
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 };
 
 void XaUserType::Read() {
