@@ -98,6 +98,15 @@ remember to define visible focus styles!
     }
 }
 
+@mixin reset-focus() {
+
+    input:focus,textarea:focus,input:focus:invalid,textarea:focus:invalid {
+        box-shadow:none;
+        outline: none;
+        border : 0px;
+    }
+}
+
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
      -moz-border-radius: $radius;
