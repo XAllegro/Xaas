@@ -11,6 +11,7 @@ class XaUserType : public XaLibModel {
 		
         void Create();
 		void List();
+		void ListAsOptions();
 		void Read();
 		void ReadForUpdateFrm();
 		void Update();

@@ -102,39 +102,7 @@ void XaUser::Create() {
 	FieldName.push_back("leaf");
 	FieldValue.push_back("1");
 
-	/*Get parent level*/
-	int pos=PositionInVector(FieldName,"tree_parent_ID");
-
-	if (pos==-1) {
-
-		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-206:: Searched Element is Not present in the Vector");
-		throw 206;
-	};
-
-	string tree_parent_ID= FieldValue[pos];
-
-	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Retrieved tree_parent_ID ->"+ tree_parent_ID);
-
-	DbResMap Parent=XaLibSql::Select(DB_READ,"XaOu",{"id","tree_level","tree_path"},{"id"},{tree_parent_ID});
-
-	if (Parent.size()!=1) {
-
-		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-304:: The record is not unique");
-		throw 304;
-	};
-
-	/*CALCULATING TREE LEVEL*/
-	string TreeLevel=FromIntToString((FromStringToInt(Parent[0]["tree_level"])+1));
-
-	FieldName.push_back("tree_level");
-	FieldValue.push_back(TreeLevel);
-
 	int NextId=CreateExecute("XaUser",FieldName,FieldValue);
-
-	/*CALCULATING TREE PATH*/
-	string TreePath=Parent[0]["tree_path"]+FromIntToString(NextId)+"|";
-
-	XaLibSql::Update(DB_WRITE,"XaUser",{"tree_path"},{TreePath},{"id"},{FromIntToString(NextId)});
 
 	RESPONSE.Content=CreateResponse(NextId);
 };
@@ -143,13 +111,15 @@ void XaUser::Read() {
 
 	string Id=HTTP.GetHttpParam("id");
 
-	vector<string> ReadFields=ReadPrepare({"XaUser"},"/XaUser/fieldset/field",0);
+	vector<string> ReturnedFields={"id","name","surname","XaUserType_ID"};
 
-	string Qry="SELECT name,surname,tree_parent_ID FROM XaUser WHERE id="+Id;
+	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID FROM XaUser X";
+	Qry+=" LEFT JOIN XaUserType ON X.XaUserType_ID=XaUserType.id";
+	Qry+=" WHERE X.status=1";
 	
 	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
 
-	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
+	RESPONSE.Content=ReadResponse(DbRes,ReturnedFields);
 };
 
 void XaUser::ReadForUpdateFrm() {
@@ -190,15 +160,11 @@ void XaUser::Delete(){
 
 void XaUser::List (){
 
-	string TreeParentId=HTTP.GetHttpParam("tree_parent_ID");
+	vector<string> ReturnedFields={"id","name","surname","XaUserType_ID"};
 
-	vector<string> ReturnedFields={"id","name","surname","XaUserType_ID","XaUserRole_ID","tree_parent_ID"};
-
-	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID, XaOu.name AS tree_parent_ID FROM XaUser X";
+	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID FROM XaUser X";
 	Qry+=" LEFT JOIN XaUserType ON X.XaUserType_ID=XaUserType.id";
-	Qry+=" LEFT JOIN XaOu ON X.tree_parent_ID=XaOu.id";
-	Qry+=" WHERE X.tree_parent_ID="+TreeParentId;
-	Qry+=" AND X.status=1";
+	Qry+=" WHERE X.status=1";
 	
 	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
 

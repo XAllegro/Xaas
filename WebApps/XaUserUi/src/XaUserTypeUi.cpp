@@ -12,6 +12,8 @@ void XaUserTypeUi::Dispatcher (const string &CalledEvent) {
         this->Create();
     } else if (CalledEvent=="List") {
         this->List();
+    } else if (CalledEvent=="ListAsOptions") {
+        this->ListAsOptions();
     } else if (CalledEvent=="Read") {
         this->Read();
     } else if (CalledEvent=="UpdateFrm") {
@@ -65,6 +67,24 @@ void XaUserTypeUi::List () {
 	Templates.push_back("XaGuiList");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserTypeUi::ListAsOptions() {
+
+	vector<string> ParamNames ={"order_by","status"};
+	vector<string> ParamValues={"name","1"};
+
+	string CurrentValue=HTTP.GetHttpParam("value");
+	if (CurrentValue!="NoHttpParam") {
+		ParamNames.push_back("value");
+		ParamValues.push_back(CurrentValue);
+	}
+
+	XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaUserType","ListAsOptions",ParamNames,ParamValues));
+	CheckResponse(CallResponse);
+
+	RESPONSE.Content=CallResponse;
 };
 
 void XaUserTypeUi::Read() {
