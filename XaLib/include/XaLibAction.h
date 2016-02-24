@@ -353,63 +353,6 @@ class XaLibAction : protected XaLibBase {
         */
         void CheckResponse(const string& Response);
 
-        /**
-        * Redirects to the InfoPage .\n
-        * To Use with classes that provide the Method GetResponse\n
-        * @param ErrorType Type of Error
-        * @return void
-        *
-        * @code
-        * ErrorPage ("EventNotfound");
-        * @endcode
-        *
-        */
-        /*
-        void ErrorPage (const string& ErrorType);
-*/
-        /**
-        * Redirects to the InfoPage and return the control to the Controller.\n
-        * To Use with classes that don't provide the Method GetResponse\n
-        * @param ErrorType Type of Error
-        * @return void
-        *
-        * @code
-        * ErrorExit ("EventNotfound");
-        * @endcode
-        *
-        */
-/*
-        void ErrorExit (const string& ErrorType);
-
-        void   AddOptionsByDb                      (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string TableName,string XPathExpr);
-        void   AddOptionsByDb                      (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string TableName,string XPathExpr,string OptionValueField,string OptionLabelField);
-        void   AddOptionsByDbWithCondition         (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string TableName,string XPathExpr,string Condition);
-        void   AddOptionsByDomain                  (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string XaDomain,string XPathExpr);
-        void   AddOptionsByDomainAndUser           (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string XaDomain,string StrUserId, string XPathExpr);
-        void   AddOptionsByDomainWithDescription   (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string XaDomain,string XPathExpr);
-        void   AddOptionsByVectors                 (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string XPathExpr);
-        void   AddValuesByDb                       (XaLibDom* LibDom,xmlDocPtr XmlDomDoc,string TableName,string XPathExpr);
-        string SelectDbItem                        (string ID,string TableName);
-        string SelectDomainItem                    (string XaDomain_ID);
-int    SelectDomainItemIdFromName          (string domain, string name);
-        string SelectUserItem		               (string XaUser_ID);
-
-        string HttpParamValidation (string ParamName, string ParamValue, string DataType, string Required, string Dimension, string Domain, string DefaultValue);
-
-        string EncryptParam(string ClearValue);
-        string EncryptParam(int ClearValue);
-        string DecryptParam(string EncryptedValue);
-        string DecryptParamId(string EncryptedValue);
-
-
-        void UpdateSessionWsLog (const string &XaSessionWsLog_ID,const string &LogData,const string &Response);
-
-        string ComposeSearchCondition(string Value,string Field,string Type);
-
-
-
-        void ResetRequest();
-*/
     public:
 
         /**

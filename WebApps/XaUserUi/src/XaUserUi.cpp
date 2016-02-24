@@ -6,15 +6,7 @@ XaUserUi::XaUserUi() {
 
 void XaUserUi::Dispatcher (const string &CalledEvent) {
 
-	if (CalledEvent=="LoginFrm"){
-		this->LoginFrm();
-	} else if (CalledEvent=="Login"){
-		this->Login();
-	} else if (CalledEvent=="Logout"){
-		this->Logout();
-	} else if (CalledEvent=="LogoutFrm"){
-		this->LogoutFrm();
-	} else if (CalledEvent=="List"){
+	if (CalledEvent=="List"){
 		this->List();
 	} else if (CalledEvent=="Read"){
 		this->Read();
@@ -32,73 +24,6 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
 	}
-};
-
-void XaUserUi::LoginFrm () {
-
-	string StrError=HTTP.GetHttpParam("LoginStatus");
-	SetLayout("LoginFrm");
-	AddXmlFile("LoginFrm");
-	AddXslFile("LoginFrm");
-
-	AddXslParamCommon();
-
-	if (StrError=="error") {
-
-		AddXslParam("LoginStatus","error");
-	}
-
-	RESPONSE.Content=XaLibGui::CreateForm(XmlFiles,XmlStrings,XslFiles,XslStrings,XslParams);
-};
-
-void XaUserUi::Login (){
-
-	string StrUsername=HTTP.GetHttpParam("username");
-	string StrPassword=HTTP.GetHttpParam("password");
-
-	XaLibCurl LibCurl;
-    string CallResponse = LibCurl.Call(BuildBackEndCallLogin(StrUsername,StrPassword));
-	CheckResponse(CallResponse);
-	
-	
-	xmlDocPtr XmlDomDoc=XaLibDom::DomFromString(CallResponse);
-	string token=XaLibDom::GetElementValueByXPath(XmlDomDoc,"/WsData/token");
-
-	if ( token=="ELEMENT-NOT-DEFINED" || token=="" || token.size()<FromStringToInt(SETTINGS["SessionIdLength"])) {
-
-		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Back End Login Action returned an error");
-
-		RESPONSE.ResponseType="location";
-		RESPONSE.Location="obj=XaUserUi&evt=LoginFrm";
-
-	} else {
-
-		SESSION.Token=token;
-		RESPONSE.ResponseType="location";
-		RESPONSE.Location="obj=XaPages&evt=XaMyPage";
-		RESPONSE.Content=CallResponse;	
-	}
-};
-
-void XaUserUi::Logout (){
-
-	XaLibCurl LibCurl;
-	string CallResponse= LibCurl.Call(BuildBackEndCall("XaUser","Logout",{},{}));
-
-	RESPONSE.ResponseType="location";
-	RESPONSE.Location="obj=XaUserUi&evt=LogoutFrm";
-	RESPONSE.Content="";
-};
-
-void XaUserUi::LogoutFrm () {
-
-	SetLayout("LoginFrm");
-	AddXmlFile("LogoutFrm");
-	AddXslFile("LogoutFrm");
-
-	AddXslParamCommon();
-
-	RESPONSE.Content=XaLibGui::CreateForm(XmlFiles,XmlStrings,XslFiles,XslStrings,XslParams);
 };
 
 void XaUserUi::List () {
