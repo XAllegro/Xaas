@@ -1,0 +1,81 @@
+header {
+
+    @include reset-a();
+      
+    .Toolbar {
+        display: inline-block;
+        width: 99vw;
+    }
+    
+    .ToolbarSections {
+         
+        span {
+            vertical-align: middle;
+        }
+
+        a {
+            margin-right: 1vh;
+        }
+
+        .Icon {
+            font-size:$HeaderFontSize/100*140;
+        }
+    }
+    
+    .ToolbarLeft {
+        float:left;
+        
+         .IconXAllegro {
+            display: inline-block;
+            background:url('XAllegroLogoW.svg') no-repeat center center;
+            background-size: 75%;
+            height: $HeaderHeight;
+            width: 8vw;
+            margin-right: 1vh;
+        }
+
+        .IconMyApps {
+
+            a:after {
+                font-family: Awesome;
+                content: "\f009";
+            }
+        }
+
+        .IconDefaultPage {
+
+            a:after {
+                font-family: Awesome;
+                content: "\f015";
+            }
+        }
+
+        .IconSearch {
+
+            a:after {
+                font-family: Awesome;
+                content: "\f002";
+            }
+        }
+    }
+
+    .ToolbarRight {
+     
+        float:right;
+
+        .IconSettings {
+
+            a:after {
+                font-family: Awesome;
+                content: "\f013";
+            }
+        }
+        
+        .IconHelp {
+            a:after {
+                font-family: Awesome;
+                content: "\f059";
+            }
+        }
+    }
+}

@@ -1,9 +1,7 @@
 /*
-	Project: XAAS
-	Alessandro Mariotti
-	alex@xallegro.com
-    338000
-    ff7f2a
+    Project: XAAS
+    Alessandro Mariotti
+    alex@xallegro.com
 */
 
 /*
@@ -28,13 +26,17 @@ $FontSize:100%;
 $ForeGroundOpacity:0.95;
 $FontColor:#222222;
 $BorderRadius:0.2em;
-$HeaderHeight:4vh;
+
+
+$HeaderHeight:4.5vh;
+
 /*$HeaderBackgroundColor:#2D353A;*/
 $HeaderBackgroundColor:#2c3e50;
 $HeaderFontColor:#DDDDDD;
-$HeaderFontSize:$FontSize/100*80; //80%
-$HeaderLineHeight:3.7vh;
-/*$HeaderToolbarLiBackgroundColor:#1A2228;*/
+$HeaderFontSize:$FontSize/100*90; //80%
+$HeaderLineHeight:4.0vh;
+$HeaderOpacity:0.9;
+//$HeaderToolbarLiBackgroundColor:#1A2228;*/
 $HeaderToolbarLiBackgroundColor:#34495e;
 
 
@@ -43,9 +45,9 @@ $HeaderToolbarLiBackgroundColorTarget:#77B710;
 $HeaderToolbarLiFontColorHover:#FFFFFF;
 $HeaderToolbarLiFontColorTarget:#FFFFFF;
 
-$MenuToggleHeight:4.0vh;
-$MenuToggleWidth:4.0vh;
-
+//$MenuToggleHeight:4.0vh;
+//$MenuToggleWidth:4.0vh;
+/*
 $NavWidth:14vw;
 $NavBackgroundColor:#2D353A;
 $NavFontColor:#DDDDDD;
@@ -54,7 +56,7 @@ $NavColorOver:#FF9900;
 $NavFontColorHover:#FFFFFF;
 $NavColorTarget:#77B710;
 $NavFontColorTarget:#FFFFFF;
-
+*/
 $LogoHeight:4.5vh;
 
 $ContainerBackgroundColor:#DDDDDD;
