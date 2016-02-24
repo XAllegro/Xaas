@@ -99,9 +99,6 @@ void XaUser::Create() {
 
 	CreatePrepare({"XaUser"},"/XaUser/fieldset/field",FieldName,FieldValue);
 
-	FieldName.push_back("leaf");
-	FieldValue.push_back("1");
-
 	int NextId=CreateExecute("XaUser",FieldName,FieldValue);
 
 	RESPONSE.Content=CreateResponse(NextId);
