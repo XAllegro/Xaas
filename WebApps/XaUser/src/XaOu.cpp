@@ -177,7 +177,7 @@ void XaOu::Tree() {
 		OrderByFields.push_back("name");
 	};
 	
-	/*GET ORDER BY*/
+	/*GET STATUS*/
 	string Status=HTTP.GetHttpParam("status");
 	WhereFields.push_back("status");
 	
@@ -242,9 +242,11 @@ void XaOu::Update() {
 void XaOu::Delete(){
 
 	string Id=HTTP.GetHttpParam("id");
-	
+
+	/* Descendants will have to be updated as well */
+
 	int Deleted=DeleteExecute("XaOu",Id);
-	
+
 	RESPONSE.Content=DeleteResponse(Deleted);
 };
 
