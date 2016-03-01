@@ -1,0 +1,32 @@
+	<script>
+		var XmlDataDoc=XaParseXml(XaData);
+		var XaRbacRole_ID_value=XaXmlGetElementValueByXpath(XmlDataDoc,"//read/XaRbacRole_ID");
+	        var RowId =XaXmlGetElementValueByXpath(XmlDataDoc,"//read/id");
+	</script>
+
+	<form class="form form-1-column" id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser" enctype="multipart/form-data" method="POST" action="javascript:CopyUserId('XaUser-CreateResponse','XaRbacRoleRXaUser-XaUser_ID');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=Update','','POST',false,0,'','XaRbacRoleRXaUser','StringText','','yes','');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=List&lay=include&XaUser_ID='+document.getElementById('XaUser-CreateResponse').value,'Li-XaRbacRoleRXaUser','POST',false,0,'','','StringHtml','yes','','');">
+
+		<input type="hidden" name="XaRbacRoleRXaUser-id" id ="XaRbacRoleRXaUser-id"/>
+		<script>
+			document.getElementById('XaRbacRoleRXaUser-id').value=RowId;
+		</script>
+
+		<input type="hidden" name="XaRbacRoleRXaUser-XaUser_ID" id="XaRbacRoleRXaUser-XaUser_ID"/>
+
+		<fieldset>
+			<legend>update associated roles to user</legend>
+			<ul>
+				<li>
+					<label id="4-label" for="XaRbacRoleRXaUser-XaRbacRole_ID">Role</label>
+					<select id="XaRbacRoleRXaUser-XaRbacRole_ID" name="XaRbacRoleRXaUser-XaRbacRole_ID" type="select-single" placeholder="" required="required" autofocus="autofocus">
+					</select>
+					<script>XaCreateOptions('','obj=XaRbacRoleUi&evt=ListAsOptions','XaRbacRoleRXaUser-XaRbacRole_ID',XaRbacRole_ID_value);</script>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<button type="reset">Reset</button>
+			<button type="submit">Save</button>
+		</fieldset>
+
+	</form>

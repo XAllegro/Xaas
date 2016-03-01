@@ -703,20 +703,32 @@ function XaListTpl (ModelName,DataName) {
        	    for (var j=1; j<=FieldsToList.length; j++) {
                 Content+="<th>"+BuildTitle(j)+"</th>";
        	    };
+            Content+="<th/><th/>"
             Content+="</tr>";
 
             for (i=1;i<=DataRowNumber;i++) {
 
                 var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
-                var OuReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
-                OuReadCallUrl+="&lay=include";
+                var ReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
+                ReadCallUrl+="&lay=include";
+                var UpdateFrmCallUrl="obj="+CallObj+"&evt=UpdateFrm&id="+id;
+                UpdateFrmCallUrl+="&lay=include";
+                var DeleteCallUrl="obj="+CallObj+"&evt=Delete&id="+id;
+                DeleteCallUrl+="&lay=include";
 
-		DblClickAction="XaCallAction('','"+OuReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		ReadAction="XaCallAction('','"+ReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		UpdateFrmAction="XaCallAction('','"+UpdateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
-                Content+="<tr ondblclick=\"javascript:"+DblClickAction+";\">";
+                Content+="<tr ondblclick=\"javascript:"+ReadAction+";\">";
                 for (var j=1; j<=FieldsToList.length; j++) {
                     Content+="<td>"+BuildField(i,j)+"</td>";
                 };
+
+                Content+="<td><a href=\"javascript:"+UpdateFrmAction+"\">update</a></td>";
+		Content+="&#32;";
+                Content+="<td><a href=\"javascript:"+DeleteAction+"\">delete</a></td>";
+
                 Content+="</tr>";
             }
             Content+="</table>";

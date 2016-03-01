@@ -27,8 +27,8 @@
             <name>XaUser_ID</name>
             <type>select-single</type>
             <options>
-                <obj></obj>
-                <evt></evt>
+                <obj>XaUserUi</obj>
+                <evt>ListAsOptions</evt>
             </options>
             <label>XaUser_ID</label>
             <placeholder>XaUser_ID</placeholder>
@@ -47,8 +47,8 @@
             <name>XaRbacRole_ID</name>
             <type>select-single</type>
             <options>
-                <obj></obj>
-                <evt></evt>
+                <obj>XaRbacRoleUi</obj>
+                <evt>ListAsOptions</evt>
             </options>
             <label>XaRbacRole_ID</label>
             <placeholder>XaRbacRole_ID</placeholder>

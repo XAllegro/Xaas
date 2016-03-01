@@ -37,11 +37,19 @@ void XaRbacRoleRXaUser::Create() {
 
 void XaRbacRoleRXaUser::List (){
 
-	vector<string> ListFields=ListPrepare({"XaRbacRoleRXaUser"},"/XaRbacRoleRXaUser/fieldset/field",0);
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
 
-	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaRbacRole_R_XaUser",{ListFields},{"status"},{"1"});
+	vector<string> ReturnedFields={"id","XaUser_ID","XaRbacRole_ID"};
 
-	RESPONSE.Content=ListResponse(DbRes,ListFields);
+	string Qry="SELECT X.id, concat (XaUser.name,' ',XaUser.surname) AS XaUser_ID, XaRbacRole.name AS XaRbacRole_ID FROM XaRbacRole_R_XaUser X";
+	Qry+=" LEFT JOIN XaRbacRole ON X.XaRbacRole_ID=XaRbacRole.id";
+	Qry+=" LEFT JOIN XaUser ON X.XaUser_ID=XaUser.id";
+	Qry+=" WHERE X.XaUser_ID="+XaUser_ID;
+	Qry+=" AND X.status=1";
+	
+	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 
 };
 
@@ -61,7 +69,7 @@ void XaRbacRoleRXaUser::Update() {
 	string Id=HTTP.GetHttpParam("id");
 	int UpdateId=XaLibBase::FromStringToInt(Id);
 
-	vector<string> FieldName;
+	vector<string> FieldName;	
 	vector<string> FieldValue;
 
 	UpdatePrepare({"XaRbacRoleRXaUser"},"/XaRbacRoleRXaUser/fieldset/field",FieldName,FieldValue);
