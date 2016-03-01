@@ -686,14 +686,20 @@ function XaListTpl (ModelName,DataName) {
     /*can access _privateProperty and call _privateMethod*/
     this.GetList = function () {
 
+        var target=document.getElementById('ListContainer').parentNode.id;
+
+        /* Is it always true? */
+        var CallObj=RootElement+"Ui";
+
         var Content="<div class=\"form form-1-column\">";
 
+        var CreateFrmCallUrl="obj="+CallObj+"&evt=CreateFrm";
+        CreateFrmCallUrl+="&lay=include";
+        CreateFrmAction="XaCallAction('','"+CreateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+        Content+="<center><a href=\"javascript:"+CreateFrmAction+"\">new</a><br/><br/></center>";
+
         if (DataRowNumber>0) {
-
-            var target=document.getElementById('ListContainer').parentNode.id;
-
-            /* Is it always true? */
-            var CallObj=RootElement+"Ui";
 
             FindFields();
 
