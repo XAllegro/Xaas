@@ -1,0 +1,66 @@
+<XaRbacRoleRXaUser>
+    <form>
+        <controller>XaUserUi</controller>
+        <id>XaRbacRoleRXaUser</id>
+        <name>XaRbacRoleRXaUser</name>
+        <obj>XaRbacRoleRXaUserUi</obj>
+        <evt>Create</evt>
+        <async>true</async>
+        <method>POST</method>
+        <class>form-1-column</class>
+    </form>
+    <update_form>
+        <controller>XaUserUi</controller>
+        <id>XaRbacRoleRXaUser</id>
+        <name>XaRbacRoleRXaUser</name>
+        <obj>XaRbacRoleRXaUserUi</obj>
+        <evt>Update</evt>
+        <async>true</async>
+        <method>POST</method>
+        <class>form-1-column</class>
+    </update_form>
+    <fieldset id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser">
+        <legend>create&#32;a&#32;new&#32;user&#32;role</legend>
+	<update_legend>update&#32;a&#32;user&#32;role</update_legend>
+        <field id="XaUser_ID" name="XaUser_ID">
+            <id>XaUser_ID</id>
+            <name>XaUser_ID</name>
+            <type>select-single</type>
+            <options>
+                <obj></obj>
+                <evt></evt>
+            </options>
+            <label>XaUser_ID</label>
+            <placeholder>XaUser_ID</placeholder>
+            <default>XaUser_ID</default>
+            <create>yes</create>
+            <required>yes</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>yes</update>
+            <search>yes</search>
+            <size></size>
+            <db_type>string</db_type>
+        </field>
+        <field id="XaRbacRole_ID" name="XaRbacRole_ID">
+            <id>XaRbacRole_ID</id>
+            <name>XaRbacRole_ID</name>
+            <type>select-single</type>
+            <options>
+                <obj></obj>
+                <evt></evt>
+            </options>
+            <label>XaRbacRole_ID</label>
+            <placeholder>XaRbacRole_ID</placeholder>
+            <default>XaRbacRole_ID</default>
+            <create>yes</create>
+            <required>yes</required>
+            <read>yes</read>
+            <list>yes</list>
+            <update>yes</update>
+            <search>yes</search>
+            <size></size>
+            <db_type>string</db_type>
+        </field>
+    </fieldset>
+</XaRbacRoleRXaUser>

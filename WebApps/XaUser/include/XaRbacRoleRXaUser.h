@@ -1,9 +1,9 @@
-#ifndef XARBACROLE_H
-#define XARBACROLE_H
+#ifndef XARBACROLERXAUSER_H
+#define XARBACROLERXAUSER_H
 
 #include <XaLibModel.h>
 
-class XaRbacRole : public XaLibModel {
+class XaRbacRoleRXaUser : public XaLibModel {
 
     private:
 		
@@ -11,8 +11,6 @@ class XaRbacRole : public XaLibModel {
 		
         void Create();
 		void List();
-		void ListAsOptions();
-		void Read();
 		void ReadForUpdateFrm();
 		void Update();
 		void Delete();
@@ -21,8 +19,8 @@ class XaRbacRole : public XaLibModel {
 
 	public:
 
-		XaRbacRole();		
-		~XaRbacRole();
+		XaRbacRoleRXaUser();		
+		~XaRbacRoleRXaUser();
 
 };
 #endif

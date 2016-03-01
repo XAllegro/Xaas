@@ -85,7 +85,7 @@ void XaUserUi::CreateFrm() {
 	AddJsVarString("XaGuiStyle","default");
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaGuiCreateFrm");
+	Templates.push_back("XaUserCreateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
@@ -96,7 +96,7 @@ void XaUserUi::Create() {
 	XaLibCurl LibCurl;
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Create",get<0>(Fields),get<1>(Fields)));
 	CheckResponse(CallResponse);
-	RESPONSE.Content="OK";
+	RESPONSE.Content=CallResponse;
 };
 
 void XaUserUi::UpdateFrm() {

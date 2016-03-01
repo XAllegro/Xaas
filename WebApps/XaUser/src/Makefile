@@ -26,7 +26,7 @@ endif
 #User OBJ
 OBJ=$(OBJDIR)Controller.o \
     $(OBJDIR)XaOu.o $(OBJDIR)XaOuType.o $(OBJDIR)XaUser.o $(OBJDIR)XaUserType.o\
-    $(OBJDIR)XaRbacRole.o \
+    $(OBJDIR)XaRbacRole.o $(OBJDIR)XaRbacRoleRXaUser.o \
     $(OBJDIR)XaUserAddressGeo.o $(OBJDIR)XaUserAddressGeoType.o \
     $(OBJDIR)XaUserAddressMail.o $(OBJDIR)XaUserAddressMailType.o \
     $(OBJDIR)XaUserAddressPhone.o $(OBJDIR)XaUserAddressPhoneCode.o $(OBJDIR)XaUserAddressPhoneType.o
@@ -62,6 +62,8 @@ $(OBJDIR)XaUserType.o: XaUserType.cpp
 	$(CPP) -c XaUserType.cpp -o $(OBJDIR)XaUserType.o $(CPPFLAGS)
 $(OBJDIR)XaRbacRole.o: XaRbacRole.cpp
 	$(CPP) -c XaRbacRole.cpp -o $(OBJDIR)XaRbacRole.o $(CPPFLAGS)
+$(OBJDIR)XaRbacRoleRXaUser.o: XaRbacRoleRXaUser.cpp
+	$(CPP) -c XaRbacRoleRXaUser.cpp -o $(OBJDIR)XaRbacRoleRXaUser.o $(CPPFLAGS)
 $(OBJDIR)XaUserAddressGeo.o: XaUserAddressGeo.cpp
 	$(CPP) -c XaUserAddressGeo.cpp -o $(OBJDIR)XaUserAddressGeo.o $(CPPFLAGS)
 $(OBJDIR)XaUserAddressGeoType.o: XaUserAddressGeoType.cpp

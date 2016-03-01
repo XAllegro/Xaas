@@ -19,7 +19,7 @@
 #include <XaUserType.h>
 #include <XaUserLogin.h>
 #include <XaRbacRole.h>
-
+#include <XaRbacRoleRXaUser.h>
 #include <XaUserAddressPhone.h>
 #include <XaUserAddressMail.h>
 #include <XaUserAddressGeo.h>
@@ -131,6 +131,9 @@ void Controller::ExecuteWs(XaLibWs& Ws){
 	} else if(REQUEST.CalledObject=="XaRbacRole") {
 		unique_ptr<XaRbacRole> RbacRole (new XaRbacRole());
 		RbacRole->Execute();
+	} else if(REQUEST.CalledObject=="XaRbacRoleRXaUser") {
+		unique_ptr<XaRbacRoleRXaUser> RbacRoleRXaUser (new XaRbacRoleRXaUser());
+		RbacRoleRXaUser->Execute();
 	} else if(REQUEST.CalledObject=="XaUserAddressPhone") {
 		unique_ptr<XaUserAddressPhone> AddressPhone (new XaUserAddressPhone());
 		AddressPhone->Execute();

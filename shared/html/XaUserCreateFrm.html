@@ -1,0 +1,70 @@
+<div class="container">
+
+	<script>
+		function ExtractUserId(source,target) {
+			var UserId=document.getElementById(source).value;
+			UserId=UserId.substring(UserId.indexOf('<create>')+8,UserId.indexOf('</create>'));
+			document.getElementById(target).value=UserId;
+		};
+		function CopyUserId(source,target) {
+			document.getElementById(target).value=document.getElementById(source).value;
+		};
+
+	</script>
+
+
+	<form class="form form-1-column" id="XaUser" name="XaUser" enctype="multipart/form-data" method="POST" action="javascript:XaCallAction('','obj=XaUserUi&amp;evt=Create','XaUser-CreateResponse','POST',false,0,'','XaUser','StringText','','','');ExtractUserId('XaUser-CreateResponse','XaUser-CreateResponse');">
+
+		<input type="hidden" id="XaUser-CreateResponse"/>
+	
+		<fieldset>
+			<legend>create a new user</legend>
+			<ul>
+				<li>
+					<label id="1-label" for="XaUser-name">name</label>
+					<input id="XaUser-name" name="XaUser-name" placeholder="name" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="2-label" for="XaUser-surname">surname</label>
+					<input id="XaUser-surname" name="XaUser-surname" placeholder="surname" required="required" autofocus="autofocus" type="input-text">
+				</li>
+				<li>
+					<label id="3-label" for="XaUser-XaUserType_ID">User Type</label>
+					<select id="XaUser-XaUserType_ID" name="XaUser-XaUserType_ID" type="select-single" placeholder="" required="required" autofocus="autofocus">
+					</select>
+					<script>XaCreateOptions('','obj=XaUserTypeUi&evt=ListAsOptions','XaUser-XaUserType_ID','');</script>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<button type="reset">Reset</button>
+			<button type="submit">Save</button>
+		</fieldset>
+
+	</form>
+
+	<form class="form form-1-column" id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser" enctype="multipart/form-data" method="POST" action="javascript:CopyUserId('XaUser-CreateResponse','XaRbacRoleRXaUser-XaUser_ID');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=Create','','POST',false,0,'','XaRbacRoleRXaUser','StringText','','yes','');">
+
+		<input type="hidden" name="XaRbacRoleRXaUser-XaUser_ID" id="XaRbacRoleRXaUser-XaUser_ID"/>
+
+		<fieldset>
+			<legend>associate roles to user</legend>
+			<ul>
+				<li>
+					<label id="4-label" for="XaRbacRoleRXaUser-XaRbacRole_ID">Role</label>
+					<select id="XaRbacRoleRXaUser-XaRbacRole_ID" name="XaRbacRoleRXaUser-XaRbacRole_ID" type="select-single" placeholder="" required="required" autofocus="autofocus">
+					</select>
+					<script>XaCreateOptions('','obj=XaRbacRoleUi&evt=ListAsOptions','XaRbacRoleRXaUser-XaRbacRole_ID','');</script>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<button type="reset">Reset</button>
+			<button type="submit">Save</button>
+		</fieldset>
+
+	</form>
+
+</div>
+
+
