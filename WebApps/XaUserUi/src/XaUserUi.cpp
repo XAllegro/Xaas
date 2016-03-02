@@ -118,7 +118,7 @@ void XaUserUi::UpdateFrm() {
 	/* end of data */
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaGuiUpdateFrm");
+	Templates.push_back("XaUserUpdateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
