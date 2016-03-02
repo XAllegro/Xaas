@@ -41,9 +41,8 @@ void XaRbacRoleRXaUser::List (){
 
 	vector<string> ReturnedFields={"id","XaUser_ID","XaRbacRole_ID"};
 
-	string Qry="SELECT X.id, concat (XaUser.name,' ',XaUser.surname) AS XaUser_ID, XaRbacRole.name AS XaRbacRole_ID FROM XaRbacRole_R_XaUser X";
+	string Qry="SELECT X.id, XaRbacRole.name AS XaRbacRole_ID FROM XaRbacRole_R_XaUser X";
 	Qry+=" LEFT JOIN XaRbacRole ON X.XaRbacRole_ID=XaRbacRole.id";
-	Qry+=" LEFT JOIN XaUser ON X.XaUser_ID=XaUser.id";
 	Qry+=" WHERE X.XaUser_ID="+XaUser_ID;
 	Qry+=" AND X.status=1";
 	

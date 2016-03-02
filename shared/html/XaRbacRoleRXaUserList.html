@@ -12,38 +12,6 @@
 
     var DataRowNumber=XaXmlCountElementByXpath(XmlDataDoc,"//list/item");
 
-    var FieldsToList=Array();
-
-    function BuildTitle (FieldIdx) {
-
-	var Title="";
-	var FLabel=XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldIdx+"]/label");
-	Title+=FLabel;
-	return Title;
-    }
-
-    function FindFields (ItemIdx,FieldId) {
-
-        var FieldsNumber=XaXmlCountElementByXpath(XmlDoc,"//field");
- 	for (var j=1; j<=FieldsNumber; j++) {
-	    var FList =XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/list");
-            if (FList==="yes") {
-               FieldsToList.push(XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/name"));
-            }
-    	}
-    };
-
-    function BuildField (ItemIdx,FieldIdx) {
-
-        var Field="";
-        var FName=FieldsToList[FieldIdx-1];
-
-        var Fvalue=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ItemIdx+"]/"+FName);
-        Field+=Fvalue;
-
-        return Field;
-    };
-
         var target=document.getElementById('ListContainer').parentNode.id;
 
         /* Is it always true? */
@@ -59,14 +27,10 @@
 
         if (DataRowNumber>0) {
 
-            FindFields();
-
             Content+="<table>";
 
             Content+="<tr>";
-       	    for (var j=1; j<=FieldsToList.length; j++) {
-                Content+="<th>"+BuildTitle(j)+"</th>";
-       	    };
+            Content+="<th>XaRbacRole</th>";
             Content+="<th/><th/>";
             Content+="</tr>";
 
@@ -85,9 +49,8 @@
 		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
                 Content+="<tr ondblclick=\"javascript:"+ReadAction+";\">";
-                for (var j=1; j<=FieldsToList.length; j++) {
-                    Content+="<td>"+BuildField(i,j)+"</td>";
-                };
+
+                Content+="<td>"+XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/XaRbacRole_ID")+"</td>";
 
                 Content+="<td><a href=\"javascript:"+UpdateFrmAction+"\">update</a></td>";
 		Content+="&#32;";
