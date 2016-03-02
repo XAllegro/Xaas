@@ -37,7 +37,8 @@ int XaLibDb::Connect(const int& DbType) {
 
 			XaLibBase::SendHtmlHeaders();
             printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));
-			cout<< "Database Session Connection Problem->"+SETTINGS["DbWriteDatabase"]+" at->" + SETTINGS["DbWriteHost"]<<endl;
+			cout<< "Database Write Connection Problem->"+SETTINGS["DbWriteDatabase"]+" at->" + SETTINGS["DbWriteHost"]<<endl;
+			throw 23;
 			
         } else {
 
@@ -52,8 +53,8 @@ int XaLibDb::Connect(const int& DbType) {
 			
 			XaLibBase::SendHtmlHeaders();
             printf("Error %u: %s\n", mysql_errno(ConnRead), mysql_error(ConnRead));	
-			cout<< "Database Session Connection Problem->"+SETTINGS["DbReadDatabase"]+" at->" + SETTINGS["DbReadHost"]<<endl;
-			
+			cout<< "Database Read Connection Problem->"+SETTINGS["DbReadDatabase"]+" at->" + SETTINGS["DbReadHost"]<<endl;
+			throw 24;
         } else {
 
 			XaStatus=1;
@@ -69,6 +70,8 @@ int XaLibDb::Connect(const int& DbType) {
 			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));	
 			cout<< "Database Session Connection Problem->"+SETTINGS["DbSessionDatabase"]+" at->" + SETTINGS["DbSessionHost"]<<endl;
 
+			throw 22;
+
         } else {
 
 			XaStatus=1;
@@ -83,7 +86,7 @@ int XaLibDb::Connect(const int& DbType) {
 			XaLibBase::SendHtmlHeaders();
 			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));	
 			cout<< "Database Log Connection Problem->"+SETTINGS["DbLogDatabase"]+" at->" + SETTINGS["DbLogHost"]<<endl;
-
+			throw 25;
         } else {
 
 			XaStatus=1;
@@ -112,7 +115,8 @@ int XaLibDb::ExInsert(string SqlQry) {
 
 		} else {
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));	
+			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));
+			throw 28;
 			return 0;
 
 		}
@@ -129,6 +133,7 @@ int XaLibDb::ExInsert(string SqlQry) {
 		} else {
 			XaLibBase::SendHtmlHeaders();
 			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));	
+			throw 28;
 			return 0;
 
 		}
@@ -145,7 +150,8 @@ int XaLibDb::ExInsert(string SqlQry) {
 
 		} else {
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));	
+			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));
+			throw 28;
 			return 0;
 
 		}
@@ -175,7 +181,8 @@ int XaLibDb::ExUpdate(string SqlQry) {
 
 		} else {
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));	
+			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));
+			throw 28;
 			return 0;
 
 		}
@@ -191,7 +198,8 @@ int XaLibDb::ExUpdate(string SqlQry) {
 
 		} else {
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));	
+			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));
+			throw 28;
 			return 0;
 
 		}
@@ -200,6 +208,7 @@ int XaLibDb::ExUpdate(string SqlQry) {
 
 		XaLibBase::SendHtmlHeaders();
 		cout<< "Database Updates Are Only Allowed For DB_WRITE - DB_SESSION"<<endl;
+		throw 28;
 		return 0;
 	}
 
@@ -222,7 +231,8 @@ int XaLibDb::ExDelete(string SqlQry) {
 		} else {
 
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));	
+			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));
+			throw 28;
 			return 0;
 		}
 
@@ -238,7 +248,8 @@ int XaLibDb::ExDelete(string SqlQry) {
 		} else {
 
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));	
+			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));
+			throw 28;
 			return 0;
 		}
 
@@ -255,6 +266,7 @@ int XaLibDb::ExDelete(string SqlQry) {
 
 			XaLibBase::SendHtmlHeaders();
 			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));	
+			throw 28;
 			return 0;
 		}
 
@@ -262,6 +274,7 @@ int XaLibDb::ExDelete(string SqlQry) {
 
 		XaLibBase::SendHtmlHeaders();
 		cout<< "Database Deletes Are Only Allowed For DB_WRITE - DB_SESSION - DB_LOG "<<endl;
+		throw 28;
 		return 0;
 	}
 
@@ -375,7 +388,7 @@ XaLibDb::DbResMap XaLibDb::RetrieveRows(MYSQL_RES *DbResult) {
 		//int numrows = mysql_num_rows(result);
 		int numfields = mysql_num_fields(result);
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 		int j=0;
 		while((row = mysql_fetch_row(result))) {
 
@@ -386,7 +399,7 @@ XaLibDb::DbResMap XaLibDb::RetrieveRows(MYSQL_RES *DbResult) {
 				if (row[i]==NULL){
 					val = "";
 				} else {
-					val = LibChar->ClearXmlEntitiesBasic(row[i]);
+					val = LibChar.ClearXmlEntitiesBasic(row[i]);
 					//val = row[i];
 				}
 
@@ -416,7 +429,8 @@ int XaLibDb::ExSystemQry(string SqlQry) {
 		} else {
 
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));	
+			printf("Error %u: %s\n", mysql_errno(ConnWrite), mysql_error(ConnWrite));
+			throw 28;
 			return 0;
 		}
 
@@ -432,7 +446,8 @@ int XaLibDb::ExSystemQry(string SqlQry) {
 		} else {
 
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));	
+			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));
+			throw 28;
 			return 0;
 		}
 
@@ -448,7 +463,8 @@ int XaLibDb::ExSystemQry(string SqlQry) {
 		} else {
 
 			XaLibBase::SendHtmlHeaders();
-			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));	
+			printf("Error %u: %s\n", mysql_errno(ConnSession), mysql_error(ConnSession));
+			throw 28;
 			return 0;
 		}
 
@@ -465,6 +481,7 @@ int XaLibDb::ExSystemQry(string SqlQry) {
 
 			XaLibBase::SendHtmlHeaders();
 			printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));
+			throw 28;
 			return 0;
 		}
 	}
@@ -501,7 +518,7 @@ vector<string> XaLibDb::FetchFields(const string& TableName) {
 
 		XaLibBase::SendHtmlHeaders();
 		printf("Error %u: %s\n", mysql_errno(ConnLog), mysql_error(ConnLog));
-		//THROwARE
+		throw 28;
 	}
 
 	unsigned int field_cnt = mysql_num_fields(tbl_cols);

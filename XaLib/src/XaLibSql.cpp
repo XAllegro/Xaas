@@ -10,7 +10,7 @@ XaLibSql::XaLibSql(){
 
 int XaLibSql::Insert(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,const vector<string>& VectorValues){
 		
-	XaLibChar* LibChar=new XaLibChar();
+	XaLibChar LibChar;
 	
 	string SqlQry="INSERT INTO ";
 	SqlQry.append(TableName);
@@ -43,7 +43,7 @@ int XaLibSql::Insert(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 	     	} else {
 
 	     		SqlQry.append("\"");
-	     		string ToAppend=LibChar->ClearSqlEntities(VectorValues.at(n));
+	     		string ToAppend=LibChar.ClearSqlEntities(VectorValues.at(n));
 
 	     		SqlQry.append(ToAppend);
 
@@ -57,13 +57,10 @@ int XaLibSql::Insert(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 
 	unsigned NextId=LibDb.ExInsert(SqlQry);
 
-	delete LibChar;
-
 	if (NextId==0) {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error Executing Query Insert -> " +SqlQry);
 		return 0;
-
 	} else {
 
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executed Query Insert -> " +SqlQry);
@@ -75,7 +72,7 @@ int XaLibSql::Insert(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 
 int XaLibSql::InsertMulti(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,vector<vector<string> > VectorValuesMulti){
 	
-	XaLibChar* LibChar=new XaLibChar();
+	XaLibChar LibChar;
 	
 	string SqlQry="INSERT INTO ";
 	SqlQry.append(TableName);
@@ -113,7 +110,7 @@ int XaLibSql::InsertMulti(XaLibDb& LibDb,string TableName,const vector<string>& 
 
 	     	} else{
 	     		SqlQry.append("\"");
-	     		string ToAppend=LibChar->ClearSqlEntities(VectorValues.at(n));
+	     		string ToAppend=LibChar.ClearSqlEntities(VectorValues.at(n));
 
 	     		SqlQry.append(ToAppend);
 
@@ -134,14 +131,11 @@ int XaLibSql::InsertMulti(XaLibDb& LibDb,string TableName,const vector<string>& 
 	
 	unsigned NextId=LibDb.ExInsert(SqlQry);	// e' l'id del primo record inserito
 
-	delete LibChar;
-
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executed Query Insert -> " +SqlQry);
 
 	if (NextId==0){
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred inserting a new Record in -> "+ TableName);
-
 		return 0;
 
 	} else {
@@ -156,7 +150,7 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 
 	if (WhereFields.size()>0 && WhereFields.size()==WhereValues.size()){
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 
 		string SqlQry="UPDATE ";
 
@@ -168,7 +162,7 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
      		SqlQry.append(VectorFields.at(n));
      		SqlQry.append("=\"");
    
-     		SqlQry.append(LibChar->ClearSqlEntities(VectorValues.at(n)));
+     		SqlQry.append(LibChar.ClearSqlEntities(VectorValues.at(n)));
      		SqlQry.append("\"");
 
 	     	if(n==VectorFields.size()-1){
@@ -186,12 +180,10 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 			SqlQry.append(" AND ");
 			SqlQry.append(WhereFields.at(m));
 			SqlQry.append("=\"");
-			SqlQry.append(LibChar->ClearSqlEntities(WhereValues.at(m)));
+			SqlQry.append(LibChar.ClearSqlEntities(WhereValues.at(m)));
 			SqlQry.append("\"");
 
 		}
-
-		delete (LibChar);
 
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing Query Update  -> " +SqlQry);
 
@@ -200,7 +192,6 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 		if (Updated==0){
 
 			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred updating Record in -> "+ TableName);
-
 			return 0;
 
 		} else {
@@ -211,7 +202,6 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 	} else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Executing Query Update Without WHERE");
-
 		return 0;
 	}
 };
@@ -220,7 +210,7 @@ int XaLibSql::Delete(XaLibDb& LibDb,string TableName, const vector<string>& Wher
 
 	if (WhereFields.size()>0 && WhereFields.size()==WhereValues.size()){
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 
 		string SqlQry="DELETE FROM ";
 
@@ -233,12 +223,10 @@ int XaLibSql::Delete(XaLibDb& LibDb,string TableName, const vector<string>& Wher
 			SqlQry.append(" AND ");
 			SqlQry.append(WhereFields.at(m));
 			SqlQry.append("=\"");
-			SqlQry.append(LibChar->ClearSqlEntities(WhereValues.at(m)));
+			SqlQry.append(LibChar.ClearSqlEntities(WhereValues.at(m)));
 			SqlQry.append("\"");
 
 		}
-
-		delete (LibChar);
 
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing Query DELETE  -> " +SqlQry);
 
@@ -247,7 +235,6 @@ int XaLibSql::Delete(XaLibDb& LibDb,string TableName, const vector<string>& Wher
 		if (Status==0){
 
 			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred Delete Record in -> "+ TableName);
-
 			return 0;
 
 		} else {
@@ -258,7 +245,6 @@ int XaLibSql::Delete(XaLibDb& LibDb,string TableName, const vector<string>& Wher
 	} else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Executing Query Delete Without WHERE");
-		
 		return 0;
 	}
 };
@@ -291,7 +277,6 @@ int XaLibSql::DeleteOneLogic(XaLibDb& LibDb,string TableName,string RowId){
 	if (DeleteId==0){
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred logically deleting Record in -> "+ TableName);
-
 		return 0;
 
 	} else {
@@ -321,7 +306,6 @@ int XaLibSql::DeleteOneLogicWithKey(XaLibDb& LibDb,string TableName,string RowId
 	if (DeleteId==0){
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred logically deleting Record in -> "+ TableName);
-
 		return 0;
 
 	} else {
@@ -364,7 +348,6 @@ XaLibBase::DbResMap XaLibSql::SelectOne(XaLibDb& LibDb,string TableName, int Row
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing  Select -> " +SqlQry);
 	DbRes=LibDb.ExSelect(SqlQry);
 	
-
 	return DbRes;
 };
 
@@ -374,12 +357,12 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,const string& TableName,cons
 	
 	string SqlQry="SELECT ";
 
-	unique_ptr<XaLibChar> LibChar (new XaLibChar());
+	XaLibChar LibChar;
 
 		if(ReturnedFields.at(0)=="*"){
 			
 			SqlQry.append("*");
-			
+
 		} else {
 			
 			for(unsigned m=0; m<ReturnedFields.size(); ++m) {
@@ -412,7 +395,7 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,const string& TableName,cons
 	
 	string SqlQry="SELECT ";
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 
 		if(ReturnedFields.at(0)=="*"){
 			
@@ -445,7 +428,7 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,const string& TableName,cons
 
      		SqlQry.append(WhereFields.at(n));
      		SqlQry.append("=\"");
-     		string ToAppend=LibChar->ClearSqlEntities(WhereValues.at(n));
+     		string ToAppend=LibChar.ClearSqlEntities(WhereValues.at(n));
      		SqlQry.append(ToAppend);
      		SqlQry.append("\"");
 
@@ -465,7 +448,6 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,const string& TableName,cons
 		
 	DbRes=LibDb.ExSelect(SqlQry);
 
-	delete LibChar;
 	return DbRes;
 };
 
@@ -475,7 +457,7 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vecto
 	
 	string SqlQry="SELECT ";
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 
 		if(ReturnedFields.at(0)=="*"){
 			
@@ -508,7 +490,7 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vecto
 
      		SqlQry.append(WhereFields.at(n));
      		SqlQry.append("=\"");
-     		string ToAppend=LibChar->ClearSqlEntities(WhereValues.at(n));
+     		string ToAppend=LibChar.ClearSqlEntities(WhereValues.at(n));
      		SqlQry.append(ToAppend);
      		SqlQry.append("\"");
 
@@ -546,119 +528,16 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vecto
 	
 	DbRes=LibDb.ExSelect(SqlQry);
 
-	delete LibChar;
 	return DbRes;
-
 }
 
-/*
-XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues, const vector<string>& OrderByFields,const vector<string>& GroupByFields) {
-
-	DbResMap DbRes;
-	
-	string SqlQry="SELECT ";
-
-		XaLibChar* LibChar=new XaLibChar();
-
-		if(ReturnedFields.at(0)=="*"){
-			
-			SqlQry.append("*");
-			
-		} else {
-			
-			for(unsigned m=0; m<ReturnedFields.size(); ++m) {
-			
-				SqlQry.append(ReturnedFields.at(m));
-
-				if(m==ReturnedFields.size()-1){
-
-	     	} else {
-
-				SqlQry.append(",");
-	     	}
-	    }
-	}
-
-	SqlQry.append(" FROM ");
-	SqlQry.append(TableName);
-
-
-	if (WhereFields.size()==WhereValues.size() && WhereFields.size()>0 ){
-
-		SqlQry.append(" WHERE ");
-
-		for(unsigned n=0; n<WhereFields.size(); ++n) {
-
-     		SqlQry.append(WhereFields.at(n));
-     		SqlQry.append("=\"");
-     		string ToAppend=LibChar->ClearSqlEntities(WhereValues.at(n));
-     		SqlQry.append(ToAppend);
-     		SqlQry.append("\"");
-
-	     	if(n==WhereFields.size()-1){
-
-	     	} else{
-
-	     		SqlQry.append(" AND ");
-	     	}
-	    }
-
-	} else {
-		//NUMERO VALORI E CAMPI DIVERSO
-	}
-
-	if (OrderByFields.size()>0 ){
-
-		SqlQry.append(" ORDER BY ");
-
-		for(unsigned n=0; n<OrderByFields.size(); ++n) {
-
-     		SqlQry.append(OrderByFields.at(n));
-
-	     	if(n==OrderByFields.size()-1){
-
-	     	} else{
-
-	     		SqlQry.append(",");
-	     	}
-	    }
-
-	}
-	
-	if (GroupByFields.size()>0 ){
-
-		SqlQry.append(" GROUP BY ");
-
-		for(unsigned n=0; n<GroupByFields.size(); ++n) {
-
-     		SqlQry.append(GroupByFields.at(n));
-
-	     	if(n==GroupByFields.size()-1){
-
-	     	} else{
-
-	     		SqlQry.append(",");
-	     	}
-	    }
-
-	}
-
-	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing  Select -> " +SqlQry);
-
-	DbRes=LibDb.ExSelect(SqlQry);
-
-	delete LibChar;
-	return DbRes;
-
-}
-*/
 XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues, const vector<string>& OrderByFields,const vector<string>& GroupByFields,const int& Limit) {
 
 	DbResMap DbRes;
 	
 	string SqlQry="SELECT ";
 
-		XaLibChar* LibChar=new XaLibChar();
+		XaLibChar LibChar;
 
 		if(ReturnedFields.at(0)=="*"){
 			
@@ -691,7 +570,7 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vecto
 
      		SqlQry.append(WhereFields.at(n));
      		SqlQry.append("=\"");
-     		string ToAppend=LibChar->ClearSqlEntities(WhereValues.at(n));
+     		string ToAppend=LibChar.ClearSqlEntities(WhereValues.at(n));
      		SqlQry.append(ToAppend);
      		SqlQry.append("\"");
 
@@ -752,8 +631,6 @@ XaLibBase::DbResMap XaLibSql::Select(XaLibDb& LibDb,string TableName,const vecto
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing  Select -> " +SqlQry);
 
 	DbRes=LibDb.ExSelect(SqlQry);
-
-	delete LibChar;
 	return DbRes;
 
 }

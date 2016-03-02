@@ -58,23 +58,10 @@ class XaLibControllerBackEnd : protected XaLibController {
 		*/
 		void OnStart(const string& ConfFile);
 
-		int  ProfileCalledObject(const string& CalledObject,const string& CalledEvent);
-
 		virtual void SendResponse();
-		//void Dispatch();
-
-		//virtual void ExecuteCalledObject();
-
-		//void SendLocationHeaders(string Location);
 
 	public:
 
-		/*void GetCall();*/
-		/*void GetLayout();*/
-		/*void GetClientInfo();*/
-		//void GetWs();
-
-		
 		XaLibControllerBackEnd();
 		virtual ~XaLibControllerBackEnd();
 };

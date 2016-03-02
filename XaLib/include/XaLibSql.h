@@ -74,7 +74,6 @@ class XaLibSql : protected XaLibBase {
         static DbResMap Select(XaLibDb& LibDb,const string& TableName,const vector<string>& ReturnedFields);
         static DbResMap Select(XaLibDb& LibDb,const string& TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues);
         static DbResMap Select(XaLibDb& LibDb,string TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues, const vector<string>& OrderByFields);
-        //static DbResMap Select(XaLibDb& LibDb,string TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues, const vector<string>& OrderByFields, const vector<string>& GroupByFields);
         static DbResMap Select(XaLibDb& LibDb,string TableName,const vector<string>& ReturnedFields,const vector<string>& WhereFields, const vector<string>& WhereValues, const vector<string>& OrderByFields,const vector<string>& GroupByFields,const int& Limit=0);
 
         static DbResMap FreeQuerySelect(XaLibDb& LibDb,string& SqlQry);
