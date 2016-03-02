@@ -346,16 +346,16 @@ tuple<vector<string>,vector<string>> XaLibAction::UpdatePrepare(const vector<str
 	for (auto i=0;i<FieldsNum;i++) {
 		//LOADING PROPERTIES
 
-		string FieldName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
-		string FieldValue=HTTP.GetHttpParam(ModelName+"-"+FieldName);
+		/* Only updateble fields */
+		if (XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/update")=="yes") {
+			string FieldName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
+			string FieldValue=HTTP.GetHttpParam(ModelName+"-"+FieldName);
 
-		get<0>(Fields).push_back(FieldName);
-		get<1>(Fields).push_back(FieldValue);
+			get<0>(Fields).push_back(FieldName);
+			get<1>(Fields).push_back(FieldValue);
 
-		//FieldsName.push_back(FieldName);
-		//FieldsValue.push_back(FieldValue);
-
-		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Loaded value for property ->" +FieldName +" :: " + FieldValue);
+			LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Loaded value for property ->" +FieldName +" :: " + FieldValue);
+		}
 	};
 
 	// ADD id To FIELD LIST
