@@ -26,6 +26,9 @@ void XaRbacRoleRXaUserUi::Dispatcher (const string &CalledEvent) {
 
 void XaRbacRoleRXaUserUi::CreateFrm() {
 
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	AddJsVarString("XaUser_ID",XaUser_ID);
 	AddJsVarFile("XaModel","XaRbacRoleRXaUser");
 	AddJsVarString("XaGuiStyle","default");
 
@@ -46,10 +49,11 @@ void XaRbacRoleRXaUserUi::Create() {
 
 void XaRbacRoleRXaUserUi::List () {
 
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	AddJsVarString("XaUser_ID",XaUser_ID);
 	AddJsVarFile("XaModel","XaRbacRoleRXaUser");
 	AddJsVarString("XaGuiStyle","default");
-
-	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
 
 	/* data */
 
@@ -62,7 +66,7 @@ void XaRbacRoleRXaUserUi::List () {
 	/* end of data */
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaGuiList");
+	Templates.push_back("XaRbacRoleRXaUserList");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };

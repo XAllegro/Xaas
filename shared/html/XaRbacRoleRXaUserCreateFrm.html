@@ -1,7 +1,11 @@
+	<!-- XaUser_ID has been passed as a Js variabile -->
 
-	<form class="form form-1-column" id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser" enctype="multipart/form-data" method="POST" action="javascript:CopyUserId('XaUser-CreateResponse','XaRbacRoleRXaUser-XaUser_ID');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=Create','','POST',false,0,'','XaRbacRoleRXaUser','StringText','','yes','');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=List&lay=include&XaUser_ID='+document.getElementById('XaUser-CreateResponse').value,'Li-XaRbacRoleRXaUser','POST',false,0,'','','StringHtml','yes','','');">
+	<form class="form form-1-column" id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser" enctype="multipart/form-data" method="POST" action="javascript:XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=Create','','POST',false,0,'','XaRbacRoleRXaUser','StringText','','yes','');XaCallAction('','obj=XaRbacRoleRXaUserUi&amp;evt=List&lay=include&XaUser_ID='+XaUser_ID,'Li-XaRbacRoleRXaUser','POST',false,0,'','','StringHtml','yes','','');">
 
 		<input type="text" name="XaRbacRoleRXaUser-XaUser_ID" id="XaRbacRoleRXaUser-XaUser_ID"/>
+		<script>
+			document.getElementById('XaRbacRoleRXaUser-XaUser_ID').value=XaUser_ID;
+		</script>
 
 		<fieldset>
 			<legend>associate roles to user</legend>
