@@ -27,7 +27,8 @@ OBJ=$(OBJDIR)XaLibBase.o $(OBJDIR)XaLibAction.o $(OBJDIR)XaLibModel.o $(OBJDIR)X
     $(OBJDIR)XaLibLog.o \
     $(OBJDIR)XaLibTime.o $(OBJDIR)XaLibWs.o $(OBJDIR)XaLibGui.o $(OBJDIR)XaLibController.o $(OBJDIR)XaLibControllerBackEnd.o $(OBJDIR)XaLibControllerFrontEnd.o\
     $(OBJDIR)XaUserLogin.o $(OBJDIR)XaUserLoginUi.o \
-    $(OBJDIR)XaLibRbUart.o
+    $(OBJDIR)XaLibRbUart.o \
+    $(OBJDIR)XaDomain.o $(OBJDIR)XaDomainUi.o
 
 #MACROS
 .PHONY: all all-before all-after clean print-variables
@@ -136,8 +137,10 @@ $(OBJDIR)XaLanguage.o: XaLanguage.cpp
 
 #$(OBJDIR)XaCurrency.o: XaCurrency.cpp 
 #	$(CPP) -c XaCurrency.cpp -o $(OBJDIR)XaCurrency.o $(CPPFLAGS)
-#$(OBJDIR)XaDomain.o: XaDomain.cpp 
-#	$(CPP) -c XaDomain.cpp -o $(OBJDIR)XaDomain.o $(CPPFLAGS)
+$(OBJDIR)XaDomain.o: XaDomain.cpp 
+	$(CPP) -c XaDomain.cpp -o $(OBJDIR)XaDomain.o $(CPPFLAGS)
+$(OBJDIR)XaDomainUi.o: XaDomainUi.cpp 
+	$(CPP) -c XaDomainUi.cpp -o $(OBJDIR)XaDomainUi.o $(CPPFLAGS)
 #$(OBJDIR)XaLibMail.o: XaLibMail.cpp 
 #	$(CPP) -c XaLibMail.cpp -o $(OBJDIR)XaLibMail.o $(CPPFLAGS)
 $(OBJDIR)XaLibRbUart.o: XaLibRbUart.cpp 

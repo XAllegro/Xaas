@@ -80,6 +80,17 @@ function XaFormTpl (ModelName) {
 
             Field+="<script>XaCreateOptions('','obj="+FObj+"&evt="+FEvt+"','"+FieldExtId+"','');</script>";
 
+        } else if (FType==="select-single-domain") {
+
+            Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+            Field+="<select id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\""+FType+"\" placeholder=\""+FPlaceholder+"\"" + FRequired+" autofocus=\"autofocus\" ></select>";
+
+            var FObj=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/obj");
+            var FEvt=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/evt");
+			var FDomain=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/domain");
+
+            Field+="<script>XaCreateOptions('','obj="+FObj+"&evt="+FEvt+"&domain="+FDomain+"','"+FieldExtId+"','');</script>";
+
         } else if (FType==="select-single-ou-tree") {
 
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
@@ -566,6 +577,21 @@ function XaUpdateFormTpl (ModelName,DataName) {
             } else {
               /* display only selected option */
               Field+="<script>XaCreateOptions('','obj="+FObj+"&evt="+FEvt+"&value="+FValue+"','"+FieldExtId+"','"+Fvalue+"');</script>";
+            }
+
+        } else if (FType==="select-single-domain") {
+
+            Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+            Field+="<select id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\""+FType+"\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" ></select>";
+
+            var FObj=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/obj");
+            var FEvt=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/evt");
+			var FDomain=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/field["+FieldId+"]/options/domain");
+            if (FUpdate==="yes") {
+              Field+="<script>XaCreateOptions('','obj="+FObj+"&evt="+FEvt+"&domain="+FDomain+"','"+FieldExtId+"','"+Fvalue+"');</script>";
+            } else {
+              /* display only selected option */
+              Field+="<script>XaCreateOptions('','obj="+FObj+"&evt="+FEvt+"&domain="+FDomain+"&value="+FValue+"','"+FieldExtId+"','"+Fvalue+"');</script>";
             }
 
         } else if (FType==="select-single-ou-tree") {
