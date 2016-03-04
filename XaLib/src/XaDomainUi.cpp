@@ -71,8 +71,10 @@ void XaDomainUi::List () {
 void XaDomainUi::ListAsOptions() {
 
     string Domain = HTTP.GetHttpParam("domain");
+    string TreeParentId=HTTP.GetHttpParam("tree_parent_ID");
+    
     XaLibCurl LibCurl;
-    string CallResponse = LibCurl.Call(BuildBackEndCall("XaDomain","ListAsOptions",{"order_by","domain"},{"name",Domain}));
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaDomain","ListAsOptions",{"order_by","domain","tree_parent_ID"},{"name",Domain,TreeParentId}));
     CheckResponse(CallResponse);
 
     RESPONSE.Content=CallResponse;

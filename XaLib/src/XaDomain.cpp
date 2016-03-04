@@ -86,7 +86,8 @@ void XaDomain::List() {
 
 void XaDomain::ListAsOptions() {
         string Domain=HTTP.GetHttpParam("domain");
-	
+	string TreeParentId=HTTP.GetHttpParam("tree_parent_ID");
+        
         vector<string> WhereFields={};
 	vector<string> WhereValues={};
 	vector<string> OrderByFields={};
@@ -121,6 +122,12 @@ void XaDomain::ListAsOptions() {
 
 		WhereFields.push_back("domain");
 		WhereValues.push_back(Domain);
+	};
+        
+        if (TreeParentId!="NoHttpParam") {
+
+		WhereFields.push_back("tree_parent_ID");
+		WhereValues.push_back(TreeParentId);
 	};
 
 	vector<string> ReturnedFields={"id","name"};
