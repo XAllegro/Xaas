@@ -65,6 +65,11 @@ function XaFormTpl (ModelName) {
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
             Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"email\" pattern=\"[^ @]*@[^ @]*\" placeholder=\""+FPlaceholder+"\"" + FRequired+" autofocus=\"autofocus\" ></input>";
 
+        } else if (FType==="input-number") {
+
+            Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+            Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"text\" pattern=\"\\d*\" placeholder=\""+FPlaceholder+"\"" + FRequired+" autofocus=\"autofocus\" ></input>";
+
         } else if (FType==="input-textarea") {
 
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
@@ -571,7 +576,12 @@ function XaUpdateFormTpl (ModelName,DataName) {
         } else if (FType==="input-email") {
 
             Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
-            Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"email\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
+            Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"email\" pattern=\"[^ @]*@[^ @]*\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
+
+        } else if (FType==="input-number") {
+
+            Field+="<label id=\""+ LId +"\" for=\""+FieldExtId +"\">"+FLabel+"</label>";
+            Field+="<input id=\""+FieldExtId+ "\" name=\""+FieldExtName+"\" type=\"text\" pattern=\"\\d*\" placeholder=\""+FPlaceholder+"\"" + FRequiredClause+FUpdateClause+" autofocus=\"autofocus\" value=\""+Fvalue+"\"></input>";
 
         } else if (FType==="input-textarea") {
 
