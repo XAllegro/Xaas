@@ -16,7 +16,9 @@ class XaUserUi : public XaLibAction {
 		void UpdateFrm();
 		void Update();
 		void Delete();
-
+		void Add();
+		void Mod();
+		void View();
 
 	protected:
 

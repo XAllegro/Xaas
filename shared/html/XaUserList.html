@@ -1,0 +1,112 @@
+<div id="ParentListContainer">
+    <div id="ListContainer">
+	<div id="DataContainer">
+		<script>
+
+/* This is the same code as in  XaListTpl */
+/* except for URLs of Mod and View action */
+
+    var XmlDoc=XaParseXml(XaModel);
+
+    var XmlDataDoc=XaParseXml(XaData);
+
+    var RootElement=XmlDoc.documentElement.nodeName;
+
+    var DataRowNumber=XaXmlCountElementByXpath(XmlDataDoc,"//list/item");
+
+    var FieldsToList=Array();
+
+    function BuildTitle (FieldIdx) {
+
+	var Title="";
+	var FLabel=XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldIdx+"]/label");
+	Title+=FLabel;
+	return Title;
+    };
+
+    function FindFields (ItemIdx,FieldId) {
+
+        var FieldsNumber=XaXmlCountElementByXpath(XmlDoc,"//field");
+ 	for (var j=1; j<=FieldsNumber; j++) {
+	    var FList =XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/list");
+            if (FList==="yes") {
+               FieldsToList.push(XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/name"));
+            }
+    	}
+    };
+
+    function BuildField (ItemIdx,FieldIdx) {
+
+        var Field="";
+        var FName=FieldsToList[FieldIdx-1];
+
+        var Fvalue=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ItemIdx+"]/"+FName);
+        Field+=Fvalue;
+
+        return Field;
+    };
+
+        var target=document.getElementById('ListContainer').parentNode.id;
+
+        /* Is it always true? */
+        var CallObj=RootElement+"Ui";
+
+        var Content="<div class=\"form form-1-column\">";
+
+        var CreateFrmCallUrl="obj="+CallObj+"&evt=CreateFrm";
+        CreateFrmCallUrl+="&lay=include";
+        CreateFrmAction="XaCallAction('','"+CreateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+        Content+="<center><a href=\"javascript:"+CreateFrmAction+"\">new</a><br/><br/></center>";
+
+        if (DataRowNumber>0) {
+
+            FindFields();
+
+            Content+="<table>";
+
+            Content+="<tr>";
+       	    for (var j=1; j<=FieldsToList.length; j++) {
+                Content+="<th>"+BuildTitle(j)+"</th>";
+       	    };
+            Content+="<th/><th/>";
+            Content+="</tr>";
+
+            for (i=1;i<=DataRowNumber;i++) {
+
+                var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
+                var ReadCallUrl="obj="+CallObj+"&evt=View&XaUser_ID="+id;
+                ReadCallUrl+="&lay=include";
+                var UpdateFrmCallUrl="obj="+CallObj+"&evt=Mod&XaUser_ID="+id;
+                UpdateFrmCallUrl+="&lay=include";
+                var DeleteCallUrl="obj="+CallObj+"&evt=Delete&id="+id;
+                DeleteCallUrl+="&lay=include";
+
+		ReadAction="XaCallAction('','"+ReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		UpdateFrmAction="XaCallAction('','"+UpdateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+                Content+="<tr ondblclick=\"javascript:"+ReadAction+";\">";
+                for (var j=1; j<=FieldsToList.length; j++) {
+                    Content+="<td>"+BuildField(i,j)+"</td>";
+                };
+
+                Content+="<td><a href=\"javascript:"+UpdateFrmAction+"\">update</a></td>";
+		Content+="&#32;";
+                Content+="<td><a href=\"javascript:"+DeleteAction+"\">delete</a></td>";
+
+                Content+="</tr>";
+            };
+            Content+="</table>";
+        } else {
+               Content+="<center>No data to show</center>";
+        };
+
+        Content+="</div>";
+
+			XaInnerHtmlWithScripts('DataContainer',Content);
+
+		</script>
+	</div>
+    </div>
+</div>

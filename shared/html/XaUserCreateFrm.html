@@ -1,16 +1,8 @@
-<div class="container">
+<div>
 
-	<script>
-		ExtractUserId=function(source) {
-			var UserId=document.getElementById(source).value;
-			UserId=UserId.substring(UserId.indexOf('<create>')+8,UserId.indexOf('</create>'));
-			return UserId;
-		};
-	</script>
+	<form class="form form-1-column" id="XaUser" name="XaUser" enctype="multipart/form-data" method="POST" action="javascript:XaCallAction('','obj=XaUserUi&evt=Create','XaUser-CreateResponse','POST',false,0,'','XaUser','StringHtml','','','');">
 
-	<form class="form form-1-column" id="XaUser" name="XaUser" enctype="multipart/form-data" method="POST" action="javascript:XaCallAction('','obj=XaUserUi&evt=Create','XaUser-CreateResponse','POST',false,0,'','XaUser','StringText','','','');XaCallAction('','obj=XaRbacRoleRXaUserUi&evt=CreateFrm&lay=include&XaUser_ID='+ExtractUserId('XaUser-CreateResponse'),'Li-XaRbacRoleRXaUser','POST',true,0,'','','StringHtml','yes','','');">
-
-		<input type="hidden" id="XaUser-CreateResponse"/>
+		<div id="XaUser-CreateResponse" style="visibility:hidden;line-height:0px;"></div>
 	
 		<fieldset>
 			<legend>create a new user</legend>
@@ -37,9 +29,5 @@
 		</fieldset>
 
 	</form>
-
-	<ul>
-		<li id="Li-XaRbacRoleRXaUser"></li>
-	</ul>
 
 </div>

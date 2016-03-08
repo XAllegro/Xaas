@@ -1,0 +1,20 @@
+<div class="container">
+
+	<div id="UserUpdateFrmContainer"></div>
+
+	<script>
+		XaCallAction('','obj=XaUserUi&evt=UpdateFrm&lay=include&id='+XaUser_ID,'UserUpdateFrmContainer','POST',true,0,'','','StringHtml','yes','','');
+	</script>
+
+	<div>
+		<ul>
+			<li id="LiTab-XaRbacRoleRXaUser">
+				<a onclick="javascript:XaCallAction('','obj=XaRbacRoleRXaUserUi&evt=List&lay=include&XaUser_ID='+XaUser_ID,'Li-XaRbacRoleRXaUser','POST',true,0,'','','StringHtml','yes','','');">Roles</a>
+			</li>
+		</ul>
+		<ul>
+			<li id="Li-XaRbacRoleRXaUser"></li>
+		</ul>
+	</div>
+
+</div>
