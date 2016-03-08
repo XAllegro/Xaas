@@ -778,7 +778,7 @@ function XaListTpl (ModelName,DataName) {
        	    for (var j=1; j<=FieldsToList.length; j++) {
                 Content+="<th>"+BuildTitle(j)+"</th>";
        	    };
-            Content+="<th/><th/>"
+            Content+="<th/><th/>";
             Content+="</tr>";
 
             for (i=1;i<=DataRowNumber;i++) {

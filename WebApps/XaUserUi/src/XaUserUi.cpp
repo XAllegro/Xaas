@@ -20,6 +20,10 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		this->Update();
 	} else if (CalledEvent=="Delete"){
 		this->Delete();
+	} else if (CalledEvent=="Add"){
+		this->Add();
+	} else if (CalledEvent=="Mod"){
+		this->Mod();
 	} else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
@@ -46,7 +50,7 @@ void XaUserUi::List () {
 	/* end of data */
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaGuiList");
+	Templates.push_back("XaUserList");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
@@ -138,6 +142,29 @@ void XaUserUi::Delete() {
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaUser","Delete",{"id"},{HTTP.GetHttpParam("id")}));
 	CheckResponse(CallResponse);
 	RESPONSE.Content="OK";
+};
+
+void XaUserUi::Add() {
+
+	AddJsVarString("XaGuiStyle","default");
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaUserAdd");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserUi::Mod() {
+
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	AddJsVarString("XaUser_ID",XaUser_ID);
+	AddJsVarString("XaGuiStyle","default");
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaUserMod");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
 
 XaUserUi::~XaUserUi(){
