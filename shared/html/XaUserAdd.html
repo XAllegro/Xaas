@@ -2,26 +2,25 @@
 
 	<script>
 		function ExtractUserId(source,target) {
-			var UserId=document.getElementById(source).innerHTML;
+			var UserId=document.getElementById(source).value;
 			UserId=UserId.substring(UserId.indexOf('<create>')+8,UserId.indexOf('</create>'));
-			document.getElementById(source).innerHTML=UserId;
-			document.getElementById(target).innerHTML=UserId;
+			document.getElementById(source).value=UserId;
+			document.getElementById(target).value=UserId;
 		};
 	</script>
 
-	<div id="UserId" style="visibility:hidden;line-height:0px;"></div>
+	<input type="hidden" id="UserId"/>
 	<div id="UserCreateFrmContainer"></div>
 
 	<script>
 		XaCallAction('','obj=XaUserUi&evt=CreateFrm&lay=include','UserCreateFrmContainer','POST',false,0,'','','StringHtml','yes','','');
 		document.forms.XaUser.action+="ExtractUserId('XaUser-CreateResponse','UserId');";
-		//alert(document.XaUser.action);
 	</script>
 
 	<div>
 		<ul>
 			<li id="LiTab-XaRbacRoleRXaUser">
-				<a onclick="javascript:if(document.getElementById('UserId').innerHTML!=''){XaCallAction('','obj=XaRbacRoleRXaUserUi&evt=List&lay=include&XaUser_ID='+document.getElementById('UserId').innerHTML,'Li-XaRbacRoleRXaUser','POST',true,0,'','','StringHtml','yes','','');};">Roles</a>
+				<a onclick="javascript:if(document.getElementById('UserId').value!=''){XaCallAction('','obj=XaRbacRoleRXaUserUi&evt=List&lay=include&XaUser_ID='+document.getElementById('UserId').value,'Li-XaRbacRoleRXaUser','POST',true,0,'','','StringHtml','yes','','');};">Roles</a>
 			</li>
 		</ul>
 		<ul>
