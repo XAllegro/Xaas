@@ -4,7 +4,7 @@
 		<script>
 
 /* This is the same code as in  XaListTpl */
-/* except for links to Mod action         */
+/* except for URLs of Mod and View action */
 
     var XmlDoc=XaParseXml(XaModel);
 
@@ -75,7 +75,7 @@
             for (i=1;i<=DataRowNumber;i++) {
 
                 var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
-                var ReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
+                var ReadCallUrl="obj="+CallObj+"&evt=View&XaUser_ID="+id;
                 ReadCallUrl+="&lay=include";
                 var UpdateFrmCallUrl="obj="+CallObj+"&evt=Mod&XaUser_ID="+id;
                 UpdateFrmCallUrl+="&lay=include";

@@ -24,6 +24,8 @@ void XaUserUi::Dispatcher (const string &CalledEvent) {
 		this->Add();
 	} else if (CalledEvent=="Mod"){
 		this->Mod();
+	} else if (CalledEvent=="View"){
+		this->View();
 	} else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
@@ -163,6 +165,19 @@ void XaUserUi::Mod() {
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
 	Templates.push_back("XaUserMod");
+
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
+};
+
+void XaUserUi::View() {
+
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	AddJsVarString("XaUser_ID",XaUser_ID);
+	AddJsVarString("XaGuiStyle","default");
+
+	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
+	Templates.push_back("XaUserView");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };

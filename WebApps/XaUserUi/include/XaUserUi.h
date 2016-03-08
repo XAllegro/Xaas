@@ -18,6 +18,7 @@ class XaUserUi : public XaLibAction {
 		void Delete();
 		void Add();
 		void Mod();
+		void View();
 
 	protected:
 
