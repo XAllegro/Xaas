@@ -28,32 +28,12 @@ class XaLibModel : protected XaLibBase {
 
     protected:
 
-        //vector<string> XmlModels;
-
-        //string DbTable;
-        //vector <string> Fields;
-        //vector <string> Values;
-
-        //vector<string> ReturnedFields;
-        //vector<string> WhereFields;
-        //vector<string> WhereValues;
-        //vector<string> OrderByFields;
-        //vector<string> GroupByFields;
-
-        //int Limit=0;
-
-        //void ResetPoperites ();
-
         virtual void Dispatcher (const string &CalledEvent)=0;
 
-        void DumpDbResMap(DbResMap& DbRes);
-        
         vector<string> AddXmlFile(const vector<string>& FileName);
 
-        void CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
-        
+        void CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);        
         int CreateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue);
-
         string CreateResponse(const int& NextId);
 
         vector<string> ReadPrepare(const vector<string>& XmlFiles,const string& XPathExpr,const int& WithSystemFields=0);
@@ -76,14 +56,6 @@ class XaLibModel : protected XaLibBase {
 
         int DeleteExecute(const string& DbTable,const string& RowId);
         string DeleteResponse(const int& DeletedId);
-
-        string BuildXml(DbResMap& ResMap,const string& Container,const string& GroupBy);
-
-        //virtual void Create()=0;
-        //virtual void Read()=0;
-//        virtual void List()=0;
-        //virtual void Delete()=0;
-        //virtual void Update()=0;
 
     public:
 

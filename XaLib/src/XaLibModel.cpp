@@ -3,20 +3,6 @@
 XaLibModel::XaLibModel() {
 };
 
-/*TO REMOVE*/
-void XaLibModel::DumpDbResMap(DbResMap& ResMap) {
-/*
-	for (auto i=0;i<ResMap.size();i++) {
-	
-		for (const auto &k:ResMap[i]) {
-
-			//LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"YYYYYYYYYY -> "+k.first+" :: " +k.second);
-		};
-	
-	};
-*/
-};
-
 vector<string> XaLibModel::AddXmlFile(const vector<string>& FileName){
 
 	vector<string> XmlFiles;
@@ -345,47 +331,6 @@ string XaLibModel::DeleteResponse(const int& DeletedId) {
 	return "<delete>"+to_string(DeletedId)+"</delete>";
 };
 
-/*
-void XaLibModel::ResetPoperites () {
-
-	Fields.empty();
-	Values.empty();
-	ReturnedFields.empty();
-	WhereFields.empty();
-	WhereValues.empty();
-	OrderByFields.empty();
-	GroupByFields.empty();
-	Limit=0;
-};
-*/
-/*
- se voglio properties->property nell'xml passo Properties,property
- */
-/*
-string XaLibModel::BuildXml(DbResMap& ResMap,const string& Container,const string& GroupBy) {
-	
-	string Xml="";
-	Xml.append("<").append(Container).append(">");
-	
-	for (auto i=0;i<ResMap.size();i++) {
-
-		Xml.append("<").append(GroupBy).append(">");
-
-		for (auto j=0;j<ReturnedFields.size();j++) {
-			
-			Xml.append("<").append(ReturnedFields[j]).append(">");
-			Xml.append(ResMap[i][ReturnedFields[j]]);
-			Xml.append("</").append(ReturnedFields[j]).append(">");
-		}
-
-		Xml.append("</").append(GroupBy).append(">");
-	}
-
-	Xml.append("</").append(Container).append(">");
-
-	return Xml;
-};
-*/
 void XaLibModel::Execute(){
 
 	//EXECUTE OBJECT DISPATCHER (CLASS DISPATCHER)
