@@ -1,4 +1,5 @@
 <XaUser>
+    <has_slave_form/>
     <form>
         <controller>XaUserUi</controller>
         <id>XaUser</id>
