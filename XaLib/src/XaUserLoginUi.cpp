@@ -22,19 +22,11 @@ void XaUserLoginUi::Dispatcher (const string &CalledEvent) {
 
 void XaUserLoginUi::LoginFrm () {
 
-	string StrError=HTTP.GetHttpParam("LoginStatus");
-	SetLayout("LoginFrm");
-	AddXmlFile("LoginFrm");
-	AddXslFile("LoginFrm");
+	vector<string> Templates=SetPageLayout("standalone");
+	Templates.push_back("XaUserLoginFrm");
 
-	AddXslParamCommon();
-
-	if (StrError=="error") {
-
-		AddXslParam("LoginStatus","error");
-	}
-
-	RESPONSE.Content=XaLibGui::CreateForm(XmlFiles,XmlStrings,XslFiles,XslStrings,XslParams);
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),{},{},{},0);
+	
 };
 
 void XaUserLoginUi::Login (){
@@ -64,7 +56,11 @@ void XaUserLoginUi::Login (){
 		SESSION.Token=token;
 		RESPONSE.ResponseType="location";
 		RESPONSE.Location="obj=XaPages&evt=XaMyPage";
-		RESPONSE.Content=CallResponse;	
+		RESPONSE.Content=CallResponse;
+		
+		
+		//se la risposta e un errore manda con un variabile per gestirlo
+		
 	}
 };
 
@@ -80,13 +76,10 @@ void XaUserLoginUi::Logout (){
 
 void XaUserLoginUi::LogoutFrm () {
 
-	SetLayout("LoginFrm");
-	AddXmlFile("LogoutFrm");
-	AddXslFile("LogoutFrm");
+	vector<string> Templates=SetPageLayout("standalone");
+	Templates.push_back("XaUserLogoutFrm");
 
-	AddXslParamCommon();
-
-	RESPONSE.Content=XaLibGui::CreateForm(XmlFiles,XmlStrings,XslFiles,XslStrings,XslParams);
+	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),{},{},{},0);
 };
 
 XaUserLoginUi::~XaUserLoginUi(){

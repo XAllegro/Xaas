@@ -31,7 +31,7 @@ vector<string> XaLibModel::AddXmlFile(const vector<string>& FileName){
 			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Xml File Does Not Exist -> "+i);
 			throw 203;
 		}
-	}	
+	}
 
 	return XmlFiles;
 };
@@ -39,7 +39,7 @@ vector<string> XaLibModel::AddXmlFile(const vector<string>& FileName){
 void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue){
 
 	vector <string> Properties ={"name","db_type","size","create","required"};
-	
+
 	//LOAD XML FOR MODEL
 	xmlDocPtr XmlDomDoc=XaLibDom::DomFromFile(AddXmlFile(XmlFiles),0);
 

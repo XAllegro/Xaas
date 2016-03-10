@@ -211,22 +211,26 @@ void XaLibAction::AddXslParam(const string& ParamName, const string& ParamValue)
 
 vector <string> XaLibAction::SetPageLayout (const string &LayoutType) {
 
-	vector<string> HtmlFiels={};
+	vector<string> HtmlFiles={};
 	
 	if (LayoutType=="complete" || LayoutType=="NoHttpParam"){
 
-		HtmlFiels={"XaGuiHead","XaGuiHeader"};
+		HtmlFiles={"XaGuiHead","XaGuiHeader"};
 
 	} else if (LayoutType=="include") {
 		
-		HtmlFiels={"XaGuiHeadVoid"};
+		HtmlFiles={"XaGuiHeadVoid"};
 	
 	} else if (LayoutType=="modal") {
 
-		HtmlFiels={"XaGuiHead"};
+		HtmlFiles={"XaGuiHead"};
+
+	} else if (LayoutType=="standalone") {
+
+		HtmlFiles={"XaGuiHead"};
 	}
 
-	return HtmlFiels;
+	return HtmlFiles;
 };
 		
 void XaLibAction::SetLayout(const string &LayoutType){

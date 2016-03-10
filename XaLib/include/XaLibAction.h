@@ -55,7 +55,7 @@ class XaLibAction : protected XaLibBase {
         vector<string> HtmlFiles={};
         vector<string> HtmlStrings={};
         vector<string> JsVarFiles = {};
-	vector<string> JsVarStrings = {};
+        vector<string> JsVarStrings = {};
 
         vector<string> XmlFiles;
         vector<string> XmlStrings;

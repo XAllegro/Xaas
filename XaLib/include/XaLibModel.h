@@ -43,9 +43,11 @@ class XaLibModel : protected XaLibBase {
         string ListResponse(DbResMap& DbRes,vector<string>& FieldsToRead);
 
         /*
-	INSERT INTO table (col1, col2, col3, ...)
-	SELECT col1, col2, col3, ... FROM table
-	WHERE PrimaryKey = 1
+            QUERY TO BACKUP THE RECORD:
+
+            INSERT INTO table (col1, col2, col3, ...)
+            SELECT col1, col2, col3, ... FROM table
+            WHERE PrimaryKey = 1
         */
         int BackupRecord(const string& DbTable,const int& RowId);
 
