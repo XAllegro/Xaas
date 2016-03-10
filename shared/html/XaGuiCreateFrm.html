@@ -1,6 +1,9 @@
-<div class="container">
-    <script>
-        var Tpl=new XaFormTpl(XaModel);
-        document.write(Tpl.GetForm());
-    </script>
+<div id="ParentCreateContainer">
+	<div class="container" id="CreateContainer">
+		<script>
+			var target=document.getElementById('CreateContainer').parentNode.id;
+			var Tpl=new XaFormTpl(XaModel);
+			XaInnerHtmlWithScripts(target,Tpl.GetForm());
+		</script>
+	</div>
 </div>

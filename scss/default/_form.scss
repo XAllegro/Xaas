@@ -62,6 +62,7 @@
 
                 textarea {
                      font-size: $FormFontSize;
+                     font-family: inherit;
                         /*$FormFontSize:$FontSize/100*90; //75%*/
                 }
             }

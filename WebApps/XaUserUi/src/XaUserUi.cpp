@@ -91,7 +91,7 @@ void XaUserUi::CreateFrm() {
 	AddJsVarString("XaGuiStyle","default");
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaUserCreateFrm");
+	Templates.push_back("XaGuiCreateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };
@@ -124,7 +124,7 @@ void XaUserUi::UpdateFrm() {
 	/* end of data */
 
 	vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-	Templates.push_back("XaUserUpdateFrm");
+	Templates.push_back("XaGuiUpdateFrm");
 
 	RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
 };

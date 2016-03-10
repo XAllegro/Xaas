@@ -5,6 +5,7 @@ function XaFormTpl (ModelName) {
     var RootElement=XmlDoc.documentElement.nodeName;
 
     var FieldsNumber=XaXmlCountElementByXpath(XmlDoc,"//fieldset/field");
+    var HasSlaveForm=XaXmlCountElementByXpath(XmlDoc,"//has_slave_form");
 
     var Controller=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/form/controller");    
     var Id=XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/form/id");
@@ -17,8 +18,11 @@ function XaFormTpl (ModelName) {
     var EncType="multipart/form-data";
 
     function BuildAction(){
-
-        var Action="javascript:XaCallAction('','obj="+Obj+"&amp;evt="+Evt+"','','"+Method+"',"+Async+",0,'','"+Id+"','StringText','','yes','');";
+        if(HasSlaveForm===0) {
+            var Action="javascript:XaCallAction('','obj="+Obj+"&evt="+Evt+"','','"+Method+"',"+Async+",0,'','"+Id+"','StringText','','yes','');";
+        } else {
+            var Action="javascript:XaCallAction('','obj="+Obj+"&evt="+Evt+"','"+Id+"-CreateResponse','"+Method+"',"+"false"+",0,'','"+Id+"','StringText','','','');";
+        }
         return Action;
     };
 
@@ -148,7 +152,9 @@ function XaFormTpl (ModelName) {
     this.GetForm = function () {
 
         var Content="<form class=\"form "+Class+"\" id=\""+Id+"\""+ " name=\""+Name+"\" enctype=\""+EncType+ "\" method=\""+Method+"\""+ " action=\""+BuildAction()+ "\">";
-
+        if (HasSlaveForm>0) {
+             Content+="<input type=\"hidden\" id=\""+Id+"-CreateResponse\"/>";
+        }
         Content+="<fieldset>";
         Content+="<legend>"+ XaXmlGetElementValueByXpath (XmlDoc,"/"+RootElement+"/fieldset/legend")+"</legend>";
         Content+="<ul>";
