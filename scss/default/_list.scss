@@ -17,10 +17,11 @@
         color:$ListHeaderFontColor;
         height: $ListTitleHeight;
 
-        td {
+        th {
             background:$ListHeaderBackgroundColor;
             border-radius:$BorderRadius;
             height:$ListTitleHeight;
+            text-align: left;
 
             span {
                 padding: 0.5%;
