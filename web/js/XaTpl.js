@@ -811,7 +811,6 @@ function XaListTpl (ModelName,DataName) {
                 };
 
                 Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
-		Content+="&#32;";
                 Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
 
                 Content+="</tr>";
