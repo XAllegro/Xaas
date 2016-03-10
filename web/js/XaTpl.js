@@ -766,21 +766,25 @@ function XaListTpl (ModelName,DataName) {
         /* Is it always true? */
         var CallObj=RootElement+"Ui";
 
-        var Content="<div class=\"form form-1-column\">";
+        var Content="<div>";
 
         var CreateFrmCallUrl="obj="+CallObj+"&evt=CreateFrm";
         CreateFrmCallUrl+="&lay=include";
         CreateFrmAction="XaCallAction('','"+CreateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
-        Content+="<center><a href=\"javascript:"+CreateFrmAction+"\">new</a><br/><br/></center>";
+        FindFields();
+
+        Content+="<table class=\"list\">";
+
+        var Title="Titolo Lista";
+        Content+="<tr class=\"title\"><td colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\">";
+        Content+="<li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li>";
+        Content+="<li class=\"FunctionIcon New\" onclick=\"javascript:"+CreateFrmAction+"\"></li>";
+        Content+="</ul></td></tr>";
 
         if (DataRowNumber>0) {
 
-            FindFields();
-
-            Content+="<table>";
-
-            Content+="<tr>";
+            Content+="<tr class=\"header\">";
        	    for (var j=1; j<=FieldsToList.length; j++) {
                 Content+="<th>"+BuildTitle(j)+"</th>";
        	    };
@@ -801,22 +805,23 @@ function XaListTpl (ModelName,DataName) {
 		UpdateFrmAction="XaCallAction('','"+UpdateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
-                Content+="<tr ondblclick=\"javascript:"+ReadAction+";\">";
+                Content+="<tr class=\"row\" ondblclick=\"javascript:"+ReadAction+";\">";
                 for (var j=1; j<=FieldsToList.length; j++) {
                     Content+="<td>"+BuildField(i,j)+"</td>";
                 };
 
-                Content+="<td><a href=\"javascript:"+UpdateFrmAction+"\">update</a></td>";
+                Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
 		Content+="&#32;";
-                Content+="<td><a href=\"javascript:"+DeleteAction+"\">delete</a></td>";
+                Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
 
                 Content+="</tr>";
             }
-            Content+="</table>";
+
         } else {
-               Content+="<center>No data to show</center>";
+               Content+="<tr class=\"row\"><td colspan=\"100%\"><center>No data to show</center></td></tr>";
         }
 
+        Content+="</table>";
         Content+="</div>";
 
         return Content;

@@ -30,7 +30,7 @@
             .RightToolbar {
 
                 float:right;
-                width:10%;
+                width:15%;
                 height:100%;
 
                 li {
@@ -38,7 +38,7 @@
                 }
 
                 .FunctionIcon {
-                    width: 45%;
+                    width: 20%;
                     height: 100%;
                     background-repeat:no-repeat;
                     background-position: center center;
@@ -55,7 +55,19 @@
                     float:right;
                     background-image:url('IconExpand.svg');
                 }
+
+                .New {
+                    float:right;
+                    margin-top: 2%;
+                }
+                .New:before {
+                    font-family: Awesome;
+                    content: "\f0f6";
+                    font-size: 90%;
+                }
+
             }
+
         }
     }
 
@@ -79,6 +91,21 @@
             border-bottom:1px solid #DDDDDD;
             padding: 0.5%;
         }
+
+        .RowFunction {
+            width: 4%;
+        }
+        .Update:before {
+            font-family: Awesome;
+            content: "\f044";
+            font-size: 90%;
+        }
+        .Delete:before {
+            font-family: Awesome;
+            content: "\f1f8";
+            font-size: 90%;
+        }
+
     }
 
     tr:hover td {
