@@ -227,7 +227,7 @@ function XaListRawTpl (DataName) {
         var Content="<table class=\"list\">";
         var Title="Titolo Lista";
  
-        Content+="<tr class=\"title\"><td colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\"><li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li></ul></td></tr>";
+        Content+="<tr class=\"title\"><th colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\"><li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li></ul></th></tr>";
 
         Content+=BuildHeader();
 
@@ -777,10 +777,10 @@ function XaListTpl (ModelName,DataName) {
         Content+="<table class=\"list\">";
 
         var Title="Titolo Lista";
-        Content+="<tr class=\"title\"><td colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\">";
+        Content+="<tr class=\"title\"><th colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\">";
         Content+="<li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li>";
         Content+="<li class=\"FunctionIcon New\" onclick=\"javascript:"+CreateFrmAction+"\"></li>";
-        Content+="</ul></td></tr>";
+        Content+="</ul></th></tr>";
 
         if (DataRowNumber>0) {
 
@@ -811,7 +811,6 @@ function XaListTpl (ModelName,DataName) {
                 };
 
                 Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
-		Content+="&#32;";
                 Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
 
                 Content+="</tr>";

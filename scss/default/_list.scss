@@ -17,10 +17,11 @@
         color:$ListHeaderFontColor;
         height: $ListTitleHeight;
 
-        td {
+        th {
             background:$ListHeaderBackgroundColor;
             border-radius:$BorderRadius;
             height:$ListTitleHeight;
+            text-align: left;
 
             span {
                 padding: 0.5%;
@@ -58,12 +59,12 @@
 
                 .New {
                     float:right;
+                    font-size: 110%;
                     margin-top: 2%;
                 }
                 .New:before {
                     font-family: Awesome;
-                    content: "\f0f6";
-                    font-size: 90%;
+                    content: "\f196";
                 }
 
             }

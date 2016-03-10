@@ -17,19 +17,23 @@
         /* Is it always true? */
         var CallObj=RootElement+"Ui";
 
-        var Content="<div class=\"form form-1-column\">";
+        var Content="<div>";
 
         var CreateFrmCallUrl="obj="+CallObj+"&evt=CreateFrm&XaUser_ID="+XaUser_ID;
         CreateFrmCallUrl+="&lay=include";
         CreateFrmAction="XaCallAction('','"+CreateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
-        Content+="<center><a href=\"javascript:"+CreateFrmAction+"\">new</a><br/><br/></center>";
+        Content+="<table class=\"list\">";
+
+	var Title="Associated Roles";
+        Content+="<tr class=\"title\"><th colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\">";
+        Content+="<li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li>";
+        Content+="<li class=\"FunctionIcon New\" onclick=\"javascript:"+CreateFrmAction+"\"></li>";
+        Content+="</ul></th></tr>";
 
         if (DataRowNumber>0) {
 
-            Content+="<table>";
-
-            Content+="<tr>";
+            Content+="<tr class=\"header\">";
             Content+="<th>XaRbacRole</th>";
             Content+="<th/><th/>";
             Content+="</tr>";
@@ -37,33 +41,30 @@
             for (i=1;i<=DataRowNumber;i++) {
 
                 var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
-                var ReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
-                ReadCallUrl+="&lay=include";
                 var UpdateFrmCallUrl="obj="+CallObj+"&evt=UpdateFrm&id="+id;
                 UpdateFrmCallUrl+="&lay=include";
                 var DeleteCallUrl="obj="+CallObj+"&evt=Delete&id="+id;
                 DeleteCallUrl+="&lay=include";
 
-		ReadAction="XaCallAction('','"+ReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 		UpdateFrmAction="XaCallAction('','"+UpdateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
 
-                Content+="<tr ondblclick=\"javascript:"+ReadAction+";\">";
+                Content+="<tr class=\"row\">";
 
                 Content+="<td>"+XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/XaRbacRole_ID")+"</td>";
 
-                Content+="<td><a href=\"javascript:"+UpdateFrmAction+"\">update</a></td>";
-		Content+="&#32;";
-                Content+="<td><a href=\"javascript:"+DeleteAction+"\">delete</a></td>";
+                Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
+                Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
 
                 Content+="</tr>";
 
             }
-            Content+="</table>";
+
         } else {
-               Content+="<center>No data to show</center>";
+               Content+="<tr class=\"row\"><td colspan=\"100%\"><center>No data to show</center></td></tr>";
         }
 
+        Content+="</table>";
         Content+="</div>";
 
 			XaInnerHtmlWithScripts('DataContainer',Content);
