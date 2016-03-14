@@ -1,7 +1,7 @@
 <div class="container">
 
 	<script>
-		function ExtractUserId(source,target) {
+		ExtractUserId=function(source,target) {
 			var UserId=document.getElementById(source).value;
 			UserId=UserId.substring(UserId.indexOf('<create>')+8,UserId.indexOf('</create>'));
 			document.getElementById(source).value=UserId;

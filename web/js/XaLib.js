@@ -214,12 +214,16 @@ function XaCallAsyncAction(controller,url,args){
 
                 if (args.JsEval==="yes") {
 
-                    var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
+			var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
 
-                    for (var i=0;i<scripts.length;i++) {
+			var script_array=Array();
+			for (var i=0;i<scripts.length;i++) {
+				script_array.push(scripts[i].innerHTML);
+			}
+			for (var i=0;i<script_array.length;i++) {
+				eval(script_array[i]);
+			}
 
-                        eval(scripts[i].innerHTML);
-                    }
                 }
 
             } else {
@@ -238,12 +242,16 @@ function XaCallAsyncAction(controller,url,args){
                 
                  if (args.JsEval==="yes") {
 
-                    var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
+			var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
 
-                    for (var i=0;i<scripts.length;i++) {
+			var script_array=Array();
+			for (var i=0;i<scripts.length;i++) {
+				script_array.push(scripts[i].innerHTML);
+			}
+			for (var i=0;i<script_array.length;i++) {
+				eval(script_array[i]);
+			}
 
-                        eval(scripts[i].innerHTML);
-                    }
                 }
                 
             } else {
@@ -493,10 +501,14 @@ function XaCallAction(controller,url,target,method,async,loader,LoaderTarget,For
 
 						var scripts = document.getElementById(target).getElementsByTagName('script');
 
+						var script_array=Array();
 						for (var i=0;i<scripts.length;i++) {
-
-							eval(scripts[i].innerHTML);
+							script_array.push(scripts[i].innerHTML);
 						}
+						for (var i=0;i<script_array.length;i++) {
+							eval(script_array[i]);
+						}
+
 					}
 
 					if(WithAlert==="yes"){
@@ -635,7 +647,12 @@ function XaInnerHtmlWithScripts(target,HtmlString) {
 	document.getElementById(target).innerHTML=HtmlString;
 	var scripts = document.getElementById(target).getElementsByTagName('script');
 
+	var script_array=Array();
 	for (var i=0;i<scripts.length;i++) {
-		eval(scripts[i].innerHTML);
+		script_array.push(scripts[i].innerHTML);
 	}
+	for (var i=0;i<script_array.length;i++) {
+		eval(script_array[i]);
+	}
+
 };
