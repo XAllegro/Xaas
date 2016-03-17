@@ -58,7 +58,8 @@ class XaLibController : protected XaLibBase {
 
         //void GetServerInfo();
 
-        void SendHeaders(const string& HeadersType);	
+        void SendHeaders(const string& HeadersType);
+        void SendError(const int& ErrorNumber,const string& ErrorDescription);
         //void SendHeadersLocation(const string& Location);
 
         /*

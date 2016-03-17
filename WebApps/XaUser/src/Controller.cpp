@@ -64,8 +64,9 @@ Controller::Controller(string ConfFile) {
 		string ErrorDesc=Error.GetError(e);
 
 		SendHtmlHeaders();
+		SendError(e,ErrorDesc);
 
-		cout<<"<WsData><error><number>"+FromIntToString(e)+"</number><description>"+ErrorDesc+"</description></error></WsData>"<<endl;
+		//cout<<"<WsData><error><number>"+FromIntToString(e)+"</number><description>"+ErrorDesc+"</description></error></WsData>"<<endl;
 
 	} catch (...) {
 

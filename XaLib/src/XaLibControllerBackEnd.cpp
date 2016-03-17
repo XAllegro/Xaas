@@ -33,17 +33,30 @@ void XaLibControllerBackEnd::SendResponse(){
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"RESPONSE="+RESPONSE.Content);
 
 		SendHeaders(RESPONSE.ResponseType);
-		
+
 		if (REQUEST.CalledObject=="XaUserLogin" && REQUEST.CalledEvent=="Login") {
-		
+
 			//LOGIN RETURN ALSO THE TOKEN
-			cout<<"<WsData><token>"+SESSION.Token+"</token>"+RESPONSE.Content+"</WsData>"<<endl;
+			if (RESPONSE.ResponseType=="json") {
+				
+				cout<<"{\"token\":\""+SESSION.Token+"\"}"<<endl;
+
+			} else if (RESPONSE.ResponseType=="xml") {
+
+				cout<<"<WsData><token>"+SESSION.Token+"</token>"+RESPONSE.Content+"</WsData>"<<endl;
+			}
 
 		} else {
-			
-			cout<<"<WsData>"+RESPONSE.Content+"</WsData>"<<endl;
-		}
-		
+
+			if (RESPONSE.ResponseType=="json") {
+
+				cout<<"{"+RESPONSE.Content+"}"<<endl;
+
+			} else if (RESPONSE.ResponseType=="xml") {
+
+				cout<<"<WsData>"+RESPONSE.Content+"</WsData>"<<endl;
+			}
+		}	
 };
 
 XaLibControllerBackEnd::~XaLibControllerBackEnd() {

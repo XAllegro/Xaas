@@ -1,0 +1,21 @@
+{
+    "XaUserLogin": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "json",
+        "ConsumerId": 3 
+    },
+
+    "XaUser": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "json",
+        "ConsumerId": 3 
+    }
+}

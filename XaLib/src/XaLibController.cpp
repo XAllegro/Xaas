@@ -124,5 +124,18 @@ void XaLibController::SendHeaders (const string& HeadersType) {
 	}
 };
 
+void XaLibController::SendError(const int& ErrorNumber,const string& ErrorDescription) {
+
+	if (RESPONSE.ResponseType=="json") {
+
+		cout<<"{\"error\":{\"number\":"+FromIntToString(ErrorNumber)+",\"description\":\""+ErrorDescription+"\"}}"<<endl;
+
+	} else if (RESPONSE.ResponseType=="xml") {
+
+		cout<<"<WsData><error><number>"+FromIntToString(ErrorNumber)+"</number><description>"+ErrorDescription+"</description></error></WsData>"<<endl;
+	}
+
+};
+
 XaLibController::~XaLibController() {
 };
