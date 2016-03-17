@@ -452,12 +452,18 @@ function XaReadTpl (ModelName,DataName) {
             var FName =XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldId+"]/name");
             var FLabel=XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldId+"]/label");
             var FValue=XaXmlGetElementValueByXpath(XmlDataDoc,"//read/"+FName);
+            var FType =XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldId+"]/type");
 
             Field+="<label>"+FLabel+"</label>: ";
-            Field+=FValue;
+            if (FType==='select-boolean') {
+                if (FValue==='1') {Field+='yes';};
+                if (FValue==='2') {Field+='no';};
+            } else {
+                Field+=FValue;
+            }
         }
 
-    return Field;
+        return Field;
     };
 
     /*can access _privateProperty and call _privateMethod*/
@@ -752,8 +758,14 @@ function XaListTpl (ModelName,DataName) {
         var Field="";
         var FName=FieldsToList[FieldIdx-1];
 
-        var Fvalue=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ItemIdx+"]/"+FName);
-        Field+=Fvalue;
+	var FType =XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldIdx+"]/type");
+        var FValue=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ItemIdx+"]/"+FName);
+        if (FType==='select-boolean') {
+            if (FValue==='1') {Field+='yes';};
+            if (FValue==='2') {Field+='no';};
+        } else {
+            Field+=FValue;
+        }
 
         return Field;
     };

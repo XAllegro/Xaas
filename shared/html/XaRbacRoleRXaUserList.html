@@ -1,7 +1,9 @@
 <div id="RUParentListContainer">
     <div id="ListContainer">
 	<div id="DataContainer">
-		<script>
+	</div>
+
+	<script>
 
     var XmlDoc=XaParseXml(XaModel);
     var XmlDataDoc=XaParseXml(XaData);
@@ -38,9 +40,9 @@
             Content+="<th/><th/>";
             Content+="</tr>";
 
-            for (i=1;i<=DataRowNumber;i++) {
+            for (var ir=1;ir<=DataRowNumber;ir++) {
 
-                var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
+                var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ir+"]/id");
                 var UpdateFrmCallUrl="obj="+CallObj+"&evt=UpdateFrm&id="+id;
                 UpdateFrmCallUrl+="&lay=include";
                 var DeleteCallUrl="obj="+CallObj+"&evt=Delete&id="+id;
@@ -51,7 +53,7 @@
 
                 Content+="<tr class=\"row\">";
 
-                Content+="<td>"+XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/XaRbacRole_ID")+"</td>";
+                Content+="<td>"+XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ir+"]/XaRbacRole_ID")+"</td>";
 
                 Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
                 Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
@@ -67,9 +69,9 @@
         Content+="</table>";
         Content+="</div>";
 
-			XaInnerHtmlWithScripts('DataContainer',Content);
+	XaInnerHtmlWithScripts('DataContainer',Content);
 
-		</script>
-	</div>
+	</script>
+	
     </div>
 </div>
