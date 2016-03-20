@@ -4,15 +4,10 @@
 
     require_once ('XaLibHttp.php');
     require_once ('XaUserLogin.php');
+    require_once ('XaUser.php');
     
-    $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaDashboard.json");
+    $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
     $Conf = json_decode($ConfFile, true);
 
     $HTTP=new XaLibHttp();
-
-    $obj =$HTTP->GetHttpParam("obj");
-    $evt =$HTTP->GetHttpParam("evt");
-
-    $ApiObject=new $obj($Conf,$HTTP,$evt);
-
 ?>

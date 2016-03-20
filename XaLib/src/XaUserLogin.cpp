@@ -24,7 +24,7 @@ void XaUserLogin::Dispatcher (const string &CalledEvent) {
 /*TEST CASE
  TUTTE LE COMBINAZIONI
  */
-void XaUserLogin::Login (){
+void XaUserLogin::Login () {
 
 	string StrUsername=HTTP.GetHttpParam("username");
 	string StrPassword=HTTP.GetHttpParam("password");

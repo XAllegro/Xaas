@@ -12,7 +12,9 @@
 @import '_dashboard';
 @import '_form';
 @import '_list';
+@import '_user_explorer';
 @import '_explorer';
+
 
 @include reset-all();
 
@@ -48,98 +50,26 @@ header {
     color: $HeaderFontColor;
     line-height:$HeaderLineHeight/100*120;
 }
-/*
-nav {
-    width: $NavWidth;
-    position: fixed;
-    top:$HeaderHeight;
-    bottom:0;
-    background-color: $NavBackgroundColor;
-    opacity:$ForeGroundOpacity;
-    color:$NavFontColor;
-    font-weight: 600;
-    font-size:$NavFontSize;
-    border-top:1px solid $ContainerBackgroundColor;
 
-    .nav {
-        height: 100%;
-        margin-top:$HeaderHeight;
-
-        ul, li, a, span {
-            margin: 0;
-            padding: 0;
-            border: none;
-            outline: none;
-            letter-spacing:1px;
-        }
-
-        li {
-            list-style: none;
-            text-transform:uppercase;
-        }
-
-        li > a {
-            display: block;
-            text-align: left;
-            position: relative;
-            padding: 0 10px 0 15px;
-            color: $NavFontColor;
-            line-height: 2.3em;
-            text-decoration: none;
-            border-bottom: 1px solid $ContainerBackgroundColor;
-            transition: all 0.25s;
-
-        }
-
-        li:hover {
-
-            background-color:$NavColorOver;
-            color:$NavFontColorHover;
-            color:black;
-
-            a:hover {
-
-                    color:$NavFontColorHover;
-            }
-
-        }
-
-        li:target {
-
-            background-color:$NavColorTarget;
-
-            a {
-
-                    color:$NavFontColorTarget;
-            }
-        }
-
-        .Logo {
-
-            border-top: 1px solid $ContainerBackgroundColor;
-            position:fixed;
-            bottom:0;
-            width: $NavWidth;
-            height:$LogoHeight;
-
-            background-repeat:no-repeat;
-            background-position: center center;
-            background-image:url('XAllegroLogoW.svg');
-            background-size: auto 90%;
-        }
-    }
-}
-*/
 .container {
     position: fixed;
     left:0;
     overflow: auto;
     top: $HeaderHeight;
     bottom: 0;
-    padding: 1%;
+    /*padding: 1%;*/
     right: 0;
 }
 
+.explorer {
+    position: fixed;
+    left:0;
+    overflow: auto;
+    top: $HeaderHeight;
+    bottom: 0;
+    //padding: 1%;
+    right: 0;
+}
 .LogHomePage {
 
     width: 96%;

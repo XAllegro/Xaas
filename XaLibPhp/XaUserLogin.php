@@ -16,8 +16,12 @@ require_once('XaLibApi.php');
 
 
 class XaUserLogin extends XaLibApi {
-    
-    function __construct(array &$Conf,XaLibHttp &$HTTP,string &$evt) {
+
+    function __construct() {
+        
+    }
+
+    public final function Execute (array &$Conf,XaLibHttp &$HTTP,string &$evt) {
         $this->$evt($Conf,$HTTP);
     }
 

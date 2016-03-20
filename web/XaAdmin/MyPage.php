@@ -1,7 +1,26 @@
+<?php require_once ('XaPage.php');?>
+
 <html id="html">
 
     <head id="head">
-         <?php require_once ('head.php');?>
+        <?php require_once ('head.php');?>
+        
+        <script>MenuArgsCall={
+            ResponseType:"Html",
+            TargetId:"detail",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"no",
+            WithAlert:"no",
+            AlertMessage:""
+            };
+        </script>
+
+
+        
+        
     </head>
 
     <body>
@@ -10,9 +29,25 @@
             <?php require_once ('header.php');?>
         </header>
         
-        <div class="container">
+        <div class="explorer">
 
-            <div class="dashboard">
+            <div class="nav">
+                <ul>
+
+                    <li><a href="#" onclick="">Applications</a></li>
+                    <li><a href="#" onclick='Xa.CallAction("","List.php?obj=XaUser&evt=List",MenuArgsCall);'>Users</a></li>
+                    <li>Role Based Access Control</li>
+                    <li>Configuration</li>
+                    <li>Audit</li>
+                    <li>Queues</li>
+                    <li>Statistics</li>
+                    <li>Logs</li>
+                </ul>
+            </div>
+            <div class="detail" id="detail">detail here</div>
+    
+        </div>
+            <!--div class="dashboard">
 
                 <div class="box BoxOu">
                     <p class="title">Organizational Units</p>
@@ -73,7 +108,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div-->
         </div>
     </body>
 </html>

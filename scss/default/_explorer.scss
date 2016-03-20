@@ -1,103 +1,150 @@
-/*
-    Project: XAAS
-    Alessandro Mariotti
-    alex@xallegro.com
-*/
 @import '_variables';
 
-    .tree {
+.explorer {
+
+    .nav {
         @include reset-a();
         
         resize:horizontal;
-        margin-right: 0.5%;
-        width: 20%;
+        //margin-right: 0.5%;
+        width: 15%;
         max-width: 80%;
-        background-color: $ListBackgroundColor;
-        opacity:$ForeGroundOpacity;
-        border-radius:$BorderRadius;
-        height: 98%;
+        background-color:rgba(189, 195, 199,0.75);
+        //background-color: $ListBackgroundColor;
+        //opacity:$ForeGroundOpacity;
+        //border-radius:$BorderRadius;
+        min-height: 100%;
         float:left;
         overflow: auto;
-        padding:0.5%;
-
-        .type {
-            width: 70%;
-        }
-        
-        .refresh:before {
-            font-family: Awesome;
-            content: "\f021";
-            float: right;
-        }
+        //padding:0.5%;
         
         ul {
-            font-size: $EplorerTreeFontSize;
-        }
-
-        li {
-            margin-left:15px;
-            padding-top: 15px;
-            white-space: nowrap;
-            list-style: none;
-
-            .close:before {
-                font-family: Awesome;
-                /*content: "\f111";*/
-                content: "\f105";
-                color:$EplorerTreeCircleColor;
-                margin-right: 5px;
+            
+            padding-top:15%;
+           
+            li:first-child {
+                border-top: 1px solid rgba(255, 255, 255,0.40);
             }
 
-            .close:hover:before {
-                color:$EplorerTreeCircleColorHover;
+            li {
+
+                font-size:100%;
+                padding-top:5%;
+                padding-bottom:5%;
+                padding-left: 10%;
+                list-style-position:inside;
+                border-bottom: 1px solid rgba(255, 255, 255,0.40);
+                
             }
             
-            .open:before {
-                font-family: Awesome;
-                /*content: "\f111";*/
-                content: "\f107";
-                color:$EplorerTreeCircleColorOpen;
-                margin-right: 5px;
+            li:hover {
+                background-color:rgba(255, 255, 255,0.45);
             }
-
-            .open:hover:before {
-            }
-
-            .name {
-
-            }
-            .edit:before {
-                font-family: Awesome;
-                content: "\f0f6";
-                margin-left:7.5px;
-                font-size: 90%;
-            }
-
-        }
-
-        
-        /*
-        li:before {
-            content:"->";
             
-        }*/
-        .parent {
-
-        }
-
-        .child {
-
+            li.selected {
+                background-color:rgba(255, 255, 255,0.45);
+                
+            }
         }
     }
   
-    .tree_detail {
+    .detail {
 
         @include reset-a();
         overflow: auto;
-        background-color: $ListBackgroundColor;
-        opacity:$ForeGroundOpacity;
-        font-size: $ListFontSize;
-        border-radius:$BorderRadius;
-        height: 98%;
+        background-color:rgba(255, 255, 255,0.75);
+        
         padding:0.5%;
+        //background-color: $ListBackgroundColor;
+        
+        //opacity:$ForeGroundOpacity;
+        //font-size: $ListFontSize;
+        //border-radius:$BorderRadius;
+       min-height: 98%;
+        //padding:0.5%;
     }
+}
+/*
+nav {
+    width: $NavWidth;
+    position: fixed;
+    top:$HeaderHeight;
+    bottom:0;
+    background-color: $NavBackgroundColor;
+    opacity:$ForeGroundOpacity;
+    color:$NavFontColor;
+    font-weight: 600;
+    font-size:$NavFontSize;
+    border-top:1px solid $ContainerBackgroundColor;
+
+    .nav {
+        height: 100%;
+        margin-top:$HeaderHeight;
+
+        ul, li, a, span {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            letter-spacing:1px;
+        }
+
+        li {
+            list-style: none;
+            text-transform:uppercase;
+        }
+
+        li > a {
+            display: block;
+            text-align: left;
+            position: relative;
+            padding: 0 10px 0 15px;
+            color: $NavFontColor;
+            line-height: 2.3em;
+            text-decoration: none;
+            border-bottom: 1px solid $ContainerBackgroundColor;
+            transition: all 0.25s;
+
+        }
+
+        li:hover {
+
+            background-color:$NavColorOver;
+            color:$NavFontColorHover;
+            color:black;
+
+            a:hover {
+
+                    color:$NavFontColorHover;
+            }
+
+        }
+
+        li:target {
+
+            background-color:$NavColorTarget;
+
+            a {
+
+                    color:$NavFontColorTarget;
+            }
+        }
+
+}*/
+
+/*
+        .Logo {
+
+            border-top: 1px solid $ContainerBackgroundColor;
+            position:fixed;
+            bottom:0;
+            width: $NavWidth;
+            height:$LogoHeight;
+
+            background-repeat:no-repeat;
+            background-position: center center;
+            background-image:url('XAllegroLogoW.svg');
+            background-size: auto 90%;
+        }
+    }
+*/

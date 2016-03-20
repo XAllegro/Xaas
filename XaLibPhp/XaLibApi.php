@@ -7,24 +7,19 @@ require_once('XaLibCurl.php');
  * @author alex
  */
 
-
 class XaLibApi {
-    
-    //protected $BackEndRes;
 
     protected final function GetBaseUrl(array &$Conf,string $ApiName):string {
-        
+
         $BaseUrl=$Conf[$ApiName]["Protocol"]."://".$Conf[$ApiName]["ApiUrl"]."?";
         $BaseUrl.="ReqType=".$Conf[$ApiName]["ReqType"];
         $BaseUrl.="&Encoding=".$Conf[$ApiName]["Encoding"];
         $BaseUrl.="&Encryption=".$Conf[$ApiName]["Encryption"];
         $BaseUrl.="&ResType=".$Conf[$ApiName]["ResType"];
-        $BaseUrl.="&ConsumerId=".$Conf[$ApiName]["ConsumerId"];  
-        
+        $BaseUrl.="&ConsumerId=".$Conf[$ApiName]["ConsumerId"];
         return $BaseUrl;
-        
     }
-    
+
     protected final function Redirect(string $page) {
         header( 'Location: '.$page ) ;
 
@@ -75,6 +70,26 @@ class XaLibApi {
         return $_SERVER['REMOTE_ADDR'];
     }
 
-}
+/*COMMON API CALLS*/
+    public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>List</event></operation>";
+            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl ($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+}
 ?>

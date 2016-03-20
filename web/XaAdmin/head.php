@@ -19,13 +19,13 @@
 <link rel="shortcut icon" type="image/png" href="#" />
 <link rel="stylesheet" type="text/css" href="/style/default/style.css" />
 
-<script type="text/javascript" src="XaConfig.js"></script>
+<!--script type="text/javascript" src="XaConfig.js"></script-->
 <script type="text/javascript" src="/js/Xa.js"></script>
-<script type="text/javascript" src="/js/XaUserLogin.js"></script>
+<!--script type="text/javascript" src="/js/XaUserLogin.js"></script-->
 
-<?php
+<!--?php
     ini_set('include_path', '/XAllegro/Xaas/XaLibPhp');
-?>
+?-->
 
 
 <!--script type="text/javascript" src="/js/XaReady.js"></script>

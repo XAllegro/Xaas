@@ -15,7 +15,7 @@
         "ReqType": "xml",
         "Encoding": "no",
         "Encryption": "no",
-        "ResType": "json",
+        "ResType": "xml",
         "ConsumerId": 3 
     }
 }
