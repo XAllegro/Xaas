@@ -1,8 +1,3 @@
-/*
-    Project: XAAS
-    Alessandro Mariotti
-    alex@xallegro.com
-*/
 @import '_variables';
 
     .tree {
@@ -31,7 +26,7 @@
         }
         
         ul {
-            font-size: $EplorerTreeFontSize;
+            font-size: $UserExplorerTreeFontSize;
         }
 
         li {
@@ -44,19 +39,19 @@
                 font-family: Awesome;
                 /*content: "\f111";*/
                 content: "\f105";
-                color:$EplorerTreeCircleColor;
+                color:$UserExplorerTreeCircleColor;
                 margin-right: 5px;
             }
 
             .close:hover:before {
-                color:$EplorerTreeCircleColorHover;
+                color:$UserExplorerTreeCircleColorHover;
             }
             
             .open:before {
                 font-family: Awesome;
                 /*content: "\f111";*/
                 content: "\f107";
-                color:$EplorerTreeCircleColorOpen;
+                color:$UserExplorerTreeCircleColorOpen;
                 margin-right: 5px;
             }
 
