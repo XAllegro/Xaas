@@ -7,7 +7,7 @@
         
         <script>MenuArgsCall={
             ResponseType:"Html",
-            TargetId:"detail",
+            TargetId:"content",
             CallMethod:"POST",
             CallAsync:"true",
             WithLoader:"no",
@@ -44,7 +44,12 @@
                     <li>Logs</li>
                 </ul>
             </div>
-            <div class="detail" id="detail">detail here</div>
+            <div class="detail" id="detail">
+                <div class="content" id="content">
+                
+                </div>
+            
+            </div>
     
         </div>
             <!--div class="dashboard">
