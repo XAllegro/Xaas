@@ -1,9 +1,10 @@
 <?php
 require_once ('XaPage.php');
 
-$user=new XaUser();
-$WsData= $user->List($Conf,$HTTP);
+$obj=$HTTP->GetHttpParam('obj');
 
+$object=new $obj();
+$WsData= $object->List($Conf,$HTTP);
 
 $TplList=new XaTplList();
 $List=$TplList->GetList($WsData);

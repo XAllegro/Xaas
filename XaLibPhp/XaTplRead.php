@@ -8,38 +8,33 @@ require_once('XaTpl.php');
  * @author alex
  */
 
-class XaTplList extends XaTpl{
+class XaTplRead extends XaTpl{
 
     function __construct() {
         
     }
 
-    public function GetList(array $WsData):string {
+    public function GetRead(array $WsData):string {
         
         $Content='<table class="list">';
-        $Title="Titolo Lista";
+        $Title="Dettaglio";
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
         
-        $ItemsNumber=count($WsData['list']['item']);
-
         /*ADDING TITLES*/        
         $Content.='<tr class="header">';
        
-        foreach($WsData['list']['item'][0] as $key => $value) {
+        foreach($WsData['read'] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         }
 
         $Content.='</tr>';
 
-        for ($i=0;$i<$ItemsNumber;$i++) {
-            
-         $Content.='<tr class="row">';
+        $Content.='<tr class="row">';
          
-          foreach($WsData['list']['item'][$i] as $value) { 
+        foreach($WsData['read'] as $value) { 
               
-              $Content.='<td>'.$value.'</td>'; 
-          }
+             $Content.='<td>'.$value.'</td>'; 
         }
 
         $Content.="</table>";
