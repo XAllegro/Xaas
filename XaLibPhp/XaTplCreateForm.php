@@ -16,7 +16,7 @@ class XaTplCreateForm {
     //function GetForm(array &$Data,string &$Style,string &$Action,array &$OptionNames, array &$OptionsValues) {
     function GetForm() {
 
-    $pippo=' <form  class="form form-1-column" id="UserCreateFrm" name="UserCreateFrm" method="POST" action="XaApi.php?obj=XaUser&evt=Create">
+    $form=' <form  class="form form-1-column" id="UserCreateFrm" name="UserCreateFrm" method="POST" action="XaApi.php?obj=XaUser&evt=Create">
 
 		               <fieldset>
                 		  <legend class="LogHomePage" style="line-height:2em" >
@@ -42,10 +42,10 @@ class XaTplCreateForm {
 						$options=$this->UserTypeListAsOptions($Conf,$HTTP);
 						for ($i=0; $i<count($options['list']['item']); $i++) {
 							///echo('<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>');
-                            $pippo.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+                            $form.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
 						}
 */
-$pippo.='
+$form.='
                 		          </select>
 		                      </li>
                 		      <li>
@@ -55,7 +55,7 @@ $pippo.='
 		               </fieldset>
 		            </form>
 ';
-return($pippo);
+return($form);
     }
 }
 ?>

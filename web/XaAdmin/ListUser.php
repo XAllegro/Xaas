@@ -4,7 +4,19 @@ require_once ('XaPage.php');
 $user=new XaUser;
 $WsData= $user->List($Conf,$HTTP);
 
-        $Content='<script>UserReadArgsCall={
+        $Content='<script>
+            UserReadArgsCall={
+            ResponseType:"Html",
+            TargetId:"detail",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
+            UserCreateFrmArgsCall={
             ResponseType:"Html",
             TargetId:"detail",
             CallMethod:"POST",
@@ -17,11 +29,15 @@ $WsData= $user->List($Conf,$HTTP);
             };
         </script>';
 
+$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'CreateFrm.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
+
         $Content.='<table class="list">';
         $Title="Titolo Lista";
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
-        
+
+      if (count($WsData['list'])>0) {        
+
         $ItemsNumber=count($WsData['list']['item']);
 
         /*ADDING TITLES*/        
@@ -43,7 +59,9 @@ $WsData= $user->List($Conf,$HTTP);
               $Content.='<td>'.$value.'</td>'; 
           }
         }
-
+     } else {
+        $Content.='<tr><td>No data</td></tr>';
+     }
         $Content.="</table>";
 
 echo $Content;

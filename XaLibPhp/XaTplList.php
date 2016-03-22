@@ -20,6 +20,8 @@ class XaTplList extends XaTpl{
         $Title="Titolo Lista";
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
+
+      if (count($WsData['list'])>0) {
         
         $ItemsNumber=count($WsData['list']['item']);
 
@@ -41,6 +43,9 @@ class XaTplList extends XaTpl{
               $Content.='<td>'.$value.'</td>'; 
           }
         }
+     } else {
+        $Content.='<tr><td>No data</td></tr>';
+     }
 
         $Content.="</table>";
         return $Content;

@@ -10,6 +10,7 @@ class XaUser : public XaLibModel {
 
         void Dispatcher(const string &CalledEvent);
 
+		void GetXmlModel();
         void Create();
         void Read();
 		void ReadForUpdateFrm();

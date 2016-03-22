@@ -71,6 +71,21 @@ class XaLibApi {
     }
 
 /*COMMON API CALLS*/
+
+    public function RearrangeListResultArray(array &$WsData) {
+	// When the list results contain a single <item> node, the 'item' level
+	// is missing from the array and must be added
+
+        if (count($WsData['list'])==0) {
+            // empty list, do nothing
+        } else if (isset($WsData['list']['item'][0])) {
+            // multiple items, do nothing
+        } else {
+            // single item, correction
+            $WsData['list']['item']=Array($WsData['list']['item']);
+       }
+    }
+
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
@@ -84,6 +99,7 @@ class XaLibApi {
             $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
             $json = json_encode($xml);
             $WsData = json_decode($json,TRUE);
+            $this->RearrangeListResultArray($WsData);
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
@@ -126,9 +142,32 @@ class XaLibApi {
             $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
             $json = json_encode($xml);
             $WsData = json_decode($json,TRUE);
+            $this->RearrangeListResultArray($WsData);
+
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
+    public function CreateFrm(array &$Conf,XaLibHttp &$HTTP):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
+            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+
         } else {
             //MANDARE LOGIN
         }
