@@ -3,4 +3,5 @@
     require_once ('XaTpl.php');
     require_once ('XaTplList.php');
     require_once ('XaTplRead.php');
+    require_once ('XaTplCreateForm.php');
 ?>

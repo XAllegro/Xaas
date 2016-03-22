@@ -35,7 +35,7 @@
                 <ul>
 
                     <li><a href="#" onclick="">Applications</a></li>
-                    <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
+                    <li><a href="#" onclick="Xa.CallAction('','ListUser.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
                     <li>Role Based Access Control</li>
                     <li>Configuration</li>
                     <li>Audit</li>

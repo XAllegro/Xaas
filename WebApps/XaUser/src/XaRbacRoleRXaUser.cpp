@@ -39,7 +39,7 @@ void XaRbacRoleRXaUser::List (){
 
 	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
 
-	vector<string> ReturnedFields={"id","XaUser_ID","XaRbacRole_ID"};
+	vector<string> ReturnedFields={"id","XaRbacRole_ID"};
 
 	string Qry="SELECT X.id, XaRbacRole.name AS XaRbacRole_ID FROM XaRbacRole_R_XaUser X";
 	Qry+=" LEFT JOIN XaRbacRole ON X.XaRbacRole_ID=XaRbacRole.id";

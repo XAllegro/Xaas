@@ -20,10 +20,10 @@
         <method>POST</method>
         <class>form-1-column</class>
     </update_form>
-    <fieldset id="XaUser" name="XaUser">
+    <fieldset>
         <legend>create&#32;a&#32;new&#32;user</legend>
 	<update_legend>update&#32;a&#32;user</update_legend>
-        <field id="name" name="name">
+        <field>
             <id>name</id>
             <name>name</name>
             <type>input-text</type>
@@ -39,7 +39,7 @@
             <db_type>string</db_type>
             <size></size>
         </field>
-        <field id="surname" name="surname">
+        <field>
             <id>surname</id>
             <name>surname</name>
             <type>input-text</type>
@@ -55,7 +55,7 @@
             <db_type>string</db_type>
             <size></size>
         </field>
-        <field id="XaUserType_ID" name="XaUserType_ID">
+        <field>
             <id>XaUserType_ID</id>
             <name>XaUserType_ID</name>
             <type>select-single</type>

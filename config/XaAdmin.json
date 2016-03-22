@@ -17,5 +17,16 @@
         "Encryption": "no",
         "ResType": "xml",
         "ConsumerId": 3 
+    },
+
+    "XaRbacRoleRXaUser": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
     }
+
 }
