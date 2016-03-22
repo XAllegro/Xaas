@@ -16,6 +16,8 @@ class XaDomainUi : public XaLibAction {
 	void UpdateFrm();
 	void Update();
         void Delete();
+        
+        void AddAttributes();
 
     protected:
 

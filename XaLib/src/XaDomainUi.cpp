@@ -20,6 +20,8 @@ void XaDomainUi::Dispatcher (const string &CalledEvent) {
         this->Update();
     } else if (CalledEvent=="Delete") {
         this->Delete();
+    } else if (CalledEvent=="AddAttributes"){
+	this->AddAttributes();
     } else {
 
         LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42:: Requested Event Does Not Exists -> "+CalledEvent);
@@ -120,6 +122,18 @@ void XaDomainUi::Delete() {
     string CallResponse = LibCurl.Call(BuildBackEndCall("XaDomain","Delete",{"id"},{Id}));
     CheckResponse(CallResponse);
     RESPONSE.Content="OK";
+};
+
+void XaDomainUi::AddAttributes() {
+
+    string All = HTTP.GetHttpParam("all");
+    string Name=HTTP.GetHttpParam("name");
+    
+    XaLibCurl LibCurl;
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaDomain","AddAttributes",{"all","name"},{All,Name}));
+    CheckResponse(CallResponse);
+
+    RESPONSE.Content=CallResponse;
 };
 
 XaDomainUi::~XaDomainUi(){

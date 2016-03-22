@@ -14,6 +14,9 @@ class XaDomain : public XaLibModel {
         void Delete();
         void List();
         void ListAsOptions();
+        void AddAttributes();
+        
+        string CreateDomainName(string String);
 
     protected:
 
