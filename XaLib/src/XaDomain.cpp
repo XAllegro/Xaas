@@ -164,9 +164,11 @@ void XaDomain::AddAttributes() {
         cond=" AND rp_att.name = '"+Name+"'";
     }
     
-    string Qry="SELECT rp_att.id,check_type AS type,rp_att.name,disp AS label,rp_att.has_value FROM rp_att,rp_att_t,rp_label_it WHERE rp_att.is_active=1 AND rp_att.rp_att_t_id=rp_att_t.id AND rp_label_it.rp_att_id=rp_att.id AND check_type NOT IN ('system','external')"+cond+" ORDER BY rp_att.id";
+    string Qry="SELECT rp_att.id,check_type AS type,rp_att.name,disp AS label,rp_att.has_value FROM rp_att,rp_att_t,rp_label_it WHERE (rp_att.id < 600 OR rp_att.id >700) AND rp_att.is_active=1 AND rp_att.rp_att_t_id=rp_att_t.id AND rp_label_it.rp_att_id=rp_att.id AND check_type NOT IN ('system','external')"+cond+" ORDER BY rp_att.id";
             
     DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+    
+    unique_ptr<XaLibChar> LibChar (new XaLibChar());
     
     for (unsigned int i=0; i<DbRes.size();i++){
         
@@ -182,7 +184,10 @@ void XaDomain::AddAttributes() {
 	FieldValue.push_back(DbRes[i]["name"]);
         
         FieldName.push_back("description");
-	FieldValue.push_back(DbRes[i]["label"]);
+	FieldValue.push_back(LibChar->UnclearAmpersand(DbRes[i]["label"]));
+        
+        FieldName.push_back("type");
+	FieldValue.push_back(DbRes[i]["type"]);
         
         FieldName.push_back("tree_parent_ID");
 	FieldValue.push_back("0");
@@ -199,14 +204,17 @@ void XaDomain::AddAttributes() {
         for (unsigned int l=0; l<DbRes1.size();l++){
             
             FieldName.push_back("domain");
-            FieldValue.push_back(Domain+"-Value"+DbRes1[l]["value"]);
+            FieldValue.push_back(Domain+"-Value");
 
             FieldName.push_back("name");
             FieldValue.push_back(DbRes1[l]["name"]);
 
             FieldName.push_back("description");
-            FieldValue.push_back(DbRes1[l]["label"]);
+            FieldValue.push_back(LibChar->UnclearAmpersand(DbRes1[l]["label"]));
 
+            FieldName.push_back("type");
+            FieldValue.push_back(DbRes[i]["type"]+"-value");
+            
             FieldName.push_back("tree_parent_ID");
             FieldValue.push_back(NextId);
             
