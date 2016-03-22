@@ -113,6 +113,26 @@ class XaLibApi {
         }
     }
 
+    public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,string $Obj,string $KeyName,string $KeyValue):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$Obj."</object><event>List</event></operation>";
+            $url.="<params><p><n>".$KeyName."</n><v>".$KeyValue."</v></p></params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
 
 }
 ?>
