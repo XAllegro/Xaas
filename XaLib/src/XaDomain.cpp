@@ -21,6 +21,8 @@ void XaDomain::Dispatcher (const string &CalledEvent) {
 	this->Update();
     } else if (CalledEvent=="Delete"){
 	this->Delete();
+    } else if (CalledEvent=="AddAttributes"){
+	this->AddAttributes();
     } else {
 	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
 	throw 42;
@@ -149,6 +151,97 @@ void XaDomain::Delete() {
 
 	int DeletedId=DeleteExecute("XaDomain",HTTP.GetHttpParam("id"));
 	RESPONSE.Content=DeleteResponse(DeletedId);
+};
+
+void XaDomain::AddAttributes() {
+    string All=HTTP.GetHttpParam("all");
+    string Name=HTTP.GetHttpParam("name");
+    
+    string cond="";
+    if (All=="yes")	{
+        cond="";
+    } else if (Name!="") {
+        cond=" AND rp_att.name = '"+Name+"'";
+    }
+    
+    string Qry="SELECT rp_att.id,check_type AS type,rp_att.name,disp AS label,rp_att.has_value FROM rp_att,rp_att_t,rp_label_it WHERE rp_att.is_active=1 AND rp_att.rp_att_t_id=rp_att_t.id AND rp_label_it.rp_att_id=rp_att.id AND check_type NOT IN ('system','external')"+cond+" ORDER BY rp_att.id";
+            
+    DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+    
+    for (unsigned int i=0; i<DbRes.size();i++){
+        
+        string Domain=CreateDomainName(DbRes[i]["name"]);
+        
+        vector<string> FieldName;	
+	vector<string> FieldValue;
+        
+        FieldName.push_back("domain");
+	FieldValue.push_back(Domain);
+        
+        FieldName.push_back("name");
+	FieldValue.push_back(DbRes[i]["name"]);
+        
+        FieldName.push_back("description");
+	FieldValue.push_back(DbRes[i]["label"]);
+        
+        FieldName.push_back("tree_parent_ID");
+	FieldValue.push_back("0");
+        
+        string NextId=FromIntToString(CreateExecute("XaDomain",FieldName,FieldValue));
+        
+        FieldName.clear();
+        FieldValue.clear();
+        
+        Qry="SELECT val AS value,rp_att_v.name AS name,disp AS label FROM rp_att_v,rp_label_it WHERE rp_att_v.id=rp_label_it.rp_att_v_id AND rp_att_v.rp_att_id="+DbRes[i]["id"]+" ORDER BY val";
+    
+        DbResMap DbRes1=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+        
+        for (unsigned int l=0; l<DbRes1.size();l++){
+            
+            FieldName.push_back("domain");
+            FieldValue.push_back(Domain+"-Value"+DbRes1[l]["value"]);
+
+            FieldName.push_back("name");
+            FieldValue.push_back(DbRes1[l]["name"]);
+
+            FieldName.push_back("description");
+            FieldValue.push_back(DbRes1[l]["label"]);
+
+            FieldName.push_back("tree_parent_ID");
+            FieldValue.push_back(NextId);
+            
+            CreateExecute("XaDomain",FieldName,FieldValue);
+        
+            FieldName.clear();
+            FieldValue.clear();
+        }
+    }
+    
+    RESPONSE.Content="Ok";
+};
+
+string XaDomain::CreateDomainName(string String) {
+
+    char c=String[0];
+    c=toupper(c);
+    String.replace(0,1,FromCharToString(c));
+    
+    int pos;
+    pos=0;
+    pos=String.find("_");
+
+    if (pos !=-1) {
+
+        while (pos!=-1){
+            char c=String[pos+1];
+            c=toupper(c);
+            String.replace(pos,2,FromCharToString(c));
+            pos=String.find("_",pos+1);
+        }
+
+    }
+    
+    return "Rp"+String;
 };
 
 XaDomain::~XaDomain(){
