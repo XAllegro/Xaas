@@ -81,7 +81,7 @@ class XaLibApi {
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl ($url));
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
             $json = json_encode($xml);
             $WsData = json_decode($json,TRUE);
             return $WsData;
@@ -91,5 +91,28 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
+
+    public function Read(array &$Conf,XaLibHttp &$HTTP):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Read</event></operation>";
+            $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
+
 }
 ?>
