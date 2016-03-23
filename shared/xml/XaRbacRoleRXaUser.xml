@@ -3,31 +3,31 @@
         <controller>XaUserUi</controller>
         <id>XaRbacRoleRXaUser</id>
         <name>XaRbacRoleRXaUser</name>
-        <obj>XaRbacRoleRXaUserUi</obj>
+        <obj>XaRbacRoleRXaUser</obj>
         <evt>Create</evt>
         <async>true</async>
         <method>POST</method>
-        <class>form-1-column</class>
+        <class>form form-1-column</class>
     </form>
     <update_form>
         <controller>XaUserUi</controller>
         <id>XaRbacRoleRXaUser</id>
         <name>XaRbacRoleRXaUser</name>
-        <obj>XaRbacRoleRXaUserUi</obj>
+        <obj>XaRbacRoleRXaUser</obj>
         <evt>Update</evt>
         <async>true</async>
         <method>POST</method>
-        <class>form-1-column</class>
+        <class>form form-1-column</class>
     </update_form>
-    <fieldset id="XaRbacRoleRXaUser" name="XaRbacRoleRXaUser">
+    <fieldset>
         <legend>create&#32;a&#32;new&#32;user&#32;role</legend>
 	<update_legend>update&#32;a&#32;user&#32;role</update_legend>
-        <field id="XaUser_ID" name="XaUser_ID">
+        <field>
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>
             <type>select-single</type>
             <options>
-                <obj>XaUserUi</obj>
+                <obj>XaUser</obj>
                 <evt>ListAsOptions</evt>
             </options>
             <label>XaUser_ID</label>
@@ -42,12 +42,12 @@
             <size></size>
             <db_type>string</db_type>
         </field>
-        <field id="XaRbacRole_ID" name="XaRbacRole_ID">
+        <field>
             <id>XaRbacRole_ID</id>
             <name>XaRbacRole_ID</name>
             <type>select-single</type>
             <options>
-                <obj>XaRbacRoleUi</obj>
+                <obj>XaRbacRole</obj>
                 <evt>ListAsOptions</evt>
             </options>
             <label>XaRbacRole_ID</label>

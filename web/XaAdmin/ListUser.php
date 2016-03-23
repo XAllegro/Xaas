@@ -29,7 +29,7 @@ $WsData= $user->List($Conf,$HTTP);
             };
         </script>';
 
-$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'CreateFrm.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
+$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'AddUser.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
 
         $Content.='<table class="list">';
         $Title="Titolo Lista";

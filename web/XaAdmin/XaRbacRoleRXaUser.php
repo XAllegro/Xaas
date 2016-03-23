@@ -1,6 +1,6 @@
 <?php
 
-require_once('XaLibApi.php');
+require_once ('XaPage.php');
 
 /**
  * Description of XaLibApi
