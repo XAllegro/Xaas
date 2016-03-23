@@ -16,7 +16,26 @@ class XaTplCreateForm {
     //function GetForm(array &$Data,string &$Style,string &$Action,array &$OptionNames, array &$OptionsValues) {
     function GetForm() {
 
-    $form=' <form  class="form form-1-column" id="UserCreateFrm" name="UserCreateFrm" method="POST" action="XaApi.php?obj=XaUser&evt=Create">
+    $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
+    $Conf = json_decode($ConfFile, true);
+    $HTTP=new XaLibHttp();
+
+    $form='<script>
+            UserCreateArgsCall={
+            ResponseType:"Html",
+            TargetId:"detail",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:"",
+            FormId:"UserCreateFrm"
+            };
+        </script>';
+
+    $form.='<form class="form form-1-column" id="UserCreateFrm" name="UserCreateFrm" method="POST" action="javascript:Xa.CallAction(\'\',\'XaApi.php?obj=XaUser&evt=Create\',UserCreateArgsCall);">
 
 		               <fieldset>
                 		  <legend class="LogHomePage" style="line-height:2em" >
@@ -37,15 +56,16 @@ class XaTplCreateForm {
                 		          <select id="XaUserType_ID-select" name="XaUserType_ID"required="required" autofocus="autofocus" >
 						<option value="" selected="selected">please select ...</option>
 
-';
-/*
-						$options=$this->UserTypeListAsOptions($Conf,$HTTP);
-						for ($i=0; $i<count($options['list']['item']); $i++) {
-							///echo('<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>');
-                            $form.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
-						}
-*/
-$form.='
+    ';
+
+    $usertype=new XaUserType();
+    $options= $usertype->ListAsOptions($Conf,$HTTP,'XaUserType');
+
+		for ($i=0; $i<count($options['list']['item']); $i++) {
+                     $form.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+		}
+
+    $form.='
                 		          </select>
 		                      </li>
                 		      <li>

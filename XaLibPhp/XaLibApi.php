@@ -77,11 +77,12 @@ class XaLibApi {
 	// is missing from the array and must be added
 
         if (count($WsData['list'])==0) {
-            // empty list, do nothing
+            // empty list, add empty array of items
+            $WsData['list']['item']=Array();
         } else if (isset($WsData['list']['item'][0])) {
             // multiple items, do nothing
         } else {
-            // single item, correction
+            // single item, correction with array in the middle
             $WsData['list']['item']=Array($WsData['list']['item']);
        }
     }
@@ -172,6 +173,61 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
+
+    public function Create(array &$Conf,XaLibHttp &$HTTP):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
+            $url.="<params>";
+            foreach($_GET as $n=>$v) {
+                if ($n!='obj' && $n!='evt') {
+                  $url.="<p><n>".$n."</n><v>".$v."</v></p>";
+                }
+            }
+            $url.="</params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+
+//print_r($WsData);
+echo($WsData['create']);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
+    public function ListAsOptions(array &$Conf,XaLibHttp &$HTTP,string $Obj):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$Obj."</object><event>ListAsOptions</event></operation>";
+            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            $this->RearrangeListResultArray($WsData);
+
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
 
 }
 ?>
