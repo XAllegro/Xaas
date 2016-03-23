@@ -4,21 +4,21 @@
         <controller>XaUserUi</controller>
         <id>XaUser</id>
         <name>XaUser</name>
-        <obj>XaUserUi</obj>
+        <obj>XaUser</obj>
         <evt>Create</evt>
         <async>true</async>
         <method>POST</method>
-        <class>form-1-column</class>
+        <class>form form-1-column</class>
     </form>
     <update_form>
         <controller>XaUserUi</controller>
         <id>XaUser</id>
         <name>XaUser</name>
-        <obj>XaUserUi</obj>
+        <obj>XaUser</obj>
         <evt>Update</evt>
         <async>true</async>
         <method>POST</method>
-        <class>form-1-column</class>
+        <class>form form-1-column</class>
     </update_form>
     <fieldset>
         <legend>create&#32;a&#32;new&#32;user</legend>
@@ -60,7 +60,7 @@
             <name>XaUserType_ID</name>
             <type>select-single</type>
             <options>
-                <obj>XaUserTypeUi</obj>
+                <obj>XaUserType</obj>
                 <evt>ListAsOptions</evt>
             </options>
             <label>XaUserType_ID</label>

@@ -11,71 +11,99 @@ require_once('XaLibApi.php');
 class XaTplCreateForm {
 
     function __construct() {
+        $this->ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
+        $this->Conf = json_decode($this->ConfFile, true);
+        $this->HTTP=new XaLibHttp();
     }
     
-    //function GetForm(array &$Data,string &$Style,string &$Action,array &$OptionNames, array &$OptionsValues) {
-    function GetForm() {
+    function GetForm(array $WsData) {
 
-    $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
-    $Conf = json_decode($ConfFile, true);
-    $HTTP=new XaLibHttp();
+    foreach($WsData['createfrm'] as $k=>$v) {
+        $model=$k;
+     }
 
     $form='<script>
-            UserCreateArgsCall={
+            CreateArgsCall={
             ResponseType:"Html",
             TargetId:"detail",
-            CallMethod:"POST",
-            CallAsync:"true",
+            CallMethod:"'.$WsData['createfrm'][$model]['form']['method'].'",
+            CallAsync:"'.$WsData['createfrm'][$model]['form']['async'].'",
             WithLoader:"no",
             LoaderTargetID:"",
             JsEval:"yes",
             WithAlert:"no",
             AlertMessage:"",
-            FormId:"UserCreateFrm"
+            FormId:"'.$WsData['createfrm'][$model]['form']['id'].'"
             };
         </script>';
 
-    $form.='<form class="form form-1-column" id="UserCreateFrm" name="UserCreateFrm" method="POST" action="javascript:Xa.CallAction(\'\',\'XaApi.php?obj=XaUser&evt=Create\',UserCreateArgsCall);">
+    $form.='<form 
+        class="'.$WsData['createfrm'][$model]['form']['class'].'" 
+        id="'.$WsData['createfrm'][$model]['form']['id'].'" 
+        name="'.$WsData['createfrm'][$model]['form']['name'].'" 
+        method="'.$WsData['createfrm'][$model]['form']['method'].'" 
+        action="javascript:Xa.CallAction(\'\',\'XaApi.php?obj='.$WsData['createfrm'][$model]['form']['obj'].'&evt='.$WsData['createfrm'][$model]['form']['evt'].'\',CreateArgsCall);"
+        >
 
-		               <fieldset>
-                		  <legend class="LogHomePage" style="line-height:2em" >
-		                      <img/>
-                		  </legend>
-
-		                  <ul>
-                		      <li>
-		                          <label id="name-label" for="name-input">Name</label>
-                		          <input id="name-input" name="name" type="text" placeholder="name" required="required" autofocus="autofocus" />
-		                      </li>
-                		      <li>
-		                          <label id="surname-label" for="surname-input">Name</label>
-                		          <input id="surname-input" name="surname" type="text" placeholder="surname" required="required" autofocus="autofocus" />
-		                      </li>
-                		      <li>
-		                          <label id="XaUserType_ID-label" for="XaUserType_ID-select">Name</label>
-                		          <select id="XaUserType_ID-select" name="XaUserType_ID"required="required" autofocus="autofocus" >
-						<option value="" selected="selected">please select ...</option>
-
+        <fieldset>
+            <legend class="LogHomePage" style="line-height:2em" >
+		<img/>
+                '.$WsData['createfrm'][$model]['fieldset']['legend'].'
+            </legend>
+            <ul>
     ';
 
-    $usertype=new XaUserType();
-    $options= $usertype->ListAsOptions($Conf,$HTTP,'XaUserType');
+        for($i=0; $i<count($WsData['createfrm'][$model]['fieldset']['field']); $i++) {
+            $form.= $this->BuildField($WsData['createfrm'][$model]['fieldset']['field'][$i]);
+        }
+ 
+    $form.='
+                <li>
+                    <button type="submit">Submit</button><br/><br/>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+    ';
+
+    return($form);
+
+    }
+
+    function BuildField(array $FieldNode) {
+
+        if ($FieldNode['create']=='yes') {
+
+            $field='<li>';
+
+            if ($FieldNode['type']=='input-text') {
+                $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
+           	$field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
+            }
+            if ($FieldNode['type']=='select-single') {
+                $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
+                $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+                $field.='<option value="" selected="selected">please select ...</option>';
+
+                $obj=$FieldNode['options']['obj'];
+                $evt=$FieldNode['options']['evt'];
+                $object=new $obj();
+
+                $options= $object->$evt($this->Conf,$this->HTTP,$obj);
 
 		for ($i=0; $i<count($options['list']['item']); $i++) {
-                     $form.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+                     $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
 		}
 
-    $form.='
-                		          </select>
-		                      </li>
-                		      <li>
-		                          <button type="submit">Submit</button><br/><br/>
-                		      </li>
-		                   </ul>
-		               </fieldset>
-		            </form>
-';
-return($form);
+                $field.='</select>';
+            }
+
+            $field.='</li>';
+
+        }
+
+        return $field;
     }
+
 }
 ?>
