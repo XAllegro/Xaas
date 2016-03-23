@@ -7,6 +7,8 @@
     require_once ('XaUser.php');
     require_once ('XaRbacRoleRXaUser.php');
     require_once ('XaUserType.php');
+    require_once ('XaOuType.php');
+    require_once ('XaRbacRole.php');
     
     $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
     $Conf = json_decode($ConfFile, true);

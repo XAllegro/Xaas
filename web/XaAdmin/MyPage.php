@@ -34,14 +34,17 @@
             <div class="nav">
                 <ul>
 
-                    <li><a href="#" onclick="">Applications</a></li>
+                    <!--li><a href="#" onclick="">Applications</a></li-->
                     <li><a href="#" onclick="Xa.CallAction('','ListUser.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
-                    <li>Role Based Access Control</li>
+                    <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaUserType&evt=List',MenuArgsCall);">User Types</a></li>
+                    <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaRbacRole&evt=List',MenuArgsCall);">User Roles</a></li>
+                    <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaOuType&evt=List',MenuArgsCall);">Ou Types</a></li>
+                    <!--li>Role Based Access Control</li>
                     <li>Configuration</li>
                     <li>Audit</li>
                     <li>Queues</li>
                     <li>Statistics</li>
-                    <li>Logs</li>
+                    <li>Logs</li-->
                 </ul>
             </div>
             <div class="detail" id="detail">detail here</div>

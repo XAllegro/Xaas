@@ -37,6 +37,26 @@
         "Encryption": "no",
         "ResType": "xml",
         "ConsumerId": 3 
+    },
+
+    "XaOuType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaRbacRole": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
     }
 
 }

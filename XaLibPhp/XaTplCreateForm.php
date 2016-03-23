@@ -79,8 +79,7 @@ class XaTplCreateForm {
             if ($FieldNode['type']=='input-text') {
                 $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
            	$field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
-            }
-            if ($FieldNode['type']=='select-single') {
+            } else if ($FieldNode['type']=='select-single') {
                 $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
                 $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
                 $field.='<option value="" selected="selected">please select ...</option>';
@@ -96,6 +95,11 @@ class XaTplCreateForm {
 		}
 
                 $field.='</select>';
+            } else if ($FieldNode['type']=='input-textarea') {
+                $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
+           	$field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" ></textarea>';
+            } else {
+                $field.='FIELD TYPE NOT SUPPORTED';
             }
 
             $field.='</li>';
