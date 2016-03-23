@@ -36,9 +36,9 @@ $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'CreateFrm.php?obj=XaUser&ev
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
 
-      if (count($WsData['list'])>0) {        
-
         $ItemsNumber=count($WsData['list']['item']);
+
+      if ($ItemsNumber>0) {
 
         /*ADDING TITLES*/        
         $Content.='<tr class="header">';
