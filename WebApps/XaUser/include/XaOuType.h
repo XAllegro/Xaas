@@ -10,7 +10,8 @@ class XaOuType : public XaLibModel {
         //vector<string> PropsName;
         //vector<string> PropsValue;
         //vector<string> PropsType;
-        
+
+		void GetXmlModel();
         void Create();
         void Read();
         void Update();

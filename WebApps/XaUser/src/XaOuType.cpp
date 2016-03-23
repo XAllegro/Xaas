@@ -7,7 +7,9 @@ XaOuType::XaOuType(){
 
 void XaOuType::Dispatcher (const string &CalledEvent) {
 
-	if (CalledEvent=="Create"){
+	if (CalledEvent=="GetXmlModel"){
+		this->GetXmlModel();
+	} else if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
 		 this->Read();
@@ -23,6 +25,32 @@ void XaOuType::Dispatcher (const string &CalledEvent) {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
 	}
+};
+
+void XaOuType::GetXmlModel() {
+
+	ifstream MyFile;
+	string Content;
+
+	vector<string> XmlFiles=AddXmlFile({"XaOuType"});
+
+	for (auto i=0;i<XmlFiles.size();i++) {
+
+		MyFile.open(XmlFiles[i].c_str());
+
+		if (MyFile.is_open()) {
+
+			string TmpString;
+
+			while(getline(MyFile,TmpString)) {
+				XaLibChar::ClearReturn(TmpString);
+				Content.append(TmpString);
+			}
+		}
+	}
+
+	RESPONSE.Content="<createfrm>"+Content+"</createfrm>";	
+
 };
 
 void XaOuType::Create() {
