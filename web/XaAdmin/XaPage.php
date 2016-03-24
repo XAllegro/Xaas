@@ -5,6 +5,9 @@
     require_once ('XaTplRead.php');
     require_once ('XaTplCreateForm.php');
     require_once ('XaTplUserCreateForm.php');
+    require_once ('XaTplUpdateForm.php');
+    require_once ('XaTplUserList.php');
     require_once ('XaTplRoleRUserCreateForm.php');
     require_once ('XaTplRoleRUserList.php');
+    require_once ('XaTplRoleRUserListForUpdate.php');
 ?>

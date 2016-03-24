@@ -1,11 +1,23 @@
 <?php
-require_once ('XaPage.php');
 
-$user=new XaUser;
-$WsData= $user->List($Conf,$HTTP);
+require_once('XaTpl.php');
 
+/**
+ * Description of XaLibApi
+ *
+ * @author alex
+ */
+
+class XaTplUserList extends XaTpl{
+
+    function __construct() {
+        
+    }
+
+    public function GetList(array $WsData):string {
+        
         $Content='<script>
-            UserReadArgsCall={
+            UserViewArgsCall={
             ResponseType:"Html",
             TargetId:"detail",
             CallMethod:"POST",
@@ -27,9 +39,20 @@ $WsData= $user->List($Conf,$HTTP);
             WithAlert:"no",
             AlertMessage:""
             };
+            UserModArgsCall={
+            ResponseType:"Html",
+            TargetId:"detail",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
         </script>';
 
-$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'AddUser.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
+        $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserAdd.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
 
         $Content.='<table class="list">';
         $Title="Titolo Lista";
@@ -46,24 +69,28 @@ $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'AddUser.php?obj=XaUser&evt=
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         }
+        $Content.='<th></th>';
 
         $Content.='</tr>';
 
         for ($i=0;$i<$ItemsNumber;$i++) {
 
          $RowId=$WsData['list']['item'][$i]['id'];
-         $Content.='<tr class="row" ondblclick="Xa.CallAction(\'\',\'ViewUser.php?obj=XaUser&evt=Read&id='.$RowId.'\',UserReadArgsCall);">';
+         $Content.='<tr class="row" ondblclick="Xa.CallAction(\'\',\'UserView.php?obj=XaUser&evt=Read&id='.$RowId.'\',UserViewArgsCall);">';
          
           foreach($WsData['list']['item'][$i] as $value) { 
-              
               $Content.='<td>'.$value.'</td>'; 
           }
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\',UserModArgsCall);">mod</a>';
+
         }
      } else {
         $Content.='<tr><td>No data</td></tr>';
      }
         $Content.="</table>";
 
-echo $Content;
+        return $Content;
 
+    }
+}
 ?>

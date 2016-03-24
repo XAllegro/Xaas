@@ -34,7 +34,7 @@ echo '</div>' ;
             };
         </script>';
 
-$Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserList.php?obj=XaRbacRoleRXaUser&evt=List&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">Roles</a>';
+$Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserListForUpdate.php?obj=XaRbacRoleRXaUser&evt=List&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">Roles</a>';
 echo '<br/></br/>';
 echo $Content;
 echo '<br/></br/>';

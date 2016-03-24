@@ -25,10 +25,9 @@ echo '<div id="user_box">' ;
 echo $Read;
 echo '</div>' ;
 
-echo '<br/>';
-
-echo '<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserList.php?obj=XaRbacRoleRXaUser&evt=List&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">Roles</a>';
-echo '<br/></br/>';
+echo '<br/><br/>';
+echo 'Roles';
+echo '<br/><br/>';
 
 echo '<div id="role_box">' ;
 echo $List;

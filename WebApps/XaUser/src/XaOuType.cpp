@@ -49,7 +49,7 @@ void XaOuType::GetXmlModel() {
 		}
 	}
 
-	RESPONSE.Content="<createfrm>"+Content+"</createfrm>";	
+	RESPONSE.Content="<model>"+Content+"</model>";
 
 };
 

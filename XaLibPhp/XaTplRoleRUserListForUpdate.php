@@ -8,7 +8,7 @@ require_once('XaTpl.php');
  * @author alex
  */
 
-class XaTplRoleRUserList extends XaTpl{
+class XaTplRoleRUserListForUpdate extends XaTpl{
 
     function __construct() {
         
@@ -16,7 +16,23 @@ class XaTplRoleRUserList extends XaTpl{
 
     public function GetList(array $WsData):string {
 
-        $Content='<table class="list">';
+        $Content='<script>
+            RoleRUserCreateFrmArgsCall={
+            ResponseType:"Html",
+            TargetId:"role_box",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
+        </script>';
+
+$Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserCreateFrm.php?obj=XaRbacRoleRXaUser&evt=CreateFrm&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">create</a>';
+
+        $Content.='<table class="list">';
         $Title="Titolo Lista";
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';

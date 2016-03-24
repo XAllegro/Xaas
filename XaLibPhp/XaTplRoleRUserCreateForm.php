@@ -18,7 +18,7 @@ class XaTplRoleRUserCreateForm {
     
     function GetForm(array $WsData) {
 
-    foreach($WsData['createfrm'] as $k=>$v) {
+    foreach($WsData['model'] as $k=>$v) {
         $model=$k;
      }
 
@@ -26,23 +26,23 @@ class XaTplRoleRUserCreateForm {
             CreateArgsCall={
             ResponseType:"Html",
             TargetId:"role_box",
-            CallMethod:"'.$WsData['createfrm'][$model]['form']['method'].'",
+            CallMethod:"'.$WsData['model'][$model]['form']['method'].'",
             CallAsync:"true",
             WithLoader:"no",
             LoaderTargetID:"",
             JsEval:"yes",
             WithAlert:"no",
             AlertMessage:"",
-            FormId:"'.$WsData['createfrm'][$model]['form']['id'].'"
+            FormId:"'.$WsData['model'][$model]['form']['id'].'"
             };
         </script>';
 
     $form.='<form 
-        class="'.$WsData['createfrm'][$model]['form']['class'].'" 
-        id="'.$WsData['createfrm'][$model]['form']['id'].'" 
-        name="'.$WsData['createfrm'][$model]['form']['name'].'" 
-        method="'.$WsData['createfrm'][$model]['form']['method'].'" 
-        action="javascript:Xa.CallAction(\'\',\'Create.php?obj='.$WsData['createfrm'][$model]['form']['obj'].'&evt='.$WsData['createfrm'][$model]['form']['evt'].'\',CreateArgsCall);"
+        class="'.$WsData['model'][$model]['form']['class'].'" 
+        id="'.$WsData['model'][$model]['form']['id'].'" 
+        name="'.$WsData['model'][$model]['form']['name'].'" 
+        method="'.$WsData['model'][$model]['form']['method'].'" 
+        action="javascript:Xa.CallAction(\'\',\'Create.php?obj='.$WsData['model'][$model]['form']['obj'].'&evt='.$WsData['model'][$model]['form']['evt'].'\',CreateArgsCall);"
         >
 
         <input id="XaUser_ID" name="XaUser_ID" value="'.$this->HTTP->GetHttpParam('XaUser_ID').'"/>
@@ -50,14 +50,14 @@ class XaTplRoleRUserCreateForm {
         <fieldset>
             <legend class="LogHomePage" style="line-height:2em" >
 		<img/>
-                '.$WsData['createfrm'][$model]['fieldset']['legend'].'
+                '.$WsData['model'][$model]['fieldset']['legend'].'
             </legend>
             <ul>
     ';
 
-        for($i=0; $i<count($WsData['createfrm'][$model]['fieldset']['field']); $i++) {
-if ($WsData['createfrm'][$model]['fieldset']['field'][$i]['id']!='XaUser_ID') {
-            $form.= $this->BuildField($WsData['createfrm'][$model]['fieldset']['field'][$i]);
+        for($i=0; $i<count($WsData['model'][$model]['fieldset']['field']); $i++) {
+if ($WsData['model'][$model]['fieldset']['field'][$i]['id']!='XaUser_ID') {
+            $form.= $this->BuildField($WsData['model'][$model]['fieldset']['field'][$i]);
 }
         }
  
