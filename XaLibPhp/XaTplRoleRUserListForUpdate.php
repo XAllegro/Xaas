@@ -39,6 +39,17 @@ class XaTplRoleRUserListForUpdate extends XaTpl{
             WithAlert:"no",
             AlertMessage:""
             };
+            RoleRUserDeleteArgsCall={
+            ResponseType:"Html",
+            TargetId:"role_box",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
 
         </script>';
 
@@ -60,6 +71,7 @@ $Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\')
             $Content.='<th>'.$key.'</th>';
         }
         $Content.='<th></th>';
+        $Content.='<th></th>';
 
         $Content.='</tr>';
 
@@ -72,6 +84,7 @@ $Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\')
               $Content.='<td>'.$value.'</td>'; 
           }
           $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'XaRbacRoleRXaUserUpdateFrm.php?obj=XaRbacRoleRXaUser&evt=UpdateFrm&id='.$RowId.'\',RoleRUserUpdateFrmArgsCall);">mod</a>';
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaRbacRoleRXaUser&evt=Delete&id='.$RowId.'\',RoleRUserDeleteArgsCall);">del</a>';
 
         }
      } else {

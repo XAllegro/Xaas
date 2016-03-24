@@ -50,6 +50,17 @@ class XaTplUserListForUpdate extends XaTpl{
             WithAlert:"no",
             AlertMessage:""
             };
+            UserDelArgsCall={
+            ResponseType:"Html",
+            TargetId:"detail",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
         </script>';
 
         $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserAdd.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
@@ -70,6 +81,7 @@ class XaTplUserListForUpdate extends XaTpl{
             $Content.='<th>'.$key.'</th>';
         }
         $Content.='<th></th>';
+        $Content.='<th></th>';
 
         $Content.='</tr>';
 
@@ -82,6 +94,7 @@ class XaTplUserListForUpdate extends XaTpl{
               $Content.='<td>'.$value.'</td>'; 
           }
           $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\',UserModArgsCall);">mod</a>';
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaUser&evt=Delete&id='.$RowId.'\',UserDelArgsCall);">del</a>';
 
         }
      } else {
