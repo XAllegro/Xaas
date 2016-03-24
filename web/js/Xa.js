@@ -157,7 +157,7 @@ Xa.CallAction=function (controller,url,args){
     if(args.FormId===undefined) { args.FormId=""; }
 
     if (args.FormId!=="") {
-        url= url + "&" +XaSerializeForm (args.FormId);
+        url= url + "&" +Xa.XaSerializeForm (args.FormId);
     }
 
     if(args.WithLoader==="yes") {
@@ -269,4 +269,89 @@ Xa.Redirect = function(Page) {
     } else {
         //window.location.href =XaApp.Config.url+Page;
     }
+};
+
+
+Xa.XaSerializeForm = function (FormId) {
+
+/*
+	for (var i=0;i<FormElement.length;i++){
+		
+		alert(FormElement.elements[i].nodeName);
+		alert(FormElement.elements[i].name);
+		alert(FormElement.elements[i].type);
+		alert(FormElement.elements[i].value);
+	}		
+*/		
+var FormElement = document.getElementById(FormId);
+
+        var i, j, q = [];
+
+        for (i = FormElement.elements.length - 1; i >= 0; i = i - 1) {
+
+                if (FormElement.elements[i].name === "") {
+                        continue;
+                }
+
+                switch (FormElement.elements[i].nodeName) {
+
+                    case 'INPUT':
+                    switch (FormElement.elements[i].type) {
+                    case 'text':
+                    case 'hidden':
+                    case 'password':
+                    case 'email':
+                    case 'search':
+                    case 'number':
+                    //case 'button':
+                    //case 'reset':
+                    //case 'submit':
+                        q.push(FormElement.elements[i].name + "=" + encodeURIComponent(FormElement.elements[i].value));
+                        break;
+
+                    case 'checkbox':
+                    case 'radio':
+                        if (FormElement.elements[i].checked) {
+                                q.push(FormElement.elements[i].name + "=" + encodeURIComponent(FormElement.elements[i].value));
+                        }                                               
+                        break;
+                    }
+                    break;
+
+                    case 'file':
+
+                    break;
+
+                    case 'TEXTAREA':
+                        q.push(FormElement.elements[i].name + "=" + encodeURIComponent(FormElement.elements[i].value));
+                    break;
+                                    case 'SELECT':
+                    switch (FormElement.elements[i].type) {
+                                                    case 'select-one':
+                            q.push(FormElement.elements[i].name + "=" + encodeURIComponent(FormElement.elements[i].value));
+                            break;
+                                                    case 'select-multiple':
+                            for (j = FormElement.elements[i].options.length - 1; j >= 0; j = j - 1) {
+                                    if (FormElement.elements[i].options[j].selected) {
+                                            q.push(FormElement.elements[i].name + "=" + encodeURIComponent(FormElement.elements[i].options[j].value));
+                                    }
+                            }
+                            break;
+                    }
+                    break;
+	/*
+                case 'BUTTON':
+                        switch (form.elements[i].type) {
+                        case 'reset':
+                        case 'submit':
+                        case 'button':
+                                q.push(form.elements[i].name + "=" + encodeURIComponent(form.elements[i].value));
+                                break;
+                        }
+                        break;
+											*/
+                }
+        }
+
+    return q.join("&");
 };

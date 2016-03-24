@@ -8,7 +8,7 @@ require_once('XaLibApi.php');
  * @author alex
  */
 
-class XaTplCreateForm {
+class XaTplUserCreateForm {
 
     function __construct() {
         $this->ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
@@ -24,10 +24,10 @@ class XaTplCreateForm {
 
     $form='<script>
             CreateArgsCall={
-            ResponseType:"Html",
-            TargetId:"detail",
+            ResponseType:"Text",
+            TargetId:"XaUserId",
             CallMethod:"'.$WsData['createfrm'][$model]['form']['method'].'",
-            CallAsync:"'.$WsData['createfrm'][$model]['form']['async'].'",
+            CallAsync:"false",
             WithLoader:"no",
             LoaderTargetID:"",
             JsEval:"yes",
@@ -36,6 +36,8 @@ class XaTplCreateForm {
             FormId:"'.$WsData['createfrm'][$model]['form']['id'].'"
             };
         </script>';
+
+    //$form.='<input id="NextId"/>' ;
 
     $form.='<form 
         class="'.$WsData['createfrm'][$model]['form']['class'].'" 

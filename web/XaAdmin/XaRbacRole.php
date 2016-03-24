@@ -9,7 +9,7 @@ require_once('XaLibApi.php');
  * @author alex@xallegro.com
  */
 
-class XaRbacRoleRXaUser extends XaLibApi {
+class XaRbacRole extends XaLibApi {
 
    function __construct() {
 

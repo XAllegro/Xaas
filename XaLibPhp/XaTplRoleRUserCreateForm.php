@@ -8,7 +8,7 @@ require_once('XaLibApi.php');
  * @author alex
  */
 
-class XaTplCreateForm {
+class XaTplRoleRUserCreateForm {
 
     function __construct() {
         $this->ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
@@ -25,9 +25,9 @@ class XaTplCreateForm {
     $form='<script>
             CreateArgsCall={
             ResponseType:"Html",
-            TargetId:"detail",
+            TargetId:"role_box",
             CallMethod:"'.$WsData['createfrm'][$model]['form']['method'].'",
-            CallAsync:"'.$WsData['createfrm'][$model]['form']['async'].'",
+            CallAsync:"true",
             WithLoader:"no",
             LoaderTargetID:"",
             JsEval:"yes",
@@ -45,6 +45,8 @@ class XaTplCreateForm {
         action="javascript:Xa.CallAction(\'\',\'Create.php?obj='.$WsData['createfrm'][$model]['form']['obj'].'&evt='.$WsData['createfrm'][$model]['form']['evt'].'\',CreateArgsCall);"
         >
 
+        <input id="XaUser_ID" name="XaUser_ID" value="'.$this->HTTP->GetHttpParam('XaUser_ID').'"/>
+
         <fieldset>
             <legend class="LogHomePage" style="line-height:2em" >
 		<img/>
@@ -54,7 +56,9 @@ class XaTplCreateForm {
     ';
 
         for($i=0; $i<count($WsData['createfrm'][$model]['fieldset']['field']); $i++) {
+if ($WsData['createfrm'][$model]['fieldset']['field'][$i]['id']!='XaUser_ID') {
             $form.= $this->BuildField($WsData['createfrm'][$model]['fieldset']['field'][$i]);
+}
         }
  
     $form.='
