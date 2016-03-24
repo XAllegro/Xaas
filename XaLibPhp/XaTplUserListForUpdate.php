@@ -8,7 +8,7 @@ require_once('XaTpl.php');
  * @author alex
  */
 
-class XaTplUserList extends XaTpl{
+class XaTplUserListForUpdate extends XaTpl{
 
     function __construct() {
         

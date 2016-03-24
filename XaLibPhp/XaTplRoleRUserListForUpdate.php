@@ -28,6 +28,18 @@ class XaTplRoleRUserListForUpdate extends XaTpl{
             WithAlert:"no",
             AlertMessage:""
             };
+            RoleRUserUpdateFrmArgsCall={
+            ResponseType:"Html",
+            TargetId:"role_box",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
+
         </script>';
 
 $Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserCreateFrm.php?obj=XaRbacRoleRXaUser&evt=CreateFrm&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">create</a>';
@@ -47,6 +59,7 @@ $Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\')
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         }
+        $Content.='<th></th>';
 
         $Content.='</tr>';
 
@@ -56,9 +69,10 @@ $Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\')
          $Content.='<tr class="row">';
          
           foreach($WsData['list']['item'][$i] as $value) { 
-              
               $Content.='<td>'.$value.'</td>'; 
           }
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'XaRbacRoleRXaUserUpdateFrm.php?obj=XaRbacRoleRXaUser&evt=UpdateFrm&id='.$RowId.'\',RoleRUserUpdateFrmArgsCall);">mod</a>';
+
         }
      } else {
         $Content.='<tr><td>No data</td></tr>';

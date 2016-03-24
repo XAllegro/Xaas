@@ -27,7 +27,7 @@ echo '</div>' ;
 
 echo '<br/>';
 
-echo '<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserList.php?obj=XaRbacRoleRXaUser&evt=List&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">Roles</a>';
+echo '<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserListForUpdate.php?obj=XaRbacRoleRXaUser&evt=List&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">Roles</a>';
 echo '<br/></br/>';
 
 echo '<div id="role_box">' ;
