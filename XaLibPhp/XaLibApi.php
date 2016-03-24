@@ -152,6 +152,35 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
+    
+    public function ListWithKeyArray(array &$Conf,XaLibHttp &$HTTP,string $Obj,array $KeyName,array $KeyValue):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<operation><object>".$Obj."</object><event>List</event></operation>";
+            $url.="<params>";
+            
+            for ($i = 0; $i < count($KeyName); $i++) {
+              $url.="<p><n>".$KeyName[$i]."</n><v>".$KeyValue[$i]."</v></p>";
+            }
+            
+            $url.="</params>";
+            $url.="</WsData>";
+
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $WsData = json_decode($json,TRUE);
+            $this->RearrangeListResultArray($WsData);
+
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
 
     public function CreateFrm(array &$Conf,XaLibHttp &$HTTP):array {
 
