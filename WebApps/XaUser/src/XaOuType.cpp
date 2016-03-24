@@ -94,7 +94,7 @@ void XaOuType::List() {
 	};
 	
 	/*STATUS*/
-	string PassedStatus=HTTP.GetHttpParam("status");
+	string PassedStatus="1";//HTTP.GetHttpParam("status");
 	
 	if (PassedStatus!="NoHttpParam") {
 
