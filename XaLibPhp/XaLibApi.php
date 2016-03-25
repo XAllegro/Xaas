@@ -26,6 +26,18 @@ class XaLibApi {
 
         return $section;
     }
+
+    protected final function ClearParamValue(string $v):string {
+
+        $v=rawurlencode($v);
+        // clear for xml
+        $v=str_replace('%26','%2526',$v);	// & -> %26 -> %2526
+        $v=str_replace('%3C','%253C',$v);	// < -> %3C -> %253C
+        $v=str_replace('%3E','%253E',$v);	// > -> %3E -> %253E
+        // ' " yet to be cleared
+
+        return $v;
+    }
     
     protected final function GetCurlResAsArray(string $url):array {
         
@@ -92,7 +104,7 @@ class XaLibApi {
 	// When the list results contain a single <item> node, the 'item' level
 	// is missing from the array and must be added
 
-        if (count($WsData['list'])==0) {
+        if (!isset($WsData['list']['item'])) {
             // empty list, add empty array of items
             $WsData['list']['item']=Array();
         } else if (isset($WsData['list']['item'][0])) {
@@ -114,7 +126,7 @@ class XaLibApi {
             $url.="</WsData>";
 
             $WsData=$this->GetCurlResAsArray($url);
-            
+ 
             $this->RearrangeListResultArray($WsData);
             return $WsData;
             //GESTIRE CASO XML O JSON
@@ -153,9 +165,8 @@ class XaLibApi {
             $url.="<params><p><n>".$KeyName."</n><v>".$KeyValue."</v></p></params>";
             $url.="</WsData>";
 
-            
             $WsData =$this->GetCurlResAsArray($url);
-            
+
             $this->RearrangeListResultArray($WsData);
 
             return $WsData;
@@ -182,7 +193,6 @@ class XaLibApi {
             $url.="</params>";
             $url.="</WsData>";
 
-            
             $WsData =  $this->GetCurlResAsArray($url);
             $this->RearrangeListResultArray($WsData);
 
@@ -202,7 +212,6 @@ class XaLibApi {
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
-
             
             return $this->GetCurlResAsArray($url);;
             //GESTIRE CASO XML O JSON
@@ -234,7 +243,6 @@ class XaLibApi {
             $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
             $url.="</WsData>";
 
-           
             $WsData =  $this->GetCurlResAsArray($url);
 
             return array($WsModel,$WsData);
@@ -256,7 +264,7 @@ class XaLibApi {
             $url.="<params>";
             foreach($_GET as $n=>$v) {
                 if ($n!='obj' && $n!='evt') {
-                  $url.="<p><n>".$n."</n><v>".$v."</v></p>";
+                    $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
                 }
             }
             $url.="</params>";
