@@ -35,7 +35,7 @@
                 <ul>
 
                     <!--li><a href="#" onclick="">Applications</a></li-->
-                    <li><a href="#" onclick="Xa.CallAction('','ListUser.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
+                    <li><a href="#" onclick="Xa.CallAction('','UserList.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaUserType&evt=List',MenuArgsCall);">User Types</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaRbacRole&evt=List',MenuArgsCall);">User Roles</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaOuType&evt=List',MenuArgsCall);">Ou Types</a></li>

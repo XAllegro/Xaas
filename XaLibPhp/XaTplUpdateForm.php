@@ -8,7 +8,7 @@ require_once('XaLibApi.php');
  * @author alex
  */
 
-class XaTplCreateForm {
+class XaTplUpdateForm {
 
     function __construct() {
         $this->ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
@@ -16,45 +16,49 @@ class XaTplCreateForm {
         $this->HTTP=new XaLibHttp();
     }
     
-    function GetForm(array $WsData) {
+    function GetForm(array $WsModel,$WsData) {
 
-    foreach($WsData['model'] as $k=>$v) {
+    foreach($WsModel['model'] as $k=>$v) {
         $model=$k;
      }
 
     $form='<script>
-            CreateArgsCall={
-            ResponseType:"Html",
-            TargetId:"detail",
-            CallMethod:"'.$WsData['model'][$model]['form']['method'].'",
-            CallAsync:"'.$WsData['model'][$model]['form']['async'].'",
+            UpdateArgsCall={
+            ResponseType:"Text",
+            TargetId:"",
+            CallMethod:"'.$WsModel['model'][$model]['update_form']['method'].'",
+            CallAsync:"'.$WsModel['model'][$model]['update_form']['async'].'",
             WithLoader:"no",
             LoaderTargetID:"",
             JsEval:"yes",
-            WithAlert:"no",
+            WithAlert:"yes",
             AlertMessage:"",
-            FormId:"'.$WsData['model'][$model]['form']['id'].'"
+            FormId:"'.$WsModel['model'][$model]['update_form']['id'].'"
             };
         </script>';
 
     $form.='<form 
-        class="'.$WsData['model'][$model]['form']['class'].'" 
-        id="'.$WsData['model'][$model]['form']['id'].'" 
-        name="'.$WsData['model'][$model]['form']['name'].'" 
-        method="'.$WsData['model'][$model]['form']['method'].'" 
-        action="javascript:Xa.CallAction(\'\',\'Create.php?obj='.$WsData['model'][$model]['form']['obj'].'&evt='.$WsData['model'][$model]['form']['evt'].'\',CreateArgsCall);"
+        class="'.$WsModel['model'][$model]['update_form']['class'].'" 
+        id="'.$WsModel['model'][$model]['update_form']['id'].'" 
+        name="'.$WsModel['model'][$model]['update_form']['name'].'" 
+        method="'.$WsModel['model'][$model]['update_form']['method'].'" 
+        action="javascript:Xa.CallAction(\'\',\'Update.php?obj='.$WsModel['model'][$model]['update_form']['obj'].'&evt='.$WsModel['model'][$model]['update_form']['evt'].'\',UpdateArgsCall);"
         >
+
+        <input id="id" name="id" value="'.$WsData['read']['id'].'"/>
 
         <fieldset>
             <legend class="LogHomePage" style="line-height:2em" >
 		<img/>
-                '.$WsData['model'][$model]['fieldset']['legend'].'
+                '.$WsModel['model'][$model]['fieldset']['update_legend'].'
             </legend>
             <ul>
     ';
 
-        for($i=0; $i<count($WsData['model'][$model]['fieldset']['field']); $i++) {
-            $form.= $this->BuildField($WsData['model'][$model]['fieldset']['field'][$i]);
+        for($i=0; $i<count($WsModel['model'][$model]['fieldset']['field']); $i++) {
+            $FName=$WsModel['model'][$model]['fieldset']['field'][$i]['name'];
+            $FValue=$WsData['read'][$FName];
+            $form.= $this->BuildField($WsModel['model'][$model]['fieldset']['field'][$i],$FValue);
         }
  
     $form.='
@@ -70,19 +74,19 @@ class XaTplCreateForm {
 
     }
 
-    function BuildField(array $FieldNode) {
+    function BuildField(array $FieldNode,string $FValue) {
 
-        if ($FieldNode['create']=='yes') {
+        if ($FieldNode['update']=='yes') {
 
             $field='<li>';
 
             if ($FieldNode['type']=='input-text') {
                 $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-           	$field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
+           	$field.='<input value="'.$FValue.'" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
             } else if ($FieldNode['type']=='select-single') {
                 $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
                 $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
-                $field.='<option value="" selected="selected">please select ...</option>';
+                $field.='<option value="">please select ...</option>';
 
                 $obj=$FieldNode['options']['obj'];
                 $evt=$FieldNode['options']['evt'];
@@ -91,7 +95,9 @@ class XaTplCreateForm {
                 $options= $object->$evt($this->Conf,$this->HTTP,$obj);
 
 		for ($i=0; $i<count($options['list']['item']); $i++) {
-                     $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+                     $selected='';
+                     if ($options['list']['item'][$i]['id']==$FValue) {$selected=' selected="selected"';};
+                     $field.='<option value="'.$options['list']['item'][$i]['id'].'"'.$selected.'>'.$options['list']['item'][$i]['name'].'</option>';
 		}
 
                 $field.='</select>';

@@ -1,13 +1,25 @@
 <?php
-require_once ('XaPage.php');
 
-$user=new XaUser;
-$WsData= $user->List($Conf,$HTTP);
+require_once('XaTpl.php');
+
+/**
+ * Description of XaLibApi
+ *
+ * @author alex
+ */
+
+class XaTplRoleRUserListForUpdate extends XaTpl{
+
+    function __construct() {
+        
+    }
+
+    public function GetList(array $WsData):string {
 
         $Content='<script>
-            UserReadArgsCall={
+            RoleRUserCreateFrmArgsCall={
             ResponseType:"Html",
-            TargetId:"detail",
+            TargetId:"role_box",
             CallMethod:"POST",
             CallAsync:"true",
             WithLoader:"no",
@@ -16,9 +28,9 @@ $WsData= $user->List($Conf,$HTTP);
             WithAlert:"no",
             AlertMessage:""
             };
-            UserCreateFrmArgsCall={
+            RoleRUserUpdateFrmArgsCall={
             ResponseType:"Html",
-            TargetId:"detail",
+            TargetId:"role_box",
             CallMethod:"POST",
             CallAsync:"true",
             WithLoader:"no",
@@ -27,9 +39,21 @@ $WsData= $user->List($Conf,$HTTP);
             WithAlert:"no",
             AlertMessage:""
             };
+            RoleRUserDeleteArgsCall={
+            ResponseType:"Html",
+            TargetId:"role_box",
+            CallMethod:"POST",
+            CallAsync:"true",
+            WithLoader:"no",
+            LoaderTargetID:"",
+            JsEval:"yes",
+            WithAlert:"no",
+            AlertMessage:""
+            };
+
         </script>';
 
-$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'AddUser.php?obj=XaUser&evt=CreateFrm\',UserCreateFrmArgsCall);">create</a>';
+$Content.='<a href="#" onclick="var UserId=document.getElementById(\'XaUserId\').value;if(UserId!=\'\'){Xa.CallAction(\'\',\'XaRbacRoleRXaUserCreateFrm.php?obj=XaRbacRoleRXaUser&evt=CreateFrm&XaUser_ID=\'+UserId,RoleRUserCreateFrmArgsCall);}">create</a>';
 
         $Content.='<table class="list">';
         $Title="Titolo Lista";
@@ -46,24 +70,30 @@ $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'AddUser.php?obj=XaUser&evt=
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         }
+        $Content.='<th></th>';
+        $Content.='<th></th>';
 
         $Content.='</tr>';
 
         for ($i=0;$i<$ItemsNumber;$i++) {
 
          $RowId=$WsData['list']['item'][$i]['id'];
-         $Content.='<tr class="row" ondblclick="Xa.CallAction(\'\',\'ViewUser.php?obj=XaUser&evt=Read&id='.$RowId.'\',UserReadArgsCall);">';
+         $Content.='<tr class="row">';
          
           foreach($WsData['list']['item'][$i] as $value) { 
-              
               $Content.='<td>'.$value.'</td>'; 
           }
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'XaRbacRoleRXaUserUpdateFrm.php?obj=XaRbacRoleRXaUser&evt=UpdateFrm&id='.$RowId.'\',RoleRUserUpdateFrmArgsCall);">mod</a>';
+          $Content.='<td><a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaRbacRoleRXaUser&evt=Delete&id='.$RowId.'\',RoleRUserDeleteArgsCall);">del</a>';
+
         }
      } else {
         $Content.='<tr><td>No data</td></tr>';
      }
         $Content.="</table>";
 
-echo $Content;
+        return $Content;
 
+    }
+}
 ?>

@@ -14,13 +14,23 @@ $Read=$TplRead->GetRead($WsData);
 $role=new XaRbacRoleRXaUser();
 $WsData= $role->ListWithKey($Conf,$HTTP,'XaRbacRoleRXaUser','XaUser_ID',$HTTP->GetHttpParam('id'));
 
-$TplList=new XaTplList();
+$TplList=new XaTplRoleRUserList();
 $List=$TplList->GetList($WsData);
 
 // page layout
 
+echo '<input id="XaUserId" type="hidden" value="'.$HTTP->GetHttpParam('id').'"/>' ;
+
+echo '<div id="user_box">' ;
 echo $Read;
-echo '<br/>';
+echo '</div>' ;
+
+echo '<br/><br/>';
+echo 'Roles';
+echo '<br/><br/>';
+
+echo '<div id="role_box">' ;
 echo $List;
+echo '</div>' ;
 
 ?>

@@ -51,7 +51,7 @@ void XaUserType::GetXmlModel() {
 		}
 	}
 
-	RESPONSE.Content="<createfrm>"+Content+"</createfrm>";	
+	RESPONSE.Content="<model>"+Content+"</model>";	
 
 };
 
@@ -108,7 +108,7 @@ void XaUserType::ListAsOptions() {
 	};
 	
 	/*STATUS*/
-	string PassedStatus=HTTP.GetHttpParam("status");
+	string PassedStatus="1";//HTTP.GetHttpParam("status");
 	
 	if (PassedStatus!="NoHttpParam") {
 
