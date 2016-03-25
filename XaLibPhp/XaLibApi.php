@@ -19,12 +19,28 @@ class XaLibApi {
         $BaseUrl.="&ConsumerId=".$Conf[$ApiName]["ConsumerId"];
         return $BaseUrl;
     }
+    
+    protected final function GetLoginSection(XaLibHttp &$HTTP):string {
 
+        $section="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+
+        return $section;
+    }
+    
+    protected final function GetCurlResAsArray(string $url):array {
+        
+            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $json = json_encode($xml);
+            $json= str_replace('{}','""',$json);
+            $WsData = json_decode($json,TRUE);
+            return $WsData;
+    } 
+    
     protected final function Redirect(string $page) {
         header( 'Location: '.$page ) ;
 
     }
-    
+
     protected final function CheckApiError(array $ApiResponse) {
 
         if ($ApiResponse['error']['number']) {
@@ -92,14 +108,13 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>List</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            $WsData=$this->GetCurlResAsArray($url);
+            
             $this->RearrangeListResultArray($WsData);
             return $WsData;
             //GESTIRE CASO XML O JSON
@@ -114,15 +129,13 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP); 
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Read</event></operation>";
             $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
-            return $WsData;
+            return $this->GetCurlResAsArray($url);
+            
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
         } else {
@@ -135,14 +148,14 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$Obj."</object><event>List</event></operation>";
             $url.="<params><p><n>".$KeyName."</n><v>".$KeyValue."</v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            
+            $WsData =$this->GetCurlResAsArray($url);
+            
             $this->RearrangeListResultArray($WsData);
 
             return $WsData;
@@ -158,7 +171,7 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$Obj."</object><event>List</event></operation>";
             $url.="<params>";
             
@@ -169,9 +182,8 @@ class XaLibApi {
             $url.="</params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            
+            $WsData =  $this->GetCurlResAsArray($url);
             $this->RearrangeListResultArray($WsData);
 
             return $WsData;
@@ -186,15 +198,13 @@ class XaLibApi {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
-            return $WsData;
+            
+            return $this->GetCurlResAsArray($url);;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
 
@@ -208,7 +218,7 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
             // model
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
@@ -219,14 +229,13 @@ class XaLibApi {
 
             // data
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>ReadForUpdateFrm</event></operation>";
             $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+           
+            $WsData =  $this->GetCurlResAsArray($url);
 
             return array($WsModel,$WsData);
             //GESTIRE CASO XML O JSON
@@ -242,7 +251,7 @@ class XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
             $url.="<params>";
             foreach($_GET as $n=>$v) {
@@ -253,11 +262,9 @@ class XaLibApi {
             $url.="</params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            $WsData= $this->GetCurlResAsArray($url);
 
-echo($WsData['create']);
+            echo($WsData['create']);
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
@@ -272,7 +279,7 @@ echo($WsData['create']);
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Update</event></operation>";
             $url.="<params>";
             foreach($_GET as $n=>$v) {
@@ -283,9 +290,8 @@ echo($WsData['create']);
             $url.="</params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            
+            $WsData = $this->GetCurlResAsArray($url);
 
 echo($WsData['update']);
             return $WsData;
@@ -302,14 +308,13 @@ echo($WsData['update']);
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$Obj."</object><event>ListAsOptions</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            
+            $WsData = $this->GetCurlResAsArray($url);
             $this->RearrangeListResultArray($WsData);
 
             return $WsData;
@@ -325,14 +330,12 @@ echo($WsData['update']);
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Delete</event></operation>";
             $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
             $url.="</WsData>";
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsData = json_decode($json,TRUE);
+            $WsData = $this->GetCurlResAsArray($url);
 
 echo($WsData['delete']);
             return $WsData;
