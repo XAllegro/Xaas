@@ -119,6 +119,7 @@ Xa.Call = function(url,type,sync,cb) {
  * @returns {string} 
  * 
  * 
+ * 
  * Example:
  * var args ={
  *      ResponseType:"Text",
@@ -128,10 +129,10 @@ Xa.Call = function(url,type,sync,cb) {
  *      WithLoader:"no",
  *      LoaderTargetID:"",
  *      JsEval:"no",
- *      WithAlert:"yes",
- *      AlertMessage:"pippo"
+ *      WithAlert:"no",
+ *      AlertMessage:""
  *  };
-*
+ *
  *   Xa.CallAction("","obj=objecg&amp;evt=event",args);
  * 
  * 

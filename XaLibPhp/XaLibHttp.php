@@ -13,6 +13,19 @@ class XaLibHttp {
         $ParamValue=$this->AllHttpRequest["$ParamName"];
         return $ParamValue;
     }
+    
+    final public function ExistsHttpParam(string $ParamName) {
+
+        if(array_key_exists($ParamName,$this->AllHttpRequest)) {
+
+            return true;
+ 
+        } else {
+ 
+            return false;
+        }
+
+    }
 
     final public function CookieSet(string $SessionId){
 

@@ -7,7 +7,7 @@ $object=new $obj();
 $WsData= $object->List($Conf,$HTTP);
 
 $TplList=new XaTplList();
-$List=$TplList->GetList($WsData);
+$List=$TplList->GetList($WsData,$HTTP);
 
 echo $List;
 ?>

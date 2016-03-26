@@ -6,29 +6,24 @@
         @include reset-a();
         
         resize:horizontal;
-        //margin-right: 0.5%;
         width: 15%;
         max-width: 80%;
         background-color:rgba(189, 195, 199,0.75);
-        //background-color: $ListBackgroundColor;
-        //opacity:$ForeGroundOpacity;
-        //border-radius:$BorderRadius;
         min-height: 100%;
         float:left;
         overflow: auto;
-        //padding:0.5%;
         
         ul {
             
-            padding-top:15%;
+            padding-top:$ExplorerContextHeight;
            
             li:first-child {
                 border-top: 1px solid rgba(255, 255, 255,0.40);
             }
 
             li {
-
-                font-size:100%;
+                
+                font-size:$ExplorerNavFontSize;
                 padding-top:5%;
                 padding-bottom:5%;
                 padding-left: 10%;
@@ -53,98 +48,46 @@
         @include reset-a();
         overflow: auto;
         background-color:rgba(255, 255, 255,0.75);
+        height: 100vh-($HeaderHeight+$ExplorerContextHeight);
         
-        padding:0.5%;
-        //background-color: $ListBackgroundColor;
+        .content {
+            padding:1%;
+        }
+
+    }
+    .context {
+
+        @include reset-a();
+        height: $ExplorerContextHeight;
+        border-left: 1px solid rgba(255, 255, 255,0.40);
+        background-color:rgba(236,236,236,0.75);
+        overflow: auto;
+
+        ul {
+            width: 100%;
+            height: $ExplorerContextHeight;
+
+            li {
+                display: inline-block;
+                font-size:$ExplorerNavFontSize;
+                list-style-position:inside;
+                line-height: $ExplorerContextHeight;
+                float: right;
+                padding-left: 1%;
+                padding-right: 1%;
+                margin-right: 1%;
+                background-color:rgba(108, 122, 137,0.75);
+            }
+
+            li:hover {
+                background-color:rgba(255, 255, 255,0.45);
+            }
+
+            li.selected {
+                background-color:rgba(255, 255, 255,0.45);
+                
+            }
         
-        //opacity:$ForeGroundOpacity;
-        //font-size: $ListFontSize;
-        //border-radius:$BorderRadius;
-       min-height: 98%;
-        //padding:0.5%;
+        }
     }
 }
-/*
-nav {
-    width: $NavWidth;
-    position: fixed;
-    top:$HeaderHeight;
-    bottom:0;
-    background-color: $NavBackgroundColor;
-    opacity:$ForeGroundOpacity;
-    color:$NavFontColor;
-    font-weight: 600;
-    font-size:$NavFontSize;
-    border-top:1px solid $ContainerBackgroundColor;
-
-    .nav {
-        height: 100%;
-        margin-top:$HeaderHeight;
-
-        ul, li, a, span {
-            margin: 0;
-            padding: 0;
-            border: none;
-            outline: none;
-            letter-spacing:1px;
-        }
-
-        li {
-            list-style: none;
-            text-transform:uppercase;
-        }
-
-        li > a {
-            display: block;
-            text-align: left;
-            position: relative;
-            padding: 0 10px 0 15px;
-            color: $NavFontColor;
-            line-height: 2.3em;
-            text-decoration: none;
-            border-bottom: 1px solid $ContainerBackgroundColor;
-            transition: all 0.25s;
-
-        }
-
-        li:hover {
-
-            background-color:$NavColorOver;
-            color:$NavFontColorHover;
-            color:black;
-
-            a:hover {
-
-                    color:$NavFontColorHover;
-            }
-
-        }
-
-        li:target {
-
-            background-color:$NavColorTarget;
-
-            a {
-
-                    color:$NavFontColorTarget;
-            }
-        }
-
-}*/
-
-/*
-        .Logo {
-
-            border-top: 1px solid $ContainerBackgroundColor;
-            position:fixed;
-            bottom:0;
-            width: $NavWidth;
-            height:$LogoHeight;
-
-            background-repeat:no-repeat;
-            background-position: center center;
-            background-image:url('XAllegroLogoW.svg');
-            background-size: auto 90%;
-        }
-    }
-*/

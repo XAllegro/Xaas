@@ -7,20 +7,10 @@
         
         <script>MenuArgsCall={
             ResponseType:"Html",
-            TargetId:"content",
-            CallMethod:"POST",
-            CallAsync:"true",
-            WithLoader:"no",
-            LoaderTargetID:"",
-            JsEval:"yes",
-            WithAlert:"no",
-            AlertMessage:""
+            TargetId:"content"
             };
         </script>
 
-
-        
-        
     </head>
 
     <body>
@@ -35,7 +25,7 @@
                 <ul>
 
                     <!--li><a href="#" onclick="">Applications</a></li-->
-                    <li><a href="#" onclick="Xa.CallAction('','UserList.php?obj=XaUser&evt=List',MenuArgsCall);">Users</a></li>
+                    <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaUser&type=actions',MenuArgsCall);">Users</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaUserType&evt=List',MenuArgsCall);">User Types</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaRbacRole&evt=List',MenuArgsCall);">User Roles</a></li>
                     <li><a href="#" onclick="Xa.CallAction('','List.php?obj=XaOuType&evt=List',MenuArgsCall);">Ou Types</a></li>
@@ -47,9 +37,31 @@
                     <li>Logs</li-->
                 </ul>
             </div>
+
+            <div id="context" class="context">
+                <ul>
+                    <li>Create User</li>
+                    <li>View Roles</li>
+                    <li>terzo</li>
+                </ul>
+            </div>
+
             <div class="detail" id="detail">
                 <div class="content" id="content">
-                
+
+                    <!--div class="dropdown">
+
+                        <button class="dropdown-button">Dropdown</button>
+
+                        <div class="dropdown-content">
+                            <a href="#">Link 1 molto molto</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+
+                    </div-->
+
+                    
                 </div>
             
             </div>

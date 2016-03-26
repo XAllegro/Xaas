@@ -14,6 +14,7 @@
 @import '_list';
 @import '_user_explorer';
 @import '_explorer';
+@import '_dropdown';
 
 
 @include reset-all();
@@ -39,6 +40,7 @@ body {
     /*font-family: 'MySans', sans-serif;*/
     font-family: sans-serif;
     color:$FontColor;
+    height:100%;
 }
 
 header {

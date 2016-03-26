@@ -30,13 +30,11 @@ $BorderRadius:0.2em;
 
 $HeaderHeight:4.5vh;
 
-/*$HeaderBackgroundColor:#2D353A;*/
 $HeaderBackgroundColor:#22313F;
 $HeaderFontColor:#DDDDDD;
 $HeaderFontSize:$FontSize/100*90; //80%
 $HeaderLineHeight:4.0vh;
 $HeaderOpacity:0.85;
-//$HeaderToolbarLiBackgroundColor:#1A2228;*/
 $HeaderToolbarLiBackgroundColor:#34495e;
 
 
@@ -45,18 +43,6 @@ $HeaderToolbarLiBackgroundColorTarget:#77B710;
 $HeaderToolbarLiFontColorHover:#FFFFFF;
 $HeaderToolbarLiFontColorTarget:#FFFFFF;
 
-//$MenuToggleHeight:4.0vh;
-//$MenuToggleWidth:4.0vh;
-/*
-$NavWidth:14vw;
-$NavBackgroundColor:#2D353A;
-$NavFontColor:#DDDDDD;
-$NavFontSize:$FontSize/100*70; //70%
-$NavColorOver:#FF9900;
-$NavFontColorHover:#FFFFFF;
-$NavColorTarget:#77B710;
-$NavFontColorTarget:#FFFFFF;
-*/
 $LogoHeight:4.5vh;
 
 $ContainerBackgroundColor:#DDDDDD;
@@ -67,7 +53,6 @@ $DashboardFontColor:#EEEEEE;
 $DashboardFontSize:$FontSize/100*120;
 $DashboardLinkColorHover:#FF9900;
 $DashboardLinkColorActive:#77B710;
-
 
 $FormFontColor:#222222;
 $FormBackgroundColor:#fefefe;
@@ -89,13 +74,15 @@ $ListBackgroundColor:#fefefe;
 $ListFontColor:#222222;
 $ListFontSize:$FontSize/100*80; //80%
 
-$ListHeaderBackgroundColor:#2D353A;
+$ListHeaderBackgroundColor:#22313F;
 $ListHeaderFontColor:#DDDDDD;
 $ListRowBackgroundColorHover:#FF9900;
 $ListRowFontColorHover:#FEFEFE;
 
+$ExplorerNavFontSize:$FontSize/100*90; //90%
+$ExplorerContextHeight:3vh;
 
-$UserExplorerTreeFontSize:$FontSize/100*99; //90%
+$UserExplorerTreeFontSize:$FontSize/100*99; //99%
 $UserExplorerTreeCircleColor:#FF9900;
 $UserExplorerTreeCircleColorHover:#77B710;
 $UserExplorerTreeCircleColorOpen:#77B710;

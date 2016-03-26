@@ -10,7 +10,7 @@
     background-color: $ListBackgroundColor;
     opacity:$ForeGroundOpacity;
     font-size: $ListFontSize;
-    border-radius:$BorderRadius;
+    //border-radius:$BorderRadius;
 
     .title {
 
@@ -18,13 +18,16 @@
         height: $ListTitleHeight;
 
         th {
-            background:$ListHeaderBackgroundColor;
-            border-radius:$BorderRadius;
+            //background:$ListHeaderBackgroundColor;
+            background: linear-gradient(to right, $ListHeaderBackgroundColor 30%,#34495e 80%);
+
+            //border-radius:$BorderRadius;
             height:$ListTitleHeight;
             text-align: left;
 
             span {
-                padding: 0.5%;
+                padding: 0.25%;
+                padding-left:0.5%;
                 line-height: $ListTitleHeight;
             }
 

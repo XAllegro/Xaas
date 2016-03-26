@@ -14,8 +14,27 @@ class XaTplList extends XaTpl{
         
     }
 
-    public function GetList(array $WsData):string {
+    public function GetDropDown(array &$WsData,XaLibHttp &$HTTP,$RowId ):string {
+                
+        $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
+   
+        $Content='<div class="dropdown"><button class="dropdown-button">Actions</button><div class="dropdown-content">';
         
+        $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\','.$JsCallOptions.');">Update</a>';
+        $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaUser&evt=Delete&id='.$RowId.'\','.$JsCallOptions.');">Delete</a>';
+        $Content.='</div></div>';
+
+        return $Content;
+    }
+
+    public function GetList(array &$WsData,XaLibHttp &$HTTP ):string {
+
+        $actions=0;
+        
+        if ($HTTP->ExistsHttpParam("type")) {
+            $actions=1;
+        }
+
         $Content='<table class="list">';
         $Title="Titolo Lista";
 
@@ -30,26 +49,40 @@ class XaTplList extends XaTpl{
        
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
+        } 
+        
+        if ($actions==1){
+            $Content.='<th>Actions</th>';
         }
 
         $Content.='</tr>';
 
         for ($i=0;$i<$ItemsNumber;$i++) {
             
-         $Content.='<tr class="row">';
+            $Content.='<tr class="row">';
          
-          foreach($WsData['list']['item'][$i] as $value) { 
-              
-              $Content.='<td>'.$value.'</td>'; 
-          }
+            foreach($WsData['list']['item'][$i] as $value) { 
+
+                $Content.='<td>'.$value.'</td>'; 
+            }
+          
+            //ADDING ACTIONS
+            if ($actions==1) {
+                
+                $Content.='<td>';
+                $RowId=$WsData['list']['item'][$i]['id'];
+                $Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
+                $Content.='</td>';
+            }
         }
-     } else {
+
+    } else {
         $Content.='<tr><td>No data</td></tr>';
-     }
+    }
 
         $Content.="</table>";
         return $Content;
-
     }
 }
+
 ?>
