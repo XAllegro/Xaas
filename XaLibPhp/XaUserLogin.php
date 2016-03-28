@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 require_once('XaLibApi.php');
 
 /**
@@ -21,7 +15,7 @@ class XaUserLogin extends XaLibApi {
         
     }
 
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,string &$evt) {
+    public final function Execute (array &$Conf,XaLibHttp &$HTTP,&$evt) {
         $this->$evt($Conf,$HTTP);
     }
 
@@ -31,9 +25,11 @@ class XaUserLogin extends XaLibApi {
         $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
         $url.="<operation><object>XaUserLogin</object><event>Login</event></operation></WsData>";
 
-        $result=json_decode(XaLibCurl::CallUrl ($url),true);
-        $this->CheckApiError($result);
+        //$result=json_decode(XaLibCurl::CallUrl ($url),true);
+        $result=$this->GetCurlResAsArray($url);
         
+        $this->CheckApiError($result);
+
         if ($result["token"]) {
 
             $HTTP->CookieSet($result["token"]);
@@ -41,16 +37,19 @@ class XaUserLogin extends XaLibApi {
         }
     }
     
-     private function Logout(array &$Conf,XaLibHttp &$HTTP) {
+    private function Logout(array &$Conf,XaLibHttp &$HTTP) {
 
-         if ($HTTP->CookieGet("XaSessionId")!="") {
-
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+    
             $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
             $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
             $url.="<operation><object>XaUserLogin</object><event>Logout</event></operation><params><p><n></n><v></v></p></params></WsData>";
+    
+            //$result=json_decode(XaLibCurl::CallUrl ($url),true);
 
-            $result=json_decode(XaLibCurl::CallUrl ($url),true);
-
+            $result=$this->GetCurlResAsArray($url);
+            $this->CheckApiError($result);
+            
             $this->CheckApiError($result);
             $HTTP->CookieUnset();
 

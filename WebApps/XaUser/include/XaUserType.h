@@ -8,8 +8,6 @@ class XaUserType : public XaLibModel {
     private:
 		
 		void Dispatcher(const string &CalledEvent);
-		
-        void GetXmlModel();
 		void Create();
 		void List();
 		void ListAsOptions();

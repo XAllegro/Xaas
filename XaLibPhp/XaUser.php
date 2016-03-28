@@ -9,18 +9,14 @@ require_once('XaLibApi.php');
  * @author alex@xallegro.com
  */
 
-class XaUserType extends XaLibApi {
+class XaUser extends XaLibApi {
 
    function __construct() {
 
     }
 
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,string &$evt) {
+    public final function Execute (array &$Conf,XaLibHttp &$HTTP,&$evt) {
         $this->$evt($Conf,$HTTP);
-    }
-
-    public final function GetXml() {
-        
     }
 
 }

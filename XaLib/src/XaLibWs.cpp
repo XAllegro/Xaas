@@ -61,12 +61,12 @@ void XaLibWs::Setup() {
 		GetConsumer();
 	}
 
-	ExtractData();
-	
 	if (SETTINGS["WsEnableLog"]=="yes") {
 
 		AddRequestLog();
 	}
+	
+	ExtractData();
 };
 
 void XaLibWs::CheckRequired() {

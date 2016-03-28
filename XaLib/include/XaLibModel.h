@@ -59,6 +59,8 @@ class XaLibModel : protected XaLibBase {
         int DeleteExecute(const string& DbTable,const string& RowId);
         string DeleteResponse(const int& DeletedId);
 
+        virtual void GetXmlModel();
+        
     public:
 
         void Execute();

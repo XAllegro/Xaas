@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html id="html">
 
-    <head id="head">
+    <head>
         <?php require_once ('head.php');?>
     </head>
     <body>

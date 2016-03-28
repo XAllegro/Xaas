@@ -14,7 +14,7 @@ class XaTplList extends XaTpl{
         
     }
 
-    public function GetDropDown(array &$WsData,XaLibHttp &$HTTP,$RowId ):string {
+    protected function GetDropDown(array &$WsData,XaLibHttp &$HTTP,$RowId ):string {
                 
         $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
    
@@ -27,12 +27,20 @@ class XaTplList extends XaTpl{
         return $Content;
     }
 
-    public function GetList(array &$WsData,XaLibHttp &$HTTP ):string {
+    public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData):string {
 
-        $actions=0;
+        /*
+         * Type = actions = 1
+         * */
+        
+        $type=0;
         
         if ($HTTP->ExistsHttpParam("type")) {
-            $actions=1;
+           
+            if ($HTTP->GetHttpParam("type")=="actions") {
+            
+                $type=1;
+            }
         }
 
         $Content='<table class="list">';
@@ -51,7 +59,7 @@ class XaTplList extends XaTpl{
             $Content.='<th>'.$key.'</th>';
         } 
         
-        if ($actions==1){
+        if ($type==1){
             $Content.='<th>Actions</th>';
         }
 
@@ -67,7 +75,7 @@ class XaTplList extends XaTpl{
             }
           
             //ADDING ACTIONS
-            if ($actions==1) {
+            if ($type==1) {
                 
                 $Content.='<td>';
                 $RowId=$WsData['list']['item'][$i]['id'];

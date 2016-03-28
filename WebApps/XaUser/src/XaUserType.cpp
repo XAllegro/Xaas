@@ -29,32 +29,6 @@ void XaUserType::Dispatcher (const string &CalledEvent) {
 	}
 };
 
-void XaUserType::GetXmlModel() {
-
-	ifstream MyFile;
-	string Content;
-
-	vector<string> XmlFiles=AddXmlFile({"XaUserType"});
-
-	for (auto i=0;i<XmlFiles.size();i++) {
-
-		MyFile.open(XmlFiles[i].c_str());
-
-		if (MyFile.is_open()) {
-
-			string TmpString;
-
-			while(getline(MyFile,TmpString)) {
-				XaLibChar::ClearReturn(TmpString);
-				Content.append(TmpString);
-			}
-		}
-	}
-
-	RESPONSE.Content="<model>"+Content+"</model>";	
-
-};
-
 void XaUserType::Create() {
 
 	vector<string> FieldName;	

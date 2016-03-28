@@ -3,6 +3,7 @@
 class XaLibCurl {
 
     public static function CallUrl ($url):string {
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -11,7 +12,7 @@ class XaLibCurl {
 
         $response = curl_exec($ch);
         curl_close($ch);	
-
+        
         return $response;
     }
 }

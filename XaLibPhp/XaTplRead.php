@@ -14,7 +14,7 @@ class XaTplRead extends XaTpl{
         
     }
 
-    public function GetRead(array $WsData):string {
+    public function ReadUi(array $WsData):string {
         
         $Content='<table class="list">';
         $Title="Dettaglio";
@@ -31,7 +31,7 @@ class XaTplRead extends XaTpl{
         $Content.='</tr>';
 
         $Content.='<tr class="row">';
-         
+
         foreach($WsData['read'] as $value) { 
               
              $Content.='<td>'.$value.'</td>'; 
@@ -39,7 +39,6 @@ class XaTplRead extends XaTpl{
 
         $Content.="</table>";
         return $Content;
-
     }
 }
 ?>

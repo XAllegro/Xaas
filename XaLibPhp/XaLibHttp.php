@@ -8,13 +8,13 @@ class XaLibHttp {
         $this->AllHttpRequest=array_merge($_GET,$_POST);
     }
 
-    final public function GetHttpParam(string $ParamName):string {
+    final public function GetHttpParam($ParamName):string {
 
         $ParamValue=$this->AllHttpRequest["$ParamName"];
         return $ParamValue;
     }
     
-    final public function ExistsHttpParam(string $ParamName) {
+    final public function ExistsHttpParam($ParamName) {
 
         if(array_key_exists($ParamName,$this->AllHttpRequest)) {
 
@@ -27,7 +27,7 @@ class XaLibHttp {
 
     }
 
-    final public function CookieSet(string $SessionId){
+    final public function CookieSet($SessionId){
 
         setcookie("XaSessionId", $SessionId,0,"","",false,true);
         
@@ -38,7 +38,7 @@ class XaLibHttp {
         setcookie("XaSessionId","",time()-3600);
     }
     
-    final public function CookieGet(string $CookieName){
+    final public function CookieGet($CookieName){
         
         if(!isset($_COOKIE[$CookieName])) {
             

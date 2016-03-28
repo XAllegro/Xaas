@@ -83,6 +83,7 @@ void XaUserLogin::Logout () {
 	
 	SESSION.Token="0";
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Logout Affected");
+	RESPONSE.Content="Logout";
 };
 
 XaUserLogin::~XaUserLogin(){

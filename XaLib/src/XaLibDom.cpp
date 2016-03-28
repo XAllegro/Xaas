@@ -578,8 +578,8 @@ string XaLibDom::HtmlFromStringAndFile(const vector<string>& HtmlFiles,const vec
 				BodyContent.append(Content);
 			};
 			
-			TmpString={""};
-			Content={""};
+			TmpString="";
+			Content="";
 
 		} else {
 
@@ -614,8 +614,8 @@ string XaLibDom::HtmlFromStringAndFile(const vector<string>& HtmlFiles,const vec
 
 			Js.append(Content);
 
-			TmpString={""};
-			Content={""};
+			TmpString="";
+			Content="";
 
 		} else {
 

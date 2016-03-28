@@ -25,7 +25,7 @@ void XaUser::Dispatcher (const string &CalledEvent) {
 	}
 
 };
-
+/*
 void XaUser::GetXmlModel() {
 
 	ifstream MyFile;
@@ -51,7 +51,7 @@ void XaUser::GetXmlModel() {
 	RESPONSE.Content="<model>"+Content+"</model>";
 
 };
-
+*/
 void XaUser::Create() {
 
 	vector<string> FieldName;	

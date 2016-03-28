@@ -12,7 +12,7 @@
         <header id="header">
             <?php require_once ('header.php');?>
         </header>
-
+        
         <div class="explorer">
 
             <div class="nav">
@@ -25,27 +25,18 @@
                     <li>View Roles</li>
                     <li>terzo</li>
                 </ul-->
-                
-              
-                
-                
-                
             </div>
 
             <div class="detail" id="detail">
                 <div class="content" id="content">
-  				
-  				<a href="XaPage.php?obj=XaUser&evt=GetXmlModel&tpl=Create&lay=Standalone">CREATE::::XaPage.php?obj=XaUser&evt=GetXmlModel&tpl=Create&lay=Standalone</a>
-                <br/>
-                 <a href="XaPage.php?obj=XaUserType&evt=GetXmlModel&tpl=Create&lay=Standalone">CREATE::::XaPage.php?obj=XaUserType&evt=GetXmlModel&tpl=Create&lay=Standalone</a>
-                 <br/>
-                 <a href="XaPage.php?obj=XaUser&evt=List&tpl=List&lay=Standalone">LIST::::XaPage.php?obj=XaUser&evt=List&tpl=List&lay=Standalone</a>
+                    
+                    <?php require_once ('XaApiTpl.php');
 
-                  <br/>
-                 <a href="XaPage.php?obj=XaUser&evt=Read&tpl=Read&lay=Standalone&id=3">READ::::XaPage.php?obj=XaUser&evt=Read&tpl=Read&lay=Standalone&id=3</a>
-                 
-          
-                 
+                        echo (XaApiTpl::ApplyTemplateToModel($Conf,$HTTP));
+                      
+                    ?>
+
+                    
                     <!--div class="dropdown">
 
                         <button class="dropdown-button">Dropdown</button>
@@ -57,12 +48,9 @@
                         </div>
 
                     </div-->
-
-                    
                 </div>
-            
             </div>
-    
+
         </div>
     </body>
 </html>

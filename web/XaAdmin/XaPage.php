@@ -1,13 +1,26 @@
 <?php
+
     require_once ('XaConf.php');
-    require_once ('XaTpl.php');
-    require_once ('XaTplList.php');
-    require_once ('XaTplRead.php');
-    require_once ('XaTplCreateForm.php');
-    require_once ('XaTplUserCreateForm.php');
-    require_once ('XaTplUpdateForm.php');
-    require_once ('XaTplRoleRUserCreateForm.php');
-    require_once ('XaTplRoleRUserUpdateForm.php');
-    require_once ('XaTplRoleRUserList.php');
-    require_once ('XaTplRoleRUserListForUpdate.php');
+
+    /**
+     *
+     * Pages Controller
+     * @example XaPage.php?obj=XaUser&evt=List&lay=Explorer&type=actions
+     * 
+     * @author alessandro mariotti
+     * @author alex@xallegro.com
+     */
+
+    /*CHECK LOGIN*/
+
+    //$lay="Standalone";
+    if ($HTTP->ExistsHttpParam("lay")) {
+
+        $lay=$HTTP->GetHttpParam('lay');
+        
+        /*SELECT THE LAYOUT*/
+        $LayoutToInclude="XaPage".$lay.".php";
+        
+        require_once ($LayoutToInclude);
+    }
 ?>
