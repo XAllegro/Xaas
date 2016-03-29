@@ -14,7 +14,7 @@ class XaTplRead extends XaTpl{
         
     }
 
-    public function ReadUi(array $WsData):string {
+    public function Read(array $Conf,XaLibHttp &$HTTP,array &$WsData):string {
         
         $Content='<table class="list">';
         $Title="Dettaglio";
