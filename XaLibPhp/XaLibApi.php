@@ -241,6 +241,34 @@ class XaLibApi {
         }
     }
 
+    public function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
+
+        if($HTTP->ExistsHttpParam("obj")) {
+            
+            $object=$HTTP->GetHttpParam("obj");
+        } else {
+            
+            $object=$this->_obj;
+        }
+        
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP);
+            $url.="<operation><object>".$object."</object><event>ListByUser</event></operation>";
+            $url.="<params><p><n>XaUser_ID</n><v>".$HTTP->GetHttpParam("XaUser_ID")."</v></p></params>";
+            $url.="</WsData>";
+
+            $WsData=$this->GetCurlResAsArray($url);
+ 
+            $this->RearrangeListResultArray($WsData);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
 
     
     

@@ -34,6 +34,36 @@
         "ConsumerId": 3 
     },
 
+    "XaUserAddressGeo": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressPhone": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressMail": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
     "XaUserType": {
         "Protocol":"http",
         "ApiUrl": "localhost/XaUser/",
