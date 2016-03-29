@@ -4,7 +4,8 @@ class XaLibHttp {
 
     private $AllHttpRequest;
     
-    function __construct(){
+    function __construct() {
+
         $this->AllHttpRequest=array_merge($_GET,$_POST);
     }
 
@@ -13,7 +14,7 @@ class XaLibHttp {
         $ParamValue=$this->AllHttpRequest["$ParamName"];
         return $ParamValue;
     }
-    
+
     final public function ExistsHttpParam($ParamName) {
 
         if(array_key_exists($ParamName,$this->AllHttpRequest)) {

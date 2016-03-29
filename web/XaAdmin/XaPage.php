@@ -20,7 +20,6 @@
         
         /*SELECT THE LAYOUT*/
         $LayoutToInclude="XaPage".$lay.".php";
-        
         require_once ($LayoutToInclude);
     }
 ?>

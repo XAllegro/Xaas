@@ -9,6 +9,8 @@ require_once('XaLibCurl.php');
 
 class XaLibApi {
 
+    protected $_obj="";
+
     protected final function GetBaseUrl(array &$Conf,$ApiName):string {
 
         $BaseUrl=$Conf[$ApiName]["Protocol"]."://".$Conf[$ApiName]["ApiUrl"]."?";
@@ -167,17 +169,25 @@ class XaLibApi {
 
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
+        if($HTTP->ExistsHttpParam("obj")) {
+            
+            $object=$HTTP->GetHttpParam("obj");
+        } else {
+            
+            $object=$this->_obj;
+        }
+        
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>List</event></operation>";
+            $url.="<operation><object>".$object."</object><event>List</event></operation>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
-
-            $WsData=$this->GetCurlResAsArray($url);
- 
+            
+            $WsData=$this->GetCurlResAsArray($url); 
             $this->RearrangeListResultArray($WsData);
+
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);

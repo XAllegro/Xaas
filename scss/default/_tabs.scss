@@ -1,0 +1,41 @@
+@import '_variables';
+
+.tabs {
+        position: relative;
+        height:95%;
+    	width:98%;
+        clear: both;
+
+    .tab {
+        float: left;
+    }
+
+    .tab .style-label {
+        background: #EEEEEE; 
+        padding: 10px;
+    }
+
+    .tab [type=radio] {
+        display: none;   
+    }
+
+    .content {
+        position: absolute;
+        top: 26px;
+        left: 0;
+        background: white;
+        right: 0;
+        bottom: 2%;
+    	overflow:auto;
+        padding: 1.5%;
+    }
+
+    [type=radio]:checked ~ label {
+        background: white;
+        z-index: 2;
+    }
+
+    [type=radio]:checked ~ label ~ .content {
+      z-index: 1;
+    }  
+}

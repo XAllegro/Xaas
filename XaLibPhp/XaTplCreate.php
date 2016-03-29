@@ -11,20 +11,20 @@ require_once('XaLibApi.php');
 class XaTplCreate  extends XaTpl{
 
     function __construct() {
-        
+
     }
 
     function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData) {
 
         $obj=$HTTP->GetHttpParam("obj");
-    
+
         $FormClass="form form-1-column";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
-        
+
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{WithAlert:&quot;yes&quot;,FormId:&quot;".$FormId."&quot;})";;
-    
+
         $form='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
@@ -32,22 +32,22 @@ class XaTplCreate  extends XaTpl{
         $form.='method="'.$FormMethod.'"';
         $form.='action="'.$FormAction.'"';
         $form.='>';
-    
+
         $form.='<fieldset><legend>'.$WsData[$obj]['fieldset']['legend'].'</legend>';
-        
+
         $form.='<ul>';
-    
+
             for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
                 $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
             }
-    
+
         $form.='<li><button type="submit">Submit</button><br/><br/></li>';
-        
+
         $form.='</ul>';
         $form.='</fieldset>';
         $form.="</form>";
 
-    return $form ;
+    return $form;
 
     }
 
@@ -66,10 +66,10 @@ class XaTplCreate  extends XaTpl{
             $field='<li>';
         
         if ($FieldNode['type']=='input-text') {
-        
+
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
-        
+
         } else if ($FieldNode['type']=='select-single-sync') {
         
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
@@ -90,15 +90,15 @@ class XaTplCreate  extends XaTpl{
             $field.='</select>';
         
         } else if ($FieldNode['type']=='input-textarea') {
-        
+
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" ></textarea>';
-        
+
         } else {
-        
+
             $field.='FIELD TYPE NOT SUPPORTED';
         }
-        
+
             $field.='</li>';
         }
 
