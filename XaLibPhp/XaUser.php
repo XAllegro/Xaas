@@ -18,12 +18,11 @@ class XaUser extends XaLibApi {
     public final function Execute (array &$Conf,XaLibHttp &$HTTP,$evt,$obj="") {
 
         if ($obj!="") {
-            $this->_obj=$obj;
 
+            $this->_obj=$obj;
             return ($this->$evt($Conf,$HTTP));
 
         } else {
-
             $this->$evt($Conf,$HTTP);
 
         }   

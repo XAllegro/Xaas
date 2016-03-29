@@ -170,7 +170,7 @@ class XaLibApi {
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
         if($HTTP->ExistsHttpParam("obj")) {
-            
+
             $object=$HTTP->GetHttpParam("obj");
         } else {
             
