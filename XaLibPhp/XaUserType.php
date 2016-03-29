@@ -15,18 +15,17 @@ class XaUserType extends XaLibApi {
 
     }
 
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,$evt,$obj="") {
-
-        if ($obj!="") {
-
-            $this->_obj=$obj;            
-            return ($this->$evt($Conf,$HTTP));
-
-        } else {
+    public final function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
 
         $this->$evt($Conf,$HTTP);
+    }
 
-        }
+    public final function ExecuteSync (array &$Conf,XaLibHttp &$HTTP,$evt,$obj,$Params) {
+
+        $this->_obj=$obj;
+        $this->_params=$Params;
+
+        return ($this->$evt($Conf,$HTTP));
     }
 }
 ?>

@@ -10,7 +10,7 @@ void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
     if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
-	this->Read();
+		this->Read();
     } else if (CalledEvent=="ReadForUpdateFrm") {
         this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
@@ -18,9 +18,9 @@ void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
     } else if (CalledEvent=="ListByUser"){
         this->ListByUser();
     } else if (CalledEvent=="Update"){
-	this->Update();
+		this->Update();
     } else if (CalledEvent=="Delete"){
-	this->Delete();
+		this->Delete();
     } else {
 
 	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
@@ -30,26 +30,27 @@ void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
 
 void XaUserAddressGeo::Create() {
 
-        vector<string> FieldName;	
+	vector<string> FieldName;	
 	vector<string> FieldValue;
+	
 	CreatePrepare({"XaUserAddressGeo"},"/XaUserAddressGeo/fieldset/field",FieldName,FieldValue);
         
-        string XaTable="XaUser";
-        string XaUserId=HTTP.GetHttpParam("XaUser_ID");
-        string XaUserAddressGeoTypeId=HTTP.GetHttpParam("XaUserAddressGeoType_ID");
+    string XaTable="XaUser";
+    string XaUserId=HTTP.GetHttpParam("XaUser_ID");
+    string XaUserAddressGeoTypeId=HTTP.GetHttpParam("XaUserAddressGeoType_ID");
         
-        unique_ptr<XaLibSql> LibSql (new XaLibSql());
+    unique_ptr<XaLibSql> LibSql (new XaLibSql());
         
-        if (LibSql->CheckRow(DB_READ,XaTable,XaUserId,"1","")==0) {
-            LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Record ID -> "+XaUserId+" does not exist into Table -> "+XaTable);
-            throw 302;
-        }
-        
-        if (LibSql->CheckRow(DB_READ,"XaUserAddressGeoType",XaUserAddressGeoTypeId,"1","")==0) {
-            LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Record ID -> "+XaUserAddressGeoTypeId+" does not exist into Table -> XaUserAddressGeoType");
-            throw 302;
-        }
-        
+	if (LibSql->CheckRow(DB_READ,XaTable,XaUserId,"1","")==0) {
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Record ID -> "+XaUserId+" does not exist into Table -> "+XaTable);
+		throw 302;
+	}
+
+	if (LibSql->CheckRow(DB_READ,"XaUserAddressGeoType",XaUserAddressGeoTypeId,"1","")==0) {
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Requested Record ID -> "+XaUserAddressGeoTypeId+" does not exist into Table -> XaUserAddressGeoType");
+		throw 302;
+	}
+
 	RESPONSE.Content=CreateResponse(CreateExecute("XaUserAddressGeo",FieldName,FieldValue));
 };
 

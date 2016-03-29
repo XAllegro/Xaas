@@ -13,6 +13,7 @@
 
         <div class="explorer">
 
+
             <div class="nav">
                  <?php require_once ('nav.php');?>
             </div>

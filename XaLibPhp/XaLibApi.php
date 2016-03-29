@@ -10,6 +10,7 @@ require_once('XaLibCurl.php');
 class XaLibApi {
 
     protected $_obj="";
+    protected $_params="";
 
     protected final function GetBaseUrl(array &$Conf,$ApiName):string {
 
@@ -27,6 +28,27 @@ class XaLibApi {
         $section="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
 
         return $section;
+    }
+    
+    protected final function GetParamsSection(&$Params):string {
+    
+        if($Params=="") {
+            
+            return "<params><p><n></n><v></v></p></params>";
+            
+        } else {
+
+            $ParamsArray=json_decode($Params, true);
+
+            $section="<params>";
+            foreach ($ParamsArray as $k => $v) {
+            
+            $section.="<p><n>".$k."</n><v>".$v."</p>";
+            }
+            
+            $section.="</params>";
+            return $section;
+        }
     }
 
     protected final function ClearParamValue($v):string {
@@ -177,12 +199,21 @@ class XaLibApi {
             $object=$this->_obj;
         }
         
+        if($HTTP->ExistsHttpParam("params")) {
+        
+            $params=$HTTP->GetHttpParam("params");
+
+        } else {
+
+            $params=$this->_params;
+        }
+        
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$object."</object><event>List</event></operation>";
-            $url.="<params><p><n></n><v></v></p></params>";
+            $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
             
             $WsData=$this->GetCurlResAsArray($url); 

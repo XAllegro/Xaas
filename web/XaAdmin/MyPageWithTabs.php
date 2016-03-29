@@ -6,6 +6,12 @@
 	</head>
 <body>
 
+
+<!-- numero dei tab
+contenuto dei tab
+ -->
+
+
 <!-- ASYNC EXAMPLE -->
 <!-- script>
 	var args={
@@ -55,11 +61,13 @@ qw<br/>
     		<label class="style-label" for="tab-1">Tab One</label>
     		<div id="prova1" class="content"></div> 
     	</div>
+
     	<div class="tab">
     		<input onclick="javascript:alert('pippo')" type="radio" id="tab-2" name="tab-group-1">
     		<label class="style-label" for="tab-2">Tab Two</label>
     		<div id="prova2" class="content"></div> 
     	</div>
+
 		<div class="tab">
     		<input type="radio" id="tab-3" name="tab-group-1">
     		<label class="style-label" for="tab-3">Tab Three</label>
@@ -68,7 +76,7 @@ qw<br/>
             <!-- SYNC EXAMPLE -->
     		<?php
                $XaUser=new XaUser();
-               $WsData=$XaUser->Execute($Conf,$HTTP,"List","XaUser");
+               $WsData=$XaUser->ExecuteSync($Conf,$HTTP,"List","XaUser","{\"order_by\":\"surname\",\"status\":1}");
     
                $Tpl = new XaTplList();
                $Content = $Tpl->List($Conf,$HTTP,$WsData);

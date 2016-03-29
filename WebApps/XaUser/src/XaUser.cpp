@@ -123,8 +123,15 @@ void XaUser::List (){
 	string Qry="SELECT X.id, X.name, X.surname, XaUserType.name AS XaUserType_ID FROM XaUser X";
 	Qry+=" LEFT JOIN XaUserType ON X.XaUserType_ID=XaUserType.id";
 	Qry+=" WHERE X.status=1";
+
+	string OrderBy=HTTP.GetHttpParam("order_by");
 	
-	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+	if (OrderBy!="NoHttpParam") {
+		
+		Qry+=" order by "+OrderBy;
+	}
+
+	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,Qry);
 
 	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 
