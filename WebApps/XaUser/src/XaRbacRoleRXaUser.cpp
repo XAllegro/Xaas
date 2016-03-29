@@ -11,8 +11,8 @@ void XaRbacRoleRXaUser::Dispatcher (const string &CalledEvent) {
 		this->GetXmlModel();
 	} else if (CalledEvent=="Create"){
 		this->Create();
-    } else if (CalledEvent=="List"){
-		 this->List();
+    } else if (CalledEvent=="ListByUser"){
+		 this->ListByUser();
     } else if (CalledEvent=="ReadForUpdateFrm"){
 		 this->ReadForUpdateFrm();
     } else if (CalledEvent=="Update"){
@@ -63,7 +63,7 @@ void XaRbacRoleRXaUser::Create() {
 	RESPONSE.Content=CreateResponse(NextId);
 };
 
-void XaRbacRoleRXaUser::List (){
+void XaRbacRoleRXaUser::ListByUser (){
 
 	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
 

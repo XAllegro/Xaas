@@ -11,7 +11,7 @@ class XaRbacRoleRXaUser : public XaLibModel {
 		
         void GetXmlModel();
 		void Create();
-		void List();
+		void ListByUser();
 		void ReadForUpdateFrm();
 		void Update();
 		void Delete();

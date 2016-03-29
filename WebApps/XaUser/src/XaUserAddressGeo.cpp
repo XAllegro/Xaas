@@ -15,6 +15,8 @@ void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
         this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
         this->List();
+    } else if (CalledEvent=="ListByUser"){
+        this->ListByUser();
     } else if (CalledEvent=="Update"){
 	this->Update();
     } else if (CalledEvent=="Delete"){
@@ -98,6 +100,26 @@ void XaUserAddressGeo::List() {
 	DbResMap DbRes = ReadExecute("XaUserAddressGeo",FieldsToRead,HTTP.GetHttpParam("id"));
 	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
 	*/
+};
+
+void XaUserAddressGeo::ListByUser() {
+
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	vector<string> WhereFields={"XaUser_ID","status"};
+	vector<string> WhereValues={XaUser_ID,"1"};
+	vector<string> OrderByFields={};
+	vector<string> GroupByFields={};
+
+	int Limit={0};
+
+	string OrderBy=HTTP.GetHttpParam("order_by");
+
+	vector<string> ReturnedFields=ListPrepare({"XaUserAddressGeo"},"/XaUserAddressGeo/fieldset/field");
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeo",{ReturnedFields},{WhereFields}, {WhereValues}, {OrderByFields},{GroupByFields},Limit);
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);	
+
 };
 
 void XaUserAddressGeo::Update() {

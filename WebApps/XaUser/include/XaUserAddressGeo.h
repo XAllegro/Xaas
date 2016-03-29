@@ -17,6 +17,7 @@ class XaUserAddressGeo : public XaLibModel {
         void Update();
         void Delete();
         void List();
+		void ListByUser();
 
     protected:
 

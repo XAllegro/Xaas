@@ -15,6 +15,8 @@ void XaUserAddressMail::Dispatcher (const string &CalledEvent) {
                  this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
 		 this->List();
+    } else if (CalledEvent=="ListByUser"){
+		 this->ListByUser();
     } else if (CalledEvent=="Update"){
 		 this->Update();
     } else if (CalledEvent=="Delete"){
@@ -98,6 +100,26 @@ void XaUserAddressMail::List() {
 	DbResMap DbRes = ReadExecute("XaUserAddressMail",FieldsToRead,HTTP.GetHttpParam("id"));
 	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
 	*/
+};
+
+void XaUserAddressMail::ListByUser() {
+
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	vector<string> WhereFields={"XaUser_ID","status"};
+	vector<string> WhereValues={XaUser_ID,"1"};
+	vector<string> OrderByFields={};
+	vector<string> GroupByFields={};
+
+	int Limit={0};
+
+	string OrderBy=HTTP.GetHttpParam("order_by");
+
+	vector<string> ReturnedFields=ListPrepare({"XaUserAddressMail"},"/XaUserAddressMail/fieldset/field");
+
+	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressMail",{ReturnedFields},{WhereFields}, {WhereValues}, {OrderByFields},{GroupByFields},Limit);
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);	
+
 };
 
 void XaUserAddressMail::Update() {
