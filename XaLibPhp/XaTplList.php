@@ -11,15 +11,15 @@ require_once('XaTpl.php');
 class XaTplList extends XaTpl{
 
     function __construct() {
-        
+
     }
 
     protected function GetDropDown(array &$WsData,XaLibHttp &$HTTP,$RowId ):string {
-                
+
         $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
-   
+
         $Content='<div class="dropdown"><button class="dropdown-button">Actions</button><div class="dropdown-content">';
-        
+
         $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\','.$JsCallOptions.');">Update</a>';
         $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaUser&evt=Delete&id='.$RowId.'\','.$JsCallOptions.');">Delete</a>';
         $Content.='</div></div>';

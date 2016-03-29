@@ -4,7 +4,6 @@
 
     <head>
         <?php require_once ('head.php');?>
-
     </head>
 
     <body>
@@ -12,7 +11,7 @@
         <header id="header">
             <?php require_once ('header.php');?>
         </header>
-        
+
         <div class="explorer">
 
             <div class="nav">
@@ -29,14 +28,13 @@
 
             <div class="detail" id="detail">
                 <div class="content" id="content">
-                    
-                    <?php require_once ('XaApiTpl.php');
+ 
+                    <?php
 
                         echo (XaApiTpl::ApplyTemplateToModel($Conf,$HTTP));
                       
                     ?>
 
-                    
                     <!--div class="dropdown">
 
                         <button class="dropdown-button">Dropdown</button>

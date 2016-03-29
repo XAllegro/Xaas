@@ -5,6 +5,7 @@
     require_once ('XaLibHttp.php');
 
     /*BACKEND API Calls*/
+    require_once ('XaLibApi.php');
     require_once ('XaUserLogin.php');
     require_once ('XaUser.php');
     require_once ('XaUserType.php');
@@ -14,6 +15,7 @@
     //require_once ('XaRbacRole.php');
 
     /*FRONTEND TPLs*/
+    require_once ('XaApiTpl.php');
     require_once ('XaTpl.php');
     require_once ('XaTplList.php');
     require_once ('XaTplRead.php');

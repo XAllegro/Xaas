@@ -1,9 +1,10 @@
-
-<title>XAllegro - The vibe of technology</title>
+<title>
+<?php 
+    echo $Conf['MyApp']['name']
+?>
+</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta charset="utf-8" />
 <!--meta name="apple-mobile-web-app-capable" content="yes" />
@@ -17,16 +18,12 @@
 <meta http-equiv="pragma" content="no-cache" /-->
 <link rel="icon" type="image/png" href="a" />
 <link rel="shortcut icon" type="image/png" href="#" />
-<link rel="stylesheet" type="text/css" href="/style/default/style.css" />
 
-<!--script type="text/javascript" src="XaConfig.js"></script-->
+<?php
+    echo '<link rel="stylesheet" type="text/css" href="/style/'.$Conf['MyApp']['style'].'/style.css" />';
+?>
+
 <script type="text/javascript" src="/js/Xa.js"></script>
-<!--script type="text/javascript" src="/js/XaUserLogin.js"></script-->
-
-<!--?php
-    ini_set('include_path', '/XAllegro/Xaas/XaLibPhp');
-?-->
-
 
 <!--script type="text/javascript" src="/js/XaReady.js"></script>
 <script type="text/javascript" src="/js/XaLib.js"></script>

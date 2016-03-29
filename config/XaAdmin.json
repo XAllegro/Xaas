@@ -1,4 +1,9 @@
 {
+    "MyApp" :{
+        "name":"Xaas Admin",
+        "style":"default"
+    },
+
     "XaUserLogin": {
         "Protocol":"http",
         "ApiUrl": "localhost/XaUser/",

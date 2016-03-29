@@ -7,7 +7,7 @@
      * Direct BackEnd Calls
      * 
      * @example XaApi.php?obj=XaUserLogin&evt=Login (Action of Login Form)
-     *  
+     * <form ... action="javascript:Xa.CallAction('','XaApi.php?obj=XaUser&amp;evt=Create',{WithAlert:&quot;yes&quot;,FormId:&quot;XaUser-Create-id&quot;})">
      * @author alessandro mariotti
      * @author alex@xallegro.com
      */

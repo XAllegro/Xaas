@@ -1,7 +1,6 @@
-<ul>
-    
+<ul>    
     <script>
-    MenuArgsCall={
+    	MenuArgsCall={
             ResponseType:"Html",
             TargetId:"content"
             };
