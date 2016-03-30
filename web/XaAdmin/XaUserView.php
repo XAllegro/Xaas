@@ -12,16 +12,13 @@ contenuto dei tab
  -->
 
 <?php
-$Params=$HTTP->GetHttpParam("params");
-$ParamsArray=json_decode($Params, true);
-$id=$ParamsArray['id'];
-echo $id;
-
+$id=$HTTP->GetHttpParam("id");
 ?>
+
 	<div class="content">
 	<?php
                $XaUser=new XaUser();
-               $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'Read','XaUser',$HTTP->GetHttpParam("params"));
+               $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'Read','XaUser','{"id":"'.$id.'"}');
 
                $Tpl = new XaTplRead();
                $Content = $Tpl->Read($Conf,$HTTP,$WsData);
@@ -36,14 +33,14 @@ echo $id;
     		<input  type="radio" id="tab-1" name="tab-group-1" checked onclick="Xa.CallAction('','XaPage.php?obj=XaRbacRoleRXaUser&evt=ListByUser&params={&quot;XaUser_ID&quot;:&quot;<?php echo $id; ?>&quot;}&tpl=List&lay=Included',{ResponseType:&quot;Html&quot;,TargetId:&quot;tab-div-1&quot;,JsEval:&quot;yes&quot;});">
     		<label class="style-label" for="tab-1">Roles</label>
     		<div id="tab-div-1" class="content">
-		<!--?php
+		<?php
        	           $XaRbacRoleRXaUser=new XaRbacRoleRXaUser();
                    $WsData=$XaRbacRoleRXaUser->ExecuteSync($Conf,$HTTP,'ListByUser','XaRbacRoleRXaUser','{"XaUser_ID":"'.$id.'"}');
 
     	           $Tpl = new XaTplList();
         	   $Content = $Tpl->List($Conf,$HTTP,$WsData);
 	           echo $Content;
-        	?-->
+        	?>
                 </div> 
     	</div>
     	<div class="tab">
