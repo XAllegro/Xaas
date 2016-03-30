@@ -43,7 +43,7 @@ class XaLibApi {
             $section="<params>";
             foreach ($ParamsArray as $k => $v) {
             
-            $section.="<p><n>".$k."</n><v>".$v."</p>";
+            $section.="<p><n>".$k."</n><v>".$v."</v></p>";
             }
             
             $section.="</params>";
