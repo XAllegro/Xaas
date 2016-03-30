@@ -4,7 +4,6 @@
         <controller>XaUser</controller>
         <obj>XaUser</obj>
         <evt>Create</evt>
-        <class>form form-1-column</class>
     </form>
     <update_form>
         <controller>XaUser</controller>

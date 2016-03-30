@@ -15,6 +15,11 @@
     require_once ('XaUserAddressPhone.php');
     require_once ('XaUserAddressMail.php');
 
+    require_once ('XaUserAddressGeoType.php');
+    require_once ('XaUserAddressPhoneType.php');
+    require_once ('XaUserAddressPhoneCode.php');
+    require_once ('XaUserAddressMailType.php');
+
     //require_once ('XaOuType.php');
     //require_once ('XaRbacRole.php');
 

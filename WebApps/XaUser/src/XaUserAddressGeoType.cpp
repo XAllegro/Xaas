@@ -7,23 +7,25 @@ XaUserAddressGeoType::XaUserAddressGeoType(){
 
 void XaUserAddressGeoType::Dispatcher (const string &CalledEvent) {
 
-    if (CalledEvent=="Create"){
+	if (CalledEvent=="GetXmlModel"){
+		this->GetXmlModel();
+	} else if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
         this->Read();
     } else if (CalledEvent=="ReadForUpdateFrm"){
         this->ReadForUpdateFrm();
     } else if (CalledEvent=="List"){
-	this->List();
+		this->List();
     } else if (CalledEvent=="ListAsOptions"){
-	this->ListAsOptions();
+		this->ListAsOptions();
     } else if (CalledEvent=="Update"){
-	this->Update();
+		this->Update();
     } else if (CalledEvent=="Delete"){
-	this->Delete();
+		this->Delete();
     } else {
-	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
-	throw 42;
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
+		throw 42;
     }
 };
 

@@ -7,7 +7,9 @@ XaUserAddressGeo::XaUserAddressGeo(){
 
 void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
 
-    if (CalledEvent=="Create"){
+	if (CalledEvent=="GetXmlModel"){
+		this->GetXmlModel();
+	} else if (CalledEvent=="Create"){
         this->Create();
     } else if (CalledEvent=="Read"){
 		this->Read();
@@ -22,9 +24,8 @@ void XaUserAddressGeo::Dispatcher (const string &CalledEvent) {
     } else if (CalledEvent=="Delete"){
 		this->Delete();
     } else {
-
-	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
-	throw 42;
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
+		throw 42;
     }
 };
 
