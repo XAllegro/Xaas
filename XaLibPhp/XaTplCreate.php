@@ -80,7 +80,7 @@ class XaTplCreate  extends XaTpl{
           $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
           $field.='<input type="number" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
           
-          if($FieldNode['required']='yes'){
+          if($FieldNode['required']=='yes'){
             $field.=' required="true"';
           }
           
@@ -91,7 +91,7 @@ class XaTplCreate  extends XaTpl{
           $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
           $field.='<input type="email" pattern="[^ @]*@[^ @]*" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
           
-          if($FieldNode['required']='yes'){
+          if($FieldNode['required']=='yes'){
             $field.=' required="true"';
           }
           
