@@ -1,42 +1,33 @@
 <XaUserAddressPhoneType>
     <form>
-        <controller>XaUserUi</controller>
-        <id>XaUserAddressPhoneType</id>
-        <name>XaUserAddressPhoneType</name>
-        <obj>XaUserAddressPhoneTypeUi</obj>
+        <controller>XaUser</controller>
+        <obj>XaUserAddressPhoneType</obj>
         <evt>Create</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form-1-column</class>
     </form>
-	<update_form>
-        <controller>XaUserUi</controller>
-        <id>XaUserAddressPhoneType</id>
-        <name>XaUserAddressPhoneType</name>
-        <obj>XaUserAddressPhoneTypeUi</obj>
+    <update_form>
+        <controller>XaUser</controller>
+        <obj>XaUserAddressPhoneType</obj>
         <evt>Update</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form-1-column</class>
     </update_form>
-    <fieldset id="XaUserAddressPhoneType" name="XaUserAddressPhoneType">
+    <fieldset>
         <legend>create&#32;a&#32;new&#32;address&#32;phone&#32;type</legend>
-		<update_legend>update&#32;a&#32;address&#32;phone&#32;type</update_legend>
-		<field id="name" name="name">
-			<id>name</id>
-			<name>name</name>
-			<type>input-text</type>
-			<label>Address&#32;Phone&#32;Type</label>
-			<placeholder>Insert&#32;Address&#32;Phone&#32;Type</placeholder>
-			<default></default>
+	<update_legend>update&#32;a&#32;address&#32;phone&#32;type</update_legend>
+	<field>
+		<id>name</id>
+		<name>name</name>
+		<type>input-text</type>
+		<label>Address&#32;Phone&#32;Type</label>
+		<placeholder>Insert&#32;Address&#32;Phone&#32;Type</placeholder>
+		<default></default>
             <required>yes</required>
+            <create>yes</create>
             <read>yes</read>
             <list>yes</list>
             <update>yes</update>
             <search>yes</search>
             <size></size>
-		</field>
-		 <field id="description" name="description">
+	</field>
+	<field>
             <id>description</id>
             <name>description</name>
             <type>input-textarea</type>
@@ -44,6 +35,7 @@
             <placeholder>description</placeholder>
             <default></default>
             <required>no</required>
+            <create>yes</create>
             <read>yes</read>
             <list>yes</list>
             <update>yes</update>

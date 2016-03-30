@@ -1,28 +1,18 @@
 <XaUserAddressMail>
     <form>
-        <controller>XaUserUi</controller>
-        <id>XaUserAddressMail</id>
-        <name>XaUserAddressMail</name>
-        <obj>XaUserAddressMailUi</obj>
+        <controller>XaUser</controller>
+        <obj>XaUserAddressMail</obj>
         <evt>Create</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form-1-column</class>
     </form>
-	<update_form>
-        <controller>XaUserUi</controller>
-        <id>XaUserAddressMail</id>
-        <name>XaUserAddressMail</name>
-        <obj>XaUserAddressMailUi</obj>
+    <update_form>
+        <controller>XaUser</controller>
+        <obj>XaUserAddressMail</obj>
         <evt>Update</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form-1-column</class>
     </update_form>
-    <fieldset id="XaUserAddressMail" name="XaUserAddressMail">
+    <fieldset>
         <legend>create&#32;a&#32;new&#32;address&#32;mail</legend>
-		<update_legend>update&#32;a&#32;address&#32;mail</update_legend>
-        <field id="XaUser_ID" name="XaUser_ID">
+	<update_legend>update&#32;a&#32;address&#32;mail</update_legend>
+        <field>
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>
             <type>input-text</type>
@@ -30,43 +20,47 @@
             <placeholder>XaUser_ID:&#32;gestire&#32;in&#32;XaUser&#32;ListAsOptions</placeholder>
             <default></default>
             <required>yes</required>
+            <create>yes</create>
             <read>yes</read>
             <list>yes</list>
             <update>no</update>
             <search>yes</search>
             <size></size>
         </field>
-		<field id="XaUserAddressMailType_ID" name="XaUserAddressMailType_ID">
-			<id>XaUserAddressMailType_ID</id>
-			<name>XaUserAddressMailType_ID</name>
-			<type>select-single</type>
-			<label>Email&#32;Type</label>
-			<options>
-                <obj>XaUserAddressMailTypeUi</obj>
+	<field>
+		<id>XaUserAddressMailType_ID</id>
+		<name>XaUserAddressMailType_ID</name>
+		<type>select-single</type>
+		<label>Email&#32;Type</label>
+		<options>
+                <obj>XaUserAddressMailType</obj>
                 <evt>ListAsOptions</evt>
             </options>
-			<placeholder>Email Type</placeholder>
-			<default></default>
+		<placeholder>Email Type</placeholder>
+		<default></default>
             <required>yes</required>
+            <create>yes</create>
             <read>yes</read>
             <list>yes</list>
             <update>yes</update>
             <search>yes</search>
             <size></size>
-		</field>
-		<field id="email" name="email">
-			<id>email</id>
-			<name>email</name>
-			<type>input-email</type>
-			<label>Email</label>
-			<placeholder>Insert&#32;Email&#32;Address</placeholder>
-			<default></default>
+	</field>
+	<field>
+		<id>email</id>
+		<name>email</name>
+		<type>input-email</type>
+		<label>Email</label>
+		<placeholder>Insert&#32;Email&#32;Address</placeholder>
+		<default></default>
             <required>yes</required>
+            <create>yes</create>
             <read>yes</read>
             <list>yes</list>
             <update>yes</update>
             <search>yes</search>
             <size></size>
-		</field>
+            <maxlength>100</maxlength>
+	</field>
     </fieldset>
 </XaUserAddressMail>

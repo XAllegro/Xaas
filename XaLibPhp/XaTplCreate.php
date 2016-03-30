@@ -64,8 +64,13 @@ class XaTplCreate  extends XaTpl{
         if ($FieldNode['create']=='yes') {
         
             $field='<li>';
+
+        if ($FieldNode['type']=='input-hidden') {
+
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
+            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
         
-        if ($FieldNode['type']=='input-text') {
+        } else if ($FieldNode['type']=='input-text') {
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
