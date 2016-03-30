@@ -19,5 +19,13 @@ class XaRbacRoleRXaUser extends XaLibApi {
         $this->$evt($Conf,$HTTP);
     }
 
+    public final function ExecuteSync (array &$Conf,XaLibHttp &$HTTP,$evt,$obj,$Params) {
+
+        $this->_obj=$obj;
+        $this->_params=$Params;
+
+        return ($this->$evt($Conf,$HTTP));
+    }
+
 }
 ?>

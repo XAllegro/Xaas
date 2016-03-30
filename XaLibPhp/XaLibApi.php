@@ -255,12 +255,28 @@ class XaLibApi {
 
     public function Read(array &$Conf,XaLibHttp &$HTTP):array {
 
+        if($HTTP->ExistsHttpParam("obj")) {
+
+            $object=$HTTP->GetHttpParam("obj");
+
+        } else {
+
+            $object=$this->_obj;
+
+        }
+
+        if($HTTP->ExistsHttpParam("params")) {
+            $params=$HTTP->GetHttpParam("params");
+        } else {
+            $params=$this->_params;
+        }
+
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP); 
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Read</event></operation>";
-            $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
+            $url.="<operation><object>".$object."</object><event>Read</event></operation>";
+            $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
 
             return $this->GetCurlResAsArray($url);
@@ -275,19 +291,29 @@ class XaLibApi {
     public function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
 
         if($HTTP->ExistsHttpParam("obj")) {
-            
+
             $object=$HTTP->GetHttpParam("obj");
         } else {
             
             $object=$this->_obj;
         }
         
+        if($HTTP->ExistsHttpParam("params")) {
+
+            $params=$HTTP->GetHttpParam("params");
+
+        } else {
+
+            $params=$this->_params;
+        }
+
+        
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$object."</object><event>ListByUser</event></operation>";
-            $url.="<params><p><n>XaUser_ID</n><v>".$HTTP->GetHttpParam("XaUser_ID")."</v></p></params>";
+            $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
 
             $WsData=$this->GetCurlResAsArray($url);
