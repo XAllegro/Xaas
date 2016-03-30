@@ -22,7 +22,7 @@ class XaLibApi {
         $BaseUrl.="&ConsumerId=".$Conf[$ApiName]["ConsumerId"];
         return $BaseUrl;
     }
-    
+
     protected final function GetLoginSection(XaLibHttp &$HTTP):string {
 
         $section="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
@@ -45,7 +45,7 @@ class XaLibApi {
             
             $section.="<p><n>".$k."</n><v>".$v."</p>";
             }
-            
+
             $section.="</params>";
             return $section;
         }
@@ -62,7 +62,7 @@ class XaLibApi {
 
         return $v;
     }
-    
+
     protected final function GetCurlResAsArray($url):array {
 
             $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
