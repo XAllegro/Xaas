@@ -4,7 +4,7 @@
         <span class="Icon IconXAllegro"></span>
 
         <span class="Icon IconMyApps">
-            <a href="#"></a>
+            <a href="#" onclick="ToggleMainMenu()"></a>
         </span>
 
         <span class="Icon IconDefaultPage">

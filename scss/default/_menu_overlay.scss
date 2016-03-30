@@ -1,0 +1,75 @@
+@import '_variables';
+
+.overlay {
+    height: 50%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top:$HeaderHeight;
+    left: 0;
+    //opacity:$HeaderOpacity;
+    //background-color: $HeaderBackgroundColor;
+    background: linear-gradient(to right, $HeaderBackgroundColor 70%,#22313F 90%);
+    //background: linear-gradient(to right, $HeaderBackgroundColor 30%,#34495e 80%);
+    overflow-x: hidden;
+    transition: 0.5s;
+
+.overlay-content {
+    position: relative;
+    padding:2.5%;
+    width: 100%;
+    text-align: center;
+}
+
+.overlay-content a {
+    padding: 1%;
+    text-decoration: none;
+    color: #FFFFFF;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay-content a:hover, .overlay-content a:focus {
+    color: #f1f1f1;
+}
+
+.closebtn {
+    color:#FFFFFF;
+    font-size: 150%;
+}
+
+
+    .box {
+
+        float:left;
+        margin: 1%;
+        padding: 0.75%;
+        background-color:rgba(34, 49, 63,0.85);
+        color: #FFFFFF;
+        height:15%;
+
+        .title {
+            height: 50%;
+            padding-bottom: 1vh;
+            text-align: right;
+            line-height: 140%;
+            font-weight: lighter;
+            margin-bottom: 0.5vh;
+            border-bottom: 1px solid $DashboardFontColor;
+        }
+
+         .IconGo {
+            
+            text-align:right;
+            width:95%;
+            font-size:130%; 
+            //width:50%;
+            
+            a:after {
+                font-family: Awesome;
+                content: "\f144";
+            }
+        }
+    }
+
+}

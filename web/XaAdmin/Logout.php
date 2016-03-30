@@ -1,3 +1,4 @@
+<?php require_once ('XaPage.php');?>
 <html id="html">
 
     <head>
@@ -12,7 +13,6 @@
                 <legend class="LogHomePage" style="line-height:2em" >
                     <img/>
                 </legend>
-
                 <ul>
                     <li>
                             You have been successfully logged out.

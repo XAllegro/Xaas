@@ -23,7 +23,7 @@ class XaTplRead extends XaTpl{
         
         /*ADDING TITLES*/        
         $Content.='<tr class="header">';
-       
+
         foreach($WsData['read'] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         }

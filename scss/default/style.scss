@@ -16,6 +16,7 @@
 @import '_explorer';
 @import '_dropdown';
 @import '_tabs';
+@import '_menu_overlay';
 
 
 @include reset-all();
@@ -47,9 +48,13 @@ body {
 header {
     max-width: 100vw;
     height: $HeaderHeight;
-    background-color: $HeaderBackgroundColor;
-    opacity:$HeaderOpacity;
-    background: linear-gradient(to right, $HeaderBackgroundColor 30%,#34495e 80%);
+    //background-color: $HeaderBackgroundColor;
+//    opacity:$HeaderOpacity;
+    //background: linear-gradient(to right, $HeaderBackgroundColor 20%,#34495e 80%);
+    
+    background: linear-gradient(to right, $HeaderBackgroundColor 70%,#22313F 90%);
+    
+    
     color: $HeaderFontColor;
     line-height:$HeaderLineHeight/100*120;
 }

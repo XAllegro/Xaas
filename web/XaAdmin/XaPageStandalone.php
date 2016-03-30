@@ -6,6 +6,7 @@
     </head>
 
     <body>
+ 	<?php require_once ('menu.php');?>
 
         <header id="header">
             <?php require_once ('header.php');?>

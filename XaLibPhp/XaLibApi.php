@@ -306,7 +306,6 @@ class XaLibApi {
 
             $params=$this->_params;
         }
-
         
         if ($HTTP->CookieGet("XaSessionId")!="") {
 

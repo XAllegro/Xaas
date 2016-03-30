@@ -27,24 +27,17 @@ class XaTplList extends XaTpl{
         return $Content;
     }
 
-    public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData):string {
+    public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
 
-        /*
-         * Type = actions = 1
-         * */
+        $actions="no";
+        $actions=$this->GetTplParam($HTTP,$TplParams,"actions");
         
-        $type=0;
+        $Title="Titolo Lista";
+        $Title=$this->GetTplParam($HTTP,$TplParams,"title");
         
-        if ($HTTP->ExistsHttpParam("type")) {
-           
-            if ($HTTP->GetHttpParam("type")=="actions") {
-            
-                $type=1;
-            }
-        }
 
         $Content='<table class="list">';
-        $Title="Titolo Lista";
+      
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
 
@@ -52,14 +45,14 @@ class XaTplList extends XaTpl{
 
       if ($ItemsNumber>0) {
 
-        /*ADDING TITLES*/        
+        /*ADDING TITLES*/
         $Content.='<tr class="header">';
        
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         } 
         
-        if ($type==1){
+        if ($actions=="yes"){
             $Content.='<th>Actions</th>';
         }
 
@@ -75,7 +68,7 @@ class XaTplList extends XaTpl{
             }
           
             //ADDING ACTIONS
-            if ($type==1) {
+            if ($actions=="yes") {
                 
                 $Content.='<td>';
                 $RowId=$WsData['list']['item'][$i]['id'];

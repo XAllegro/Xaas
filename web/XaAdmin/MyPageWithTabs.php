@@ -6,7 +6,6 @@
 	</head>
 <body>
 
-
 <!-- numero dei tab
 contenuto dei tab
  -->
@@ -65,7 +64,7 @@ qw<br/>
     	<div class="tab">
     		<input onclick="javascript:alert('pippo')" type="radio" id="tab-2" name="tab-group-1">
     		<label class="style-label" for="tab-2">Tab Two</label>
-    		<div id="prova2" class="content"></div> 
+    		<div id="prova2" class="content"></div>
     	</div>
 
 		<div class="tab">
@@ -79,7 +78,7 @@ qw<br/>
                $WsData=$XaUser->ExecuteSync($Conf,$HTTP,"List","XaUser","{\"order_by\":\"surname\",\"status\":1}");
     
                $Tpl = new XaTplList();
-               $Content = $Tpl->List($Conf,$HTTP,$WsData);
+               $Content = $Tpl->List($Conf,$HTTP,$WsData,"{\"actions\":\"yes\"}");
                echo $Content;
             ?>
     		</div> 

@@ -7,10 +7,6 @@
 <body>
 
 
-<!-- numero dei tab
-contenuto dei tab
- -->
-
 <?php
 $Params=$HTTP->GetHttpParam("params");
 $ParamsArray=json_decode($Params, true);

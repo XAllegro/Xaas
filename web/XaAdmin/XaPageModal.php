@@ -29,19 +29,6 @@
 
             <div class="detail" id="detail">
                 <div class="content" id="content">
-
-                    <!--div class="dropdown">
-
-                        <button class="dropdown-button">Dropdown</button>
-
-                        <div class="dropdown-content">
-                            <a href="#">Link 1 molto molto</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                        </div>
-
-                    </div-->
-
                     
                 </div>
             

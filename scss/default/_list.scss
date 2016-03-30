@@ -13,15 +13,11 @@
     //border-radius:$BorderRadius;
 
     .title {
-
         color:$ListHeaderFontColor;
         height: $ListTitleHeight;
 
         th {
-            //background:$ListHeaderBackgroundColor;
-            background: linear-gradient(to right, $ListHeaderBackgroundColor 30%,#34495e 80%);
-
-            //border-radius:$BorderRadius;
+            background: linear-gradient(to right, $HeaderBackgroundColor 70%,#22313F 90%);
             height:$ListTitleHeight;
             text-align: left;
 
@@ -30,7 +26,6 @@
                 padding-left:0.5%;
                 line-height: $ListTitleHeight;
             }
-
             .RightToolbar {
 
                 float:right;
