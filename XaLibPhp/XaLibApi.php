@@ -143,12 +143,30 @@ class XaLibApi {
     }
 
     public function GetXmlModel(array &$Conf,XaLibHttp &$HTTP):array {
-    
+
+        if($HTTP->ExistsHttpParam("obj")) {
+
+            $object=$HTTP->GetHttpParam("obj");
+
+        } else {
+            
+            $object=$this->_obj;
+        }
+        
+        if($HTTP->ExistsHttpParam("params")) {
+        
+            $params=$HTTP->GetHttpParam("params");
+
+        } else {
+
+            $params=$this->_params;
+        }
+
         if ($HTTP->CookieGet("XaSessionId")!="") {
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
-            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="<operation><object>".$object."</object><event>GetXmlModel</event></operation>";
+            $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
     
             return $this->GetCurlResAsArray($url);
@@ -194,6 +212,7 @@ class XaLibApi {
         if($HTTP->ExistsHttpParam("obj")) {
 
             $object=$HTTP->GetHttpParam("obj");
+
         } else {
             
             $object=$this->_obj;
@@ -239,6 +258,34 @@ class XaLibApi {
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$Obj."</object><event>ListAsOptions</event></operation>";
+            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="</WsData>";
+    
+            $WsData = $this->GetCurlResAsArray($url);
+            $this->RearrangeListResultArray($WsData);
+    
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
+    public function ListAsOptionsDomain(array &$Conf,XaLibHttp &$HTTP,$Obj="",$domain,$tree_parent_ID=""):array {
+
+        if ($Obj=="") {
+
+            $Obj=$HTTP->GetHttpParam("obj");
+        }
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+    
+            $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP);
+            $url.="<operation><object>".$Obj."</object><event>ListAsOptions</event></operation>";
+            $url.="<params><p><n>domain</n><v>".$domain."</v></p></params>";
+            $url.="<params><p><n>tree_parent_ID</n><v>".$tree_parent_ID."</v></p></params>";
             $url.="<params><p><n></n><v></v></p></params>";
             $url.="</WsData>";
     
