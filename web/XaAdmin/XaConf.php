@@ -24,6 +24,7 @@
     require_once ('XaTplList.php');
     require_once ('XaTplRead.php');
     require_once ('XaTplCreate.php');
+    require_once ('XaTplContext.php');
 
     //require_once ('XaTplUserCreateForm.php');
     //require_once ('XaTplUpdateForm.php');
