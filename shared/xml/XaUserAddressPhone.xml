@@ -15,7 +15,7 @@
         <field>
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>
-            <type>input-text</type>
+            <type>external-key</type>
             <label>XaUser_ID</label>
             <placeholder>XaUser_ID:&#32;gestire&#32;in&#32;XaUser&#32;ListAsOptions</placeholder>
             <default></default>

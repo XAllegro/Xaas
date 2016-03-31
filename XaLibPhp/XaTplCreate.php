@@ -38,7 +38,11 @@ class XaTplCreate  extends XaTpl{
         $form.='<ul>';
 
             for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
-                $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+                if ($WsData[$obj]['fieldset']['field'][$i]['type']!='external-key') {
+                    $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+                } else {
+                    $form.='<input type="hidden" name="'.$WsData[$obj]['fieldset']['field'][$i]['name'].'" value="'.$WsData[$obj]['fieldset']['field'][$i]['value'].'"/>';
+                }
             }
 
         $form.='<li><button type="submit">Submit</button><br/><br/></li>';
@@ -51,7 +55,7 @@ class XaTplCreate  extends XaTpl{
 
     }
 
-    function BuildField(array $Conf,XaLibHttp &$HTTP,array $FieldNode) {
+    function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
 
         /*
          * Ho distinto le select single in 2 tipi sync e async 

@@ -349,19 +349,44 @@ void XaLibModel::Execute(){
 
 void XaLibModel::GetXmlModel() {
 
-	//string ModelName=HTTP.GetHttpParam("name");
 	string ModelType=HTTP.GetHttpParam("type");
+	// there can be additional Http params with name of external keys
 
 	string ModelName=REQUEST.CalledObject;
-	
-	
+
 	/*AGGIUNGERE IF PER VARI TIPI ... INSERT MODIFICA ECC*/
-	
-	
-	ifstream MyFile;
-	string Content;
 
 	vector<string> XmlFiles=AddXmlFile({ModelName});
+	string Content;
+
+  if (ModelType=="WithExternalKey") {
+	/* Load Xml file and add <value> tag to nodes */
+
+	unique_ptr<XaLibDom> LibDom(new XaLibDom());
+
+	xmlDocPtr XmlDomDoc=LibDom->DomFromFile(XmlFiles,0);
+
+	string XPathExpr="/"+ModelName+"/fieldset/field";
+	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+
+	for (auto i=0;i<FieldsNum;i++) {
+
+		string NodePath=XPathExpr+"["+ to_string(i+1) +"]";
+		string FType=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/type");
+
+		if(FType=="external-key") {
+			string FName=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/name");
+			string FValue=HTTP.GetHttpParam(FName);
+			LibDom->AddValueElementByXPath(XmlDomDoc,NodePath,FValue);
+		}
+	}
+
+	Content=LibDom->StringFromDom(XmlDomDoc);
+
+  } else {
+	/* Retrieve Xml file the fastest way */
+  
+	ifstream MyFile;
 
 	for (auto i=0;i<XmlFiles.size();i++) {
 
@@ -377,7 +402,7 @@ void XaLibModel::GetXmlModel() {
 			}
 		}
 	}
-
+  }
 	RESPONSE.Content=Content;
 };
 
