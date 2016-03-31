@@ -31,13 +31,11 @@ class XaTplList extends XaTpl{
 
         $actions="no";
         $actions=$this->GetTplParam($HTTP,$TplParams,"actions");
-        
+
         $Title="Titolo Lista";
         $Title=$this->GetTplParam($HTTP,$TplParams,"title");
-        
 
         $Content='<table class="list">';
-      
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
 

@@ -38,5 +38,16 @@ class XaApiTpl {
         $Content=$Template->$TplMethod($Conf,$HTTP,$WsData);
         return $Content;
     }
+
+    static public final function ApplyTemplate(&$Conf,&$HTTP,$WsData,$tpl,$TplParams) :string {
+
+        /*APPLY THE TEMPLATE*/
+        $TplClass="XaTpl".$tpl;
+        $TplMethod=$tpl;
+
+        $Template=new $TplClass();
+        $Content=$Template->$TplMethod($Conf,$HTTP,$WsData,$TplParams);
+        return $Content;
+    }
 }
 ?>

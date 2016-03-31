@@ -24,9 +24,9 @@ class XaTpl {
             return 0;
         }
     }
-    
+
     protected final function GetTplParam(XaLibHttp &$HTTP,&$TplParams,$ParamName) {
-        
+
         if ($this->GetTplParamsJson($TplParams)!=0) {
         
             $TplParamsArray=$this->GetTplParamsJson($TplParams);

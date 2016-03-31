@@ -14,10 +14,10 @@ class XaTplCreate  extends XaTpl{
 
     }
 
-    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData) {
+    public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
 
-        $obj=$HTTP->GetHttpParam("obj");
-
+        $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+        
         $FormClass="form form-1-column";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";

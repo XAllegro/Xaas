@@ -19,6 +19,13 @@
             </div>
 
             <div id="context" class="context">
+            
+            <?php 
+            	//XaApiTpl::ApplyTemplate($Conf,$HTTP,$WsData,$tpl,$TplParams)
+                  echo(      	XaApiTpl::ApplyTemplate($Conf,$HTTP,"","DropDown",""));
+            
+                  ?>
+            
                 <!--ul>
                     <li>Create User</li>
                     <li>View Roles</li>
