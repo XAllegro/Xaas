@@ -16,8 +16,8 @@ class XaTplDropDown extends XaTpl {
     }
 
     public function DropDown(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
-
         
+ 
         /*
         $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
 

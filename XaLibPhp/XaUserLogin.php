@@ -28,7 +28,7 @@ class XaUserLogin extends XaLibApi {
         //$result=json_decode(XaLibCurl::CallUrl ($url),true);
         $result=$this->GetCurlResAsArray($url);
         
-        $this->CheckApiError($result);
+      
 
         if ($result["token"]) {
 

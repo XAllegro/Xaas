@@ -3,6 +3,10 @@
         "name":"Xaas Admin",
         "style":"default"
     },
+    
+    "MyLinks":{
+        
+    },
 
     "XaUserLogin": {
         "Protocol":"http",

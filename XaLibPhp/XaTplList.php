@@ -27,6 +27,26 @@ class XaTplList extends XaTpl{
         return $Content;
     }
 
+    /*
+     * Example: Async Call with options:
+     * 
+     * Xa.CallAction('','XaPage.php?obj=XaUser&evt=List&tpl=List&params={%22order_by%22:%22surname%22}&TplParams={%22actions%22:%22yes%22,%22title%22:%22Lista%20Utenti%22}&lay=Included',{&quot;ResponseType&quot;:&quot;Html&quot;,&quot;TargetId&quot;:&quot;content&quot;});
+     * 
+     * 
+     * Example: Sync Call with options:
+     * 
+     * <?php
+     *  $XaUser=new XaUser();
+     *  $WsData=$XaUser->ExecuteSync($Conf,$HTTP,"List","XaUser","{\"order_by\":\"surname\",\"status\":1}");
+     *
+     *  $Tpl = new XaTplList();
+     *  $Content = $Tpl->List($Conf,$HTTP,$WsData,"{\"actions\":\"yes\"}");
+     *  echo $Content;
+     * ?>
+     * 
+     * */
+    
+    
     public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
 
         $actions="no";
@@ -35,6 +55,7 @@ class XaTplList extends XaTpl{
         $Title="Titolo Lista";
         $Title=$this->GetTplParam($HTTP,$TplParams,"title");
 
+        
         $Content='<table class="list">';
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';

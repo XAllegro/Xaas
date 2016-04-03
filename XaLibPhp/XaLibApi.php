@@ -65,11 +65,25 @@ class XaLibApi {
 
     protected final function GetCurlResAsArray($url):array {
 
+        libxml_use_internal_errors(true);
+                
+        if (!simplexml_load_string(XaLibCurl::CallUrl($url)) ){
+            
+            //CHECK LOW LEVEL SYSTEM ERROR
+            echo XaLibCurl::CallUrl($url);
+            exit();
+
+        } else {
+
             $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
             $json = json_encode($xml);
             $json= str_replace('{}','""',$json);
             $WsData = json_decode($json,TRUE);
+            
+            $this->CheckApiError($WsData);
+            
             return $WsData;
+        }
     } 
     
     protected final function Redirect($page) {
@@ -143,7 +157,7 @@ class XaLibApi {
     }
 
     public function GetXmlModel(array &$Conf,XaLibHttp &$HTTP):array {
-
+        
         if($HTTP->ExistsHttpParam("obj")) {
 
             $object=$HTTP->GetHttpParam("obj");
@@ -168,7 +182,7 @@ class XaLibApi {
             $url.="<operation><object>".$object."</object><event>GetXmlModel</event></operation>";
             $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
-    
+                
             return $this->GetCurlResAsArray($url);
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);

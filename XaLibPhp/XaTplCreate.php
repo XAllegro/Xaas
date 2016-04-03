@@ -14,8 +14,27 @@ class XaTplCreate  extends XaTpl{
 
     }
 
-    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    /*
+     * Example: Async Call with options:
+     *
+     * Xa.CallAction('','XaPage.php?obj=XaUser&evt=List&tpl=List&params={%22order_by%22:%22surname%22}&TplParams={%22actions%22:%22yes%22,%22title%22:%22Lista%20Utenti%22}&lay=Included',{&quot;ResponseType&quot;:&quot;Html&quot;,&quot;TargetId&quot;:&quot;content&quot;});
+     *
+     *
+     * Example: Sync Call with options:
+     *
+     * <?php
+     *          $XaUser=new XaUser();
+     *          $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'GetXmlModel','XaUser','');
+     *
+     *          $Tpl = new XaTplCreate();
+     *          $Content = $Tpl->Create($Conf,$HTTP,$WsData,'{"obj":"XaUser","TargetId":"UserId","ResponseType":"Text"}');
+     *          echo $Content;
+        ?>
+     *
+     * */
 
+    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+        
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
 
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
@@ -64,7 +83,7 @@ class XaTplCreate  extends XaTpl{
         /*
          * Ho distinto le select single in 2 tipi sync e async 
          * sync sono quelle aggiunte staticamente dalla pagina generata
-         * async sono quelle aggiornate ad onclik o altr eventi utili per inserimenti dinamici di opzioni 
+         * async sono quelle aggiornate ad onclik o altri eventi utili per inserimenti dinamici di opzioni 
          * va scritto l'if per select-single-async con il js dinamico (vedere vecchio front end)
          * 
          * */

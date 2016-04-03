@@ -18,20 +18,18 @@
                  <?php require_once ('nav.php');?>
             </div>
 
-            <div id="context" class="context">
+            <!-- div id="context" class="context" -->
             
             <?php 
             	//XaApiTpl::ApplyTemplate($Conf,$HTTP,$WsData,$tpl,$TplParams)
-                  echo(      	XaApiTpl::ApplyTemplate($Conf,$HTTP,"","DropDown",""));
-            
+                  //echo(XaApiTpl::ApplyTemplate($Conf,$HTTP,"","DropDown",""));
                   ?>
-            
                 <!--ul>
                     <li>Create User</li>
                     <li>View Roles</li>
                     <li>terzo</li>
                 </ul-->
-            </div>
+            <!-- /div -->
 
             <div class="detail" id="detail">
                 <div class="content" id="content">

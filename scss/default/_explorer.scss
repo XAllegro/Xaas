@@ -22,7 +22,6 @@
             }
 
             li {
-                
                 font-size:$ExplorerNavFontSize;
                 padding-top:5%;
                 padding-bottom:5%;
@@ -48,13 +47,14 @@
         @include reset-a();
         overflow: auto;
         background-color:rgba(255, 255, 255,0.75);
-        height: 100vh-($HeaderHeight+$ExplorerContextHeight);
-        
+        //height: 100vh-($HeaderHeight+$ExplorerContextHeight);
+        height: 100vh-($HeaderHeight);
         .content {
             padding:1%;
         }
 
     }
+
     .context {
 
         @include reset-a();
