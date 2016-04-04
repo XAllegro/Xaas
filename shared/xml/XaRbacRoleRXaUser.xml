@@ -1,23 +1,13 @@
 <XaRbacRoleRXaUser>
     <form>
-        <controller>XaUserUi</controller>
-        <id>XaRbacRoleRXaUser</id>
-        <name>XaRbacRoleRXaUser</name>
+        <controller>XaUser</controller>
         <obj>XaRbacRoleRXaUser</obj>
         <evt>Create</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form form-1-column</class>
     </form>
     <update_form>
-        <controller>XaUserUi</controller>
-        <id>XaRbacRoleRXaUser</id>
-        <name>XaRbacRoleRXaUser</name>
+        <controller>XaUser</controller>
         <obj>XaRbacRoleRXaUser</obj>
         <evt>Update</evt>
-        <async>true</async>
-        <method>POST</method>
-        <class>form form-1-column</class>
     </update_form>
     <fieldset>
         <legend>create&#32;a&#32;new&#32;user&#32;role</legend>
@@ -25,11 +15,7 @@
         <field>
             <id>XaUser_ID</id>
             <name>XaUser_ID</name>
-            <type>select-single</type>
-            <options>
-                <obj>XaUser</obj>
-                <evt>ListAsOptions</evt>
-            </options>
+            <type>external-key</type>
             <label>XaUser_ID</label>
             <placeholder>XaUser_ID</placeholder>
             <default>XaUser_ID</default>

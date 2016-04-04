@@ -29,32 +29,6 @@ void XaRbacRole::Dispatcher (const string &CalledEvent) {
 	}
 };
 
-void XaRbacRole::GetXmlModel() {
-
-	ifstream MyFile;
-	string Content;
-
-	vector<string> XmlFiles=AddXmlFile({"XaRbacRole"});
-
-	for (auto i=0;i<XmlFiles.size();i++) {
-
-		MyFile.open(XmlFiles[i].c_str());
-
-		if (MyFile.is_open()) {
-
-			string TmpString;
-
-			while(getline(MyFile,TmpString)) {
-				XaLibChar::ClearReturn(TmpString);
-				Content.append(TmpString);
-			}
-		}
-	}
-
-	RESPONSE.Content="<model>"+Content+"</model>";	
-
-};
-
 void XaRbacRole::Create() {
 
 	vector<string> FieldName;	

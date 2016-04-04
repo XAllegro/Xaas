@@ -25,32 +25,6 @@ void XaRbacRoleRXaUser::Dispatcher (const string &CalledEvent) {
 	}
 };
 
-void XaRbacRoleRXaUser::GetXmlModel() {
-
-	ifstream MyFile;
-	string Content;
-
-	vector<string> XmlFiles=AddXmlFile({"XaRbacRoleRXaUser"});
-
-	for (auto i=0;i<XmlFiles.size();i++) {
-
-		MyFile.open(XmlFiles[i].c_str());
-
-		if (MyFile.is_open()) {
-
-			string TmpString;
-
-			while(getline(MyFile,TmpString)) {
-				XaLibChar::ClearReturn(TmpString);
-				Content.append(TmpString);
-			}
-		}
-	}
-
-	RESPONSE.Content="<model>"+Content+"</model>";	
-
-};
-
 void XaRbacRoleRXaUser::Create() {
 
 	vector<string> FieldName;	

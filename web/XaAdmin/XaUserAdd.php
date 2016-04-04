@@ -29,7 +29,13 @@ contenuto dei tab
 
     <div class="tabs">
     	<div class="tab">
-    		<input  type="radio" id="tab-1" name="tab-group-1" checked onclick="var UserId=document.getElementById('UserId').value;if(UserId!=''){Xa.CallAction('','XaPage.php?obj=XaRbacRoleRXaUser&evt=ListByUser&params={&quot;XaUser_ID&quot;:&quot;'+UserId+'&quot;}&tpl=List&lay=Included',{ResponseType:&quot;Html&quot;,TargetId:&quot;tab-div-1&quot;,JsEval:&quot;yes&quot;})};">
+    		<input  type="radio" id="tab-1" name="tab-group-1" checked onclick="
+                    var UserId=document.getElementById('UserId').value;
+                    if(UserId!=''){Xa.CallAction('',
+                    'XaPage.php?obj=XaRbacRoleRXaUser&evt=GetXmlModel&tpl=Create&lay=Included&params={&quot;type&quot;:&quot;WithExternalKey&quot;,&quot;XaUser_ID&quot;:&quot;'+UserId+'&quot;}&TplParams={&quot;obj&quot;:&quot;XaRbacRoleRXaUser&quot;,&quot;ResponseType&quot;:&quot;Text&quot;,&quot;WithAlert&quot;:&quot;yes&quot;}',
+                    {&quot;TargetId&quot;:&quot;tab-div-1&quot;,&quot;ResponseType&quot;:&quot;Html&quot;,&quot;JsEval&quot;:&quot;yes&quot;}
+                    );}
+    		">
     		<label class="style-label" for="tab-1">Roles</label>
     		<div id="tab-div-1" class="content"></div> 
     	</div>

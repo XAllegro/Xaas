@@ -10,7 +10,9 @@
     require_once ('XaUser.php');
     require_once ('XaUserType.php');
 
+    require_once ('XaRbacRole.php');
     require_once ('XaRbacRoleRXaUser.php');
+
     require_once ('XaUserAddressGeo.php');
     require_once ('XaUserAddressPhone.php');
     require_once ('XaUserAddressMail.php');

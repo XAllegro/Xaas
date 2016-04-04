@@ -9,7 +9,6 @@ class XaRbacRole : public XaLibModel {
 		
 		void Dispatcher(const string &CalledEvent);
 
-		void GetXmlModel();
         void Create();
 		void List();
 		void ListAsOptions();

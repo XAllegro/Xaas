@@ -9,7 +9,6 @@ class XaRbacRoleRXaUser : public XaLibModel {
 		
 		void Dispatcher(const string &CalledEvent);
 		
-        void GetXmlModel();
 		void Create();
 		void ListByUser();
 		void ReadForUpdateFrm();
