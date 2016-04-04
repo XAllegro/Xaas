@@ -359,7 +359,7 @@ void XaLibModel::GetXmlModel() {
 	vector<string> XmlFiles=AddXmlFile({ModelName});
 	string Content;
 
-  if (ModelType=="WithExternalKey") {
+	if (ModelType=="WithExternalKey") {
 	/* Load Xml file and add <value> tag to nodes */
 
 	unique_ptr<XaLibDom> LibDom(new XaLibDom());
