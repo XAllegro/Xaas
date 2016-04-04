@@ -33,7 +33,7 @@ class XaUserLogin extends XaLibApi {
         if ($result["token"]) {
 
             $HTTP->CookieSet($result["token"]);
-            $this->Redirect("MyPage.php");
+            $this->Redirect($Conf["MyApp"]["MyPage"]);
         }
     }
     
@@ -44,12 +44,8 @@ class XaUserLogin extends XaLibApi {
             $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
             $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
             $url.="<operation><object>XaUserLogin</object><event>Logout</event></operation><params><p><n></n><v></v></p></params></WsData>";
-    
-            //$result=json_decode(XaLibCurl::CallUrl ($url),true);
 
             $result=$this->GetCurlResAsArray($url);
-            $this->CheckApiError($result);
-            
             $this->CheckApiError($result);
             $HTTP->CookieUnset();
 
