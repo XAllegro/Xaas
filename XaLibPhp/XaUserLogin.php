@@ -25,10 +25,7 @@ class XaUserLogin extends XaLibApi {
         $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
         $url.="<operation><object>XaUserLogin</object><event>Login</event></operation></WsData>";
 
-        //$result=json_decode(XaLibCurl::CallUrl ($url),true);
         $result=$this->GetCurlResAsArray($url);
-        
-      
 
         if ($result["token"]) {
 
@@ -36,7 +33,7 @@ class XaUserLogin extends XaLibApi {
             $this->Redirect($Conf["MyApp"]["MyPage"]);
         }
     }
-    
+   
     private function Logout(array &$Conf,XaLibHttp &$HTTP) {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
@@ -51,7 +48,7 @@ class XaUserLogin extends XaLibApi {
 
         }
 
-        $this->Redirect("Logout.php");
+        $this->Redirect($Conf["MyApp"]["LogoutPage"]);
     }
 }
 ?>

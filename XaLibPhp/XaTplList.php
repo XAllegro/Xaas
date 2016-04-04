@@ -14,14 +14,16 @@ class XaTplList extends XaTpl{
 
     }
 
-    protected function GetDropDown(array &$WsData,XaLibHttp &$HTTP,$RowId ):string {
+    private function GetDropDown(array &$WsData,XaLibHttp &$HTTP,array &$MyLinks,$RowId ):string {
 
+        
+        
         $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
 
         $Content='<div class="dropdown"><button class="dropdown-button">Actions</button><div class="dropdown-content">';
 
-        $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\','.$JsCallOptions.');">Update</a>';
-        $Content.='<a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaUser&evt=Delete&id='.$RowId.'\','.$JsCallOptions.');">Delete</a>';
+        //$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'UserMod.php?obj=XaUser&evt=UpdateFrm&id='.$RowId.'\','.$JsCallOptions.');">Update</a>';
+        //$Content.='<a href="#" onclick="Xa.CallAction(\'\',\'Delete.php?obj=XaUser&evt=Delete&id='.$RowId.'\','.$JsCallOptions.');">Delete</a>';
         $Content.='</div></div>';
 
         return $Content;
@@ -45,8 +47,7 @@ class XaTplList extends XaTpl{
      * ?>
      * 
      * */
-    
-    
+
     public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
 
         $actions="no";
@@ -56,6 +57,10 @@ class XaTplList extends XaTpl{
         $Title=$this->GetTplParam($HTTP,$TplParams,"title");
 
         
+        
+        
+        $DropDownMenu="";
+
         $Content='<table class="list">';
 
         $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
@@ -70,7 +75,8 @@ class XaTplList extends XaTpl{
         foreach($WsData['list']['item'][0] as $key => $value) {
             $Content.='<th>'.$key.'</th>';
         } 
-        
+
+        //ADDING COLUMN FOR ACTIONS
         if ($actions=="yes"){
             $Content.='<th>Actions</th>';
         }
@@ -91,7 +97,7 @@ class XaTplList extends XaTpl{
                 
                 $Content.='<td>';
                 $RowId=$WsData['list']['item'][$i]['id'];
-                $Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
+                //$Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
                 $Content.='</td>';
             }
         }

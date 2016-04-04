@@ -41,7 +41,7 @@
     //require_once ('XaTplRoleRUserListForUpdate.php');
 
     /*CONFIG FILE*/
-    $ConfFile = file_get_contents("/XAllegro/Xaas/config/XaAdmin.json");
+    $ConfFile = file_get_contents("config.json");
     $Conf = json_decode($ConfFile, true);
 
     /*POST AND GET*/
