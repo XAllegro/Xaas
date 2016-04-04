@@ -66,16 +66,17 @@ class XaLibApi {
     protected final function GetCurlResAsArray($url):array {
 
         libxml_use_internal_errors(true);
-                
-        if (!simplexml_load_string(XaLibCurl::CallUrl($url)) ){
-            
+        $CallResponse="";
+        
+        if (!simplexml_load_string($CallResponse=XaLibCurl::CallUrl($url)) ){
+
             //CHECK LOW LEVEL SYSTEM ERROR
-            echo XaLibCurl::CallUrl($url);
+            echo $CallResponse;
             exit();
 
         } else {
 
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
+            $xml = simplexml_load_string($CallResponse);
             $json = json_encode($xml);
             $json= str_replace('{}','""',$json);
             $WsData = json_decode($json,TRUE);
@@ -442,25 +443,7 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
-/*
-    public function CreateFrm(array &$Conf,XaLibHttp &$HTTP):array {
 
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
-            $url.="<params><p><n></n><v></v></p></params>";
-            $url.="</WsData>";
-            
-            return $this->GetCurlResAsArray($url);;
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-
-        } else {
-            //MANDARE LOGIN
-        }
-    }
-*/
     public function UpdateFrm(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
