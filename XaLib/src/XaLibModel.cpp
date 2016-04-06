@@ -350,6 +350,7 @@ void XaLibModel::Execute(){
 void XaLibModel::GetXmlModel() {
 
 	string ModelType=HTTP.GetHttpParam("type");
+	string Id=HTTP.GetHttpParam("id");	// used in Update
 	// there can be additional Http params with name of external keys
 
 	string ModelName=REQUEST.CalledObject;
@@ -359,29 +360,57 @@ void XaLibModel::GetXmlModel() {
 	vector<string> XmlFiles=AddXmlFile({ModelName});
 	string Content;
 
-	if (ModelType=="WithExternalKey") {
-	/* Load Xml file and add <value> tag to nodes */
+	if (ModelType=="CreateWithExternalKey") {
+		/* Load Xml file and add <value> tag to nodes */
 
-	unique_ptr<XaLibDom> LibDom(new XaLibDom());
+		unique_ptr<XaLibDom> LibDom(new XaLibDom());
 
-	xmlDocPtr XmlDomDoc=LibDom->DomFromFile(XmlFiles,0);
+		xmlDocPtr XmlDomDoc=LibDom->DomFromFile(XmlFiles,0);
 
-	string XPathExpr="/"+ModelName+"/fieldset/field";
-	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+		string XPathExpr="/"+ModelName+"/fieldset/field";
+		int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
 
-	for (auto i=0;i<FieldsNum;i++) {
+		for (auto i=0;i<FieldsNum;i++) {
 
-		string NodePath=XPathExpr+"["+ to_string(i+1) +"]";
-		string FType=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/type");
+			string NodePath=XPathExpr+"["+ to_string(i+1) +"]";
+			string FType=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/type");
 
-		if(FType=="external-key") {
-			string FName=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/name");
-			string FValue=HTTP.GetHttpParam(FName);
-			LibDom->AddValueElementByXPath(XmlDomDoc,NodePath,FValue);
+			if(FType=="external-key") {
+				string FName=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/name");
+				string FValue=HTTP.GetHttpParam(FName);
+				LibDom->AddValueElementByXPath(XmlDomDoc,NodePath,FValue);
+			}
 		}
-	}
 
-	Content=LibDom->StringFromDom(XmlDomDoc);
+		Content=LibDom->StringFromDom(XmlDomDoc);
+
+	} else if (ModelType=="Update") {
+		/* Load Xml file and add <value> tag to nodes */
+
+		/* model */
+		unique_ptr<XaLibDom> LibDom(new XaLibDom());
+		xmlDocPtr XmlDomDoc=LibDom->DomFromFile(XmlFiles,0);
+
+		string XPathExpr="/"+ModelName+"/fieldset/field";
+		int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+
+		/* data */
+		vector<string> ReadFields=ReadPrepare({ModelName},"/"+ModelName+"/fieldset/field",0);
+		DbResMap DbRes=XaLibSql::Select(DB_READ,ModelName,{ReadFields},{"id"},{Id});
+		xmlDocPtr XmlDomDocData=LibDom->DomFromString(ReadResponse(DbRes,ReadFields));
+
+		for (auto i=0;i<FieldsNum;i++) {
+
+			string NodePath=XPathExpr+"["+ to_string(i+1) +"]";
+			string FType=LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/type");
+
+			string FName =LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/name");
+			string FValue=LibDom->GetElementValueByXPath(XmlDomDocData,"/read/"+FName);
+			LibDom->AddValueElementByXPath(XmlDomDoc,NodePath,FValue);
+
+		}
+
+		Content=LibDom->StringFromDom(XmlDomDoc);
 
   } else {
 	/* Retrieve Xml file the fastest way */

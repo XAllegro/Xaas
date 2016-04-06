@@ -31,6 +31,7 @@
     require_once ('XaTplList.php');
     require_once ('XaTplRead.php');
     require_once ('XaTplCreate.php');
+    require_once ('XaTplUpdate.php');
     require_once ('XaTplDropDown.php');
 
     //require_once ('XaTplUserCreateForm.php');

@@ -444,38 +444,6 @@ class XaLibApi {
         }
     }
 
-    public function UpdateFrm(array &$Conf,XaLibHttp &$HTTP):array {
-
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-            // model
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>GetXmlModel</event></operation>";
-            $url.="<params><p><n></n><v></v></p></params>";
-            $url.="</WsData>";
-
-            $xml = simplexml_load_string(XaLibCurl::CallUrl($url));
-            $json = json_encode($xml);
-            $WsModel = json_decode($json,TRUE);
-
-            // data
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>ReadForUpdateFrm</event></operation>";
-            $url.="<params><p><n>id</n><v>".$HTTP->GetHttpParam("id")."</v></p></params>";
-            $url.="</WsData>";
-
-            $WsData =  $this->GetCurlResAsArray($url);
-
-            return array($WsModel,$WsData);
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-
-        } else {
-            //MANDARE LOGIN
-        }
-    }
-
     public function Update(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
@@ -492,11 +460,10 @@ class XaLibApi {
 
             $url.="</params>";
             $url.="</WsData>";
-
             
             $WsData = $this->GetCurlResAsArray($url);
 
-echo($WsData['update']);
+            echo($WsData['update']);
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
