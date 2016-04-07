@@ -3,7 +3,7 @@
 
         <span class="Icon IconXAllegro"></span>
 
-        <span class="Icon IconMyApps">
+        <span id="IconMyApps" class="Icon IconMyApps">
             <a href="#" onclick="ToggleMainMenu()"></a>
         </span>
 
@@ -31,3 +31,12 @@
        </span>
     </li>
 </ul>
+
+
+<?php
+
+    if(array_key_exists("AppIconColor",$Conf['MyApp'])){
+
+        echo '<script>document.getElementById("IconMyApps").style.color = "'.$Conf['MyApp']['AppIconColor'].'"</script>';
+    }
+?>

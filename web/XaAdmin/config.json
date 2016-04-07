@@ -1,13 +1,16 @@
 {
-    "MyApp" :{
+    "MyApp" : {
         "name":"Xaas Admin",
         "style":"default",
         "LogoutPage":"Logout.php",
-        "MyPage":"MyPage.php"
-    },
+        "MyPage":"MyPage.php",
+        "AppIconColor":"#77B710"
+    }, 
 
-    "MyLinks" :{
+    "MyLinks" : {
         "XaUser-Create":"XaUserAdd.php",
+        "XaUser-Update":"XaUserAdd.php",
+        "XaUser-Delete":"XaUserAdd.php",
         "XaUser-MyPage":"My;Page.php"
     },
 

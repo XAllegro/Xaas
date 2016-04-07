@@ -7,7 +7,8 @@ var Errors = {
     ArgumentsNumber:"Arguments Number Is Not Valid",
     UrlNotPassed:"URL Parameter Not Passed",
     LoadeTargetIdNotFound:"Request a Loader Without a Target",
-    TargetIdDoesNotExist:"Passed Target Id Does Not Exist"
+    TargetIdDoesNotExist:"Passed Target Id Does Not Exist",
+    PostActionWithoutArgs:"Asked Post Action Without Args"
 };
 
 var DefaultController="";
@@ -15,19 +16,21 @@ var DefaultMethod="POST";
 var DefaultAsync="true";
 var DefaultTarget="html";
 var DefaultJsEval="no";
+var DefaultFormId="";
+
 var	FlowCheck=true;
 
 var AllRequiredFields="Please ensure that all required fields, those with an *(red asterisk), have been completed and formatted correctly!";
 
-function Xa () {
-};
-
-Xa.ErrorHandler=function(ErrorName){
+function ErrorHandler(ErrorName){
 
     alert(Errors[ErrorName]);
     return false;
 };
 
+
+function Xa () {
+};
 
 /*
  * @function XaCall
@@ -139,6 +142,7 @@ Xa.Call = function(url,type,sync,cb) {
  */
 
 Xa.CallAction=function (controller,url,args){
+    alert (args);
     if(args.ResponseType===undefined){ args.ResponseType ="Text"; };
     if(args.CallMethod==="" || args.CallMethod===undefined) { args.CallMethod = DefaultMethod; };
     if(args.CallAsync==="" || args.CallAsync===undefined) { args.CallAsync = DefaultAsync; };
@@ -149,15 +153,17 @@ Xa.CallAction=function (controller,url,args){
     if(args.TargetId==="" || args.TargetId===undefined) { args.TargetId="html"; }
     if(args.AlertMessage===undefined) { args.AlertMessage=""; }
 
+    if(args.FormId==="" || args.FormId===undefined) { args.FormId=DefaultFormId; }
+
     if(arguments.length!==3) {Xa.ErrorHandler("ArgumentsNumber"); return false;};
 
     if(controller==="") {controller = DefaultController;};
 
     if (url==="") {ErrorHandler("UrlNotPassed"); return false;};
 
-    if(args.FormId===undefined) { args.FormId=""; }
+    //if(args.FormId===undefined) { args.FormId=""; }
 
-    if (args.FormId!=="") {
+    if (args.FormId!=="" && args.FormId!==undefined) {
         url= url + "&" +Xa.XaSerializeForm (args.FormId);
     }
 
@@ -247,6 +253,18 @@ Xa.CallAction=function (controller,url,args){
                 return false;
             }
 
+        } else if (args.ResponseType==="PostAction") {
+            if(args.PostActionArgs===undefined) {
+
+                ErrorHandler("PostActionWithoutArgs");
+
+            } else {
+
+                var str=args.PostActionArgs['args'];
+                var obj=eval("("+str+")");
+
+                Xa.CallAction(args.PostActionArgs['ctrl'],args.PostActionArgs['action'],obj);
+            }
         }
 
     });

@@ -19,6 +19,10 @@
 <link rel="icon" type="image/png" href="a" />
 <link rel="shortcut icon" type="image/png" href="#" />
 
+
+
+
+
 <?php
     echo '<link rel="stylesheet" type="text/css" href="/style/'.$Conf['MyApp']['style'].'/style.css" />';
 ?>

@@ -16,23 +16,23 @@ function ToggleMainMenu () {
 
 <div id="myNav" class="overlay">
  
-    <!-- a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a-->
- 
- 		<div class="overlay-content">
-  
-        	<div class="box">
-                <p class="title">Configurations</p>
-                <p class="IconGo">
-               		<a href="?obj=XaOuUi&evt=CreateFrm"></a>
-                </p>
-        	</div>
+<!-- a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a-->
 
-        	<div class="box">
-                <p class="title">Users Admin</p>
-                <p class="IconGo">
-                	<a href="MyPage.php"></a>
-				</p>
-        	</div>
- 
-  </div>
+    <div class="overlay-content">
+
+        <div class="box">
+            <p class="title">Xaas Configurations</p>
+            <p class="IconGo">
+           		<a href="/XaAdmin/MyPage.php"></a>
+            </p>
+        </div>
+
+        <div class="box">
+            <p class="title">Users Admin</p>
+            <p class="IconGo">
+            	<a href="/XaUserAdmin/MyPage.php"></a>
+        	</p>
+        </div>
+
+    </div>
 </div>
