@@ -40,13 +40,14 @@ class XaTplCreate  extends XaTpl{
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
 
         $FormClass="form form-1-column";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
 
-        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;})";;
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:".$PostActionArgs."})";;
 
         $form='<form ';
         $form.='class="'.$FormClass.'"';
