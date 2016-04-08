@@ -1,0 +1,124 @@
+<div id="ParentListContainer">
+    <div id="ListContainer">
+	<div id="ListDataContainer"></div>
+    </div>
+</div>
+
+<script>
+
+/* copiato da XaFormTpl con l aggiunta di XaField_ID nel link CreateFrmCallUrl, link presente solo le lista vuota */
+
+    var XmlDoc=XaParseXml(XaModel);
+    var XmlDataDoc=XaParseXml(XaData);
+
+    var RootElement=XmlDoc.documentElement.nodeName;
+
+    var DataRowNumber=XaXmlCountElementByXpath(XmlDataDoc,"//list/item");
+
+    var FieldsToList=Array();
+
+    function BuildTitle (FieldIdx) {
+
+	var Title="";
+	var FLabel=XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldIdx+"]/label");
+	Title+=FLabel;
+	return Title;
+    }
+
+    function FindFields (ItemIdx,FieldId) {
+
+        var FieldsNumber=XaXmlCountElementByXpath(XmlDoc,"//field");
+ 	for (var j=1; j<=FieldsNumber; j++) {
+	    var FList =XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/list");
+            if (FList==="yes") {
+               FieldsToList.push(XaXmlGetElementValueByXpath(XmlDoc,"//field["+j+"]/name"));
+            }
+    	}
+    };
+
+    function BuildField (ItemIdx,FieldIdx) {
+
+        var Field="";
+        var FName=FieldsToList[FieldIdx-1];
+
+	var FType =XaXmlGetElementValueByXpath(XmlDoc,"//field["+FieldIdx+"]/type");
+        var FValue=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+ItemIdx+"]/"+FName);
+        if (FType==='select-boolean') {
+            if (FValue==='1') {Field+='yes';};
+            if (FValue==='2') {Field+='no';};
+        } else {
+            Field+=FValue;
+        }
+
+        return Field;
+    };
+
+        var target=document.getElementById('ListContainer').parentNode.id;
+
+        /* Is it always true? */
+        var CallObj=RootElement+"Ui";
+
+        var Content="<div>";
+
+        var CreateFrmCallUrl="obj="+CallObj+"&evt=CreateFrm";
+	CreateFrmCallUrl+="&XaField_ID="+XaField_ID;
+	CreateFrmCallUrl+="&XaTable="+XaTable;
+        CreateFrmCallUrl+="&lay=include";
+        CreateFrmAction="XaCallAction('','"+CreateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+        FindFields();
+
+        Content+="<table class=\"list\">";
+
+        var Title="Titolo Lista";
+        Content+="<tr class=\"title\"><th colspan=\"100%\"><span>"+Title+"</span><ul class=\"RightToolbar\">";
+        Content+="<li class=\"FunctionIcon Refresh\"></li><li class=\"FunctionIcon Expand\"></li>";
+	if (DataRowNumber===0) {
+                Content+="<li class=\"FunctionIcon New\" onclick=\"javascript:"+CreateFrmAction+"\"></li>";
+	}
+        Content+="</ul></th></tr>";
+
+        if (DataRowNumber>0) {
+
+            Content+="<tr class=\"header\">";
+       	    for (var j=1; j<=FieldsToList.length; j++) {
+                Content+="<th>"+BuildTitle(j)+"</th>";
+       	    };
+            Content+="<th/><th/>";
+            Content+="</tr>";
+
+            for (i=1;i<=DataRowNumber;i++) {
+
+                var id=XaXmlGetElementValueByXpath(XmlDataDoc,"//list/item["+i+"]/id");
+                var ReadCallUrl="obj="+CallObj+"&evt=Read&id="+id;
+                ReadCallUrl+="&lay=include";
+                var UpdateFrmCallUrl="obj="+CallObj+"&evt=UpdateFrm&id="+id;
+                UpdateFrmCallUrl+="&lay=include";
+                var DeleteCallUrl="obj="+CallObj+"&evt=Delete&id="+id;
+                DeleteCallUrl+="&lay=include";
+
+		ReadAction="XaCallAction('','"+ReadCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		UpdateFrmAction="XaCallAction('','"+UpdateFrmCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+		DeleteAction="XaCallAction('','"+DeleteCallUrl+"','"+target+"','','','yes','"+target+"','','StringHtml','yes','','')";
+
+                Content+="<tr class=\"row\" ondblclick=\"javascript:"+ReadAction+";\">";
+                for (var j=1; j<=FieldsToList.length; j++) {
+                    Content+="<td>"+BuildField(i,j)+"</td>";
+                };
+
+                Content+="<td class=\"RowFunction Update\" onclick=\"javascript:"+UpdateFrmAction+"\"></td>";
+                Content+="<td class=\"RowFunction Delete\" onclick=\"javascript:"+DeleteAction+"\"></td>";
+
+                Content+="</tr>";
+            }
+
+        } else {
+               Content+="<tr class=\"row\"><td colspan=\"100%\"><center>No data to show</center></td></tr>";
+        }
+
+        Content+="</table>";
+        Content+="</div>";
+
+	XaInnerHtmlWithScripts('ListDataContainer',Content);
+
+</script>
