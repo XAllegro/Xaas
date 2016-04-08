@@ -216,7 +216,6 @@ Xa.CallAction=function (controller,url,args){
 			for (var i=0;i<script_array.length;i++) {
 				eval(script_array[i]);
 			}
-
                 }
 
             } else {
