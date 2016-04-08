@@ -142,7 +142,7 @@ Xa.Call = function(url,type,sync,cb) {
  */
 
 Xa.CallAction=function (controller,url,args){
-    alert (args);
+    
     if(args.ResponseType===undefined){ args.ResponseType ="Text"; };
     if(args.CallMethod==="" || args.CallMethod===undefined) { args.CallMethod = DefaultMethod; };
     if(args.CallAsync==="" || args.CallAsync===undefined) { args.CallAsync = DefaultAsync; };
