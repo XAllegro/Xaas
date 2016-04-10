@@ -18,15 +18,14 @@
             <div class="nav">
                  <?php require_once ('nav.php');?>
             </div>
-<!-- script>
-var pa = [];
-pa["ctrl"] = "";
-pa["action"] = "XaUserAdd.php";
-pa["args"] = '{"ResponseType":"Html","TargetId":"content"}';
 
-Xa.CallAction('','XaUserAdd.php',{"ResponseType":"PostAction","PostActionArgs":pa});
-</script -->
-
+            <!-- div id="context" class="context"-->
+                <!--ul>
+                    <li>Create User</li>
+                    <li>View Roles</li>
+                    <li>terzo</li>
+                </ul-->
+            <!-- /div-->
 
             <div class="detail" id="detail">
                 <div class="content" id="content">

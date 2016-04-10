@@ -33,8 +33,8 @@ class XaTplCreate  extends XaTpl{
      *
      * */
 
-    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
-        
+    private function GetFormAction (array &$Conf,XaLibHttp &$HTTP,&$TplParams) {
+     
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
 
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
@@ -42,12 +42,48 @@ class XaTplCreate  extends XaTpl{
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
         $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
 
+        $FormId=$obj."-Create-id";
+
+        $FormAction="javascript:Xa.CallAction('',";
+        $FormAction.="'XaApi.php?obj=$obj&evt=Create',";
+        $FormAction.="{&quot;ResponseType&quot;:&quot;$ResponseType&quot;,&quot;FormId&quot;:&quot;$FormId&quot;}";
+        $FormAction.=")";
+        
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
+    }
+    
+    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+
+        
+        $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+
+        
+        $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
+        $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
+        $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        
+        
+        
         $FormClass="form form-1-column";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
 
-        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:".$PostActionArgs."})";;
+        //$FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:".$PostActionArgs."})";;
+
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+        
+        $RedTo=$this->GetTplParam($HTTP,$TplParams,"RedTo");
+        $RedKey=$this->GetTplParam($HTTP,$TplParams,"RedKey");
+
+        if($RedTo!=""){
+            $FormAction.="&RedTo=".$RedTo;
+            $FormAction.="&RedKey=".$RedKey;
+        }
+            
+        
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
 
         $form='<form ';
         $form.='class="'.$FormClass.'"';

@@ -27,6 +27,12 @@ class XaUser extends XaLibApi {
 
         return ($this->$evt($Conf,$HTTP));
     }
+    
+    public final function ExecuteBack (array &$Conf,XaLibHttp &$HTTP,$evt,$key) {
+    
+        $Res=$this->$evt($Conf,$HTTP);
+        return $Res[$key];
+    }
 
 }
 ?>

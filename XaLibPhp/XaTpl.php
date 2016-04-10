@@ -33,9 +33,13 @@ class XaTpl {
         
             if(array_key_exists($ParamName,$TplParamsArray)) {
         
-                $actions=$TplParamsArray[$ParamName];
+                $value=$TplParamsArray[$ParamName];
                 
-                return $actions;
+                return $value;
+
+            } else {
+                
+                return "";
             }
         
         } else if ($HTTP->ExistsHttpParam("TplParams")) {
@@ -44,11 +48,15 @@ class XaTpl {
         
             if(array_key_exists($ParamName,$TplParamsArray)) {
         
-                $actions=$TplParamsArray[$ParamName];
+                $value=$TplParamsArray[$ParamName];
                 
-                return $actions;
+                return $value;
+
+            } else {
+                
+                return "";
             }
-        }
+        } 
     }
 }
 ?>

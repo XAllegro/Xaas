@@ -1,0 +1,146 @@
+{
+    "MyApp" : {
+        "name":"Xaas User Admin",
+        "style":"default",
+        "LogoutPage":"Logout.php",
+        "MyPage":"MyPage.php",
+		"AppIconColor":"#FF9900"
+    }, 
+
+    "MyLinks" : {
+        "XaUser-Create":"XaUserAdd.php",
+        "XaUser-Update":"XaUserAdd.php",
+        "XaUser-Delete":"XaUserAdd.php",
+        "XaUser-MyPage":"My;Page.php"
+    },
+
+    "XaUserLogin": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUser": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaRbacRoleRXaUser": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressGeo": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressPhone": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressMail": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaOuType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressGeoType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressPhoneType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressPhoneCode": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaUserAddressMailType": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    },
+
+    "XaRbacRole": {
+        "Protocol":"http",
+        "ApiUrl": "localhost/XaUser/",
+        "ReqType": "xml",
+        "Encoding": "no",
+        "Encryption": "no",
+        "ResType": "xml",
+        "ConsumerId": 3 
+    }
+}

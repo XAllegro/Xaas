@@ -11,7 +11,33 @@ class XaLibApi {
 
     protected $_obj="";
     protected $_params="";
+    
+    protected $object;
+    protected $params;
 
+    
+    protected final function GetParams(XaLibHttp &$HTTP) {
+    
+        if($HTTP->ExistsHttpParam("obj")) {
+        
+            $this->object=$HTTP->GetHttpParam("obj");
+        
+        } else {
+        
+            $this->object=$this->_obj;
+        }
+
+        if($HTTP->ExistsHttpParam("params")) {
+        
+            $this->params=$HTTP->GetHttpParam("params");
+        
+        } else {
+        
+            $this->params=$this->_params;
+        }
+    
+    }
+    
     protected final function GetBaseUrl(array &$Conf,$ApiName):string {
 
         $BaseUrl=$Conf[$ApiName]["Protocol"]."://".$Conf[$ApiName]["ApiUrl"]."?";
@@ -141,7 +167,7 @@ class XaLibApi {
         return $_SERVER['REMOTE_ADDR'];
 
     }
-    
+
     protected function RearrangeListResultArray(array &$WsData) {
 	// When the list results contain a single <item> node, the 'item' level
 	// is missing from the array and must be added
@@ -158,38 +184,22 @@ class XaLibApi {
     }
 
     public function GetXmlModel(array &$Conf,XaLibHttp &$HTTP):array {
-        
-        if($HTTP->ExistsHttpParam("obj")) {
 
-            $object=$HTTP->GetHttpParam("obj");
-
-        } else {
-            
-            $object=$this->_obj;
-        }
-        
-        if($HTTP->ExistsHttpParam("params")) {
-        
-            $params=$HTTP->GetHttpParam("params");
-
-        } else {
-
-            $params=$this->_params;
-        }
+        $this->GetParams($HTTP);
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
-            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$object."</object><event>GetXmlModel</event></operation>";
-            $url.= $this->GetParamsSection($params);
+            $url.="<operation><object>".$this->object."</object><event>GetXmlModel</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
             $url.="</WsData>";
-                
+
             return $this->GetCurlResAsArray($url);
-            //GESTIRE CASO XML O JSON
+
             //$this->CheckApiError($result);
-    
+
         } else {
-            
+   
             //MANAGE ERROR
         }
     }
@@ -207,49 +217,35 @@ class XaLibApi {
                     $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
                 }
             }
+
             $url.="</params>";
             $url.="</WsData>";
-    
+
             $WsData= $this->GetCurlResAsArray($url);
     
-            echo($WsData['create']);
+            //echo($WsData['create']);
+            //return $WsData['create'];
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
     
         } else {
-            //MANDARE LOGIN
+            //MANDARE LOGIN GENERALIZZARE A MONTE
         }
     }
 
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
-        if($HTTP->ExistsHttpParam("obj")) {
+        $this->GetParams($HTTP);
 
-            $object=$HTTP->GetHttpParam("obj");
-
-        } else {
-            
-            $object=$this->_obj;
-        }
-        
-        if($HTTP->ExistsHttpParam("params")) {
-        
-            $params=$HTTP->GetHttpParam("params");
-
-        } else {
-
-            $params=$this->_params;
-        }
-        
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
-            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$object."</object><event>List</event></operation>";
-            $url.= $this->GetParamsSection($params);
+            $url.="<operation><object>".$this->object."</object><event>List</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
             $url.="</WsData>";
-            
+
             $WsData=$this->GetCurlResAsArray($url); 
             $this->RearrangeListResultArray($WsData);
 
@@ -263,10 +259,7 @@ class XaLibApi {
 
     public function ListAsOptions(array &$Conf,XaLibHttp &$HTTP,$Obj=""):array {
 
-        if ($Obj=="") {
-
-            $Obj=$HTTP->GetHttpParam("obj");
-        }
+          $this->GetParams($HTTP);
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
     
@@ -289,11 +282,8 @@ class XaLibApi {
 
     public function ListAsOptionsDomain(array &$Conf,XaLibHttp &$HTTP,$Obj="",$domain,$tree_parent_ID=""):array {
 
-        if ($Obj=="") {
-
-            $Obj=$HTTP->GetHttpParam("obj");
-        }
-
+        $this->GetParams($HTTP);
+         
         if ($HTTP->CookieGet("XaSessionId")!="") {
     
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
@@ -317,27 +307,13 @@ class XaLibApi {
 
     public function Read(array &$Conf,XaLibHttp &$HTTP):array {
 
-        if($HTTP->ExistsHttpParam("obj")) {
-
-            $object=$HTTP->GetHttpParam("obj");
-
-        } else {
-
-            $object=$this->_obj;
-
-        }
-
-        if($HTTP->ExistsHttpParam("params")) {
-            $params=$HTTP->GetHttpParam("params");
-        } else {
-            $params=$this->_params;
-        }
+        $this->GetParams($HTTP);
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
-            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP); 
-            $url.="<operation><object>".$object."</object><event>Read</event></operation>";
+            $url.="<operation><object>".$this->object."</object><event>Read</event></operation>";
             $url.= $this->GetParamsSection($params);
             $url.="</WsData>";
 
@@ -352,29 +328,14 @@ class XaLibApi {
 
     public function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
 
-        if($HTTP->ExistsHttpParam("obj")) {
-
-            $object=$HTTP->GetHttpParam("obj");
-        } else {
-            
-            $object=$this->_obj;
-        }
-        
-        if($HTTP->ExistsHttpParam("params")) {
-
-            $params=$HTTP->GetHttpParam("params");
-
-        } else {
-
-            $params=$this->_params;
-        }
+        $this->GetParams($HTTP);
         
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
-            $url=$this->GetBaseUrl($Conf,$object)."&Data=<WsData>";
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$object."</object><event>ListByUser</event></operation>";
-            $url.= $this->GetParamsSection($params);
+            $url.="<operation><object>".$this->object."</object><event>ListByUser</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
             $url.="</WsData>";
 
             $WsData=$this->GetCurlResAsArray($url);

@@ -175,7 +175,11 @@ Xa.CallAction=function (controller,url,args){
 
     Xa.Call(url,"text",args.CallAsync, function(Response) {
 
-        if (args.ResponseType==="Text"){
+        if (args.ResponseType==="Void"){
+
+            return Response;
+
+        } else if (args.ResponseType==="Text"){
 
             if(args.WithAlert==="yes" && args.AlertMessage==="") {
 
