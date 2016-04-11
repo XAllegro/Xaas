@@ -15,10 +15,6 @@ void XaMediaData::Dispatcher(const string &CalledEvent) {
         this->Read();
     }else if (CalledEvent=="Create"){
         this->Create();
-    }else if (CalledEvent=="Update"){
-	this->Update();
-    }else if (CalledEvent=="ReadForUpdateFrm"){
-	this->ReadForUpdateFrm();
     }else if (CalledEvent=="Delete"){
 	this->Delete();
     }else {
@@ -169,33 +165,6 @@ void XaMediaData::Create(){
 
     CreatePrepare({"XaMediaData"},"/XaMediaData/fieldset/field",FieldName,FieldValue);
     CreateExecute("XaMediaData",FieldName,FieldValue);
-}
-
-void XaMediaData::Update(){
-
-    string Id=HTTP.GetHttpParam("id");
-    int UpdateId=XaLibBase::FromStringToInt(Id);
-    
-    vector<string> FieldName;	
-    vector<string> FieldValue;
-    
-    UpdatePrepare({"XaMediaData"},"/XaMediaData/fieldset/field",FieldName,FieldValue);
-
-    int Updated=UpdateExecute("XaMediaData",FieldName,FieldValue,UpdateId);
-	
-	RESPONSE.Content=UpdateResponse(Updated);
-};
-
-void XaMediaData::ReadForUpdateFrm() {
-
-    string Id=HTTP.GetHttpParam("id");
-
-    vector<string> ReadFields=ReadPrepare({"XaMediaData"},"/XaMediaData/fieldset/field",0);
-
-    DbResMap DbRes=XaLibSql::Select(DB_READ,"XaMediaData",{ReadFields},{"id"},{Id});
-
-    RESPONSE.Content=ReadResponse(DbRes,ReadFields);
-
 };
 
 void XaMediaData::Delete(){

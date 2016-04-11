@@ -12,8 +12,6 @@ class XaMediaData : public XaLibModel {
         void List();
 	void Read();
         void Create();
-        void Update();
-        void ReadForUpdateFrm();
         void Delete();
         
         string ComposeFileName(string XaMediaId);

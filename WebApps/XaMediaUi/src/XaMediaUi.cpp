@@ -13,10 +13,6 @@ void XaMediaUi::Dispatcher (const string &CalledEvent) {
         this->CreateFrm();
     }else if (CalledEvent=="Create"){
         this->Create();
-    }else if (CalledEvent=="Update"){
-        this->Update();
-    }else if (CalledEvent=="UpdateFrm"){
-        this->UpdateFrm();
     }else if (CalledEvent=="Delete"){
         this->Delete();
     }else {
@@ -107,41 +103,6 @@ void XaMediaUi::Create (){
 	RESPONSE.Content="OK";
 
 };
-
-void XaMediaUi::Update (){
-    
-    XaLibCurl LibCurl;
-    
-    auto Fields=UpdatePrepare({"XaMedia"},"/XaMedia/fieldset/field","XaMedia");
-    
-    string CallResponse = LibCurl.Call(BuildBackEndCall("XaMedia","Update",get<0>(Fields),get<1>(Fields)));
-    CheckResponse(CallResponse);
-    RESPONSE.Content="OK";
-
-};
-
-void XaMediaUi::UpdateFrm() {
-
-    AddJsVarFile("XaMedia","XaMedia");
-    AddJsVarString("XaGuiStyle","default");
-
-    /* data */
-    vector <string> FieldsValues ={};
-    FieldsValues.push_back(HTTP.GetHttpParam("id"));
-
-    XaLibCurl LibCurl;
-    string CallResponse = LibCurl.Call(BuildBackEndCall("XaMedia","ReadForUpdateFrm",{"id"},{FieldsValues}));
-    CheckResponse(CallResponse);
-
-    AddJsVarString("XaData",CallResponse);
-    /* end of data */
-
-    vector<string> Templates=SetPageLayout(REQUEST.CalledLayout);
-    Templates.push_back("XaGuiUpdateFrm");
-
-    RESPONSE.Content=XaLibDom::HtmlFromStringAndFile(AddHtmlFiles(Templates),HtmlStrings,JsVarFiles,JsVarStrings,0);
-};
-
 
 void XaMediaUi::Delete (){
     

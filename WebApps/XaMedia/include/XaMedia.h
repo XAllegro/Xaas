@@ -12,8 +12,6 @@ class XaMedia : public XaLibModel {
         void List();
 	void Read();
         void Create();
-        void Update();
-        void ReadForUpdateFrm();
         void Delete();
 
     protected:
