@@ -23,7 +23,7 @@
         $KeyToAppend=$HTTP->GetHttpParam("RedKey");
 
         $res=$ApiObject->ExecuteBack($Conf,$HTTP,$evt,$KeyToAppend);
-        //header( 'Location: '.$PageToRedirect.".php?RefId=".$res) ;
+        header( 'Location: '.$PageToRedirect.".php?RefId=".$res) ;
 
         echo "pieno";
 

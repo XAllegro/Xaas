@@ -46,7 +46,17 @@
     
     	<br/><br/>
     
-        	<div class="tabs"></div>
+        	<div class="tabs">
+        	<?php
+        	 if ($HTTP->ExistsHttpParam("RefId")) {
+
+        		  $RefId=$HTTP->GetHttpParam("RefId");
+        		 require_once ('XaUserAddTabs.php');
+        		        
+				}
+        	
+        	?>
+        	</div>
     	</div>
 	</div>
 </body>
