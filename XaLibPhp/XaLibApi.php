@@ -206,32 +206,28 @@ class XaLibApi {
 
     public function Create(array &$Conf,XaLibHttp &$HTTP):array {
     
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-    
-            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
-            $url.="<params>";
-            foreach($_GET as $n=>$v) {
-                if ($n!='obj' && $n!='evt') {
-                    $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
-                }
+        $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
+        $url.="<params>";
+        
+        
+        
+        foreach($_GET as $n=>$v) {
+            if ($n!='obj' && $n!='evt') {
+                $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
             }
-
-            $url.="</params>";
-            $url.="</WsData>";
-
-            $WsData= $this->GetCurlResAsArray($url);
-    
-            //echo($WsData['create']);
-            //return $WsData['create'];
-            return $WsData;
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-    
-        } else {
-            //MANDARE LOGIN GENERALIZZARE A MONTE
         }
+
+        $url.="</params>";
+        $url.="</WsData>";
+        $WsData= $this->GetCurlResAsArray($url);
+
+        //echo($WsData['create']);
+        //return $WsData['create'];
+        return $WsData;
+        //GESTIRE CASO XML O JSON
+        //$this->CheckApiError($result);
     }
 
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
@@ -314,7 +310,7 @@ class XaLibApi {
             $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP); 
             $url.="<operation><object>".$this->object."</object><event>Read</event></operation>";
-            $url.= $this->GetParamsSection($params);
+            $url.= $this->GetParamsSection($this->params);
             $url.="</WsData>";
 
             return $this->GetCurlResAsArray($url);
