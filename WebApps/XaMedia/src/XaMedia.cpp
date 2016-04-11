@@ -25,7 +25,8 @@ void XaMedia::Dispatcher(const string &CalledEvent) {
 
 void XaMedia::List(){
     
-	string XaField_ID=HTTP.GetHttpParam("XaField_ID");
+	string XaDomainMediaCategory_ID=HTTP.GetHttpParam("XaDomainMediaCategory_ID");
+        string XaField_ID=HTTP.GetHttpParam("XaField_ID");
         string XaTable=HTTP.GetHttpParam("XaTable");
 
 	string XPathExpr="/XaMedia/fieldset/field";
@@ -72,7 +73,7 @@ void XaMedia::List(){
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Query Join ->"+QryJoin);
 	
 	string Qry=QryFields+QryJoin;
-	Qry+=" WHERE R.status=1 AND R.XaField_ID="+XaField_ID+" AND R.XaTable='"+XaTable+"'";
+	Qry+=" WHERE R.status=1 AND R.XaField_ID="+XaField_ID+" AND R.XaTable='"+XaTable+"' AND R.XaDomainMediaCategory_ID="+XaDomainMediaCategory_ID;
 
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Query ->"+Qry);
 

@@ -23,7 +23,8 @@ void XaMediaUi::Dispatcher (const string &CalledEvent) {
 
 void XaMediaUi::List() {
 
-	string XaField_ID=HTTP.GetHttpParam("XaField_ID");
+	string XaDomainMediaCategory_ID=HTTP.GetHttpParam("XaDomainMediaCategory_ID");
+        string XaField_ID=HTTP.GetHttpParam("XaField_ID");
         string XaTable=HTTP.GetHttpParam("XaTable");
 
 	AddJsVarString("XaField_ID",XaField_ID);
@@ -34,7 +35,7 @@ void XaMediaUi::List() {
 	/* data */
 
 	XaLibCurl LibCurl;
-    string CallResponse = LibCurl.Call(BuildBackEndCall("XaMedia","List",{"XaField_ID","XaTable"},{XaField_ID,XaTable}));
+    string CallResponse = LibCurl.Call(BuildBackEndCall("XaMedia","List",{"XaField_ID","XaTable","XaDomainMediaCategory_ID"},{XaField_ID,XaTable,XaDomainMediaCategory_ID}));
 	CheckResponse(CallResponse);
 
 	AddJsVarString("XaData",CallResponse);
