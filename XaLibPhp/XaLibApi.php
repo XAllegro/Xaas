@@ -210,10 +210,10 @@ class XaLibApi {
         $url.=$this->GetLoginSection($HTTP);
         $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
         $url.="<params>";
-        
-        
-        
-        foreach($_GET as $n=>$v) {
+
+        //LIST FROM MODEL
+        foreach($HTTP->GetHttpRequest() as $n=>$v) {
+
             if ($n!='obj' && $n!='evt') {
                 $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
             }
@@ -345,13 +345,6 @@ class XaLibApi {
         }
     }
 
-    
-    
-    
-
-    
-    
-    
     public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
@@ -429,9 +422,6 @@ class XaLibApi {
         }
     }
 
-
-   
-
     public function Delete(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
@@ -452,6 +442,5 @@ echo($WsData['delete']);
             //MANDARE LOGIN
         }
     }
-
 }
 ?>
