@@ -1,10 +1,12 @@
 @import '_variables';
 
 .tabs {
-        position: relative;
-        height:95%;
-    	width:98%;
-        clear: both;
+
+    position: relative;
+    width:98%;
+    height: 80%;
+    clear: both;
+    bottom:0;
 
     .tab {
         float: left;
@@ -19,7 +21,7 @@
         display: none;   
     }
 
-    .content {
+    .tab_content {
         position: absolute;
         top: 26px;
         left: 0;
@@ -35,7 +37,7 @@
         z-index: 2;
     }
 
-    [type=radio]:checked ~ label ~ .content {
+    [type=radio]:checked ~ label ~ .tab_content {
       z-index: 1;
     }  
 }

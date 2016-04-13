@@ -1,4 +1,4 @@
-<?php require_once ('XaPage.php');?>
+<?php require_once ('XaConf.php');?>
 
 <html id="html">
 
@@ -18,26 +18,31 @@
                  <?php require_once ('nav.php');?>
             </div>
 
-            <!-- div id="context" class="context" -->
-            
-            <?php 
-            	//XaApiTpl::ApplyTemplate($Conf,$HTTP,$WsData,$tpl,$TplParams)
-                  //echo(XaApiTpl::ApplyTemplate($Conf,$HTTP,"","DropDown",""));
-                  ?>
-                <!--ul>
-                    <li>Create User</li>
-                    <li>View Roles</li>
-                    <li>terzo</li>
-                </ul-->
-            <!-- /div -->
 
             <div class="detail" id="detail">
                 <div class="content" id="content">
  
                     <?php
 
-                        echo (XaApiTpl::ApplyTemplateToModel($Conf,$HTTP));
-                      
+                        //XaPageExplorer.php?obj=XaUser&evt=List&ApiParams={"order_by":"surname"}&tpl=List&TplParams={"title":"titololista"}
+               
+                        $obj=$HTTP->GetHttpParam("obj");
+                        $evt=$HTTP->GetHttpParam("evt");
+                        $tpl=$HTTP->GetHttpParam("tpl");
+                        
+                        $ApiParams=$HTTP->GetHttpParam("ApiParams");
+                        $TplParams=$HTTP->GetHttpParam("TplParams");
+                        
+                        $Object=new $obj();
+                        $WsData=$Object->ExecuteSync($Conf,$HTTP,$evt,$obj,$ApiParams);
+                        
+                        $TemplateToApply="XaTpl".$tpl;
+                        
+                        $Tpl = new $TemplateToApply();
+                        $Content = $Tpl->$tpl($Conf,$HTTP,$WsData,$TplParams);
+                        
+                        echo $Content;
+                    
                     ?>
 
                 </div>

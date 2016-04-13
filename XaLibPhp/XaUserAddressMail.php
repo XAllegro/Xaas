@@ -14,10 +14,5 @@ class XaUserAddressMail extends XaLibApi {
    function __construct() {
 
     }
-
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,&$evt) {
-        $this->$evt($Conf,$HTTP);
-    }
-
 }
 ?>

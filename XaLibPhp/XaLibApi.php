@@ -442,5 +442,24 @@ echo($WsData['delete']);
             //MANDARE LOGIN
         }
     }
+    
+    public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
+    
+        $this->$evt($Conf,$HTTP);
+    }
+    
+    public function ExecuteSync (array &$Conf,XaLibHttp &$HTTP,$evt,$obj,$ApiParams) {
+    
+        $this->_obj=$obj;
+        $this->_params=$ApiParams;
+    
+        return ($this->$evt($Conf,$HTTP));
+    }
+    
+    public function ExecuteBack (array &$Conf,XaLibHttp &$HTTP,$evt,$key) {
+    
+        $Res=$this->$evt($Conf,$HTTP);
+        return $Res[$key];
+    }
 }
 ?>

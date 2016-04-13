@@ -16,15 +16,11 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
 <!--meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="pragma" content="no-cache" /-->
-<link rel="icon" type="image/png" href="a" />
-<link rel="shortcut icon" type="image/png" href="#" />
+<!--  link rel="icon" type="image/png" href="a" /-->
+<!--  link rel="shortcut icon" type="image/png" href="#" /-->
 
 <?php
     echo '<link rel="stylesheet" type="text/css" href="/style/'.$Conf['MyApp']['style'].'/style.css" />';
 ?>
 
 <script type="text/javascript" src="/js/Xa.js"></script>
-
-<!--script type="text/javascript" src="/js/XaReady.js"></script>
-<script type="text/javascript" src="/js/XaLib.js"></script>
-<script type="text/javascript" src="/js/XaTpl.js"></script-->

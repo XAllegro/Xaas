@@ -15,11 +15,7 @@ class XaUserLogin extends XaLibApi {
         
     }
 
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,&$evt) {
-        $this->$evt($Conf,$HTTP);
-    }
-
-    private function Login(array &$Conf,XaLibHttp &$HTTP) {
+    protected function Login(array &$Conf,XaLibHttp &$HTTP) {
 
         $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
         $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
@@ -34,7 +30,7 @@ class XaUserLogin extends XaLibApi {
         }
     }
    
-    private function Logout(array &$Conf,XaLibHttp &$HTTP) {
+    protected function Logout(array &$Conf,XaLibHttp &$HTTP) {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
     

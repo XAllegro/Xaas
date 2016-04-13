@@ -49,7 +49,7 @@ class XaTplList extends XaTpl{
      * */
 
     public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
-
+        
         $actions="no";
         $actions=$this->GetTplParam($HTTP,$TplParams,"actions");
 

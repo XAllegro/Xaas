@@ -1,6 +1,10 @@
 <?php
 
-    ini_set('include_path', '/XAllegro/Xaas/XaLibPhp');
+    /*CONFIG FILE*/
+    $ConfFile = file_get_contents("config.json");
+    $Conf = json_decode($ConfFile, true);
+
+    ini_set('include_path',$Conf["MyApp"]["ApiPath"]);
 
     require_once ('XaLibHttp.php');
 
@@ -39,10 +43,6 @@
     //require_once ('XaTplRoleRUserUpdateForm.php');
     //require_once ('XaTplRoleRUserList.php');
     //require_once ('XaTplRoleRUserListForUpdate.php');
-
-    /*CONFIG FILE*/
-    $ConfFile = file_get_contents("config.json");
-    $Conf = json_decode($ConfFile, true);
 
     /*POST AND GET*/
     $HTTP=new XaLibHttp();

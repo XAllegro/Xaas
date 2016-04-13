@@ -3,10 +3,15 @@
 class XaLibHttp {
 
     private $AllHttpRequest;
-    
+
     function __construct() {
 
         $this->AllHttpRequest=array_merge($_GET,$_POST);
+    }
+
+    final public function GetHttpRequest():array {
+
+       return $this->AllHttpRequest;
     }
 
     final public function GetHttpParam($ParamName):string {

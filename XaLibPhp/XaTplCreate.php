@@ -32,7 +32,7 @@ class XaTplCreate  extends XaTpl{
         ?>
      *
      * */
-
+/*
     private function GetFormAction (array &$Conf,XaLibHttp &$HTTP,&$TplParams) {
      
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
@@ -51,11 +51,11 @@ class XaTplCreate  extends XaTpl{
         
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
     }
- 
+*/
     function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
         
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
- 
+
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
@@ -72,19 +72,18 @@ class XaTplCreate  extends XaTpl{
         $RedKey=$this->GetTplParam($HTTP,$TplParams,"RedKey");
 
         if($RedTo!=""){
-            
+
             $FormAction="XaApi.php?obj=".$obj;
             $FormAction.="&evt=Create";
             $FormAction.="&RedTo=".$RedTo;
             $FormAction.="&RedKey=".$RedKey;
+
         } else {
-     
+
             $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
             $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
-
         }
-        
-        
+
         $form='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
@@ -166,7 +165,7 @@ class XaTplCreate  extends XaTpl{
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
           $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
           $field.='<option value="" selected="selected">please select ...</option>';
-          
+
           $ObjForOptions=$FieldNode['options']['obj'];
           $EvtForOptions=$FieldNode['options']['evt'];
           

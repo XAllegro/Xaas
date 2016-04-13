@@ -17,7 +17,7 @@
     if ($HTTP->ExistsHttpParam("lay")) {
 
         $lay=$HTTP->GetHttpParam('lay');
-
+        
         /*SELECT THE LAYOUT*/
         $LayoutToInclude="XaPage".$lay.".php";
         require_once ($LayoutToInclude);

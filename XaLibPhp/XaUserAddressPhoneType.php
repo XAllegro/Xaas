@@ -15,9 +15,5 @@ class XaUserAddressPhoneType extends XaLibApi {
 
     }
 
-    public final function Execute (array &$Conf,XaLibHttp &$HTTP,&$evt) {
-        $this->$evt($Conf,$HTTP);
-    }
-
 }
 ?>
