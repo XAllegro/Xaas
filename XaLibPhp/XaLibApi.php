@@ -347,6 +347,24 @@ class XaLibApi {
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
     }
+    
+    protected function ListByRe(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP);
+            $url.="<operation><object>".$this->object."</object><event>ListByRe</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            $WsData=$this->GetCurlResAsArray($url);
+ 
+            $this->RearrangeListResultArray($WsData);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+    }
 
     public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {
 
