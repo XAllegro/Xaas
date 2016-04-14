@@ -67,9 +67,17 @@ class XaLibApi {
             $ParamsArray=json_decode($Params, true);
 
             $section="<params>";
-            foreach ($ParamsArray as $k => $v) {
             
-            $section.="<p><n>".$k."</n><v>".$v."</v></p>";
+            if(count($ParamsArray)!=0) {
+            
+                foreach ($ParamsArray as $k => $v) {
+            
+                    $section.="<p><n>".$k."</n><v>".$v."</v></p>";
+                }
+
+            } else {
+                
+                $section.="<p><n></n><v></v></p>";
             }
 
             $section.="</params>";
@@ -322,11 +330,9 @@ class XaLibApi {
         }
     }
 
-    public function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
+    protected function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
-        
-        if ($HTTP->CookieGet("XaSessionId")!="") {
 
             $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
@@ -340,9 +346,6 @@ class XaLibApi {
             return $WsData;
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
-        } else {
-            //MANDARE LOGIN
-        }
     }
 
     public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {
