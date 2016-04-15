@@ -293,9 +293,11 @@ class XaLibApi {
             $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$Obj."</object><event>ListAsOptions</event></operation>";
-            $url.="<params><p><n>domain</n><v>".$domain."</v></p></params>";
-            $url.="<params><p><n>tree_parent_ID</n><v>".$tree_parent_ID."</v></p></params>";
-            $url.="<params><p><n></n><v></v></p></params>";
+            $url.="<params>";
+            $url.="<p><n>domain</n><v>".$domain."</v></p>";
+            $url.="<p><n>tree_parent_ID</n><v>".$tree_parent_ID."</v></p>";
+            $url.="<p><n></n><v></v></p>";
+            $url.="</params>";
             $url.="</WsData>";
     
             $WsData = $this->GetCurlResAsArray($url);
