@@ -134,7 +134,7 @@ class XaLibApi {
             
             echo $ApiResponse['error']['number'];
             echo $ApiResponse['error']['description'];
-            
+
             //Change with an ErrorPage
         exit();
             
@@ -343,9 +343,9 @@ class XaLibApi {
             $WsData=$this->GetCurlResAsArray($url);
  
             $this->RearrangeListResultArray($WsData);
+            $this->CheckApiError($WsData);
+
             return $WsData;
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
     }
 
     public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {

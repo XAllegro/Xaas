@@ -16,8 +16,6 @@ class XaTplList extends XaTpl{
 
     private function GetDropDown(array &$WsData,XaLibHttp &$HTTP,array &$MyLinks,$RowId ):string {
 
-        
-        
         $JsCallOptions='{ResponseType:&quot;Html&quot;,TargetId:&quot;detail&quot;,JsEval:&quot;yes&quot;}';
 
         $Content='<div class="dropdown"><button class="dropdown-button">Actions</button><div class="dropdown-content">';
@@ -50,62 +48,133 @@ class XaTplList extends XaTpl{
 
     public function List(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
         
+        $TplType=$this->GetTplParam($HTTP,$TplParams,"TplType");
+
+        if ($TplType=="" || $TplType=="Default") {
+            
+            return $this->Default($Conf,$HTTP,$WsData,$TplParams);
+
+        } else {
+            
+            return $this->$TplType($Conf,$HTTP,$WsData,$TplParams);
+        }        
+    }
+    
+    public function Default(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    
         $actions="no";
         $actions=$this->GetTplParam($HTTP,$TplParams,"actions");
-
+    
         $Title="Titolo Lista";
         $Title=$this->GetTplParam($HTTP,$TplParams,"title");
 
-        
-        
-        
+        $DropDownMenu="";
+    
+        $Content='<table class="list">';
+    
+        $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
+    
+        $ItemsNumber=count($WsData['list']['item']);
+    
+        if ($ItemsNumber>0) {
+    
+            /*ADDING TITLES*/
+            $Content.='<tr class="header">';
+             
+            foreach($WsData['list']['item'][0] as $key => $value) {
+                $Content.='<th>'.$key.'</th>';
+            }
+    
+            //ADDING COLUMN FOR ACTIONS
+            //if ($actions=="yes"){
+            //  $Content.='<th>Actions</th>';
+            //}
+    
+            $Content.='</tr>';
+    
+            for ($i=0;$i<$ItemsNumber;$i++) {
+    
+                $Content.='<tr class="row">';
+                 
+                foreach($WsData['list']['item'][$i] as $value) {
+    
+                    $Content.='<td>'.$value.'</td>';
+                }
+    
+                //ADDING ACTIONS
+                //if ($actions=="yes") {
+    
+                //  $Content.='<td>';
+                //$RowId=$WsData['list']['item'][$i]['id'];
+                //$Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
+                //$Content.='</td>';
+                //}
+            }
+    
+        } else {
+            $Content.='<tr><td>No data</td></tr>';
+        }
+    
+        $Content.="</table>";
+        return $Content;
+    }
+    
+    public function ListForTab(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+
+        $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+        $actions=$this->GetTplParam($HTTP,$TplParams,"actions");
+        $Title=$this->GetTplParam($HTTP,$TplParams,"title");
         $DropDownMenu="";
 
         $Content='<table class="list">';
-
-        $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span><ul class="RightToolbar"><li class="FunctionIcon Refresh"></li><li class="FunctionIcon Expand"></li></ul></th></tr>';
-
+        $Content.='<tr class="title"><th colspan="100%"><span>'.$Title.'</span></th></tr>';
+    
         $ItemsNumber=count($WsData['list']['item']);
-
-      if ($ItemsNumber>0) {
-
-        /*ADDING TITLES*/
-        $Content.='<tr class="header">';
-       
-        foreach($WsData['list']['item'][0] as $key => $value) {
-            $Content.='<th>'.$key.'</th>';
-        } 
-
-        //ADDING COLUMN FOR ACTIONS
-        if ($actions=="yes"){
-            $Content.='<th>Actions</th>';
-        }
-
-        $Content.='</tr>';
-
-        for ($i=0;$i<$ItemsNumber;$i++) {
+    
+        if ($ItemsNumber>0) {
+    
+            /*ADDING TITLES*/
+            $Content.='<tr class="header">';
+             
+            foreach($WsData['list']['item'][0] as $key => $value) {
+                $Content.='<th>'.$key.'</th>';
+            }
+    
+            //ADDING COLUMN FOR ACTIONS
             
-            $Content.='<tr class="row">';
-         
-            foreach($WsData['list']['item'][$i] as $value) { 
+            $Content.='<th></th>';
+    
+            $Content.='</tr>';
+    
+            for ($i=0;$i<$ItemsNumber;$i++) {
 
-                $Content.='<td>'.$value.'</td>'; 
-            }
-          
-            //ADDING ACTIONS
-            if ($actions=="yes") {
-                
+                $Content.='<tr class="row">';
+
+                foreach($WsData['list']['item'][$i] as $value) {
+    
+                    $Content.='<td>'.$value.'</td>';
+                }
+    
                 $Content.='<td>';
+                
                 $RowId=$WsData['list']['item'][$i]['id'];
-                //$Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
+                $ActionDelete="XaApi.php?obj=".$obj."&evt=Delete";
+                
+                if ($obj!="") {
+                
+                    $Content.='<a href="#" onclick="Xa.CallAction(\'\',\''.$ActionDelete.'\',{&quot;ResponseType&quot;:&quot;Text&quot;,&quot;WithAlert&quot;:&quot;yes&quot;});">Delete</a>';
+
+                }
+                
+                    //$Content.=$this->GetDropDown($WsData,$HTTP,$RowId);
                 $Content.='</td>';
+                
             }
+    
+        } else {
+            $Content.='<tr><td>No data</td></tr>';
         }
-
-    } else {
-        $Content.='<tr><td>No data</td></tr>';
-    }
-
+    
         $Content.="</table>";
         return $Content;
     }

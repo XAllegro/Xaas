@@ -23,6 +23,7 @@
 <div class="tab">
    	<input  type="radio" id="tab-2" name="tab-group-1">
 	<label class="style-label" for="tab-2">Addresses</label>
+
 	<div id="tab-div-2" class="tab_content">
 		 <?php
 
@@ -45,18 +46,26 @@
 	<label class="style-label" for="tab-3">Phones</label>
 	<div id="tab-div-3" class="tab_content">
 
-		  <?php
+	<div id="list-3"></div>
 
-            $ApiParams='{"XaUser_ID":"'.$RefId.'"}';
-            $UserAddressPhone=new XaUserAddressPhone();
-            $WsData=$UserAddressPhone->ExecuteSync($Conf,$HTTP,"ListByUser","XaUserAddressPhone",$ApiParams);
+    <script>
 
-            $TplParams='{"obj":"XaUserAddressPhone","ResponseType":"Text","WithAlert":"yes"}';
-            $Tpl = new XaTplList();
-            $Content = $Tpl->List($Conf,$HTTP,$WsData,$TplParams);
+        PhoneList();
+        
+        function PhoneList(){
+        
+            <?php echo "var XaUser_ID=$RefId;"?>
 
-            echo $Content;		
-        ?>
+            Xa.Sleep(100);
+        	var Url='XaPageIncluded.php?obj=XaUserAddressPhone&evt=ListByUser&tpl=List';
+        	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
+        	var TplParams='&TplParams={"TplType":"ListForTab","title":"Lista Telefoni"}';
+        
+        	var CompleteUrl=Url+ApiParams+TplParams;
+        	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-3"});
+        }
+
+    </script>
 
         <?php
 
@@ -64,7 +73,7 @@
             $UserAddressPhone=new XaUserAddressPhone();
             $WsData=$UserAddressPhone->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressPhone",$ApiParams);
 
-            $TplParams='{"obj":"XaUserAddressPhone","ResponseType":"Text","WithAlert":"yes"}';
+            $TplParams='{"obj":"XaUserAddressPhone","ResponseType":"void","PostJsFunction":"PhoneList"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
@@ -80,19 +89,24 @@
 	<label class="style-label" for="tab-4">Emails</label>
 	<div id="tab-div-4" class="tab_content">
 	
-	<div id="lista">hgfh</div>
+	<div id="list-4"></div>
+
     <script>
 
-    OldMail();
+        EmailList();
+        
+        function EmailList(){
 
-    function OldMail(){
-		var Url='XaPageIncluded.php?obj=XaUserAddressMail&evt=ListByUser&tpl=List';
-    	var ApiParams='&ApiParams={"XaUser_ID":"235"}';
-    	var TplParams='&TplParams={"title":"Lista Mail"}';
+        	<?php echo "var XaUser_ID=$RefId;"?>
 
-		var CompleteUrl=Url+ApiParams+TplParams;
-    	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"lista"});
-    }
+            Xa.Sleep(100);
+        	var Url='XaPageIncluded.php?obj=XaUserAddressMail&evt=ListByUser&tpl=List';
+        	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
+        	var TplParams='&TplParams={"obj":"XaUserAddressMail","TplType":"ListForTab","title":"Lista Mail"}';
+        
+        	var CompleteUrl=Url+ApiParams+TplParams;
+        	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-4"});
+        }
 
     </script>
         
@@ -102,11 +116,11 @@
             $UserAddressMail=new XaUserAddressMail();
             $WsData=$UserAddressMail->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressMail",$ApiParams);
 
-            $TplParams='{"obj":"XaUserAddressMail","ResponseType":"Text","WithAlert":"yes"}';
+            $TplParams='{"obj":"XaUserAddressMail","ResponseType":"void","PostJsFunction":"EmailList"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
             echo $Content;
         ?>
-	</div> 
+	</div>
 </div>

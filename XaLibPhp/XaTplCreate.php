@@ -32,6 +32,7 @@ class XaTplCreate  extends XaTpl{
         ?>
      *
      * */
+    
 /*
     private function GetFormAction (array &$Conf,XaLibHttp &$HTTP,&$TplParams) {
      
@@ -60,6 +61,7 @@ class XaTplCreate  extends XaTpl{
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
         $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
 
         $FormClass="form form-1-column";
         $FormName=$obj."-Create";
@@ -80,8 +82,8 @@ class XaTplCreate  extends XaTpl{
 
         } else {
 
-            $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-            $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
+           $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction."();";
         }
 
         $form='<form ';

@@ -28,9 +28,23 @@ function ErrorHandler(ErrorName){
     return false;
 };
 
-
 function Xa () {
 };
+
+
+Xa.Sleep = function(MilliSeconds) {
+
+    var start;
+    var i;
+
+    start = new Date().getTime();
+
+    for (i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > MilliSeconds){
+			break;
+		}
+	}
+}
 
 /*
  * @function XaCall

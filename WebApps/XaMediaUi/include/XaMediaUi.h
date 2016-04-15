@@ -10,7 +10,7 @@ class XaMediaUi : public XaLibAction {
 		void Dispatcher(const string &CalledEvent);
 
         void List();
-	void Read();
+        void Read();
         void CreateFrm();
         void Create();
         void Delete();
