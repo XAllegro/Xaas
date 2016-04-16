@@ -447,8 +447,6 @@ class XaLibApi {
 
     public function Delete(array &$Conf,XaLibHttp &$HTTP):array {
 
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-
             $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Delete</event></operation>";
@@ -456,14 +454,14 @@ class XaLibApi {
             $url.="</WsData>";
 
             $WsData = $this->GetCurlResAsArray($url);
+            $this->CheckApiError($WsData);
 
-echo($WsData['delete']);
+            //echo($WsData['delete']);
+
             return $WsData;
             //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-        } else {
-            //MANDARE LOGIN
-        }
+
+
     }
     
     public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {

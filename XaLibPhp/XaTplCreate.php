@@ -53,7 +53,24 @@ class XaTplCreate  extends XaTpl{
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;})";
     }
 */
-    function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    
+    public function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    
+        $TplType=$this->GetTplParam($HTTP,$TplParams,"TplType");
+    
+        if ($TplType=="" || $TplType=="Default") {
+    
+            return $this->Default($Conf,$HTTP,$WsData,$TplParams);
+    
+        } else {
+    
+            return $this->$TplType($Conf,$HTTP,$WsData,$TplParams);
+        }
+    }
+    
+    
+    
+    function Default(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
         
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
 
@@ -106,7 +123,7 @@ class XaTplCreate  extends XaTpl{
                 }
             }
 
-        $form.='<li><button type="submit">Submit</button><br/><br/></li>';
+        $form.='<li><button type="submit">Save</button><br/><br/></li>';
 
         $form.='</ul>';
         $form.='</fieldset>';
@@ -116,6 +133,110 @@ class XaTplCreate  extends XaTpl{
 
     }
 
+    function CreateForTab(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    
+        $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+    
+        $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
+        $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
+        $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
+    
+        $FormClass="form form-1-column FormForTab";
+        $FormName=$obj."-Create";
+        $FormId=$obj."-Create-id";
+        $FormMethod="POST";
+    
+        
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction."();";
+
+        $form='<form ';
+        $form.='class="'.$FormClass.'"';
+        $form.='name="'.$FormName.'"';
+        $form.='id="'.$FormId.'"';
+        $form.='method="'.$FormMethod.'"';
+        $form.='action="'.$FormAction.'"';
+        $form.='>';
+    
+        $form.='<fieldset><legend class="LegendForTab">'.$WsData[$obj]['fieldset']['legend'].'</legend>';
+    
+        $form.='<ul>';
+    
+        for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
+            if ($WsData[$obj]['fieldset']['field'][$i]['type']!='external-key') {
+                $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+            } else {
+                $form.='<input type="hidden" name="'.$WsData[$obj]['fieldset']['field'][$i]['name'].'" value="'.$WsData[$obj]['fieldset']['field'][$i]['value'].'"/>';
+            }
+        }
+    
+        $form.='<li><button type="submit">Save</button><br/><br/></li>';
+    
+        $form.='</ul>';
+        $form.='</fieldset>';
+        $form.="</form>";
+
+        return $form;
+    }
+    
+    function CreateForGeo(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+
+        $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+    
+        $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
+        $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
+        $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
+    
+        $FormClass="form form-1-column FormForTab";
+        $FormName=$obj."-Create";
+        $FormId=$obj."-Create-id";
+        $FormMethod="POST";
+    
+    
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction."();";
+    
+        
+        $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
+
+        $form.='<form ';
+        $form.='class="'.$FormClass.'"';
+        $form.='name="'.$FormName.'"';
+        $form.='id="'.$FormId.'"';
+        $form.='method="'.$FormMethod.'"';
+        $form.='action="'.$FormAction.'"';
+        $form.='>';
+    
+        $form.='<fieldset><legend class="LegendForTab">'.$WsData[$obj]['fieldset']['legend'].'</legend>';
+    
+        $form.='<ul>';
+    
+        for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
+
+            if ($WsData[$obj]['fieldset']['field'][$i]['type']!='external-key') {
+                $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+            } else {
+                $form.='<input type="hidden" name="'.$WsData[$obj]['fieldset']['field'][$i]['name'].'" value="'.$WsData[$obj]['fieldset']['field'][$i]['value'].'"/>';
+            }
+        }
+    
+        $form.='<li><button type="submit">Save</button><br/><br/></li>';
+    
+        $form.='</ul>';
+        $form.='</fieldset>';
+        $form.="</form>";
+
+        $form.="<script>LoadGeoScript();</script>";
+        
+        return $form;
+        
+    }
+    
+    
     function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
 
         /*
@@ -132,8 +253,8 @@ class XaTplCreate  extends XaTpl{
 
         if ($FieldNode['type']=='input-hidden') {
 
-            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
+            //$field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
+            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="hidden" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
         
         } else if ($FieldNode['type']=='input-text') {
 
@@ -237,7 +358,7 @@ class XaTplCreate  extends XaTpl{
 
         } else {
 
-            $field.=$FieldNode['type'].' FIELD TYPE NOT SUPPORTED';
+            $field.=$FieldNode['type'].' FIELD TYPE NOT YET SUPPORTED';
         }
 
             $field.='</li>';

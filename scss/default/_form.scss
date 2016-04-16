@@ -5,9 +5,12 @@
 */
 @import '_variables';
 
-.form {
-        opacity:$ForeGroundOpacity;
+.FormForTab {
+    padding-top:1.5%;
+}
 
+.form {
+    opacity:$ForeGroundOpacity;
     width: 100%;
     background-color: $FormBackgroundColor;
     font-size: $FormFontSize;
@@ -18,7 +21,7 @@
         text-align: center;
         margin: 0 auto;
         margin-bottom:2%;
-
+        
         legend {
             padding-left: 2%;
             padding-top: 1%;
@@ -27,6 +30,10 @@
             white-space:nowrap;
             float:left;
             font-size: $FormLegendFontSize;
+        }
+        
+        .LegendForTab {
+            float:none;
         }
 
         ul {

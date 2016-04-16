@@ -51,17 +51,17 @@
 			</br></br>
 
                 <?php
-
-                	echo '<div class="tabs">';
                 	
                 	 if ($HTTP->ExistsHttpParam("RefId")) {
-        
-                		 $RefId=$HTTP->GetHttpParam("RefId");
-                		 require_once ('XaUserAddTabs.php');
-                		        
-        				}
-                	echo "</div>";
 
+                	     echo '<div class="tabs">';
+                		 
+                	     $RefId=$HTTP->GetHttpParam("RefId");
+                		 require_once ('XaUserAddTabs.php');
+                		
+                		 echo "</div>";
+
+                	 }
                 ?>
         	</div>
     	</div>

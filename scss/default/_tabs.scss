@@ -4,7 +4,7 @@
 
     position: relative;
     width:98%;
-    height: 80%;
+    height: 75vh;
     clear: both;
     bottom:0;
 
@@ -14,7 +14,8 @@
 
     .tab .style-label {
         background: #EEEEEE; 
-        padding: 10px;
+        padding: 7.5px;
+        font-size: $FontSize/100*90;
     }
 
     .tab [type=radio] {
@@ -23,11 +24,11 @@
 
     .tab_content {
         position: absolute;
-        top: 26px;
+        top: 20px;
         left: 0;
         background: white;
         right: 0;
-        bottom: 2%;
+        bottom: 0;
     	overflow:auto;
         padding: 1.5%;
     }

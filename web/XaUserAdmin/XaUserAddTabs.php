@@ -31,7 +31,7 @@
             $UserAddressGeo=new XaUserAddressGeo();
             $WsData=$UserAddressGeo->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressGeo",$ApiParams);
 
-            $TplParams='{"obj":"XaUserAddressGeo","ResponseType":"Text","WithAlert":"yes"}';
+            $TplParams='{"TplType":"CreateForGeo","obj":"XaUserAddressGeo","ResponseType":"Text","WithAlert":"yes"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
@@ -59,10 +59,11 @@
             Xa.Sleep(100);
         	var Url='XaPageIncluded.php?obj=XaUserAddressPhone&evt=ListByUser&tpl=List';
         	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
-        	var TplParams='&TplParams={"TplType":"ListForTab","title":"Lista Telefoni"}';
+        	var TplParams='&TplParams={"obj":"XaUserAddressPhone","TplType":"ListForTab","title":"Lista Telefoni","AfterDelete":"PhoneList"}';
         
         	var CompleteUrl=Url+ApiParams+TplParams;
         	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-3"});
+
         }
 
     </script>
@@ -73,7 +74,7 @@
             $UserAddressPhone=new XaUserAddressPhone();
             $WsData=$UserAddressPhone->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressPhone",$ApiParams);
 
-            $TplParams='{"obj":"XaUserAddressPhone","ResponseType":"void","PostJsFunction":"PhoneList"}';
+            $TplParams='{"TplType":"CreateForTab","obj":"XaUserAddressPhone","ResponseType":"void","PostJsFunction":"PhoneList"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
@@ -102,7 +103,7 @@
             Xa.Sleep(100);
         	var Url='XaPageIncluded.php?obj=XaUserAddressMail&evt=ListByUser&tpl=List';
         	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
-        	var TplParams='&TplParams={"obj":"XaUserAddressMail","TplType":"ListForTab","title":"Lista Mail"}';
+        	var TplParams='&TplParams={"obj":"XaUserAddressMail","TplType":"ListForTab","title":"Lista Mail","AfterDelete":"EmailList"}';
         
         	var CompleteUrl=Url+ApiParams+TplParams;
         	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-4"});
@@ -116,7 +117,7 @@
             $UserAddressMail=new XaUserAddressMail();
             $WsData=$UserAddressMail->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressMail",$ApiParams);
 
-            $TplParams='{"obj":"XaUserAddressMail","ResponseType":"void","PostJsFunction":"EmailList"}';
+            $TplParams='{"TplType":"CreateForTab","obj":"XaUserAddressMail","ResponseType":"void","PostJsFunction":"EmailList"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
