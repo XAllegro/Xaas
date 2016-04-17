@@ -61,12 +61,12 @@ void XaLibWs::Setup() {
 		GetConsumer();
 	}
 
+	ExtractData();
+	
 	if (SETTINGS["WsEnableLog"]=="yes") {
 
 		AddRequestLog();
 	}
-	
-	ExtractData();
 };
 
 void XaLibWs::CheckRequired() {
@@ -178,6 +178,7 @@ void XaLibWs::GetDecryptedData() {
 void XaLibWs::AddRequestLog() {
 
 	LOG.Write("INF",__FILE__,__FUNCTION__,__LINE__,"WS Adding Log");
+	
 	WsId=XaLibSql::Insert(DB_SESSION,"XaWsLog",{"back_end_ip","front_end_ip","client_ip","token","consumer_id","consumer_key","req_type","res_type","encoding","encryption","object","event","data"},
 												{SESSION.BackEndIp,SESSION.FrontEndIp,ClientIp,Token,ConsumerId,ConsumerKey,ReqType,ResType,Encoding,Encryption,Object,Event,Data});			
 };

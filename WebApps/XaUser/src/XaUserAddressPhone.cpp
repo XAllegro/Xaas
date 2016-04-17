@@ -32,9 +32,9 @@ void XaUserAddressPhone::Dispatcher (const string &CalledEvent) {
 void XaUserAddressPhone::Create() {
 
     
-        vector<string> FieldName;	
-	vector<string> FieldValue;
-	CreatePrepare({"XaUserAddressPhone"},"/XaUserAddressPhone/fieldset/field",FieldName,FieldValue);
+		vector<string> FieldName;	
+		vector<string> FieldValue;
+		CreatePrepare({"XaUserAddressPhone"},"/XaUserAddressPhone/fieldset/field",FieldName,FieldValue);
         
         string XaTable="XaUser";
         string XaUserId=HTTP.GetHttpParam("XaUser_ID");
@@ -100,14 +100,8 @@ void XaUserAddressPhone::List() {
 	vector<string> ReturnedFields=ListPrepare({"XaUserAddressPhone"},"/XaUserAddressPhone/fieldset/field");
 
 	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressPhone",{ReturnedFields},{WhereFields}, {WhereValues}, {OrderByFields},{GroupByFields},Limit);
-	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);	
-	//Quali campi
-	//
-	/*
-	vector<string> FieldsToRead = XaLibModel::ReadPrepare({"XaUserAddressPhone"},"/XaUserAddressPhone/fieldset/field");
-	DbResMap DbRes = ReadExecute("XaUserAddressPhone",FieldsToRead,HTTP.GetHttpParam("id"));
-	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
-	*/
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
+
 };
 
 void XaUserAddressPhone::ListByUser() {

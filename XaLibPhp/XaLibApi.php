@@ -195,21 +195,18 @@ class XaLibApi {
 
         $this->GetParams($HTTP);
 
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$this->object."</object><event>GetXmlModel</event></operation>";
-            $url.= $this->GetParamsSection($this->params);
-            $url.="</WsData>";
+        $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$this->object."</object><event>GetXmlModel</event></operation>";
+        $url.= $this->GetParamsSection($this->params);
+        $url.="</WsData>";
 
-            return $this->GetCurlResAsArray($url);
+        $WsData=$this->GetCurlResAsArray($url);
 
-            //$this->CheckApiError($result);
+        $this->CheckApiError($WsData);
 
-        } else {
-   
-            //MANAGE ERROR
-        }
+        return $WsData;
+
     }
 
     public function Create(array &$Conf,XaLibHttp &$HTTP):array {

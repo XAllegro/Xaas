@@ -6,7 +6,7 @@
 
 		<?php
 
-            $ApiParams='{"type":"WithExternalKey","XaUser_ID":"'.$RefId.'"}';
+            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
             $RbacRoleRXaUser=new XaRbacRoleRXaUser();
             $WsData=$RbacRoleRXaUser->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaRbacRoleRXaUser",$ApiParams);
 
@@ -25,13 +25,36 @@
 	<label class="style-label" for="tab-2">Addresses</label>
 
 	<div id="tab-div-2" class="tab_content">
+	
+		<div id="list-2"></div>
+
+    	<script>
+
+        	GeoList();
+        
+            function GeoList(){
+
+                <?php echo "var XaUser_ID=$RefId;"?>
+    
+                Xa.Sleep(100);
+            	var Url='XaPageIncluded.php?obj=XaUserAddressGeo&evt=ListByUser&tpl=List';
+            	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
+            	var TplParams='&TplParams={"obj":"XaUserAddressGeo","TplType":"ListForTab","title":"Lista Indirizzi","AfterDelete":"GeoList"}';
+            
+            	var CompleteUrl=Url+ApiParams+TplParams;
+            	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-2"});
+    
+            }
+
+		</script>
+	
 		 <?php
 
-            $ApiParams='{"type":"WithExternalKey","XaUser_ID":"'.$RefId.'"}';
+            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
             $UserAddressGeo=new XaUserAddressGeo();
             $WsData=$UserAddressGeo->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressGeo",$ApiParams);
 
-            $TplParams='{"TplType":"CreateForGeo","obj":"XaUserAddressGeo","ResponseType":"Text","WithAlert":"yes"}';
+            $TplParams='{"TplType":"CreateForGeo","obj":"XaUserAddressGeo","ResponseType":"void","PostJsFunction":"GeoList"}';
             $Tpl = new XaTplCreate();
             $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
 
@@ -70,7 +93,7 @@
 
         <?php
 
-            $ApiParams='{"type":"WithExternalKey","XaUser_ID":"'.$RefId.'"}';
+            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
             $UserAddressPhone=new XaUserAddressPhone();
             $WsData=$UserAddressPhone->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressPhone",$ApiParams);
 
@@ -113,7 +136,7 @@
         
 		 <?php
 
-            $ApiParams='{"type":"WithExternalKey","XaUser_ID":"'.$RefId.'"}';
+            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
             $UserAddressMail=new XaUserAddressMail();
             $WsData=$UserAddressMail->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaUserAddressMail",$ApiParams);
 

@@ -18,7 +18,7 @@
                  <?php require_once ('nav.php');?>
             </div>
 
-    		<div class="detail" id="detail">
+			<div class="detail" id="detail">
     			<div class="content" id="content">
     
         		<?php
@@ -55,7 +55,6 @@
                 	 if ($HTTP->ExistsHttpParam("RefId")) {
 
                 	     echo '<div class="tabs">';
-                		 
                 	     $RefId=$HTTP->GetHttpParam("RefId");
                 		 require_once ('XaUserAddTabs.php');
                 		

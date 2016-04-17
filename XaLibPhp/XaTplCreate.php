@@ -191,7 +191,7 @@ class XaTplCreate  extends XaTpl{
         $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
         $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
     
-        $FormClass="form form-1-column FormForTab";
+        $FormClass="form form-2-column FormForTab";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
