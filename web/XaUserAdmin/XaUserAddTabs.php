@@ -1,27 +1,5 @@
 <div class="tab">
-
-	<input  type="radio" id="tab-1" name="tab-group-1" checked>
-	<label class="style-label" for="tab-1">Roles</label>
-	<div id="tab-div-1" class="tab_content">
-
-		<?php
-
-            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
-            $RbacRoleRXaUser=new XaRbacRoleRXaUser();
-            $WsData=$RbacRoleRXaUser->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaRbacRoleRXaUser",$ApiParams);
-
-            $TplParams='{"obj":"XaRbacRoleRXaUser","ResponseType":"Text","WithAlert":"yes"}';
-            $Tpl = new XaTplCreate();
-            $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
-
-            echo $Content;		
-        ?>
-
-	</div> 
-</div>
-
-<div class="tab">
-   	<input  type="radio" id="tab-2" name="tab-group-1">
+   	<input  type="radio" id="tab-2" name="tab-group-1" checked>
 	<label class="style-label" for="tab-2">Addresses</label>
 
 	<div id="tab-div-2" class="tab_content">
@@ -31,11 +9,11 @@
     	<script>
 
         	GeoList();
-        
+
             function GeoList(){
 
                 <?php echo "var XaUser_ID=$RefId;"?>
-    
+
                 Xa.Sleep(100);
             	var Url='XaPageIncluded.php?obj=XaUserAddressGeo&evt=ListByUser&tpl=List';
             	var ApiParams='&ApiParams={"XaUser_ID":"'+XaUser_ID+'"}';
@@ -43,7 +21,7 @@
             
             	var CompleteUrl=Url+ApiParams+TplParams;
             	Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-2"});
-    
+
             }
 
 		</script>
@@ -60,7 +38,7 @@
 
             echo $Content;		
         ?>
-	</div> 
+	</div>
 </div>
 
 <div class="tab">
@@ -147,4 +125,26 @@
             echo $Content;
         ?>
 	</div>
+</div>
+
+<div class="tab">
+
+	<input  type="radio" id="tab-1" name="tab-group-1">
+	<label class="style-label" for="tab-1">Login & Roles</label>
+	<div id="tab-div-1" class="tab_content">
+
+		<?php
+
+            $ApiParams='{"type":"CreateWithExternalKey","XaUser_ID":"'.$RefId.'"}';
+            $RbacRoleRXaUser=new XaRbacRoleRXaUser();
+            $WsData=$RbacRoleRXaUser->ExecuteSync($Conf,$HTTP,"GetXmlModel","XaRbacRoleRXaUser",$ApiParams);
+
+            $TplParams='{"obj":"XaRbacRoleRXaUser","ResponseType":"Text","WithAlert":"yes"}';
+            $Tpl = new XaTplCreate();
+            $Content = $Tpl->Create($Conf,$HTTP,$WsData,$TplParams);
+
+            echo $Content;		
+        ?>
+
+	</div> 
 </div>
