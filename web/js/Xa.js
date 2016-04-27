@@ -189,9 +189,10 @@ Xa.CallAction=function (controller,url,args){
 
     Xa.Call(url,"text",args.CallAsync, function(Response) {
 
-        if (args.ResponseType==="Void"){
-
-            return Response;
+        if (args.ResponseType==="Void" || args.ResponseType==="void"){
+	
+            eval(args.PostJsFunction);
+            /*return Response;*/
 
         } else if (args.ResponseType==="Text"){
 

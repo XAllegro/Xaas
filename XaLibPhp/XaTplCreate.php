@@ -100,15 +100,15 @@ class XaTplCreate  extends XaTpl{
         } else {
 
            $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction."();";
+           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
         }
 
         $form='<form ';
-        $form.='class="'.$FormClass.'"';
-        $form.='name="'.$FormName.'"';
-        $form.='id="'.$FormId.'"';
-        $form.='method="'.$FormMethod.'"';
-        $form.='action="'.$FormAction.'"';
+        $form.=' class="'.$FormClass.'"';
+        $form.=' name="'.$FormName.'"';
+        $form.=' id="'.$FormId.'"';
+        $form.=' method="'.$FormMethod.'"';
+        $form.=' action="'.$FormAction.'"';
         $form.='>';
 
         $form.='<fieldset><legend>'.$WsData[$obj]['fieldset']['legend'].'</legend>';
@@ -150,14 +150,14 @@ class XaTplCreate  extends XaTpl{
     
         
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
 
         $form='<form ';
-        $form.='class="'.$FormClass.'"';
-        $form.='name="'.$FormName.'"';
-        $form.='id="'.$FormId.'"';
-        $form.='method="'.$FormMethod.'"';
-        $form.='action="'.$FormAction.'"';
+        $form.=' class="'.$FormClass.'"';
+        $form.=' name="'.$FormName.'"';
+        $form.=' id="'.$FormId.'"';
+        $form.=' method="'.$FormMethod.'"';
+        $form.=' action="'.$FormAction.'"';
         $form.='>';
     
         $form.='<fieldset><legend class="LegendForTab">'.$WsData[$obj]['fieldset']['legend'].'</legend>';
@@ -191,24 +191,24 @@ class XaTplCreate  extends XaTpl{
         $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
         $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
     
-        $FormClass="form form-2-column FormForTab";
+        $FormClass="form form-1-column FormForTab";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
     
     
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction."();";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
     
         
         $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 
         $form.='<form ';
-        $form.='class="'.$FormClass.'"';
-        $form.='name="'.$FormName.'"';
-        $form.='id="'.$FormId.'"';
-        $form.='method="'.$FormMethod.'"';
-        $form.='action="'.$FormAction.'"';
+        $form.=' class="'.$FormClass.'"';
+        $form.=' name="'.$FormName.'"';
+        $form.=' id="'.$FormId.'"';
+        $form.=' method="'.$FormMethod.'"';
+        $form.=' action="'.$FormAction.'"';
         $form.='>';
     
         $form.='<fieldset><legend class="LegendForTab">'.$WsData[$obj]['fieldset']['legend'].'</legend>';
