@@ -1,6 +1,7 @@
 <?php
 
 require_once('XaLibCurl.php');
+require_once('XaLibUtils.php');
 /**
  * Description of XaLibApi
  *
@@ -15,13 +16,12 @@ class XaLibApi {
     protected $object;
     protected $params;
 
-    
     protected final function GetParams(XaLibHttp &$HTTP) {
-    
+
         if($HTTP->ExistsHttpParam("obj")) {
-        
+
             $this->object=$HTTP->GetHttpParam("obj");
-        
+
         } else {
         
             $this->object=$this->_obj;
@@ -38,7 +38,7 @@ class XaLibApi {
     
     }
     
-    protected final function GetBaseUrl(array &$Conf,$ApiName):string {
+    protected final function GetBaseUrl(array &$Conf,$ApiName) {
 
         $BaseUrl=$Conf[$ApiName]["Protocol"]."://".$Conf[$ApiName]["ApiUrl"]."?";
         $BaseUrl.="ReqType=".$Conf[$ApiName]["ReqType"];
@@ -49,14 +49,14 @@ class XaLibApi {
         return $BaseUrl;
     }
 
-    protected final function GetLoginSection(XaLibHttp &$HTTP):string {
+    protected final function GetLoginSection(XaLibHttp &$HTTP) {
 
-        $section="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+        $section="<login><client_ip>".XaLibUtils::GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
 
         return $section;
     }
     
-    protected final function GetParamsSection(&$Params):string {
+    protected final function GetParamsSection(&$Params) {
     
         if($Params=="") {
             
@@ -85,7 +85,7 @@ class XaLibApi {
         }
     }
 
-    protected final function ClearParamValue($v):string {
+    protected final function ClearParamValue($v) {
 
         $v=rawurlencode($v);
         // clear for xml
@@ -119,11 +119,6 @@ class XaLibApi {
             
             return $WsData;
         }
-    } 
-    
-    protected final function Redirect($page) {
-        header( 'Location: '.$page ) ;
-
     }
 
     protected final function CheckApiError(array $ApiResponse) {
@@ -141,41 +136,6 @@ class XaLibApi {
         }
     }
 
-    protected final function GetIpAddress():string {
-
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            return $_SERVER['HTTP_CLIENT_IP'];
-        }
-
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-
-            if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') !== false) {
-                $iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-                foreach ($iplist as $ip) {
-                  //  if (validate_ip($ip))       
-                  return $ip;
-                }
-            } else {
-                //if (validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']))
-                    return $_SERVER['HTTP_X_FORWARDED_FOR'];
-                //}
-            }
-
-        if (!empty($_SERVER['HTTP_X_FORWARDED']))
-            return $_SERVER['HTTP_X_FORWARDED'];
-        if (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) )
-            return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-        if (!empty($_SERVER['HTTP_FORWARDED_FOR']))
-            return $_SERVER['HTTP_FORWARDED_FOR'];
-        if (!empty($_SERVER['HTTP_FORWARDED']))
-            return $_SERVER['HTTP_FORWARDED'];
-
-        }
-        // return unreliable ip since all else failed
-        return $_SERVER['REMOTE_ADDR'];
-
-    }
-
     protected function RearrangeListResultArray(array &$WsData) {
 	// When the list results contain a single <item> node, the 'item' level
 	// is missing from the array and must be added
@@ -191,7 +151,7 @@ class XaLibApi {
        }
     }
 
-    public function GetXmlModel(array &$Conf,XaLibHttp &$HTTP):array {
+    protected function GetXmlModel(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
 
@@ -458,14 +418,13 @@ class XaLibApi {
             return $WsData;
             //GESTIRE CASO XML O JSON
 
-
     }
-    
+
     public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
     
         $this->$evt($Conf,$HTTP);
     }
-    
+
     public function ExecuteSync (array &$Conf,XaLibHttp &$HTTP,$evt,$obj,$ApiParams) {
     
         $this->_obj=$obj;
@@ -473,7 +432,7 @@ class XaLibApi {
     
         return ($this->$evt($Conf,$HTTP));
     }
-    
+
     public function ExecuteBack (array &$Conf,XaLibHttp &$HTTP,$evt,$key) {
     
         $Res=$this->$evt($Conf,$HTTP);
