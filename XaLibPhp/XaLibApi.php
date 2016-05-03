@@ -307,13 +307,13 @@ class XaLibApi {
             return $WsData;
     }
     
-    protected function ListByRe(array &$Conf,XaLibHttp &$HTTP):array {
+    protected function ListByParams(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
 
             $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
             $url.=$this->GetLoginSection($HTTP);
-            $url.="<operation><object>".$this->object."</object><event>ListByRe</event></operation>";
+            $url.="<operation><object>".$this->object."</object><event>ListByParams</event></operation>";
             $url.= $this->GetParamsSection($this->params);
             $url.="</WsData>";
 
@@ -438,5 +438,27 @@ class XaLibApi {
         $Res=$this->$evt($Conf,$HTTP);
         return $Res[$key];
     }
+
+    public function GetTypeSubType(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>GetTypeSubType</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
 }
 ?>
