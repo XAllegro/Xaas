@@ -12,13 +12,13 @@ void XaRbacRoleRXaUser::Dispatcher (const string &CalledEvent) {
 	} else if (CalledEvent=="Create"){
 		this->Create();
     } else if (CalledEvent=="ListByUser"){
-		 this->ListByUser();
+		this->ListByUser();
     } else if (CalledEvent=="ReadForUpdateFrm"){
-		 this->ReadForUpdateFrm();
+		this->ReadForUpdateFrm();
     } else if (CalledEvent=="Update"){
-		 this->Update();
+		this->Update();
     } else if (CalledEvent=="Delete"){
-		 this->Delete();
+		this->Delete();
     } else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42:: Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
@@ -37,6 +37,22 @@ void XaRbacRoleRXaUser::Create() {
 	RESPONSE.Content=CreateResponse(NextId);
 };
 
+void XaRbacRoleRXaUser::ListByUser() {
+
+	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
+
+	string Qry="SELECT XaRbacRole_R_XaUser.id,XaRbacRole.name,XaRbacRole.description,XaRbacRole_R_XaUser.XaRbacRole_ID "
+				"FROM XaRbacRole,XaRbacRole_R_XaUser "
+				"WHERE XaRbacRole_R_XaUser.XaRbacRole_ID=XaRbacRole.id AND XaRbacRole_R_XaUser.status=1 "
+				"AND XaRbacRole_R_XaUser.XaUser_ID="+XaUser_ID +" ORDER BY XaRbacRole.name";
+
+	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,Qry);
+
+	vector<string>  ReturnedFields={"id","XaRbacRole_ID","description","name"};
+
+	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
+};
+/*
 void XaRbacRoleRXaUser::ListByUser (){
 
 	string XaUser_ID=HTTP.GetHttpParam("XaUser_ID");
@@ -53,7 +69,7 @@ void XaRbacRoleRXaUser::ListByUser (){
 	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);
 
 };
-
+*/
 void XaRbacRoleRXaUser::ReadForUpdateFrm() {
 
 	string Id=HTTP.GetHttpParam("id");
@@ -76,17 +92,15 @@ void XaRbacRoleRXaUser::Update() {
 	UpdatePrepare({"XaRbacRoleRXaUser"},"/XaRbacRoleRXaUser/fieldset/field",FieldName,FieldValue);
 
 	int Updated=UpdateExecute("XaRbacRole_R_XaUser",FieldName,FieldValue,UpdateId);	
-	
+
 	RESPONSE.Content=UpdateResponse(Updated);
 
 };
 
-void XaRbacRoleRXaUser::Delete(){
+void XaRbacRoleRXaUser::Delete() {
 
 	string Id=HTTP.GetHttpParam("id");
-	
 	int Deleted=DeleteExecute("XaRbacRole_R_XaUser",Id);
-	
 	RESPONSE.Content=DeleteResponse(Deleted);
 };
 

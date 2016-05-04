@@ -9,8 +9,18 @@ $tpl=$HTTP->GetHttpParam("tpl");
 $ApiParams=$HTTP->GetHttpParam("ApiParams");
 $TplParams=$HTTP->GetHttpParam("TplParams");
 
-$Object=new $obj();
-$WsData=$Object->ExecuteSync($Conf,$HTTP,$evt,$obj,$ApiParams);
+    $WsData=[];
+
+    if (class_exists($obj)) {
+
+        $Object=new $obj();
+        $WsData=$Object->ExecuteSync($Conf,$HTTP,$evt,$obj,$ApiParams);
+ 
+    } else {
+       
+        $Object=new XaLibApi();
+        $WsData=$Object->ExecuteSync($Conf,$HTTP,$evt,$obj,$ApiParams);
+    }
 
 $TemplateToApply="XaTpl".$tpl;
 

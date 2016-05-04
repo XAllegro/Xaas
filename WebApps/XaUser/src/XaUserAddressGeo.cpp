@@ -95,13 +95,7 @@ void XaUserAddressGeo::List() {
 
 	DbResMap DbRes=XaLibSql::Select(DB_READ,"XaUserAddressGeo",{ReturnedFields},{WhereFields}, {WhereValues}, {OrderByFields},{GroupByFields},Limit);
 	RESPONSE.Content=ListResponse(DbRes,ReturnedFields);	
-	//Quali campi
-	//
-	/*
-	vector<string> FieldsToRead = XaLibModel::ReadPrepare({"XaUserAddressGeo"},"/XaUserAddressGeo/fieldset/field");
-	DbResMap DbRes = ReadExecute("XaUserAddressGeo",FieldsToRead,HTTP.GetHttpParam("id"));
-	RESPONSE.Content= ReadResponse(DbRes,FieldsToRead);
-	*/
+
 };
 
 void XaUserAddressGeo::ListByUser() {

@@ -54,24 +54,22 @@ class XaTplCreate  extends XaTpl{
     }
 */
     
-    public function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    public function Create(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams="") {
     
         $TplType=$this->GetTplParam($HTTP,$TplParams,"TplType");
     
-        if ($TplType=="" || $TplType=="Default") {
+        if ($TplType=="" || $TplType=="Default" || $TplType=="Standard") {
     
-            return $this->Default($Conf,$HTTP,$WsData,$TplParams);
+            return $this->Standard($Conf,$HTTP,$WsData,$TplParams);
     
         } else {
     
             return $this->$TplType($Conf,$HTTP,$WsData,$TplParams);
         }
     }
-    
-    
-    
-    function Default(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
-        
+
+    private function Standard(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams="") {
+
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
 
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
@@ -133,14 +131,11 @@ class XaTplCreate  extends XaTpl{
 
     }
 
-    function CreateForTab(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
-    
+    private function CreateForTab(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams="") {
+
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
-    
-        $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
-        $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
-        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+ 
         $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
     
         $FormClass="form form-1-column FormForTab";
@@ -150,7 +145,7 @@ class XaTplCreate  extends XaTpl{
     
         
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});$PostJsFunction();";
 
         $form='<form ';
         $form.=' class="'.$FormClass.'"';
@@ -181,25 +176,28 @@ class XaTplCreate  extends XaTpl{
         return $form;
     }
     
-    function CreateForGeo(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+    private function CreateForGeo(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams="") {
 
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
     
-        $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
+        //$TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
-        $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
-        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        //$WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        //$PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
         $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
-    
-        $FormClass="form form-1-column FormForTab";
+
+        $FormClass="form form-2-column FormForTab";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
     
     
-        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
+        //$FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+        //$FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
     
+        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});$PostJsFunction();";
+
         
         $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 
@@ -237,18 +235,10 @@ class XaTplCreate  extends XaTpl{
     }
     
     
-    function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
-
-        /*
-         * Ho distinto le select single in 2 tipi sync e async 
-         * sync sono quelle aggiunte staticamente dalla pagina generata
-         * async sono quelle aggiornate ad onclik o altri eventi utili per inserimenti dinamici di opzioni 
-         * va scritto l'if per select-single-async con il js dinamico (vedere vecchio front end)
-         * 
-         * */
+    private function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
 
         if ($FieldNode['create']=='yes') {
-        
+
             $field='<li>';
 
         if ($FieldNode['type']=='input-hidden') {
@@ -274,26 +264,35 @@ class XaTplCreate  extends XaTpl{
 
         } else if ($FieldNode['type']=='input-email') {
           
-          $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-          $field.='<input type="email" pattern="[^ @]*@[^ @]*" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
-          
-          if($FieldNode['required']=='yes'){
-            $field.=' required="true"';
-          }
-          
-          $field.= ' autofocus="autofocus" />';
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
+            $field.='<input type="email" pattern="[^ @]*@[^ @]*" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
+
+            if($FieldNode['required']=='yes'){
+              $field.=' required="true"';
+            }
+
+            $field.= ' autofocus="autofocus" />';
 
         } else if ($FieldNode['type']=='select-single') {
         
-          $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
-          $field.='<option value="" selected="selected">please select ...</option>';
+            $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+            $field.='<option value="" selected="selected">please select ...</option>';
 
-          $ObjForOptions=$FieldNode['options']['obj'];
-          $EvtForOptions=$FieldNode['options']['evt'];
+            $ObjForOptions=$FieldNode['options']['obj'];
+            $EvtForOptions=$FieldNode['options']['evt'];
           
-          $OptionsObj=new $ObjForOptions();
-          $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj']);
+        
+            if (class_exists($ObjForOptions)) {
+
+                $OptionsObj=new $ObjForOptions();
+
+            } else {
+
+                $OptionsObj=new XaLibApi();
+            }
+
+            $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj']);
           
             for ($i=0; $i<count($options['list']['item']); $i++) {
                  $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
@@ -311,7 +310,15 @@ class XaTplCreate  extends XaTpl{
             $ObjForOptions=$FieldNode['options']['obj'];
             $EvtForOptions=$FieldNode['options']['evt'];
             
-            $OptionsObj=new $ObjForOptions();
+            if (class_exists($ObjForOptions)) {
+
+                $OptionsObj=new $ObjForOptions();
+
+            } else {
+
+                $OptionsObj=new XaLibApi();
+            }
+        
             $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj']);
             
               for ($i=0; $i<count($options['list']['item']); $i++) {
@@ -323,22 +330,30 @@ class XaTplCreate  extends XaTpl{
         
         } else if ($FieldNode['type']=='select-single-domain') {
         
-          $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
-          $field.='<option value="" selected="selected">please select ...</option>';
-          
-          $ObjForOptions=$FieldNode['options']['obj'];
-          $EvtForOptions=$FieldNode['options']['evt'];
-          
-          $OptionsObj=new $ObjForOptions();
-          $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
-          
+            $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+            $field.='<option value="" selected="selected">please select ...</option>';
+
+            $ObjForOptions=$FieldNode['options']['obj'];
+            $EvtForOptions=$FieldNode['options']['evt'];
+
+            if (class_exists($ObjForOptions)) {
+
+                $OptionsObj=new $ObjForOptions();
+
+            } else {
+
+                $OptionsObj=new XaLibApi();
+            }
+
+            $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
+
             for ($i=0; $i<count($options['list']['item']); $i++) {
                  $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
                  //echo $field;
             }
-          
-          $field.='</select>';
+
+            $field.='</select>';
       
         } else if ($FieldNode['type']=='select-single-static') {
         

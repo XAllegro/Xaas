@@ -2,7 +2,7 @@
 
 class XaLibCurl {
 
-    public static function CallUrl ($url):string {
+    public static function CallUrl ($url) {
 
         $ch = curl_init();
 

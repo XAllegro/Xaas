@@ -89,5 +89,33 @@ class XaLibSql : protected XaLibBase {
         static void TransactionCommit(XaLibDb& LibDb);
         static void TransactionRollback(XaLibDb& LibDb);
         static vector<string> ColumnsList(XaLibDb& LibDb, const string& TableName);
+        
+
+        /**
+        * Dump a Database Result Set Map into the Log File.
+        *
+        * @param ResMap Map to Dump
+        *
+        * Example Output Log Section:
+        * 
+        *    ...[DumpResMap][ROW =>0]
+        *    ...[DumpResMap][key => id value => 1]
+        *    ...[DumpResMap][key => description value => description 1]
+        *    ...[DumpResMap][key => name value => name 1]
+        *    ...[DumpResMap][ROW =>1]
+        *    ...[DumpResMap][key => id value => 2]
+        *    ...[DumpResMap][key => description value => description 2]
+        *    ...[DumpResMap][key => name value => name 2]
+        *
+        * @code
+        *
+        *   string Qry="SELECT ...";
+        *   DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,Qry);
+        *   XaLibSql::DumpResMap(DbRes);
+        *
+        * @endcode
+        *
+        */
+        static void DumpResMap (DbResMap& ResMap);
 };
 #endif

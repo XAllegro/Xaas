@@ -752,10 +752,27 @@ void XaLibSql::TransactionRollback(XaLibDb& LibDb){
 
 vector<string> XaLibSql::ColumnsList (XaLibDb& LibDb, const string& TableName) {
 
-			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"XXXXXXXX 1 -> ");
+			//LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"XXXXXXXX 1 -> ");
 
 	return LibDb.FetchFields(TableName);
 };
+
+void XaLibSql::DumpResMap (DbResMap& ResMap){
+
+	for (auto j=0;j<ResMap.size();j++) {
+
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ROW => "+to_string(j));
+
+		for(auto elem : ResMap[j]) {
+			
+			string key=elem.first;
+			string value=elem.second;
+
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"key => "+key+" value => "+value);
+		}
+	};
+};
+
 
 XaLibSql::~XaLibSql(){
 };

@@ -2,7 +2,7 @@
 
 class XaApiTpl {
 
-    static public final function ApplyTemplateToModel(&$Conf,&$HTTP) :string {
+    static public final function ApplyTemplateToModel(&$Conf,&$HTTP) {
 
         $obj=$HTTP->GetHttpParam('obj');
         $evt=$HTTP->GetHttpParam('evt');
@@ -34,7 +34,7 @@ class XaApiTpl {
         return $Content;
     }
 */
-    static public final function ApplyTemplate(&$Conf,&$HTTP,$WsData,$tpl,$TplParams) :string {
+    static public final function ApplyTemplate(&$Conf,&$HTTP,$WsData,$tpl,$TplParams) {
 
         /*APPLY THE TEMPLATE*/
         $TplClass="XaTpl".$tpl;

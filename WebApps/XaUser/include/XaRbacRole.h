@@ -6,7 +6,7 @@
 class XaRbacRole : public XaLibModel {
 
     private:
-		
+
 		void Dispatcher(const string &CalledEvent);
 
         void Create();
@@ -21,8 +21,7 @@ class XaRbacRole : public XaLibModel {
 
 	public:
 
-		XaRbacRole();		
+		XaRbacRole();
 		~XaRbacRole();
-
 };
 #endif

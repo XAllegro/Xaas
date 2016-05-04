@@ -191,7 +191,7 @@ Xa.CallAction=function (controller,url,args){
 
         if (args.ResponseType==="Void" || args.ResponseType==="void"){
 	
-            eval(args.PostJsFunction);
+            //eval(args.PostJsFunction);
             /*return Response;*/
 
         } else if (args.ResponseType==="Text"){
@@ -226,15 +226,15 @@ Xa.CallAction=function (controller,url,args){
 
                 if (args.JsEval==="yes") {
 
-			var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
+                    var scripts = document.getElementById(args.TargetId).getElementsByTagName('script');
 
-			var script_array=Array();
-			for (var i=0;i<scripts.length;i++) {
-				script_array.push(scripts[i].innerHTML);
-			}
-			for (var i=0;i<script_array.length;i++) {
-				eval(script_array[i]);
-			}
+                    var script_array=Array();
+                    for (var i=0;i<scripts.length;i++) {
+                        script_array.push(scripts[i].innerHTML);
+                    }
+                    for (var i=0;i<script_array.length;i++) {
+                        eval(script_array[i]);
+                    }
                 }
 
             } else {

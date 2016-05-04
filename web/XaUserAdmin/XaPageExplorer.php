@@ -25,7 +25,7 @@
                     <?php
 
                         //XaPageExplorer.php?obj=XaUser&evt=List&ApiParams={"order_by":"surname"}&tpl=List&TplParams={"title":"titololista"}
-               
+
                         $obj=$HTTP->GetHttpParam("obj");
                         $evt=$HTTP->GetHttpParam("evt");
                         $tpl=$HTTP->GetHttpParam("tpl");

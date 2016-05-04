@@ -434,7 +434,7 @@ class XaLibApi {
     }
 
     public function ExecuteBack (array &$Conf,XaLibHttp &$HTTP,$evt,$key) {
-    
+
         $Res=$this->$evt($Conf,$HTTP);
         return $Res[$key];
     }
@@ -452,13 +452,12 @@ class XaLibApi {
             $url.="</WsData>";
 
             return $this->GetCurlResAsArray($url);
-            
+
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
         } else {
             //MANDARE LOGIN
         }
     }
-
 }
 ?>

@@ -158,6 +158,7 @@ class XaTplList extends XaTpl{
                 $Content.='<td>';
 
                 $RowId=$WsData['list']['item'][$i]['id'];
+
                 $ActionDelete="XaApi.php?obj=".$obj."&evt=Delete&id=".$RowId;
                 
                 $AfterDelete=$this->GetTplParam($HTTP,$TplParams,"AfterDelete");

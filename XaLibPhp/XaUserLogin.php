@@ -18,7 +18,7 @@ class XaUserLogin extends XaLibApi {
     protected function Login(array &$Conf,XaLibHttp &$HTTP) {
 
         $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
-        $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
+        $url.="<login><client_ip>".XaLibUtils::GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
         $url.="<operation><object>XaUserLogin</object><event>Login</event></operation></WsData>";
 
         $result=$this->GetCurlResAsArray($url);
@@ -26,7 +26,7 @@ class XaUserLogin extends XaLibApi {
         if ($result["token"]) {
 
             $HTTP->CookieSet($result["token"]);
-            $this->Redirect($Conf["MyApp"]["MyPage"]);
+            XaLibUtils::Redirect($Conf["MyApp"]["MyPage"]);
         }
     }
    
@@ -35,7 +35,7 @@ class XaUserLogin extends XaLibApi {
         if ($HTTP->CookieGet("XaSessionId")!="") {
     
             $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
-            $url.="<login><client_ip>".$this->GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
+            $url.="<login><client_ip>".XaLibUtils::GetIpAddress()."</client_ip><token>".$HTTP->CookieGet("XaSessionId")."</token></login>";
             $url.="<operation><object>XaUserLogin</object><event>Logout</event></operation><params><p><n></n><v></v></p></params></WsData>";
 
             $result=$this->GetCurlResAsArray($url);
@@ -44,7 +44,7 @@ class XaUserLogin extends XaLibApi {
 
         }
 
-        $this->Redirect($Conf["MyApp"]["LogoutPage"]);
+        XaLibUtils::Redirect($Conf["MyApp"]["LogoutPage"]);
     }
 }
 ?>

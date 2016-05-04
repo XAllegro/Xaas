@@ -33,7 +33,7 @@ OBJ=$(OBJDIR)Controller.o \
 
 #MACROS
 .PHONY: all all-before all-after clean print-varialbes
-all:print-varialbes $(BIN) all-after
+all:print-varialbes $(BIN) #all-after
 
 clean:
 	${RM} $(OBJ) print-varialbes $(BIN)
