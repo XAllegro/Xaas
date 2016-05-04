@@ -11,15 +11,15 @@ void XaRbacRoleRXaUser::Dispatcher (const string &CalledEvent) {
 		this->GetXmlModel();
 	} else if (CalledEvent=="Create"){
 		this->Create();
-    } else if (CalledEvent=="ListByUser"){
+	} else if (CalledEvent=="ListByUser"){
 		this->ListByUser();
-    } else if (CalledEvent=="ReadForUpdateFrm"){
+	} else if (CalledEvent=="ReadForUpdateFrm"){
 		this->ReadForUpdateFrm();
-    } else if (CalledEvent=="Update"){
+	} else if (CalledEvent=="Update"){
 		this->Update();
-    } else if (CalledEvent=="Delete"){
+	} else if (CalledEvent=="Delete"){
 		this->Delete();
-    } else {
+	} else {
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42:: Requested Event Does Not Exists -> "+CalledEvent);
 		throw 42;
 	}
