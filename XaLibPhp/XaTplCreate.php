@@ -98,7 +98,7 @@ class XaTplCreate  extends XaTpl{
         } else {
 
            $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
+           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
         $form='<form ';
@@ -145,7 +145,7 @@ class XaTplCreate  extends XaTpl{
     
         
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});$PostJsFunction();";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction.";";
 
         $form='<form ';
         $form.=' class="'.$FormClass.'"';
@@ -186,18 +186,13 @@ class XaTplCreate  extends XaTpl{
         //$PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
         $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
 
-        $FormClass="form form-2-column FormForTab";
+        $FormClass="form form-1-column FormForTab";
         $FormName=$obj."-Create";
         $FormId=$obj."-Create-id";
         $FormMethod="POST";
     
-    
-        //$FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        //$FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;,&quot;PostJsFunction&quot;:&quot;".$PostJsFunction."&quot;});";
-    
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});$PostJsFunction();";
-
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction.";";
         
         $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 
