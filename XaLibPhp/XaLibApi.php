@@ -289,6 +289,27 @@ class XaLibApi {
         }
     }
 
+	public function View(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>View</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
     protected function ListByUser(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
