@@ -345,6 +345,28 @@ class XaLibApi {
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
     }
+    
+    public function ListByIdArray(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {
+  
+      if ($HTTP->CookieGet("XaSessionId")!="") {
+  
+        $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$Obj."</object><event>ListByIdArray</event></operation>";
+        $url.="<params><p><n>".$KeyName."</n><v>".$KeyValue."</v></p></params>";
+        $url.="</WsData>";
+  
+        $WsData =$this->GetCurlResAsArray($url);
+  
+        $this->RearrangeListResultArray($WsData);
+  
+        return $WsData;
+        //GESTIRE CASO XML O JSON
+        //$this->CheckApiError($result);
+      } else {
+          //MANDARE LOGIN
+      }
+    }
 
     public function ListWithKey(array &$Conf,XaLibHttp &$HTTP,$Obj,$KeyName,$KeyValue):array {
 
