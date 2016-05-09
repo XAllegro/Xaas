@@ -483,6 +483,27 @@ class XaLibApi {
 
         return $WsData;
     }
+    
+    public function Portfolio(array &$Conf,XaLibHttp &$HTTP,$Obj,array $KeyName,array $KeyValue):array {
+
+        $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$Obj."</object><event>Portfolio</event></operation>";
+        $url.="<params>";
+        
+        for ($i = 0; $i < count($KeyName); $i++) {
+          $url.="<p><n>".$KeyName[$i]."</n><v>".$KeyValue[$i]."</v></p>";
+        }
+        
+        $url.="</params>";
+        $url.="</WsData>";
+
+
+        $WsData =  $this->GetCurlResAsArray($url);
+        $this->RearrangeListResultArray($WsData);
+
+        return $WsData;
+    }
 
     public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
     
