@@ -171,7 +171,6 @@ vector<string> XaLibModel::ListPrepare(const vector<string>& XmlFiles,const stri
 			FieldsToRead.push_back(XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name"));
 		};
 
-		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Field to retrieve for the list ->"+FieldsToRead[i]);
 	};
 
 	
