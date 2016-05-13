@@ -56,10 +56,13 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 		string FCreate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/create");
 		string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
 
-		string FValue=HTTP.GetHttpParam(FName);
+                if (FCreate=="yes") {
+                    string FValue=HTTP.GetHttpParam(FName);
 
-		FieldName.push_back(FName);
-		FieldValue.push_back(FValue);
+                    FieldName.push_back(FName);
+                    FieldValue.push_back(FValue);
+                }
+		
 	};
 };
 
@@ -171,7 +174,6 @@ vector<string> XaLibModel::ListPrepare(const vector<string>& XmlFiles,const stri
 			FieldsToRead.push_back(XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name"));
 		//};
 
-		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Field to retrieve for the list ->"+FieldsToRead[i]);
 	};
 
 	

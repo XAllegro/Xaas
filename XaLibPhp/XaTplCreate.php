@@ -251,6 +251,18 @@ class XaTplCreate  extends XaTpl{
           $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
           $field.='<input type="number" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
           
+          if(isset($FieldNode['step'])){
+            $field.=' step="'.$FieldNode['step'].'"';
+          }
+          
+          if(isset($FieldNode['min'])){
+            $field.=' min="'.$FieldNode['min'].'"';
+          }
+          
+          if(isset($FieldNode['max'])){
+            $field.=' max="'.$FieldNode['max'].'"';
+          }
+          
           if($FieldNode['required']=='yes'){
             $field.=' required="true"';
           }
