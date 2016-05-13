@@ -159,17 +159,17 @@ vector<string> XaLibModel::ListPrepare(const vector<string>& XmlFiles,const stri
 	//LOAD XML FOR MODEL
 	xmlDocPtr XmlDomDoc=XaLibDom::DomFromFile(AddXmlFile(XmlFiles),0);
 
-	//GET NUMBER OF FILEDS
+	//GET NUMBER OF FIELDS
 	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
 
 	vector<string> FieldsToRead;
 
 	for (auto i=0;i<FieldsNum;i++) {
 
-		if (XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/list")=="yes") {
+		//if (XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/list")=="yes") {
 
 			FieldsToRead.push_back(XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name"));
-		};
+		//};
 
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Field to retrieve for the list ->"+FieldsToRead[i]);
 	};
@@ -204,13 +204,13 @@ string XaLibModel::ListResponse(DbResMap& DbRes,vector<string>& FieldsToRead) {
 				Res.append("null");
 
 			} else {
-			
+
 				Res.append(DbRes[j][i]);
 			}
 
 			//Res.append(DbRes[j][i]);
 			Res.append("</"+i+">");
-			
+
 		};
 
 		Res.append("</item>");
@@ -350,18 +350,15 @@ void XaLibModel::Execute(){
 void XaLibModel::GetXmlModel() {
 
 	string ModelType=HTTP.GetHttpParam("type");
-	string Id=HTTP.GetHttpParam("id");	// used in Update
-	// there can be additional Http params with name of external keys
+	string Id=HTTP.GetHttpParam("id");
 
 	string ModelName=REQUEST.CalledObject;
 
-	/*AGGIUNGERE IF PER VARI TIPI ... INSERT MODIFICA ECC*/
-
 	vector<string> XmlFiles=AddXmlFile({ModelName});
+
 	string Content;
 
 	if (ModelType=="CreateWithExternalKey") {
-		/* Load Xml file and add <value> tag to nodes */
 
 		unique_ptr<XaLibDom> LibDom(new XaLibDom());
 
