@@ -170,6 +170,27 @@ class XaLibApi {
     }
 
     public function Create(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>Create</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+	
+	/*public function Create(array &$Conf,XaLibHttp &$HTTP):array {
     
         $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
         $url.=$this->GetLoginSection($HTTP);
@@ -193,7 +214,7 @@ class XaLibApi {
         return $WsData;
         //GESTIRE CASO XML O JSON
         //$this->CheckApiError($result);
-    }
+    }*/
 
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
@@ -417,7 +438,7 @@ class XaLibApi {
         }
     }
 
-    public function Update(array &$Conf,XaLibHttp &$HTTP):array {
+    /*public function Update(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
@@ -438,6 +459,27 @@ class XaLibApi {
 
             echo($WsData['update']);
             return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }*/
+
+	public function Update(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>Update</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
             //GESTIRE CASO XML O JSON
             //$this->CheckApiError($result);
         } else {
