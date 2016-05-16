@@ -169,6 +169,7 @@ class XaLibApi {
 
     }
 
+/*
     public function Create(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
@@ -189,8 +190,9 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
-	
-	/*public function Create(array &$Conf,XaLibHttp &$HTTP):array {
+*/
+
+	public function Create(array &$Conf,XaLibHttp &$HTTP):array {
     
         $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
         $url.=$this->GetLoginSection($HTTP);
@@ -214,7 +216,7 @@ class XaLibApi {
         return $WsData;
         //GESTIRE CASO XML O JSON
         //$this->CheckApiError($result);
-    }*/
+    }
 
     public function List(array &$Conf,XaLibHttp &$HTTP):array {
 
@@ -438,7 +440,7 @@ class XaLibApi {
         }
     }
 
-    /*public function Update(array &$Conf,XaLibHttp &$HTTP):array {
+    public function Update(array &$Conf,XaLibHttp &$HTTP):array {
 
         if ($HTTP->CookieGet("XaSessionId")!="") {
 
@@ -464,8 +466,9 @@ class XaLibApi {
         } else {
             //MANDARE LOGIN
         }
-    }*/
+    }
 
+/*
 	public function Update(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
@@ -486,6 +489,7 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
+*/
 
     public function Delete(array &$Conf,XaLibHttp &$HTTP):array {
 
