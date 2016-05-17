@@ -169,7 +169,30 @@ class XaLibApi {
 
     }
 
+/*
     public function Create(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>Create</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+*/
+
+	public function Create(array &$Conf,XaLibHttp &$HTTP):array {
     
         $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
         $url.=$this->GetLoginSection($HTTP);
@@ -444,6 +467,29 @@ class XaLibApi {
             //MANDARE LOGIN
         }
     }
+
+/*
+	public function Update(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP); 
+            $url.="<operation><object>".$this->object."</object><event>Update</event></operation>";
+            $url.= $this->GetParamsSection($this->params);
+            $url.="</WsData>";
+
+            return $this->GetCurlResAsArray($url);
+            
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+*/
 
     public function Delete(array &$Conf,XaLibHttp &$HTTP):array {
 
