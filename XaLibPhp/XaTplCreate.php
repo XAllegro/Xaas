@@ -71,7 +71,13 @@ class XaTplCreate  extends XaTpl{
     private function Standard(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams="") {
 
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
-
+		$event="Create";
+		// to overwrite Create event, e.g. with a bespoke create method
+		$Event=$this->GetTplParam($HTTP,$TplParams,"Event");
+		if($Event!=""){
+			$event=$Event;
+		}
+		
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
@@ -88,17 +94,17 @@ class XaTplCreate  extends XaTpl{
         $RedTo=$this->GetTplParam($HTTP,$TplParams,"RedTo");
         $RedKey=$this->GetTplParam($HTTP,$TplParams,"RedKey");
 
-        if($RedTo!=""){
+		if($RedTo!=""){
 
             $FormAction="XaApi.php?obj=".$obj;
-            $FormAction.="&evt=Create";
+            $FormAction.="&evt=".$event;
             $FormAction.="&RedTo=".$RedTo;
             $FormAction.="&RedKey=".$RedKey;
 
         } else {
 
            $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-           $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
+           $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
         $form='<form ';
