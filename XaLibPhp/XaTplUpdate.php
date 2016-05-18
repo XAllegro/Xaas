@@ -36,18 +36,36 @@ class XaTplUpdate  extends XaTpl{
     function Update(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
 
         $obj=$this->GetTplParam($HTTP,$TplParams,"obj");
+		$event="Update";
         $id=$this->GetTplParam($HTTP,$TplParams,"id");
 
         $TargetId=$this->GetTplParam($HTTP,$TplParams,"TargetId");
         $ResponseType=$this->GetTplParam($HTTP,$TplParams,"ResponseType");
         $WithAlert=$this->GetTplParam($HTTP,$TplParams,"WithAlert");
+        $PostActionArgs=$this->GetTplParam($HTTP,$TplParams,"PostActionArgs");
+        $PostJsFunction=$this->GetTplParam($HTTP,$TplParams,"PostJsFunction");
 
         $FormClass="form form-1-column";
         $FormName=$obj."-Update";
         $FormId=$obj."-Update-id";
         $FormMethod="POST";
 
-        $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj."&evt=Update',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;})";;
+        $RedTo=$this->GetTplParam($HTTP,$TplParams,"RedTo");
+        $RedKey=$this->GetTplParam($HTTP,$TplParams,"RedKey");
+
+		if($RedTo!=""){
+
+            $FormAction="XaApi.php?obj=".$obj;
+            $FormAction.="&evt=".$event;
+            $FormAction.="&RedTo=".$RedTo;
+            $FormAction.="&RedKey=".$RedKey;
+
+        } else {
+
+           $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
+           $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
+        }
+
 
         $form='<form ';
         $form.='class="'.$FormClass.'"';
@@ -177,7 +195,7 @@ class XaTplUpdate  extends XaTpl{
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
           $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
-          $field.='<option value="" selected="selected">please select ...</option>';
+          $field.='<option value="">please select ...</option>';
           
           $ObjForOptions=$FieldNode['options']['obj'];
           $EvtForOptions=$FieldNode['options']['evt'];
@@ -192,7 +210,7 @@ class XaTplUpdate  extends XaTpl{
                   $field.=' selected="selected"';
               }
 
-              $field.='">'.$options['list']['item'][$i]['name'].'</option>';
+              $field.='>'.$options['list']['item'][$i]['name'].'</option>';
               //echo $field;
           }
           
@@ -202,10 +220,10 @@ class XaTplUpdate  extends XaTpl{
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
           $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
-          $field.='<option value="" selected="selected">please select ...</option>';
+          $field.='<option value="">please select ...</option>';
 
-          $field.='<option value="0"';if($FieldNode['value']==0){$field.=' selected="selected"';};$field.='>no</option>';
-          $field.='<option value="1"';if($FieldNode['value']==1){$field.=' selected="selected"';};$field.='>yes</option>';
+          $field.='<option value="0"';if($FieldNode['value']=="0"){$field.=' selected="selected"';};$field.='>no</option>';
+          $field.='<option value="1"';if($FieldNode['value']=="1"){$field.=' selected="selected"';};$field.='>yes</option>';
           
           $field.='</select>';
       

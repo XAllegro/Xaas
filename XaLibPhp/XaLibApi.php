@@ -448,15 +448,15 @@ class XaLibApi {
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Update</event></operation>";
             $url.="<params>";
-            foreach($_GET as $n=>$v) {
+            foreach($HTTP->GetHttpRequest() as $n=>$v) {
                 if ($n!='obj' && $n!='evt') {
-                  $url.="<p><n>".$n."</n><v>".$v."</v></p>";
+                  $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
                 }
             }
 
             $url.="</params>";
             $url.="</WsData>";
-            
+
             $WsData = $this->GetCurlResAsArray($url);
 
             echo($WsData['update']);
@@ -546,7 +546,7 @@ class XaLibApi {
 
 
         $WsData =  $this->GetCurlResAsArray($url);
-        $this->RearrangeListResultArray($WsData);
+        $this->RearrangeListResultArray($WsData['portfolio']);
 
         return $WsData;
     }
@@ -570,25 +570,54 @@ class XaLibApi {
         return $Res[$key];
     }
 
-    public function GetTypeSubType(array &$Conf,XaLibHttp &$HTTP):array {
+    protected function Universal(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
+		$ParamsArray=json_decode($this->params, true);
 
-        if ($HTTP->CookieGet("XaSessionId")!="") {
+        $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$this->object."</object>";
+		$url.="<event>".$ParamsArray['event']."</event></operation>";
+		// 'event' parameter is also included automatically in the <params> section, with no side effect
+        $url.= $this->GetParamsSection($this->params);
+        $url.="</WsData>";
 
-            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP); 
-            $url.="<operation><object>".$this->object."</object><event>GetTypeSubType</event></operation>";
-            $url.= $this->GetParamsSection($this->params);
-            $url.="</WsData>";
+        $WsData=$this->GetCurlResAsArray($url);
 
-            return $this->GetCurlResAsArray($url);
+        $this->CheckApiError($WsData);
 
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-        } else {
-            //MANDARE LOGIN
-        }
+        return $WsData;
+
     }
+
+	public function FormUniversal(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object>";
+		$url.="<event>".$HTTP->GetHttpParam("event")."</event></operation>";
+
+		// 'event' parameter is also included automatically in the <params> section, with no side effect
+        $url.="<params>";
+
+        //LIST FROM MODEL
+        foreach($HTTP->GetHttpRequest() as $n=>$v) {
+            if ($n!='obj' && $n!='evt') {
+                $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
+            }
+        }
+
+        $url.="</params>";
+        $url.="</WsData>";
+        $WsData= $this->GetCurlResAsArray($url);
+
+        //echo($WsData['create']);
+        //return $WsData['create'];
+        return $WsData;
+        //GESTIRE CASO XML O JSON
+        //$this->CheckApiError($result);
+    }
+
 }
 ?>
