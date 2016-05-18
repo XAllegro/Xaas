@@ -311,7 +311,7 @@ int XaLibModel::UpdateExecute(const string& DbTable,vector <string>& FieldName,v
 
 string XaLibModel::UpdateResponse(const int& UpdatedId) {
 
-	return "<update>"+to_string(UpdatedId)+"</update>";
+	return "<update><id>"+to_string(UpdatedId)+"</id></update>";
 };
 
 int XaLibModel::DeleteExecute(const string& DbTable,const string& FieldId) {
@@ -362,6 +362,8 @@ void XaLibModel::GetXmlModel() {
 	vector<string> XmlFiles=AddXmlFile({ModelName});
 	string Content;
 
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Model Type -> "+ModelType);
+
 	if (ModelType=="CreateWithExternalKey") {
 		/* Load Xml file and add <value> tag to nodes */
 
@@ -408,6 +410,7 @@ void XaLibModel::GetXmlModel() {
 
 			string FName =LibDom->GetElementValueByXPath(XmlDomDoc,NodePath+"/name");
 			string FValue=LibDom->GetElementValueByXPath(XmlDomDocData,"/read/"+FName);
+			if (FValue=="ELEMENT-NOT-DEFINED") { FValue=""; };
 			LibDom->AddValueElementByXPath(XmlDomDoc,NodePath,FValue);
 
 		}
@@ -434,6 +437,8 @@ void XaLibModel::GetXmlModel() {
 		}
 	}
   }
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"XmlModel -> "+Content);
+
 	RESPONSE.Content=Content;
 };
 

@@ -448,15 +448,15 @@ class XaLibApi {
             $url.=$this->GetLoginSection($HTTP);
             $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Update</event></operation>";
             $url.="<params>";
-            foreach($_GET as $n=>$v) {
+            foreach($HTTP->GetHttpRequest() as $n=>$v) {
                 if ($n!='obj' && $n!='evt') {
-                  $url.="<p><n>".$n."</n><v>".$v."</v></p>";
+                  $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
                 }
             }
 
             $url.="</params>";
             $url.="</WsData>";
-            
+
             $WsData = $this->GetCurlResAsArray($url);
 
             echo($WsData['update']);
