@@ -570,34 +570,16 @@ class XaLibApi {
         return $Res[$key];
     }
 
-    public function GetTypeSubType(array &$Conf,XaLibHttp &$HTTP):array {
+    protected function Universal(array &$Conf,XaLibHttp &$HTTP):array {
 
         $this->GetParams($HTTP);
-
-        if ($HTTP->CookieGet("XaSessionId")!="") {
-
-            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
-            $url.=$this->GetLoginSection($HTTP); 
-            $url.="<operation><object>".$this->object."</object><event>GetTypeSubType</event></operation>";
-            $url.= $this->GetParamsSection($this->params);
-            $url.="</WsData>";
-
-            return $this->GetCurlResAsArray($url);
-
-            //GESTIRE CASO XML O JSON
-            //$this->CheckApiError($result);
-        } else {
-            //MANDARE LOGIN
-        }
-    }
-
-    protected function GetXmlModelLight(array &$Conf,XaLibHttp &$HTTP):array {
-
-        $this->GetParams($HTTP);
+		$ParamsArray=json_decode($this->params, true);
 
         $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
         $url.=$this->GetLoginSection($HTTP);
-        $url.="<operation><object>".$this->object."</object><event>GetXmlModelLight</event></operation>";
+        $url.="<operation><object>".$this->object."</object>";
+		$url.="<event>".$ParamsArray['event']."</event></operation>";
+		// 'event' parameter is also included automatically in the <params> section, with no side effect
         $url.= $this->GetParamsSection($this->params);
         $url.="</WsData>";
 
@@ -608,16 +590,19 @@ class XaLibApi {
         return $WsData;
 
     }
-	public function CreateLight(array &$Conf,XaLibHttp &$HTTP):array {
-    
+
+	public function FormUniversal(array &$Conf,XaLibHttp &$HTTP):array {
+
         $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
         $url.=$this->GetLoginSection($HTTP);
-        $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>CreateLight</event></operation>";
+        $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object>";
+		$url.="<event>".$HTTP->GetHttpParam("event")."</event></operation>";
+
+		// 'event' parameter is also included automatically in the <params> section, with no side effect
         $url.="<params>";
 
         //LIST FROM MODEL
         foreach($HTTP->GetHttpRequest() as $n=>$v) {
-
             if ($n!='obj' && $n!='evt') {
                 $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
             }
