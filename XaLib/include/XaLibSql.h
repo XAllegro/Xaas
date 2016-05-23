@@ -61,7 +61,10 @@ class XaLibSql : protected XaLibBase {
         
         static int Insert(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,const vector<string>& VectorValues);
         static int InsertMulti(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,vector<vector<string> > VectorValues);
+
         static int Update(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,const vector<string>& VectorValues,const vector<string>& WhereFields,const vector<string>& WhereValues);
+		/* Update a record on database, including fields whose value must be set to Null */
+		static int Update(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,const vector<string>& VectorValues,const vector<string>& VectorNullFields,const vector<string>& WhereFields,const vector<string>& WhereValues);
 
         static int Delete(XaLibDb& LibDb,string TableName, const vector<string>& WhereFields,const vector<string>& WhereValues);
         static void DeleteOne(XaLibDb& LibDb,string TableName,string RowId);
