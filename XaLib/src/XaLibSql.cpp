@@ -206,6 +206,84 @@ int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& Vecto
 	}
 };
 
+int XaLibSql::Update(XaLibDb& LibDb,string TableName,const vector<string>& VectorFields,const vector<string>& VectorValues,const vector<string>& VectorNullFields, const vector<string>& WhereFields,const vector<string>& WhereValues) {
+
+	if (WhereFields.size()>0 && WhereFields.size()==WhereValues.size()){
+
+		XaLibChar LibChar;
+
+		string SqlQry="UPDATE ";
+
+		SqlQry.append(TableName);
+		SqlQry.append(" SET ");
+
+		for(unsigned n=0; n<VectorFields.size(); ++n) {
+
+     		SqlQry.append(VectorFields.at(n));
+     		SqlQry.append("=\"");
+   
+     		SqlQry.append(LibChar.ClearSqlEntities(VectorValues.at(n)));
+     		SqlQry.append("\"");
+
+	     	if(n==VectorFields.size()-1){
+
+	     	} else {
+
+	     		SqlQry.append(",");
+	     	}
+	    }
+
+		if (VectorNullFields.size()>0) {
+			SqlQry.append(",");
+		}
+
+		for(unsigned n=0; n<VectorNullFields.size(); ++n) {
+
+     		SqlQry.append(VectorNullFields.at(n));
+     		SqlQry.append("=NULL");
+
+	     	if(n==VectorNullFields.size()-1){
+
+	     	} else {
+
+	     		SqlQry.append(",");
+	     	}
+
+	    }
+
+		SqlQry.append(" WHERE 1=1");
+
+		for(unsigned m=0; m<WhereFields.size(); ++m) {
+
+			SqlQry.append(" AND ");
+			SqlQry.append(WhereFields.at(m));
+			SqlQry.append("=\"");
+			SqlQry.append(LibChar.ClearSqlEntities(WhereValues.at(m)));
+			SqlQry.append("\"");
+
+		}
+
+		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing Query Update  -> " +SqlQry);
+
+		unsigned Updated=LibDb.ExUpdate(SqlQry);
+
+		if (Updated==0){
+
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Error occurred updating Record in -> "+ TableName);
+			return 0;
+
+		} else {
+
+			return Updated;
+		}
+
+	} else {
+
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"Executing Query Update Without WHERE");
+		return 0;
+	}
+};
+
 int XaLibSql::Delete(XaLibDb& LibDb,string TableName, const vector<string>& WhereFields,const vector<string>& WhereValues) {
 
 	if (WhereFields.size()>0 && WhereFields.size()==WhereValues.size()){

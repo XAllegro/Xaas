@@ -53,7 +53,10 @@ class XaLibModel : protected XaLibBase {
         int BackupRecord(const string& DbTable,const int& RowId);
 
 		void UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
+		void UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName);
+		
 		int UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue, const int& Id);
+		int UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName, const int& Id);
 	
         string UpdateResponse(const int& UpdatedId);
 

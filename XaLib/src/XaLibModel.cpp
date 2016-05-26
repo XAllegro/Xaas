@@ -49,19 +49,33 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 	/*For Each Field Check Properties and Load Value*/
 	for (auto i=0;i<FieldsNum;i++) {
 
-		string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
-		
-		string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
-		string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
 		string FCreate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/create");
-		string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
+		
+        if (FCreate=="yes") {
 
-                if (FCreate=="yes") {
-                    string FValue=HTTP.GetHttpParam(FName);
+			// add field only if creatable
 
-                    FieldName.push_back(FName);
-                    FieldValue.push_back(FValue);
-                }
+			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
+			string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
+			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
+			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
+
+            string FValue=HTTP.GetHttpParam(FName);
+
+			if (FValue!="NoHttpParam") {
+				// add field only if not empty
+				FieldName.push_back(FName);
+				FieldValue.push_back(FValue);
+			} else {
+				// empty field is skipped from add
+				if (FRequired=="yes") {
+					// error if field is empty and required
+					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3021 Required field not found in Create -> "+FName);
+					throw 3021;
+				}
+			}
+
+        }
 		
 	};
 };
@@ -289,6 +303,53 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPat
 			FieldValue.push_back(FValue);
 		}
 	};
+}
+
+/* Includes fields whose value must be set to Null */
+void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName){
+
+	vector <string> Properties ={"name","db_type","size","create","required"};
+	
+	//LOAD XML FOR MODEL
+	xmlDocPtr XmlDomDoc=XaLibDom::DomFromFile(AddXmlFile(XmlFiles),0);
+
+	//GET NUMBER OF FILEDS
+	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+
+	/*For Each Field Check Properties and Load Value*/
+	for (auto i=0;i<FieldsNum;i++) {
+
+		string FUpdate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/update");
+
+		if (FUpdate=="yes") {
+
+			// add field only if updatable
+
+			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
+			string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
+			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
+			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
+
+            string FValue=HTTP.GetHttpParam(FName);
+
+			if (FValue!="NoHttpParam") {
+				// add field only if not empty
+				FieldName.push_back(FName);
+				FieldValue.push_back(FValue);
+			} else {
+				// empty field is skipped from add
+				if (FRequired=="yes") {
+					// error if field is empty and required
+					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3022 Required field not found in Update -> "+FName);
+					throw 3022;
+				} else {
+					// set to null
+					FieldNullName.push_back(FName);
+				}
+			}
+
+        }
+	}
 };
 
 int XaLibModel::UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue, const int& Id) {
@@ -299,6 +360,25 @@ int XaLibModel::UpdateExecute(const string& DbTable,vector <string>& FieldName,v
 	BackupRecord(DbTable,Id);
 
 	int Updated=XaLibSql::Update(DB_WRITE,DbTable,{FieldName},{FieldValue},{"id"},{XaLibBase::FromIntToString(Id)});
+
+	if (Updated==1) {
+		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Updated a record into table -> "+DbTable+" with id ->"+to_string(Id));
+		return Id;
+	} else {
+		return 0;
+	}
+
+};
+
+/* Includes fields whose value must be set to Null */
+int XaLibModel::UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName, const int& Id) {
+
+	FieldName.push_back("updated_by");
+	FieldValue.push_back(FromIntToString(SESSION.XaUser_ID));
+
+	BackupRecord(DbTable,Id);
+
+	int Updated=XaLibSql::Update(DB_WRITE,DbTable,{FieldName},{FieldValue},{FieldNullName},{"id"},{XaLibBase::FromIntToString(Id)});
 
 	if (Updated==1) {
 		LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Updated a record into table -> "+DbTable+" with id ->"+to_string(Id));

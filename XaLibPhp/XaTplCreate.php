@@ -234,9 +234,16 @@ class XaTplCreate  extends XaTpl{
         return $form;
         
     }
-    
+
     
     private function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
+
+		// Do not  add required="no" when not required
+		// Instead add required="yes" only to required fields
+		$required=' ';
+		if ($FieldNode['required']=='yes') {
+			$required=' required="yes" ';
+		}
 
         if ($FieldNode['create']=='yes') {
 
@@ -245,12 +252,12 @@ class XaTplCreate  extends XaTpl{
         if ($FieldNode['type']=='input-hidden') {
 
             //$field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="hidden" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
+            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="hidden" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
         
         } else if ($FieldNode['type']=='input-text') {
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" />';
+            $field.='<input id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
 
         } else if ($FieldNode['type']=='input-number') {
           
@@ -269,9 +276,7 @@ class XaTplCreate  extends XaTpl{
             $field.=' max="'.$FieldNode['max'].'"';
           }
           
-          if($FieldNode['required']=='yes'){
-            $field.=' required="true"';
-          }
+          $field.=$required;
           
           $field.= ' autofocus="autofocus" />';
 
@@ -279,17 +284,13 @@ class XaTplCreate  extends XaTpl{
           
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<input type="email" pattern="[^ @]*@[^ @]*" id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" maxlength="'.$FieldNode['maxlength'].'" size="'.$FieldNode['size'].'"';
-
-            if($FieldNode['required']=='yes'){
-              $field.=' required="true"';
-            }
-
+            $field.=$required;
             $field.= ' autofocus="autofocus" />';
 
         } else if ($FieldNode['type']=='select-single') {
         
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
             $field.='<option value="" selected="selected">please select ...</option>';
 
             $ObjForOptions=$FieldNode['options']['obj'];
@@ -317,7 +318,7 @@ class XaTplCreate  extends XaTpl{
         } else if ($FieldNode['type']=='select-single-sync') {
         
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
             $field.='<option value="" selected="selected">please select ...</option>';
             
             $ObjForOptions=$FieldNode['options']['obj'];
@@ -344,7 +345,7 @@ class XaTplCreate  extends XaTpl{
         } else if ($FieldNode['type']=='select-single-domain') {
         
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
             $field.='<option value="" selected="selected">please select ...</option>';
 
             $ObjForOptions=$FieldNode['options']['obj'];
@@ -371,7 +372,7 @@ class XaTplCreate  extends XaTpl{
         } else if ($FieldNode['type']=='select-single-static') {
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
           
           
           for ($i=0; $i<count($FieldNode['options']['option']); $i++) {
@@ -384,7 +385,7 @@ class XaTplCreate  extends XaTpl{
         } else if ($FieldNode['type']=='select-boolean') {
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" >';
+          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
           $field.='<option value="" selected="selected">please select ...</option>';
           
           $field.='<option value="0">no</option>';
@@ -395,7 +396,7 @@ class XaTplCreate  extends XaTpl{
         } else if ($FieldNode['type']=='input-textarea') {
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
-            $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'" required="'.$FieldNode['required'].'" autofocus="autofocus" ></textarea>';
+            $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" ></textarea>';
 
         } else {
 
