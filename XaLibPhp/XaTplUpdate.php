@@ -66,8 +66,9 @@ class XaTplUpdate  extends XaTpl{
            $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
+        $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 
-        $form='<form ';
+        $form.='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
         $form.='id="'.$FormId.'"';
@@ -81,18 +82,19 @@ class XaTplUpdate  extends XaTpl{
 
         $form.='<ul>';
 
-            for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
-                $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
-            }
+        for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
+            $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+        }
 
-        $form.='<li><button type="submit">Submit</button><br/><br/></li>';
+        $form.='<li><button type="submit">Save</button><br/><br/></li>';
 
         $form.='</ul>';
         $form.='</fieldset>';
         $form.="</form>";
+        
+        $form.="<script>LoadGeoScript();</script>";
 
-    return $form;
-
+        return $form;
     }
 
     function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
