@@ -217,6 +217,20 @@ class XaTplUpdate  extends XaTpl{
           
           $field.='</select>';
       
+        } else if ($FieldNode['type']=='select-single-static') {
+        
+          $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
+          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
+
+          $field.='<option value="'.$FieldNode['value'].'">'.$FieldNode['label'].'</option>';
+          
+          for ($i=0; $i<count($FieldNode['options']['option']); $i++) {
+            $field.='<option value="'.$FieldNode['options']['option'][$i]['value'].'">'.$FieldNode['options']['option'][$i]['label'].'</option>';
+            //echo $field;
+          }
+          
+          $field.='</select>';
+      
         } else if ($FieldNode['type']=='select-boolean') {
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
