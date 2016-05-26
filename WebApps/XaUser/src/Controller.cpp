@@ -94,7 +94,7 @@ void Controller::DispatchWs () {
 	SESSION.Token=Ws.GetToken();
 
 	RESPONSE.ResponseType=Ws.GetResType();
-	RESPONSE.ResponseLang=Ws.GetResLang();
+	//RESPONSE.ResponseLang=Ws.GetResLang();
 
 	if (REQUEST.CalledObject=="XaUser" || REQUEST.CalledEvent=="Login") {
 		/* In Case of Login I do not check the Token validity */

@@ -77,7 +77,10 @@
         th {
             text-align: left;
             border-bottom:2px solid #DDDDDD;
-            padding: 0.5%;
+             padding-left: 0.5%;
+            padding-right: 0.5%;
+            padding-top: 0.75%;
+            padding-bottom: 0.75%;
             text-transform: uppercase;
         }
     }
@@ -88,7 +91,10 @@
 
         td {
             border-bottom:1px solid #DDDDDD;
-            padding: 0.5%;
+            padding-left: 0.5%;
+            padding-right: 0.5%;
+            padding-top: 0.75%;
+            padding-bottom: 0.75%;
         }
 
         .RowFunction {

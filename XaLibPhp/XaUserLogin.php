@@ -8,19 +8,17 @@ require_once('XaLibApi.php');
  * @author alex
  */
 
-
 class XaUserLogin extends XaLibApi {
 
     function __construct() {
-        
+
     }
 
     protected function Login(array &$Conf,XaLibHttp &$HTTP) {
-
         $url=$this->GetBaseUrl($Conf,"XaUserLogin")."&Data=<WsData>";
         $url.="<login><client_ip>".XaLibUtils::GetIpAddress()."</client_ip><username>".$HTTP->GetHttpParam("username")."</username><password>".$HTTP->GetHttpParam("password")."</password></login>";
         $url.="<operation><object>XaUserLogin</object><event>Login</event></operation></WsData>";
-
+        echo $url;
         $result=$this->GetCurlResAsArray($url);
 
         if ($result["token"]) {

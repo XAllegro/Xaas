@@ -78,6 +78,7 @@ class XaLibSql : protected XaLibBase {
 
         static DbResMap FreeQuerySelect(XaLibDb& LibDb,string& SqlQry);
         static int FreeQueryInsert(XaLibDb& LibDb,string& SqlQry);
+        static void FreeQueryDelete(XaLibDb& LibDb,string& SqlQry);
 
         static void FreeQueryNoRes(XaLibDb& LibDb,string SqlQry);
 

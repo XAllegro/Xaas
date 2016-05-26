@@ -155,6 +155,10 @@ string XaLibHttp::GetHttpHeadersString(){
 		}
     }
 */
+	
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"POST STRING -> " +HttpPostString);
+
+	
 	string HttpString;
 
 	if (HttpPostString!=""){

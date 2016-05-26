@@ -66,7 +66,6 @@
                     Xa.CallAction("", CompleteUrl ,{"ResponseType":"Html","TargetId":"list-3"});
 
                 }
-
             </script>
 
             <?php

@@ -648,9 +648,9 @@ int XaLibSql::CheckRow(XaLibDb& LibDb,string TableName,string RowId,string Statu
 XaLibBase::DbResMap XaLibSql::FreeQuerySelect(XaLibDb& LibDb,string& SqlQry){
 	
 	DbResMap DbRes;
+	
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executing Free Query -> " +SqlQry);
 	DbRes=LibDb.ExSelect(SqlQry);
-
-	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executed Free Query -> " +SqlQry);
 	
 	return DbRes;
 };
@@ -661,6 +661,13 @@ int XaLibSql::FreeQueryInsert(XaLibDb& LibDb,string& SqlQry) {
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executed Free Query Insert-> " +SqlQry);
 
 	return NextId;
+};
+
+void XaLibSql::FreeQueryDelete(XaLibDb& LibDb,string& SqlQry) {
+
+	LibDb.ExDelete(SqlQry);
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Executed Query Free Delete -> " +SqlQry);
+
 };
 
 void XaLibSql::FreeQueryNoRes(XaLibDb& LibDb,string SqlQry){

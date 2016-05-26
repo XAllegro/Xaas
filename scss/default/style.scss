@@ -23,11 +23,13 @@
 
 html { 
     /*background: url('XAllegroBackground.jpg') no-repeat center center fixed;*/
-    background: url('9.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    //background: url('9.jpg') no-repeat center center fixed;
+    //-webkit-background-size: cover;
+    //-moz-background-size: cover;
+    //-o-background-size: cover;
+    //background-size: cover;
+    //background-color: #10253A;
+
 }
 
 /* GENERAL LAYOUT */
@@ -43,6 +45,8 @@ body {
     font-family: sans-serif;
     color:$FontColor;
     height:100%;
+//    background-image:-webkit-linear-gradient(bottom, #060709 25%, #212328 50%, #424448 75%, #686A6D 100%)
+
 }
 
 header {
@@ -65,7 +69,6 @@ header {
     overflow: auto;
     top: $HeaderHeight;
     bottom: 0;
-    /*padding: 1%;*/
     right: 0;
 }
 

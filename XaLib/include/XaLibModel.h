@@ -9,6 +9,7 @@
 #include <XaLibDom.h>
 #include <XaLibSql.h>
 #include <XaLibCrypto.h>
+#include <XaLibGeo.h>
 
 extern XaLibLog LOG;
 extern XaLibHttp HTTP;

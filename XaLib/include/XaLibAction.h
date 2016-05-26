@@ -293,7 +293,7 @@ class XaLibAction : protected XaLibBase {
         void SetLayout (const string &LayoutType);
 
         tuple<vector<string>,vector<string>> CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,const string& ModelName);
-	tuple<vector<string>,vector<string>> UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,const string& ModelName);
+        tuple<vector<string>,vector<string>> UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,const string& ModelName);
 
         void ListResponse(const vector<string>& XmlFiles,const string& XPathExpr,const string& ModelName);
 

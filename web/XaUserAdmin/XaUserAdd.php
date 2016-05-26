@@ -1,12 +1,13 @@
 <?php require_once ('XaPage.php');?>
 
-<html id="html">
-	 <head>
-        <?php require_once ('head.php');?>
-    </head>
+    <html id="html">
+
+        <head>
+            <?php require_once ('head.php');?>
+        </head>
 
     <body>
- 		<?php require_once ('menu.php');?>
+        <?php require_once ('menu.php');?>
 
         <header id="header">
             <?php require_once ('header.php');?>
@@ -18,52 +19,53 @@
                  <?php require_once ('nav.php');?>
             </div>
 
-			<div class="detail" id="detail">
-    			<div class="content" id="content">
+            <div class="detail" id="detail">
+                <div class="content" id="content">
     
-        		<?php
+                    <?php
 
-        		    //FIRST STEP
-        		    if (!$HTTP->ExistsHttpParam("RefId")) {
+                        //FIRST STEP
+                        if (!$HTTP->ExistsHttpParam("RefId")) {
 
-        		        $XaUser=new XaUser();
-        		        $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'GetXmlModel','XaUser','');
-        		        
-        		        $Tpl = new XaTplCreate();
-        		        // obj,TargetId,ResponseType belong to form action
-        		        $Content = $Tpl->Create($Conf,$HTTP,$WsData,'{"obj":"XaUser","RedTo":"XaUserAdd","RedKey":"create","TargetId":"UserId","ResponseType":"Void"}');
-        		        echo $Content;
+                            $XaUser=new XaUser();
+                            $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'GetXmlModel','XaUser','');
 
-                    //FURTHER STEPS
-        		    } else {
+                            $Tpl = new XaTplCreate();
+                            // obj,TargetId,ResponseType belong to form action
+                            $Content = $Tpl->Create($Conf,$HTTP,$WsData,'{"obj":"XaUser","RedTo":"XaUserAdd","RedKey":"create","TargetId":"UserId","ResponseType":"Void"}');
+                            echo $Content;
 
-        		        $RefId=$HTTP->GetHttpParam("RefId");
+                        //FURTHER STEPS (Details)
+                        } else {
 
-        		        $XaUser=new XaUser();
-        		        $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'Read','XaUser','{"id":'.$RefId.'}');
+                            $RefId=$HTTP->GetHttpParam("RefId");
 
-        		        $Tpl = new XaTplRead();
-        		        $Content = $Tpl->Read($Conf,$HTTP,$WsData,'');
-        		        echo $Content;
-        		    }
-                ?>
-			
-			</br></br>
+                            $XaUser=new XaUser();
+                            $WsData=$XaUser->ExecuteSync($Conf,$HTTP,'Read','XaUser','{"id":'.$RefId.'}');
 
-                <?php
-                	
-                	 if ($HTTP->ExistsHttpParam("RefId")) {
+                            $Tpl = new XaTplRead();
+                            $Content = $Tpl->Read($Conf,$HTTP,$WsData,'');
+                            echo $Content;
+                        }
+                    ?>
 
-                	     echo '<div class="tabs">';
-                	     $RefId=$HTTP->GetHttpParam("RefId");
-                		 require_once ('XaUserAddTabs.php');
-                		
-                		 echo "</div>";
+                    </br></br>
 
-                	 }
-                ?>
+                    <?php
+
+                        if ($HTTP->ExistsHttpParam("RefId")) {
+
+                            echo '<div class="tabs">';
+
+                                $RefId=$HTTP->GetHttpParam("RefId");
+                                require_once ('XaUserAddTabs.php');
+
+                            echo "</div>";
+
+                        }
+                    ?>
         	</div>
-    	</div>
+            </div>
 	</div>
-</body>
+    </body>
 </html>
