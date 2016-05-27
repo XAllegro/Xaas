@@ -156,7 +156,7 @@ Xa.Call = function(url,type,sync,cb) {
  */
 
 Xa.CallAction=function (controller,url,args){
-    
+
     if(args.ResponseType===undefined){ args.ResponseType ="Text"; };
     if(args.CallMethod==="" || args.CallMethod===undefined) { args.CallMethod = DefaultMethod; };
     if(args.CallAsync==="" || args.CallAsync===undefined) { args.CallAsync = DefaultAsync; };
@@ -182,9 +182,8 @@ Xa.CallAction=function (controller,url,args){
     }
 
     if(args.WithLoader==="yes") {
-
-        if (args.LoadeTargetId==="") { ErrorHandler("LoadeTargetIdNotFound"); return false; };
-        document.getElementById(args.LoadeTargetId).innerHTML = ('<div class="loader"></div>');
+      if (args.LoaderTargetId==="") { ErrorHandler("LoaderTargetIdNotFound"); return false; };
+      document.getElementById(args.LoaderTargetId).innerHTML = ('<div class="loader"></div>');
     };
 
     Xa.Call(url,"text",args.CallAsync, function(Response) {
