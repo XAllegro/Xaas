@@ -229,7 +229,21 @@ Xa.CallAction=function (controller,url,args){
 
                     var script_array=Array();
                     for (var i=0;i<scripts.length;i++) {
+                      if (scripts[i].src != ""){
+                        //capire come gestire
+                        /*var head = document.getElementsByTagName("head")[0];
+                        var script = document.createElement("script");
+                        script.type = "text/javascript";
+                        script.src = scripts[i].src;
+                        head.appendChild(script);*/
+                        
+                        /*var script = document.createElement("script");
+                        script.type = "text/javascript";
+                        script.src = scripts[i].src;
+                        document.body.appendChild(script);*/
+                      }else{
                         script_array.push(scripts[i].innerHTML);
+                      }
                     }
                     for (var i=0;i<script_array.length;i++) {
                         eval(script_array[i]);
