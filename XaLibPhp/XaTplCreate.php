@@ -107,7 +107,17 @@ class XaTplCreate  extends XaTpl{
            $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
-        $form='<form ';
+		$form='';
+		$form.='<script>';
+		$form.='function popup_cal(field) {';
+		$form.="window.open('Calendar.php?field='+field,'','width=400px,height=400,location=no,resizable=yes,scrollbars=yes,status=no');";
+		$form.='}';
+		$form.='function clear_date(field) {';
+		$form.="document.getElementById(field).value='';";
+		$form.='}';
+		$form.='</script>';
+
+        $form.='<form ';
         $form.=' class="'.$FormClass.'"';
         $form.=' name="'.$FormName.'"';
         $form.=' id="'.$FormId.'"';
@@ -153,7 +163,17 @@ class XaTplCreate  extends XaTpl{
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
         $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction.";";
 
-        $form='<form ';
+		$form='';
+		$form.='<script>';
+		$form.='function popup_cal(field) {';
+		$form.="window.open('Calendar.php?field='+field,'','width=400px,height=400,location=no,resizable=yes,scrollbars=yes,status=no');";
+		$form.='}';
+		$form.='function clear_date(field) {';
+		$form.="document.getElementById(field).value='';";
+		$form.='}';
+		$form.='</script>';
+
+        $form.='<form ';
         $form.=' class="'.$FormClass.'"';
         $form.=' name="'.$FormName.'"';
         $form.=' id="'.$FormId.'"';
@@ -397,6 +417,13 @@ class XaTplCreate  extends XaTpl{
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" ></textarea>';
+
+		} else if ($FieldNode['type']=='input-date') {
+
+			$FieldId=$FieldNode['name'].'-input';
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldId.'">'.$FieldNode['label'].'</label>';
+            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:popup_cal(\''.$FieldId.'\');" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
+			$field.='<a href="javascript:clear_date(\''.$FieldId.'\');"> clear</a>';
 
         } else {
 
