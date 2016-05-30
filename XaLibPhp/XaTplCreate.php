@@ -422,9 +422,11 @@ class XaTplCreate  extends XaTpl{
 
 			$FieldId=$FieldNode['name'].'-input';
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldId.'">'.$FieldNode['label'].'</label>';
-            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:popup_cal(\''.$FieldId.'\');" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
+            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:Xa.CallAction(\'\',\'Calendar.php?field='.$FieldId.'\',{&quot;TargetId&quot;:&quot;kal-'.$FieldId.'&quot;,&quot;JsEval&quot;:&quot;yes&quot;,&quot;ResponseType&quot;:&quot;Html&quot;});" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
 			$field.='<a href="javascript:clear_date(\''.$FieldId.'\');"> clear</a>';
-
+			$field.='<br/>';
+			$field.='<div id="kal-'.$FieldId.'"></div>';
+					
         } else {
 
             $field.=$FieldNode['type'].' FIELD TYPE NOT YET SUPPORTED';
