@@ -66,8 +66,11 @@ class XaTplUpdate  extends XaTpl{
            $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
-        $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
-
+        //$form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
+		
+    		$pippo=file_get_contents($Conf['JsDir']['ApiPath'].'XaGmapAutocomplete.js');
+    		$form='<script>'.$pippo.'</script>';
+		
         $form.='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
