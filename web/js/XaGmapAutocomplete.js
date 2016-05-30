@@ -10,7 +10,7 @@ var componentForm = {
   "postal_code-input": "short_name"
 };
 
-function initialize() {
+initialize=function () {
  
 	autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete-input')),{ types: ['geocode'] });
 
