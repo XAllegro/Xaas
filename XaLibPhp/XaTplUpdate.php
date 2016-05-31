@@ -68,9 +68,15 @@ class XaTplUpdate  extends XaTpl{
 
         //$form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 		
-    		$pippo=file_get_contents($Conf['JsDir']['ApiPath'].'XaGmapAutocomplete.js');
-    		$form='<script>'.$pippo.'</script>';
+   		$sc=file_get_contents($Conf['JsDir']['ApiPath'].'XaGmapAutocomplete.js');
+   		$form='<script>'.$sc.'</script>';
 		
+		$form.='<script>';
+		$form.='function clear_date(field) {';
+		$form.="document.getElementById(field).value='';";
+		$form.='}';
+		$form.='</script>';
+
         $form.='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
@@ -251,6 +257,15 @@ class XaTplUpdate  extends XaTpl{
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >'.$FieldNode['value'].'</textarea>';
+
+		} else if ($FieldNode['type']=='input-date') {
+
+			$FieldId=$FieldNode['name'].'-input';
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldId.'">'.$FieldNode['label'].'</label>';
+            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:Xa.CallAction(\'\',\'Calendar.php?field='.$FieldId.'\',{&quot;TargetId&quot;:&quot;kal-'.$FieldId.'&quot;,&quot;JsEval&quot;:&quot;yes&quot;,&quot;ResponseType&quot;:&quot;Html&quot;});" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" value="'.$FieldNode['value'].'"/>';
+			$field.='<a href="javascript:clear_date(\''.$FieldId.'\');"> clear</a>';
+			$field.='<br/>';
+			$field.='<div id="kal-'.$FieldId.'"></div>';
 
         } else {
 

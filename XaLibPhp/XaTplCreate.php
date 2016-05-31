@@ -109,9 +109,6 @@ class XaTplCreate  extends XaTpl{
 
 		$form='';
 		$form.='<script>';
-		$form.='function popup_cal(field) {';
-		$form.="window.open('Calendar.php?field='+field,'','width=400px,height=400,location=no,resizable=yes,scrollbars=yes,status=no');";
-		$form.='}';
 		$form.='function clear_date(field) {';
 		$form.="document.getElementById(field).value='';";
 		$form.='}';
@@ -165,9 +162,6 @@ class XaTplCreate  extends XaTpl{
 
 		$form='';
 		$form.='<script>';
-		$form.='function popup_cal(field) {';
-		$form.="window.open('Calendar.php?field='+field,'','width=400px,height=400,location=no,resizable=yes,scrollbars=yes,status=no');";
-		$form.='}';
 		$form.='function clear_date(field) {';
 		$form.="document.getElementById(field).value='';";
 		$form.='}';
