@@ -24,10 +24,10 @@ endif
 OBJ=$(OBJDIR)XaLibBase.o $(OBJDIR)XaLibAction.o $(OBJDIR)XaLibModel.o $(OBJDIR)XaLibHttp.o $(OBJDIR)XaLibToken.o \
     $(OBJDIR)XaLibDb.o $(OBJDIR)XaLibSql.o $(OBJDIR)XaLibConfig.o $(OBJDIR)XaLibXsl.o $(OBJDIR)XaLibCrypto.o \
     $(OBJDIR)XaLibDom.o $(OBJDIR)XaLibChar.o $(OBJDIR)XaLibCurl.o $(OBJDIR)XaLibError.o \
-    $(OBJDIR)XaLibLog.o \
+    $(OBJDIR)XaLibLog.o $(OBJDIR)XaLibStruct.o \
     $(OBJDIR)XaLibTime.o $(OBJDIR)XaLibWs.o $(OBJDIR)XaLibGui.o $(OBJDIR)XaLibController.o $(OBJDIR)XaLibControllerBackEnd.o $(OBJDIR)XaLibControllerFrontEnd.o\
-    $(OBJDIR)XaUserLogin.o $(OBJDIR)XaUserLoginUi.o \
-    $(OBJDIR)XaLibRbUart.o \
+    $(OBJDIR)XaUserLogin.o $(OBJDIR)XaUserLoginUi.o $(OBJDIR)XaLibGeo.o\
+    $(OBJDIR)XaLibRbUart.o  \
     $(OBJDIR)XaDomain.o $(OBJDIR)XaDomainUi.o
 
 #MACROS
@@ -108,12 +108,14 @@ $(OBJDIR)XaLibCurl.o: XaLibCurl.cpp
 	$(CPP) -c XaLibCurl.cpp -o $(OBJDIR)XaLibCurl.o $(CPPFLAGS)
 $(OBJDIR)XaLibError.o: XaLibError.cpp 
 	$(CPP) -c XaLibError.cpp -o $(OBJDIR)XaLibError.o $(CPPFLAGS)
-$(OBJDIR)XaLibSocket.o: XaLibSocket.cpp 
+$(OBJDIR)XaLibSocket.o: XaLibSocket.cpp
 	$(CPP) -c XaLibSocket.cpp -o $(OBJDIR)XaLibSocket.o $(CPPFLAGS)
 $(OBJDIR)XaLibWebSocket.o: XaLibWebSocket.cpp 
 	$(CPP) -c XaLibWebSocket.cpp -o $(OBJDIR)XaLibWebSocket.o $(CPPFLAGS)
-$(OBJDIR)XaLibLog.o: XaLibLog.cpp 
+$(OBJDIR)XaLibLog.o: XaLibLog.cpp
 	$(CPP) -c XaLibLog.cpp -o $(OBJDIR)XaLibLog.o $(CPPFLAGS)
+$(OBJDIR)XaLibStruct.o: XaLibStruct.cpp
+	$(CPP) -c XaLibStruct.cpp -o $(OBJDIR)XaLibStruct.o $(CPPFLAGS)
 $(OBJDIR)XaLibTime.o: XaLibTime.cpp 
 	$(CPP) -c XaLibTime.cpp -o $(OBJDIR)XaLibTime.o $(CPPFLAGS)
 $(OBJDIR)XaLibWs.o: XaLibWs.cpp 
@@ -143,6 +145,8 @@ $(OBJDIR)XaDomainUi.o: XaDomainUi.cpp
 	$(CPP) -c XaDomainUi.cpp -o $(OBJDIR)XaDomainUi.o $(CPPFLAGS)
 #$(OBJDIR)XaLibMail.o: XaLibMail.cpp 
 #	$(CPP) -c XaLibMail.cpp -o $(OBJDIR)XaLibMail.o $(CPPFLAGS)
+$(OBJDIR)XaLibGeo.o: XaLibGeo.cpp 
+	$(CPP) -c XaLibGeo.cpp -o $(OBJDIR)XaLibGeo.o $(CPPFLAGS)
 $(OBJDIR)XaLibRbUart.o: XaLibRbUart.cpp 
 	$(CPP) -c XaLibRbUart.cpp -o $(OBJDIR)XaLibRbUart.o $(CPPFLAGS)
 $(OBJDIR)XaLibRbGpIo.o: XaLibRbGpIo.cpp 

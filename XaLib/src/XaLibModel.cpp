@@ -70,8 +70,8 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 				// empty field is skipped from add
 				if (FRequired=="yes") {
 					// error if field is empty and required
-					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3021 Required field not found in Create -> "+FName);
-					throw 3021;
+					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing -> "+FName);
+					throw 205;
 				}
 			}
 
@@ -531,20 +531,34 @@ void XaLibModel::GetXmlModel() {
 	RESPONSE.Content=Content;
 };
 
-void XaLibModel::CheckHttpField(string& FieldValue,string& ControlType) {
+void XaLibModel::CheckHttpField(string FieldValue,string ControlType) {
 	
 	if (ControlType=="required"){
 		
 		if (FieldValue=="NoHttpParam" || FieldValue=="") {
 			
-			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3021 Required field is Missing -> "+FieldValue);
-
-
-			throw 
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing -> "+FieldValue);
+			throw 205;
 		}
 		
 	}
 
+};
+
+void XaLibModel::CheckHttpField(vector<string> FieldValue,string ControlType) {
+
+	if (ControlType=="required"){
+		
+		for (string& i : FieldValue ) {
+		
+			if (i=="NoHttpParam" || i=="") {
+			
+				LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing -> "+i);
+				throw 205;
+			}
+		}
+
+	}
 };
 
 XaLibModel::~XaLibModel(){

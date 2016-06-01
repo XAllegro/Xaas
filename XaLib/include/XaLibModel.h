@@ -64,6 +64,11 @@ class XaLibModel : protected XaLibBase {
         string DeleteResponse(const int& DeletedId);
 
         virtual void GetXmlModel();
+ 
+        /*required*/
+        void CheckHttpField(string FieldValue,string ControlType);
+        void CheckHttpField(vector<string> FieldValue,string ControlType);
+        
         
     public:
 

@@ -22,7 +22,7 @@ void XaLibError::Setup() {
 	XaErrors[25]="DB Unable to Connect LOG DB";
 	
 	XaErrors[28]="DB Error Executing QRY";
-
+	XaErrors[29]="The query should return one row";
 	
 	XaErrors[31]="Number Of Labels Is different From Number Of Values";
 	
@@ -80,7 +80,7 @@ void XaLibError::Setup() {
 	XaErrors[202]="Parameters and Values Have Different Size";
 	XaErrors[203]="Requested XML File Does Not Exist";
 	XaErrors[204]="Requested HTML File Does Not Exist";
-	XaErrors[205]="Required Parameter is missing";
+	XaErrors[205]="Required Parameter is Missing";
 	XaErrors[206]="Searched Element Is Not Present in The Vector";
 	
 	
