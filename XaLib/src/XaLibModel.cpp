@@ -134,12 +134,12 @@ vector<string> XaLibModel::ReadPrepare(const vector<string>& XmlFiles,const stri
 	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
 	
 	for (auto i=0;i<FieldsNum;i++) {
-		
+
 		if (XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/read")=="yes"){
 		
 			FieldsToRead.push_back(XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name"));
 		};
-		
+
 	};
 	
 	auto it = FieldsToRead.begin();
@@ -517,6 +517,22 @@ void XaLibModel::GetXmlModel() {
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"XmlModel -> "+Content);
 
 	RESPONSE.Content=Content;
+};
+
+void XaLibModel::CheckHttpField(string& FieldValue,string& ControlType) {
+	
+	if (ControlType=="required"){
+		
+		if (FieldValue=="NoHttpParam" || FieldValue=="") {
+			
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3021 Required field is Missing -> "+FieldValue);
+
+
+			throw 
+		}
+		
+	}
+
 };
 
 XaLibModel::~XaLibModel(){
