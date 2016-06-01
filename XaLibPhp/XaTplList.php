@@ -193,10 +193,13 @@ class XaTplList extends XaTpl{
 		//// passare valore di default quando si e' in modifica del campo
 
 		$Content='';
-			$Content.='<option value="">please select ...</option>';
-            for ($i=0; $i<count($WsData['list']['item']); $i++) {
-                 $Content.='<option value="'.$WsData['list']['item'][$i]['id'].'">'.$WsData['list']['item'][$i]['name'].'</option>';
-            }
+
+		$Content.='<option value="">please select ...</option>';
+		if (isset($WsData['list']['item'])) {
+			for ($i=0; $i<count($WsData['list']['item']); $i++) {
+				$Content.='<option value="'.$WsData['list']['item'][$i]['id'].'">'.$WsData['list']['item'][$i]['name'].'</option>';
+			}
+		}
 
 		return $Content;
 

@@ -117,6 +117,8 @@ class XaTplCreate  extends XaTpl{
 		$form.=		'var master_var=document.getElementById(master+\'-select\'); ';
 		$form.=		'var master_val=master_var.options[master_var.selectedIndex].value; ';
 		$form.=		'var slave_id=slave+\'-select\'; ';
+				// no master option selected
+		$form.=		'if (master_val=="") { master_val="0";}; ';
 		$form.=		'var CompleteUrl=\'XaPageIncluded.php?obj=XaDomain&evt=Universal&tpl=List&ApiParams={"event":"ListAsOptions","tree_parent_ID":"\'+master_val+\'","domain":"\'+slavedomain+\'"}&TplParams={"TplType":"ListAsOptions"}\'; ';
 		$form.=		'Xa.CallAction("",CompleteUrl,{"ResponseType":"Html","TargetId":slave_id}); ';
 		$form.=	'}';
