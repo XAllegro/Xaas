@@ -75,8 +75,9 @@ class XaLibWs : protected XaLibBase {
 
         void AddRequestLog();
 
-        void ExtractData();
-        
+        void ExtractDataXml();
+        void ExtractDataPost();
+
         map <int, map<string,string> > GetParams();
 
     protected:
