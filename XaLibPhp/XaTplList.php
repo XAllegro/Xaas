@@ -187,6 +187,20 @@ class XaTplList extends XaTpl{
         $Content.="</table>";
         return $Content;
     }
+	
+    public function ListAsOptions(array $Conf,XaLibHttp &$HTTP,array &$WsData,$TplParams=""):string {
+
+		//// passare valore di default quando si e' in modifica del campo
+
+		$Content='';
+			$Content.='<option value="">please select ...</option>';
+            for ($i=0; $i<count($WsData['list']['item']); $i++) {
+                 $Content.='<option value="'.$WsData['list']['item'][$i]['id'].'">'.$WsData['list']['item'][$i]['name'].'</option>';
+            }
+
+		return $Content;
+
+	}
 }
 
 ?>

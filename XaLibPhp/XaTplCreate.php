@@ -109,9 +109,18 @@ class XaTplCreate  extends XaTpl{
 
 		$form='';
 		$form.='<script>';
-		$form.='function clear_date(field) {';
-		$form.="document.getElementById(field).value='';";
-		$form.='}';
+		$form.=	'function clear_date(field) {';
+		$form.=		"document.getElementById(field).value='';";
+		$form.=	'}';
+
+		$form.=	'function activate_formula(master,slave,slavedomain) {';
+		$form.=		'var master_var=document.getElementById(master+\'-select\'); ';
+		$form.=		'var master_val=master_var.options[master_var.selectedIndex].value; ';
+		$form.=		'var slave_id=slave+\'-select\'; ';
+		$form.=		'var CompleteUrl=\'XaPageIncluded.php?obj=XaDomain&evt=Universal&tpl=List&ApiParams={"event":"ListAsOptions","tree_parent_ID":"\'+master_val+\'","domain":"\'+slavedomain+\'"}&TplParams={"TplType":"ListAsOptions"}\'; ';
+		$form.=		'Xa.CallAction("",CompleteUrl,{"ResponseType":"Html","TargetId":slave_id}); ';
+		$form.=	'}';
+
 		$form.='</script>';
 
         $form.='<form ';
@@ -357,29 +366,41 @@ class XaTplCreate  extends XaTpl{
             $field.='</select>';
         
         } else if ($FieldNode['type']=='select-single-domain') {
-        
+
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
-            $field.='<option value="" selected="selected">please select ...</option>';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" ';
 
-            $ObjForOptions=$FieldNode['options']['obj'];
-            $EvtForOptions=$FieldNode['options']['evt'];
+			if (isset($FieldNode['onchange'])) {
+				$field.=' onchange="activate_formula(\''.$FieldNode['id'].'\',\''.$FieldNode['onchange']['slave'].'\',\''.$FieldNode['onchange']['domain'].'\')" ';
+			}
+			$field.='>';
+			
+			$field.='<option value="" selected="selected">please select ...</option>';
 
-            if (class_exists($ObjForOptions)) {
+			$tree_parent_ID='';
+			if (isset($FieldNode['options']['tree_parent_ID'])) {
+				$tree_parent_ID=$FieldNode['options']['tree_parent_ID'];
+			}
 
-                $OptionsObj=new $ObjForOptions();
+			if ($tree_parent_ID!='formula') {
+				$ObjForOptions=$FieldNode['options']['obj'];
+				$EvtForOptions=$FieldNode['options']['evt'];
 
-            } else {
+				if (class_exists($ObjForOptions)) {
 
-                $OptionsObj=new XaLibApi();
-            }
+					$OptionsObj=new $ObjForOptions();
 
-            $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
+				} else {
 
-            for ($i=0; $i<count($options['list']['item']); $i++) {
-                 $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
-                 //echo $field;
-            }
+					$OptionsObj=new XaLibApi();
+				}
+
+				$options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
+
+				for ($i=0; $i<count($options['list']['item']); $i++) {
+					 $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+				}
+			}
 
             $field.='</select>';
       
