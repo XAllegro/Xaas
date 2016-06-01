@@ -66,8 +66,18 @@ class XaTplUpdate  extends XaTpl{
            $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
+        //$form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
+		
+   		$sc=file_get_contents($Conf['JsDir']['ApiPath'].'XaGmapAutocomplete.js');
+   		$form='<script>'.$sc.'</script>';
+		
+		$form.='<script>';
+		$form.='function clear_date(field) {';
+		$form.="document.getElementById(field).value='';";
+		$form.='}';
+		$form.='</script>';
 
-        $form='<form ';
+        $form.='<form ';
         $form.='class="'.$FormClass.'"';
         $form.='name="'.$FormName.'"';
         $form.='id="'.$FormId.'"';
@@ -81,18 +91,19 @@ class XaTplUpdate  extends XaTpl{
 
         $form.='<ul>';
 
-            for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
-                $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
-            }
+        for($i=0; $i<count($WsData[$obj]['fieldset']['field']); $i++) {
+            $form.= $this->BuildField($Conf,$HTTP,$WsData[$obj]['fieldset']['field'][$i]);
+        }
 
-        $form.='<li><button type="submit">Submit</button><br/><br/></li>';
+        $form.='<li><button type="submit">Save</button><br/><br/></li>';
 
         $form.='</ul>';
         $form.='</fieldset>';
         $form.="</form>";
+        
+        $form.="<script>LoadGeoScript();</script>";
 
-    return $form;
-
+        return $form;
     }
 
     function BuildField(array $Conf,XaLibHttp &$HTTP,array &$FieldNode) {
@@ -217,6 +228,20 @@ class XaTplUpdate  extends XaTpl{
           
           $field.='</select>';
       
+        } else if ($FieldNode['type']=='select-single-static') {
+        
+          $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
+          $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
+
+          $field.='<option value="'.$FieldNode['value'].'">'.$FieldNode['label'].'</option>';
+          
+          for ($i=0; $i<count($FieldNode['options']['option']); $i++) {
+            $field.='<option value="'.$FieldNode['options']['option'][$i]['value'].'">'.$FieldNode['options']['option'][$i]['label'].'</option>';
+            //echo $field;
+          }
+          
+          $field.='</select>';
+      
         } else if ($FieldNode['type']=='select-boolean') {
         
           $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
@@ -232,6 +257,15 @@ class XaTplUpdate  extends XaTpl{
 
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >'.$FieldNode['value'].'</textarea>';
+
+		} else if ($FieldNode['type']=='input-date') {
+
+			$FieldId=$FieldNode['name'].'-input';
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldId.'">'.$FieldNode['label'].'</label>';
+            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:Xa.CallAction(\'\',\'Calendar.php?field='.$FieldId.'\',{&quot;TargetId&quot;:&quot;kal-'.$FieldId.'&quot;,&quot;JsEval&quot;:&quot;yes&quot;,&quot;ResponseType&quot;:&quot;Html&quot;});" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" value="'.$FieldNode['value'].'"/>';
+			$field.='<a href="javascript:clear_date(\''.$FieldId.'\');"> clear</a>';
+			$field.='<br/>';
+			$field.='<div id="kal-'.$FieldId.'"></div>';
 
         } else {
 

@@ -289,19 +289,31 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPat
 	/*For Each Field Check Properties and Load Value*/
 	for (auto i=0;i<FieldsNum;i++) {
 
-		string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
 		string FUpdate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/update");
 
 		if (FUpdate=="yes") {
+			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
 			string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
 			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
 			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
 
 			string FValue=HTTP.GetHttpParam(FName);
 
-			FieldName.push_back(FName);
-			FieldValue.push_back(FValue);
+			if (FValue!="NoHttpParam") {
+				// update field only if not empty
+				FieldName.push_back(FName);
+				FieldValue.push_back(FValue);
+			} else {
+				// empty field is skipped from update
+				if (FRequired=="yes") {
+					// error if field is empty and required
+					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3022 Required field not found in Update -> "+FName);
+					throw 3022;
+				}
+			}
+
 		}
+		
 	};
 }
 
@@ -333,11 +345,11 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPat
             string FValue=HTTP.GetHttpParam(FName);
 
 			if (FValue!="NoHttpParam") {
-				// add field only if not empty
+				// update field only if not empty
 				FieldName.push_back(FName);
 				FieldValue.push_back(FValue);
 			} else {
-				// empty field is skipped from add
+				// empty field is skipped from update
 				if (FRequired=="yes") {
 					// error if field is empty and required
 					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-3022 Required field not found in Update -> "+FName);

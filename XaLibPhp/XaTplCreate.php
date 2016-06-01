@@ -107,7 +107,29 @@ class XaTplCreate  extends XaTpl{
            $FormAction.="&evt=".$event."',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;TargetId&quot;:&quot;".$TargetId."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;,&quot;WithAlert&quot;:&quot;".$WithAlert."&quot;,&quot;PostActionArgs&quot;:&quot;".$PostActionArgs."&quot;});".$PostJsFunction.";";
         }
 
-        $form='<form ';
+		$form='';
+		$form.='<script>';
+		$form.=	'function clear_date(field) {';
+		$form.=		"document.getElementById(field).value='';";
+		$form.=	'}';
+
+		$form.=	'function activate_formula(master,slave,slavedomain) {';
+		$form.=		'var master_var=document.getElementById(master+\'-select\'); ';
+		$form.=		'var master_val=master_var.options[master_var.selectedIndex].value; ';
+		$form.=		'var slave_id=slave+\'-select\'; ';
+				// no master option selected
+		$form.=		'if (master_val=="") { master_val="0";}; ';
+		$form.=		'var CompleteUrl=\'XaPageIncluded.php?obj=XaDomain&evt=Universal&tpl=List&ApiParams={"event":"ListAsOptions","tree_parent_ID":"\'+master_val+\'","domain":"\'+slavedomain+\'"}&TplParams={"TplType":"ListAsOptions"}\'; ';
+		$form.=		'Xa.CallAction("",CompleteUrl,{"ResponseType":"Html","TargetId":slave_id}); ';
+				// trigger change event on slave
+		$form.=		'var event = new Event("change"); ';
+		$form.=		'document.getElementById(slave_id).dispatchEvent(event); ';
+
+		$form.=	'}';
+
+		$form.='</script>';
+
+        $form.='<form ';
         $form.=' class="'.$FormClass.'"';
         $form.=' name="'.$FormName.'"';
         $form.=' id="'.$FormId.'"';
@@ -153,7 +175,14 @@ class XaTplCreate  extends XaTpl{
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
         $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction."();";
 
-        $form='<form ';
+		$form='';
+		$form.='<script>';
+		$form.='function clear_date(field) {';
+		$form.="document.getElementById(field).value='';";
+		$form.='}';
+		$form.='</script>';
+
+        $form.='<form ';
         $form.=' class="'.$FormClass.'"';
         $form.=' name="'.$FormName.'"';
         $form.=' id="'.$FormId.'"';
@@ -343,29 +372,41 @@ class XaTplCreate  extends XaTpl{
             $field.='</select>';
         
         } else if ($FieldNode['type']=='select-single-domain') {
-        
+
             $field.='<label id="'.$FieldNode['id'].'-label" for="'.$FieldNode['name'].'-select">'.$FieldNode['label'].'</label>';
-            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" >';
-            $field.='<option value="" selected="selected">please select ...</option>';
+            $field.='<select id="'.$FieldNode['id'].'-select" name="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" ';
 
-            $ObjForOptions=$FieldNode['options']['obj'];
-            $EvtForOptions=$FieldNode['options']['evt'];
+			if (isset($FieldNode['onchange'])) {
+				$field.=' onchange="activate_formula(\''.$FieldNode['id'].'\',\''.$FieldNode['onchange']['slave'].'\',\''.$FieldNode['onchange']['domain'].'\')" ';
+			}
+			$field.='>';
+			
+			$field.='<option value="" selected="selected">please select ...</option>';
 
-            if (class_exists($ObjForOptions)) {
+			$tree_parent_ID='';
+			if (isset($FieldNode['options']['tree_parent_ID'])) {
+				$tree_parent_ID=$FieldNode['options']['tree_parent_ID'];
+			}
 
-                $OptionsObj=new $ObjForOptions();
+			if ($tree_parent_ID!='formula') {
+				$ObjForOptions=$FieldNode['options']['obj'];
+				$EvtForOptions=$FieldNode['options']['evt'];
 
-            } else {
+				if (class_exists($ObjForOptions)) {
 
-                $OptionsObj=new XaLibApi();
-            }
+					$OptionsObj=new $ObjForOptions();
 
-            $options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
+				} else {
 
-            for ($i=0; $i<count($options['list']['item']); $i++) {
-                 $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
-                 //echo $field;
-            }
+					$OptionsObj=new XaLibApi();
+				}
+
+				$options= $OptionsObj->$EvtForOptions($Conf,$HTTP,$FieldNode['options']['obj'],$FieldNode['options']['domain']);
+
+				for ($i=0; $i<count($options['list']['item']); $i++) {
+					 $field.='<option value="'.$options['list']['item'][$i]['id'].'">'.$options['list']['item'][$i]['name'].'</option>';
+				}
+			}
 
             $field.='</select>';
       
@@ -398,6 +439,15 @@ class XaTplCreate  extends XaTpl{
             $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldNode['name'].'-input">'.$FieldNode['label'].'</label>';
             $field.='<textarea id="'.$FieldNode['id'].'-input" name="'.$FieldNode['name'].'" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" ></textarea>';
 
+		} else if ($FieldNode['type']=='input-date') {
+
+			$FieldId=$FieldNode['name'].'-input';
+            $field.='<label id="'.$FieldNode['id'].'-label"  for="'.$FieldId.'">'.$FieldNode['label'].'</label>';
+            $field.='<input style="border:1px solid lightgrey;width:30%" onclick="javascript:Xa.CallAction(\'\',\'Calendar.php?field='.$FieldId.'\',{&quot;TargetId&quot;:&quot;kal-'.$FieldId.'&quot;,&quot;JsEval&quot;:&quot;yes&quot;,&quot;ResponseType&quot;:&quot;Html&quot;});" readonly="yes" id="'.$FieldId.'" name="'.$FieldNode['name'].'" type="text" placeholder="'.$FieldNode['name'].'"'.$required.' autofocus="autofocus" />';
+			$field.='<a href="javascript:clear_date(\''.$FieldId.'\');"> clear</a>';
+			$field.='<br/>';
+			$field.='<div id="kal-'.$FieldId.'"></div>';
+					
         } else {
 
             $field.=$FieldNode['type'].' FIELD TYPE NOT YET SUPPORTED';
