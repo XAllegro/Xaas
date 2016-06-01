@@ -121,6 +121,10 @@ class XaTplCreate  extends XaTpl{
 		$form.=		'if (master_val=="") { master_val="0";}; ';
 		$form.=		'var CompleteUrl=\'XaPageIncluded.php?obj=XaDomain&evt=Universal&tpl=List&ApiParams={"event":"ListAsOptions","tree_parent_ID":"\'+master_val+\'","domain":"\'+slavedomain+\'"}&TplParams={"TplType":"ListAsOptions"}\'; ';
 		$form.=		'Xa.CallAction("",CompleteUrl,{"ResponseType":"Html","TargetId":slave_id}); ';
+				// trigger change event on slave
+		$form.=		'var event = new Event("change"); ';
+		$form.=		'document.getElementById(slave_id).dispatchEvent(event); ';
+
 		$form.=	'}';
 
 		$form.='</script>';
