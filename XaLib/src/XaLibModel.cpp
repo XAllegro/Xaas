@@ -241,7 +241,7 @@ int XaLibModel::BackupRecord(const string& DbTable,const int& FieldId) {
 	vector<string> Columns=XaLibSql::ColumnsList(DB_READ,DbTable);
 	
 	/* all other columns, included "updated", must be preserved */
-	vector<string> ExcludeToList={"id","status"};
+	vector<string> ExcludeToList={"id","status","orig_id"};
 
 	string List={};
 
@@ -265,11 +265,14 @@ int XaLibModel::BackupRecord(const string& DbTable,const int& FieldId) {
 	//keep last comma since it is used to append SqlUpdatedColumns,SqlUpdatedValues later on
 	string SqlCopiedColumns=List;
 
-	string SqlUpdatedColumns="status";
-	string SqlUpdatedValues="'3'";
+	string SqlUpdatedColumns="status,orig_id";
+	string SqlUpdatedValues="'3','"+FromIntToString(FieldId)+"'";
 
 	string SqlQry="INSERT INTO " + DbTable+" (" +SqlCopiedColumns + SqlUpdatedColumns +") SELECT "+SqlCopiedColumns + SqlUpdatedValues +" FROM "+DbTable+" WHERE id="+FromIntToString(FieldId); 
 
+	LOG.Write("XXXXXXXXXXX", __FILE__, __FUNCTION__,__LINE__,SqlQry);
+	
+	
 	unsigned NextId=XaLibSql::FreeQueryInsert(DB_WRITE,SqlQry);
 
 	/* NO UPDATES allowed on the record just inserted, since they would alter the "updated" column, which must keep its previous value */
@@ -537,10 +540,10 @@ void XaLibModel::CheckHttpField(string FieldValue,string ControlType) {
 		
 		if (FieldValue=="NoHttpParam" || FieldValue=="") {
 			
-			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing -> "+FieldValue);
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing");
 			throw 205;
 		}
-		
+
 	}
 
 };
@@ -559,6 +562,20 @@ void XaLibModel::CheckHttpField(vector<string> FieldValue,string ControlType) {
 		}
 
 	}
+};
+
+void XaLibModel::CheckHttpFieldInDomain(string FieldValue,vector<string> DomainValues) {
+
+	if(std::find(DomainValues.begin(), DomainValues.end(), FieldValue) != DomainValues.end()) {
+		
+		//DomainValues contain
+		
+	} else {
+
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-207 The Value Is Out of Domain -> "+FieldValue);
+		throw 207;
+	}
+	
 };
 
 XaLibModel::~XaLibModel(){

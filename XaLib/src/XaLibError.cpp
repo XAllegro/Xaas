@@ -82,8 +82,7 @@ void XaLibError::Setup() {
 	XaErrors[204]="Requested HTML File Does Not Exist";
 	XaErrors[205]="Required Parameter is Missing";
 	XaErrors[206]="Searched Element Is Not Present in The Vector";
-	
-	
+	XaErrors[207]="The Value Is Out of Domain";
 	
 	/*
 	 * Action Databases

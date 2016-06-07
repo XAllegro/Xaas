@@ -40,7 +40,7 @@ class XaLibApi {
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams,$HTTP->CookieGet("XaSessionId"));
             $result=XaLibCurl::CallPost ($url,$FieldsString,"Array");
             
-            if ($evt=="List") {
+            if ($evt=="List" || $evt=="ListAsOptions") {
                 
                 return $this->CorretArrayDepth($result);
                 

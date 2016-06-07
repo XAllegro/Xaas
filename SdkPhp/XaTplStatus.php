@@ -48,19 +48,19 @@ class XaTplStatus {
         $Content="";
         if ($WsData['list']['item'][$i]['campaign_status']==1) {
 
-            $Content.='<td class="StatusScheduled"><span>Scheduled</span></td>';
+            $Content.='<td class="StatusScheduled no_wrap"><div>Scheduled</div></td>';
 
         } else if ($WsData['list']['item'][$i]['campaign_status']==2) {
 
-            $Content.='<td class="StatusOnGoing"><span>On Going</span></td>';
+            $Content.='<td class="StatusOnGoing no_wrap"><div>On Going</div></td>';
 
         } else if ($WsData['list']['item'][$i]['campaign_status']==3) {
 
-            $Content.='<td class="StatusExpired"><span>Expired</span></td>';
+            $Content.='<td class="StatusExpired no_wrap"><div>Expired</div></td>';
 
         } else if ($WsData['list']['item'][$i]['campaign_status']==4) {
 
-             $Content.='<td class="StatusPaused"><span>Paused</span></td>';
+             $Content.='<td class="StatusPaused no_wrap"><div>Paused</div></td>';
         }
         
         return $Content;

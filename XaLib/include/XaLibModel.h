@@ -68,8 +68,7 @@ class XaLibModel : protected XaLibBase {
         /*required*/
         void CheckHttpField(string FieldValue,string ControlType);
         void CheckHttpField(vector<string> FieldValue,string ControlType);
-        
-        
+        void CheckHttpFieldInDomain(string FieldValue,vector<string> DomainValues);
     public:
 
         void Execute();

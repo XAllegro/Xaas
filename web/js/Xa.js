@@ -147,7 +147,12 @@ Xa.Call = function(url,type,sync,cb) {
  *      LoaderTargetID:"",
  *      JsEval:"no",
  *      WithAlert:"no",
- *      AlertMessage:""
+ *      AlertMessage:"",
+ *      
+ *      //NEW PARAMETER TO USE IN CONFIRMATION
+ *      WithConfirm:"no"
+ *      WithConfirmMessage:"Confirm ?"
+ *   
  *  };
  *
  *   Xa.CallAction("","obj=objecg&amp;evt=event",args);
@@ -285,7 +290,21 @@ Xa.CallAction=function (controller,url,args){
         }
 
     });
-     
+
+};
+
+Xa.CallActionWithConfirm=function (controller,url,args){
+
+    var x = confirm("Are you sure you want to proceed ?");
+    
+    if (x)  {
+       
+        Xa.CallAction(controller,url,args);
+    } else {
+        
+        return false;
+    }
+
 };
 
 Xa.IncludeHtmlFile = function(Url,TargetId) {
