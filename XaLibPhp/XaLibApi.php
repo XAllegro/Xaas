@@ -530,25 +530,28 @@ class XaLibApi {
         return $WsData;
     }
     
-    public function Portfolio(array &$Conf,XaLibHttp &$HTTP,$Obj,array $KeyName,array $KeyValue):array {
+    public function Portfolio(array &$Conf,XaLibHttp &$HTTP,$ApiParams):array {
+    
+      $this->GetParams($HTTP);
 
-        $url=$this->GetBaseUrl($Conf,$Obj)."&Data=<WsData>";
-        $url.=$this->GetLoginSection($HTTP);
-        $url.="<operation><object>".$Obj."</object><event>Portfolio</event></operation>";
-        $url.="<params>";
-        
-        for ($i = 0; $i < count($KeyName); $i++) {
-          $url.="<p><n>".$KeyName[$i]."</n><v>".$KeyValue[$i]."</v></p>";
-        }
-        
-        $url.="</params>";
-        $url.="</WsData>";
+      $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+      $url.=$this->GetLoginSection($HTTP);
+      $url.="<operation><object>".$this->object."</object><event>Portfolio</event></operation>";
+      $url.="<params>";
 
+      $json_array=json_decode($ApiParams, true);
+      
+      foreach($json_array as $a=>$b){
+        $url.="<p><n>".$a."</n><v>".$b."</v></p>";
+      }
 
-        $WsData =  $this->GetCurlResAsArray($url);
-        $this->RearrangeListResultArray($WsData['portfolio']);
+      $url.="</params>";
+      $url.="</WsData>";
 
-        return $WsData;
+      $WsData =  $this->GetCurlResAsArray($url);
+      $this->RearrangeListResultArray($WsData['portfolio']);
+
+      return $WsData;
     }
 
     public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
@@ -560,8 +563,12 @@ class XaLibApi {
     
         $this->_obj=$obj;
         $this->_params=$ApiParams;
-    
-        return ($this->$evt($Conf,$HTTP));
+        
+        if (isset($ApiParams)) {
+          return ($this->$evt($Conf,$HTTP,$ApiParams));
+        }else{
+          return ($this->$evt($Conf,$HTTP));
+        }
     }
 
     public function ExecuteBack (array &$Conf,XaLibHttp &$HTTP,$evt,$key) {
