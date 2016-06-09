@@ -549,7 +549,7 @@ class XaLibApi {
       $url.="</WsData>";
 
       $WsData =  $this->GetCurlResAsArray($url);
-      $this->RearrangeListResultArray($WsData['portfolio']);
+      $this->RearrangeListResultArray($WsData);
 
       return $WsData;
     }
