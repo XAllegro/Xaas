@@ -539,17 +539,21 @@ class XaLibApi {
       $url.="<operation><object>".$this->object."</object><event>Portfolio</event></operation>";
       $url.="<params>";
 
-      $json_array=json_decode($ApiParams, true);
-      
-      foreach($json_array as $a=>$b){
-        $url.="<p><n>".$a."</n><v>".$b."</v></p>";
+      if($ApiParams!=""){
+        $json_array=json_decode($ApiParams, true);
+        
+        foreach($json_array as $a=>$b){
+          $url.="<p><n>".$a."</n><v>".$b."</v></p>";
+        }
+      }else{
+        $url.="<p><n></n><v></v></p>";
       }
 
       $url.="</params>";
       $url.="</WsData>";
 
       $WsData =  $this->GetCurlResAsArray($url);
-      $this->RearrangeListResultArray($WsData['portfolio']);
+      $this->RearrangeListResultArray($WsData);
 
       return $WsData;
     }
