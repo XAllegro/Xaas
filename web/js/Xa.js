@@ -410,3 +410,14 @@ var FormElement = document.getElementById(FormId);
 
     return q.join("&");
 };
+
+Xa.CssApplyById = function(Id,ClassName) {
+
+    var d = document.getElementById(Id).className=ClassName; 
+};
+
+Xa.CssAddById = function(Id,ClassName) {
+
+    var d = document.getElementById(Id);
+    d.className = d.className + " "+ClassName;
+};

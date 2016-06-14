@@ -534,6 +534,7 @@ void XaLibModel::GetXmlModel() {
 	RESPONSE.Content=Content;
 };
 
+/*
 void XaLibModel::CheckHttpField(string FieldValue,string ControlType) {
 	
 	if (ControlType=="required"){
@@ -547,7 +548,7 @@ void XaLibModel::CheckHttpField(string FieldValue,string ControlType) {
 	}
 
 };
-
+*/
 void XaLibModel::CheckHttpField(vector<string> FieldValue,string ControlType) {
 
 	if (ControlType=="required"){
