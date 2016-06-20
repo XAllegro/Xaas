@@ -538,6 +538,23 @@ class XaLibApi {
       $url.=$this->GetLoginSection($HTTP);
       $url.="<operation><object>".$this->object."</object><event>Portfolio</event></operation>";
       $url.="<params>";
+      
+      foreach($HTTP->GetHttpRequest() as $n=>$v) {
+        if ($n!='obj' && $n!='evt') {
+          if(is_array($v)){
+            $value="";
+            for ($i = 0; $i < count($v); $i++) {
+              if($v[$i]!=""){
+                $value.=$v[$i].",";
+              }
+            }
+            $value=substr($value, 0, -1); 
+            $url.="<p><n>".$n."</n><v>".$value."</v></p>";
+          }else{
+            $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
+          }
+        }
+      }
 
       if($ApiParams!=""){
         $json_array=json_decode($ApiParams, true);
