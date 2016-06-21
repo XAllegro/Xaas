@@ -16,7 +16,7 @@ class XaLibCurl {
         return $response;
     }
 
-    public static function CallPost (&$url,&$FieldsString,$ResponseType) {
+    public static function CallPost (&$url,&$FieldsString,$ResponseType,array &$Conf) {
 
         $ch = curl_init();
 
@@ -31,7 +31,7 @@ class XaLibCurl {
 
         if($ResponseType=="Array") {
 
-            return XaLibCurl::GetCurlResAsArray($response);
+            return XaLibCurl::GetCurlResAsArray($response,$Conf);
 
         } else {
             return $response;
@@ -39,7 +39,7 @@ class XaLibCurl {
 
     }
 
-    private static function GetCurlResAsArray(&$Response) {
+    private static function GetCurlResAsArray(&$Response,array &$Conf) {
 
         libxml_use_internal_errors(true);
 
@@ -55,17 +55,29 @@ class XaLibCurl {
             $json= str_replace('{}','""',json_encode($xml));
             $WsData = json_decode($json,TRUE);
 
-            XaLibCurl::CheckApiError($WsData);
-            
+            XaLibCurl::CheckApiError($WsData,$Conf);
+
             return $WsData;
         }
     }
     
-    
-    private static function CheckApiError(array $ApiResponse) {
+    private static function CheckApiError(array $ApiResponse,array &$Conf) {
 
         if(array_key_exists("error",$ApiResponse)){
-            
+
+            // $ApiResponse['error']['number']=="52"
+            if ($ApiResponse['error']['number']=="45" ) {
+
+                XaLibUtils::Redirect($Conf["MyApp"]["LoginPage"]."?Error=45");
+                
+            }
+
+            if ($ApiResponse['error']['number']=="52" ) {
+
+                XaLibUtils::Redirect($Conf["MyApp"]["LoginPage"]."?Error=52");
+
+            }
+
             echo $ApiResponse['error']['number'];
             echo $ApiResponse['error']['description'];
 

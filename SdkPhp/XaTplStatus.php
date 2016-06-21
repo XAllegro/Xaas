@@ -39,7 +39,7 @@ class XaTplStatus {
     /* CAMPAIGN STATUS
     1 : Scheduled	 
     2 : OnGoing
-    3 : Expired	 
+    3 : Expired
     4 : Paused
     */
     
@@ -60,7 +60,7 @@ class XaTplStatus {
 
         } else if ($WsData['list']['item'][$i]['campaign_status']==4) {
 
-             $Content.='<td class="no_wrap"><span style="display:block" class="label label-danger">PRIMARY</span></td>';
+             $Content.='<td class="no_wrap"><span style="display:block" class="label label-danger">PAUSED</span></td>';
         }
         
         return $Content;

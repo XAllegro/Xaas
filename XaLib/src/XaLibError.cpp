@@ -41,10 +41,10 @@ void XaLibError::Setup() {
 	XaErrors[53]="TOKEN Error Deactivating Token For User Id";
 	XaErrors[54]="TOKEN More tokens are associated to this User or more users have this token";
 	XaErrors[55]="TOKEN Error Deactivating Token";
-	XaErrors[56]="";
-	XaErrors[57]="";
+	XaErrors[56]="User ID Does Not Exist Or Is not Unique";
+	XaErrors[57]="New Password and New Password Confirmation are not identical";
+	XaErrors[58]="Old password is not correct";
 
-	
 	/*
 	 * Web Services
 	 */

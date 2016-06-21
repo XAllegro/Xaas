@@ -13,6 +13,14 @@ void XaUserLogin::Dispatcher (const string &CalledEvent) {
 
 		this->Logout();
 
+    } else if (CalledEvent=="ReadByToken"){
+
+		this->ReadByToken();
+
+    } else if (CalledEvent=="ChangePassword"){
+
+		this->ChangePassword();
+
     } else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42: Requested Event Does Not Exists -> "+CalledEvent);
@@ -84,6 +92,67 @@ void XaUserLogin::Logout () {
 	SESSION.Token="0";
 	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Logout Affected");
 	RESPONSE.Content="Logout";
+};
+
+
+void XaUserLogin::ReadByToken(){
+
+	int XaUser_ID=XaLibToken::ValidateToken(SESSION.Token);
+	
+	string SqlQry="SELECT name,surname FROM XaUser WHERE status=1 AND id=\""+FromIntToString(XaUser_ID)+"\"";
+	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,SqlQry);
+
+	if (DbRes.size()==1 ){
+		
+		vector<string> ReturnedFields={"name","surname"};
+		RESPONSE.Content=ReadResponse(DbRes,ReturnedFields);
+
+	} else {
+
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-56: User ID Does Not Exist Or Is not Unique");
+		throw 56;
+	}
+
+};
+
+void XaUserLogin::ChangePassword() {
+
+	string Password=HTTP.GetHttpParam("password");
+	string Password1=HTTP.GetHttpParam("password1");
+	string Password2=HTTP.GetHttpParam("password2");
+
+	CheckHttpField({Password,Password1,Password2},"required");
+
+	if (Password1==Password2) {
+		
+		string QryUser="SELECT id FROM XaUser WHERE id=\""+FromIntToString(SESSION.XaUser_ID)+"\" AND password=\""+XaLibCrypto::GetSha1(Password)+"\" AND status=1";
+		DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,QryUser);
+		
+		int n=DbRes.size();
+
+		if (n==1) {
+
+			LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Old password is correct");
+			
+			XaLibSql::Update(DB_SESSION,"XaUser",{"password"},{XaLibCrypto::GetSha1(Password1)},{"id"},{FromIntToString(SESSION.XaUser_ID)});
+
+			LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Password Changed");
+			
+			RESPONSE.Content="OK";
+			
+			
+		} else {
+
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-58: Old password is not correct");
+			throw 58;
+		}
+
+	} else {
+
+		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-57: New Password and New Password Confirmation are not identical");
+		throw 57;
+	} 
+
 };
 
 XaUserLogin::~XaUserLogin(){

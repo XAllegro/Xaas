@@ -12,11 +12,8 @@ class XaUserLogin : public XaLibModel {
 
         void Login();
         void Logout();
-
-        void Create();
-        void Read();
-        void Update();
-        void Delete();
+        void ReadByToken();
+        void ChangePassword();
 
     protected:
 

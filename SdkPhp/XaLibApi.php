@@ -12,12 +12,11 @@ class XaLibApi {
 
     public function BackEndCall ($api,$obj,$evt,array &$Conf, XaLibHttp &$HTTP, $ApiParams) {
 
-       
         if($obj=="XaUserLogin" && $evt=="Login") {
 
             $url=$this->GetBaseUrl($Conf,$api,"XaUserLogin","Login");
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams);
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array");
+            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);            
 
             if ($result["token"]) {
 
@@ -29,7 +28,7 @@ class XaLibApi {
     
             $url=$this->GetBaseUrl($Conf,$api,"XaUserLogin","Logout");
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams,$HTTP->CookieGet("XaSessionId"));
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array");
+            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);
 
             $HTTP->CookieUnset();
             XaLibUtils::Redirect($Conf["MyApp"]["LogoutPage"]);
@@ -38,7 +37,7 @@ class XaLibApi {
 
             $url=$this->GetBaseUrl($Conf,$api,$obj,$evt);
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams,$HTTP->CookieGet("XaSessionId"));
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array");
+            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);
             
             if ($evt=="List" || $evt=="ListAsOptions") {
                 
@@ -87,7 +86,6 @@ class XaLibApi {
         
         return $WsData;
     }
-    
 /*
     protected function RearrangeListResultArray(array &$WsData) {
 	// When the list results contain a single <item> node, the 'item' level
