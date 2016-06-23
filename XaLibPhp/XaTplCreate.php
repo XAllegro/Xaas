@@ -173,7 +173,7 @@ class XaTplCreate  extends XaTpl{
     
         
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction."();";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction;
 
 		$form='';
 		$form.='<script>';
@@ -227,7 +227,7 @@ class XaTplCreate  extends XaTpl{
         $FormMethod="POST";
     
         $FormAction="javascript:Xa.CallAction('','XaApi.php?obj=".$obj;
-        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction."();";
+        $FormAction.="&evt=Create',{&quot;ResponseType&quot;:&quot;".$ResponseType."&quot;,&quot;FormId&quot;:&quot;".$FormId."&quot;});".$PostJsFunction;
         
         $form='<script type="text/javascript" src="/js/XaGmapAutocomplete.js"></script>';
 

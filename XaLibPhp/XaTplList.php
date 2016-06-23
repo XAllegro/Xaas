@@ -168,7 +168,7 @@ class XaTplList extends XaTpl{
                     $Content.='<a href="#" onclick="Xa.CallAction(\'\',\''.$ActionDelete.'\',{&quot;ResponseType&quot;:&quot;Text&quot;});';
                     
                     if ($AfterDelete!="") {
-                        $Content.=$AfterDelete."();";
+                        $Content.=$AfterDelete;
                     }
                     
                     $Content.='">Delete</a>';
