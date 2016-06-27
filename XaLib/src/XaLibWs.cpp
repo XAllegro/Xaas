@@ -71,13 +71,6 @@ void XaLibWs::Setup() {
 		}
 
 		ExtractDataXml();
-
-		if (SETTINGS["WsEnableLog"]=="yes") {
-
-			AddRequestLog();
-		}
-
-
 	}
 };
 

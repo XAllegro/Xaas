@@ -21,6 +21,14 @@ void XaUserLogin::Dispatcher (const string &CalledEvent) {
 
 		this->ChangePassword();
 
+    } else if (CalledEvent=="AddPhoto"){
+
+		this->AddPhoto();
+
+    } else if (CalledEvent=="ReadPhoto"){
+
+		this->ReadPhoto();
+
     } else {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42: Requested Event Does Not Exists -> "+CalledEvent);
@@ -95,15 +103,15 @@ void XaUserLogin::Logout () {
 };
 
 
-void XaUserLogin::ReadByToken(){
+void XaUserLogin::ReadByToken() {
 
 	int XaUser_ID=XaLibToken::ValidateToken(SESSION.Token);
-	
+
 	string SqlQry="SELECT name,surname FROM XaUser WHERE status=1 AND id=\""+FromIntToString(XaUser_ID)+"\"";
 	DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,SqlQry);
 
 	if (DbRes.size()==1 ){
-		
+
 		vector<string> ReturnedFields={"name","surname"};
 		RESPONSE.Content=ReadResponse(DbRes,ReturnedFields);
 
@@ -124,23 +132,21 @@ void XaUserLogin::ChangePassword() {
 	CheckHttpField({Password,Password1,Password2},"required");
 
 	if (Password1==Password2) {
-		
+
 		string QryUser="SELECT id FROM XaUser WHERE id=\""+FromIntToString(SESSION.XaUser_ID)+"\" AND password=\""+XaLibCrypto::GetSha1(Password)+"\" AND status=1";
 		DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_SESSION,QryUser);
-		
+
 		int n=DbRes.size();
 
 		if (n==1) {
 
 			LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Old password is correct");
-			
 			XaLibSql::Update(DB_SESSION,"XaUser",{"password"},{XaLibCrypto::GetSha1(Password1)},{"id"},{FromIntToString(SESSION.XaUser_ID)});
 
 			LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Password Changed");
-			
+
 			RESPONSE.Content="OK";
-			
-			
+
 		} else {
 
 			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-58: Old password is not correct");
@@ -151,8 +157,21 @@ void XaUserLogin::ChangePassword() {
 
 		LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-57: New Password and New Password Confirmation are not identical");
 		throw 57;
-	} 
+	}
+};
 
+void XaUserLogin::AddPhoto() {
+
+	string Photo=HTTP.GetHttpParam("photo");
+	XaLibSql::Update(DB_SESSION,"XaUser",{"photo"},{Photo},{"id"},{FromIntToString(SESSION.XaUser_ID)});
+	RESPONSE.Content="OK";
+};
+
+void XaUserLogin::ReadPhoto() {
+
+	DbResMap DbRes=XaLibSql::Select(DB_SESSION,"XaUser",{"photo"},{"id"},{FromIntToString(SESSION.XaUser_ID)});
+	
+	RESPONSE.Content="<photo>"+DbRes[0]["photo"]+"</photo>";
 };
 
 XaUserLogin::~XaUserLogin(){

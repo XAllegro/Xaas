@@ -14,6 +14,8 @@ class XaUserLogin : public XaLibModel {
         void Logout();
         void ReadByToken();
         void ChangePassword();
+        void AddPhoto();
+        void ReadPhoto();
 
     protected:
 

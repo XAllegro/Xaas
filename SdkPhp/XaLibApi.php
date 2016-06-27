@@ -10,13 +10,13 @@ require_once('XaLibUtils.php');
 
 class XaLibApi {
 
-    public function BackEndCall ($api,$obj,$evt,array &$Conf, XaLibHttp &$HTTP, $ApiParams) {
+    public function BackEndCall ($api,$obj,$evt,array &$Conf, XaLibHttp &$HTTP, $ApiParams,$ResponseType="Array",$ReturnTo="php") {
 
         if($obj=="XaUserLogin" && $evt=="Login") {
 
             $url=$this->GetBaseUrl($Conf,$api,"XaUserLogin","Login");
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams);
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);            
+            $result=XaLibCurl::CallPost ($url,$FieldsString,$ResponseType,$Conf);            
 
             if ($result["token"]) {
 
@@ -28,7 +28,7 @@ class XaLibApi {
     
             $url=$this->GetBaseUrl($Conf,$api,"XaUserLogin","Logout");
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams,$HTTP->CookieGet("XaSessionId"));
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);
+            $result=XaLibCurl::CallPost ($url,$FieldsString,$ResponseType,$Conf);
 
             $HTTP->CookieUnset();
             XaLibUtils::Redirect($Conf["MyApp"]["LogoutPage"]);
@@ -37,17 +37,23 @@ class XaLibApi {
 
             $url=$this->GetBaseUrl($Conf,$api,$obj,$evt);
             $FieldsString=$HTTP->GetHttpRequestAsString($ApiParams,$HTTP->CookieGet("XaSessionId"));
-            $result=XaLibCurl::CallPost ($url,$FieldsString,"Array",$Conf);
+            $result=XaLibCurl::CallPost ($url,$FieldsString,$ResponseType,$Conf);
             
             if ($evt=="List" || $evt=="ListAsOptions") {
                 
-                return $this->CorretArrayDepth($result);
+                $result= $this->CorretArrayDepth($result);
                 
-            } else {
+            }
             
+            if ($ReturnTo=="php") {
+                
                 return $result;
             
+            } else if ($ReturnTo=="js") {
+
+                echo $result;
             }
+            
         }
 
     }

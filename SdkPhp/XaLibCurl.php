@@ -17,7 +17,6 @@ class XaLibCurl {
     }
 
     public static function CallPost (&$url,&$FieldsString,$ResponseType,array &$Conf) {
-
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -30,15 +29,42 @@ class XaLibCurl {
         curl_close($ch);
 
         if($ResponseType=="Array") {
-
+            
             return XaLibCurl::GetCurlResAsArray($response,$Conf);
 
+        } else if ($ResponseType=="json") {
+
+        return XaLibCurl::GetCurlResAsJson($response,$Conf);
+
         } else {
+            
             return $response;
         }
 
     }
 
+      private static function GetCurlResAsJson(&$Response,array &$Conf) {
+
+        libxml_use_internal_errors(true);
+
+        if (!simplexml_load_string($Response) ){
+
+            //CHECK LOW LEVEL SYSTEM ERROR
+            echo $Response;
+            exit();
+
+        } else {
+
+            $xml = simplexml_load_string($Response);
+            $json= str_replace('{}','""',json_encode($xml));
+            $WsData = json_decode($json,TRUE);
+
+            XaLibCurl::CheckApiError($WsData,$Conf);
+
+            return $json;
+        }
+    }
+    
     private static function GetCurlResAsArray(&$Response,array &$Conf) {
 
         libxml_use_internal_errors(true);

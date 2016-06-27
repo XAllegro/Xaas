@@ -73,7 +73,7 @@ class XaLibWs : protected XaLibBase {
         void GetConsumer();
         void GetDecryptedData();
 
-        void AddRequestLog();
+        
 
         void ExtractDataXml();
         void ExtractDataPost();
@@ -96,7 +96,8 @@ class XaLibWs : protected XaLibBase {
         string GetResLang();
 
         int GetWsId();
-
+        
+        void AddRequestLog();
         void AddResponseLog();
 
         //int CheckCaller(const string &CallerName,const string &CallerKey);
