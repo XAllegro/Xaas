@@ -498,6 +498,19 @@ string XaLibChar::RemovePlus(string StringToDecode) {
 return StringToDecode;
 };
 
+string XaLibChar::DecodePlusFormData(string& StringToDecode) {
+
+	unsigned pos=StringToDecode.find_first_of("+");
+
+	while (pos!=-1){
+		StringToDecode.replace(pos,1," ");
+		pos=StringToDecode.find_first_of("+",pos+1);
+	}
+
+return StringToDecode;
+};
+
+
 string XaLibChar::RemoveSpaceChar(string StringToDecode) {
 	int pos;
 

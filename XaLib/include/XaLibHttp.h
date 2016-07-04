@@ -48,7 +48,11 @@ class XaLibHttp : private XaLibBase {
             string RemoveCookie();
             string SetCookie();
 
-            string GetHttpParam(string HttpParamName);
+            /*
+             Type=text,B64
+             */
+            
+            string GetHttpParam(string HttpParamName,string Type="text");
             vector<string>  GetHttpParamArray(string HttpParamName);
             vector<string>  GetHttpParamStruct(string HttpParamName,string StructType);
             string GetHttpHeadersString();

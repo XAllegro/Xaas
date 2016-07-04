@@ -185,9 +185,11 @@ string XaLibHttp::GetHttpHeadersString(){
 	return HttpString;
 };
 
-string XaLibHttp::GetHttpParam(string HttpParamName){
+string XaLibHttp::GetHttpParam(string HttpParamName,string Type){
 
 	string HttpParamValue;
+	unique_ptr<XaLibChar> LibChar (new XaLibChar());
+	
 
 	//CALCOLO LA LUNGHEZZA DELLA QUERY STRING
 	unsigned HttpQueryStringSize=REQUEST.HeadersString.size();
@@ -234,9 +236,9 @@ string XaLibHttp::GetHttpParam(string HttpParamName){
 
 					} else {
 
-						XaLibChar* LibChar=new XaLibChar();
+						
 						HttpParamValueDecoded=LibChar->UrlDecode(HttpParamValue);
-						delete (LibChar);
+					
 					}
 
 				if (HttpParamName!="password"){
@@ -244,7 +246,19 @@ string XaLibHttp::GetHttpParam(string HttpParamName){
 					LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"HttpParam -> " +HttpParamName+" := "+HttpParamValueDecoded);
 				}
 
-				return HttpParamValueDecoded;
+				
+				if (Type=="text") {
+
+					return LibChar->DecodePlusFormData(HttpParamValueDecoded);
+
+				} else if (Type=="B64") {
+
+					return HttpParamValueDecoded;
+
+				} else {
+
+					return HttpParamValueDecoded;
+				}
 		}
 };
 

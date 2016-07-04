@@ -25,6 +25,9 @@ class XaLibChar : protected XaLibBase {
 		string RemovePlus(string StringToDecode);
 		
 		string imgBase64RemPlus(string StringToDecode);
+        
+        /*Change + in space*/
+        string DecodePlusFormData(string& StringToDecode);
 		string UrlDecode(string StringToDecode);
 		string UrlEncode(string StringToEncode);
 
