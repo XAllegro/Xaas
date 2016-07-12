@@ -13,7 +13,7 @@ class XaLibHttp {
 
        return $this->AllHttpRequest;
     }
-    
+
     final public function GetHttpRequestAsString(&$ApiParams,$token="",$obj="",&$evt="") {
 
         $fields_string="";
@@ -61,9 +61,9 @@ class XaLibHttp {
         if(array_key_exists($ParamName,$this->AllHttpRequest)) {
 
             return true;
- 
+
         } else {
- 
+
             return false;
         }
 
@@ -71,7 +71,7 @@ class XaLibHttp {
 
     final public function CookieSet($SessionId){
 
-        setcookie("XaSessionId", $SessionId,0,"","",false,true);
+        setcookie("XaSessionId", $SessionId,0,"","",false,false);
         
     }
 

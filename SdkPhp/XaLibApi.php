@@ -33,6 +33,21 @@ class XaLibApi {
             $HTTP->CookieUnset();
             XaLibUtils::Redirect($Conf["MyApp"]["LogoutPage"]);
             
+        } else if ($obj=="XaUserLogin" && $evt=="GetClientCookie") {
+    
+            $result=$HTTP->CookieGet("XaSessionId");
+
+            /*MARKED AS DUPLICATED D1*/
+            if ($ReturnTo=="php") {
+
+                return $result;
+
+            } else if ($ReturnTo=="js") {
+
+                echo $result;
+            }
+
+
         } else {
 
             $url=$this->GetBaseUrl($Conf,$api,$obj,$evt);
@@ -44,16 +59,17 @@ class XaLibApi {
                 $result= $this->CorretArrayDepth($result);
                 
             }
-            
+
+            /*MARKED AS DUPLICATED D1*/
             if ($ReturnTo=="php") {
-                
+              
                 return $result;
             
             } else if ($ReturnTo=="js") {
-
+             
                 echo $result;
             }
-            
+
         }
 
     }
