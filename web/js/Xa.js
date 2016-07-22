@@ -287,6 +287,20 @@ Xa.CallAction=function (controller,url,args){
 
                 Xa.CallAction(args.PostActionArgs['ctrl'],args.PostActionArgs['action'],obj);
             }
+
+        } else if (args.ResponseType==="Var") {
+
+            if (args.TargetId !== 'undefined') {
+
+                eval(args.TargetId+'='+Response);
+
+            } else {
+                
+                ErrorHandler("TargetIdDoesNotExist"); 
+                return false;
+                
+            }
+
         }
 
     });

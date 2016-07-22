@@ -213,7 +213,35 @@ class XaLibApi {
 
         //echo($WsData['create']);
         //return $WsData['create'];
+		
         return $WsData;
+        //GESTIRE CASO XML O JSON
+        //$this->CheckApiError($result);
+    }
+
+	public function CreateEcho(array &$Conf,XaLibHttp &$HTTP):array {
+    
+		// come la Create, ma fa anche echo dell'id del record aggiunto
+
+        $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+        $url.=$this->GetLoginSection($HTTP);
+        $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>Create</event></operation>";
+        $url.="<params>";
+
+        //LIST FROM MODEL
+        foreach($HTTP->GetHttpRequest() as $n=>$v) {
+
+            if ($n!='obj' && $n!='evt') {
+                $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
+            }
+        }
+
+        $url.="</params>";
+        $url.="</WsData>";
+        $WsData= $this->GetCurlResAsArray($url);
+
+        echo $WsData['create'];
+		return $WsData;
         //GESTIRE CASO XML O JSON
         //$this->CheckApiError($result);
     }
@@ -576,7 +604,7 @@ class XaLibApi {
     }
 
     public function Execute (array &$Conf,XaLibHttp &$HTTP,$evt) {
-    
+
         $this->$evt($Conf,$HTTP);
     }
 
@@ -616,7 +644,6 @@ class XaLibApi {
         $this->CheckApiError($WsData);
 
         return $WsData;
-
     }
 
 	public function FormUniversal(array &$Conf,XaLibHttp &$HTTP):array {
