@@ -33,7 +33,7 @@ class XaLibModel : protected XaLibBase {
 
         vector<string> AddXmlFile(const vector<string>& FileName);
 
-        void CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);        
+        void CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
         int CreateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue);
         string CreateResponse(const int& NextId);
 
@@ -69,6 +69,12 @@ class XaLibModel : protected XaLibBase {
         //void CheckHttpField(string FieldValue,string ControlType);
         void CheckHttpField(vector<string> FieldValue,string ControlType);
         void CheckHttpFieldInDomain(string FieldValue,vector<string> DomainValues);
+
+		/* check if domain name of XaDomain record matches */
+		bool CheckDomain(string Id, string Domain);
+
+		/* check if tree_parent_ID of XaDomain record matches */
+		bool CheckDomainParent(string ChildId, string ParentId);
     public:
 
         void Execute();

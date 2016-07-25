@@ -56,7 +56,7 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 			// add field only if creatable
 
 			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
-			string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
+			string FType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/type");
 			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
 			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
 
@@ -64,6 +64,11 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 
 			if (FValue!="NoHttpParam") {
 				// add field only if not empty
+				// check field value
+				if (FType=="select-single-domain") {
+					string Domain=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/options/domain");
+					CheckDomain(FValue,Domain);
+				}
 				FieldName.push_back(FName);
 				FieldValue.push_back(FValue);
 			} else {
@@ -296,7 +301,7 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPat
 
 		if (FUpdate=="yes") {
 			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
-			string FDbType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/db_type");
+			string FType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/type");
 			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
 			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
 
@@ -304,6 +309,11 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const string& XPat
 
 			if (FValue!="NoHttpParam") {
 				// update field only if not empty
+				// check field value
+				if (FType=="select-single-domain") {
+					string Domain=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/options/domain");
+					CheckDomain(FValue,Domain);
+				}
 				FieldName.push_back(FName);
 				FieldValue.push_back(FValue);
 			} else {
@@ -578,6 +588,46 @@ void XaLibModel::CheckHttpFieldInDomain(string FieldValue,vector<string> DomainV
 	}
 	
 };
+
+bool XaLibModel::CheckDomain(string Id, string Domain) {
+	
+		bool check=false;
+
+		DbResMap DbRes=XaLibSql::Select(DB_READ,"XaDomain",{"id"},{"id","domain","status"},{Id,Domain,"1"});
+
+		if (DbRes.size()==1) {
+			check=true;
+		}
+
+		if (check) {
+			return check;
+		} else {
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-207 The Value Is Out of Domain -> "+Id+","+Domain);
+			throw 207;
+		}
+
+}
+
+bool XaLibModel::CheckDomainParent(string ChildId, string ParentId) {
+	
+		bool check=false;
+
+		DbResMap DbRes=XaLibSql::Select(DB_READ,"XaDomain",{"tree_parent_ID"},{"id","status"},{ChildId,"1"});
+
+		if (DbRes.size()==1) {
+			if (DbRes[0]["tree_parent_ID"]==ParentId) {
+				check=true;
+			}
+		}
+
+		if (check) {
+			return check;
+		} else {
+			LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-208 Wrong Parent in Domain -> "+ChildId+","+ParentId);
+			throw 208;
+		}
+
+}
 
 XaLibModel::~XaLibModel(){
 };

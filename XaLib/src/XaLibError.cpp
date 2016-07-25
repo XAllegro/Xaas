@@ -83,6 +83,7 @@ void XaLibError::Setup() {
 	XaErrors[205]="Required Parameter is Missing";
 	XaErrors[206]="Searched Element Is Not Present in The Vector";
 	XaErrors[207]="The Value Is Out of Domain";
+	XaErrors[208]="Wrong Parent in Domain";
 	
 	/*
 	 * Action Databases
