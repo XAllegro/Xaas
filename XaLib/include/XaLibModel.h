@@ -54,6 +54,7 @@ class XaLibModel : protected XaLibBase {
 
 		void UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
 		void UpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName);
+		void UpdatePrepare(const vector<string>& XmlFiles,const vector<string>& XmlStrings,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName);
 		
 		int UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue, const int& Id);
 		int UpdateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue,vector <string>& FieldNullName, const int& Id);
