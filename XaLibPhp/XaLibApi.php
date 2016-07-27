@@ -496,6 +496,34 @@ class XaLibApi {
         }
     }
 
+    public function CreateNext(array &$Conf,XaLibHttp &$HTTP):array {
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$HTTP->GetHttpParam("obj"))."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP);
+            $url.="<operation><object>".$HTTP->GetHttpParam("obj")."</object><event>CreateNext</event></operation>";
+            $url.="<params>";
+            foreach($HTTP->GetHttpRequest() as $n=>$v) {
+                if ($n!='obj' && $n!='evt') {
+                  $url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
+                }
+            }
+
+            $url.="</params>";
+            $url.="</WsData>";
+
+            $WsData = $this->GetCurlResAsArray($url);
+
+            echo($WsData['update']);
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
 /*
 	public function Update(array &$Conf,XaLibHttp &$HTTP):array {
 
