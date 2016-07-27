@@ -176,6 +176,40 @@ string XaLibModel::ReadResponse(DbResMap& DbRes,vector<string>& FieldsToRead) {
 	return Res;	
 };
 
+vector<string> XaLibModel::ReadForUpdatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,const int& WithSystemFields) {
+
+	//TODO:GESTIONE ERRORI
+	vector<string> FieldsToRead;
+
+	//LOAD XML FOR MODEL
+	xmlDocPtr XmlDomDoc=XaLibDom::DomFromFile(AddXmlFile(XmlFiles),0);
+
+	//GET NUMBER OF FILEDS
+	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+	
+	for (auto i=0;i<FieldsNum;i++) {
+
+		if (XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/update")=="yes"){
+		
+			FieldsToRead.push_back(XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name"));
+		};
+
+	};
+	
+	auto it = FieldsToRead.begin();
+	it = FieldsToRead.insert ( it , "id" );
+
+	if (WithSystemFields==1) {
+		FieldsToRead.push_back("updated_by");
+		FieldsToRead.push_back("updated");
+		FieldsToRead.push_back("status");
+		FieldsToRead.push_back("orig_id");
+	}
+
+	//SE E" VUOTO
+	return FieldsToRead;
+};
+
 vector<string> XaLibModel::ListPrepare(const vector<string>& XmlFiles,const string& XPathExpr,const int& WithSystemFields) {
 
 	//LOAD XML FOR MODEL
@@ -561,7 +595,7 @@ void XaLibModel::GetXmlModel() {
 		int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
 
 		/* data */
-		vector<string> ReadFields=ReadPrepare({ModelName},"/"+ModelName+"/fieldset/field",0);
+		vector<string> ReadFields=ReadForUpdatePrepare({ModelName},"/"+ModelName+"/fieldset/field",0);
 		DbResMap DbRes=XaLibSql::Select(DB_READ,ModelName,{ReadFields},{"id"},{Id});
 		xmlDocPtr XmlDomDocData=LibDom->DomFromString(ReadResponse(DbRes,ReadFields));
 
