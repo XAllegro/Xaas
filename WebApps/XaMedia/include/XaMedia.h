@@ -13,6 +13,10 @@ class XaMedia : public XaLibModel {
 	void Read();
         void Create();
         void Delete();
+        void CreateComplete();
+        
+        string ComposeFileName(string XaMediaId);
+        string ClearDate(string StringToClear);
 
     protected:
 

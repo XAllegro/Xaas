@@ -1,5 +1,6 @@
 #include <XaMedia.h>
 #include <XaLibModel.h>
+#include <XaLibTime.h>
 
 XaMedia::XaMedia() {
 };
@@ -14,6 +15,8 @@ void XaMedia::Dispatcher(const string &CalledEvent) {
         this->Read();
     }else if (CalledEvent=="Create"){
         this->Create();
+    }else if (CalledEvent=="CreateComplete"){
+        this->CreateComplete();
     }else if (CalledEvent=="Delete"){
 	this->Delete();
     }else {
@@ -155,10 +158,125 @@ void XaMedia::Create(){
     CreateExecute("XaMedia",FieldName,FieldValue);
 }
 
+void XaMedia::CreateComplete(){
+
+    vector<string> FieldName;	
+    vector<string> FieldValue;
+
+    vector<string> FieldNameMedia;
+    vector<string> FieldValueMedia;
+    vector<string> FieldNameData;
+    vector<string> FieldValueData;
+    
+    // standard method CreatePrepare is run only to check field format and requirement
+    CreatePrepare({"XaMediaComplete"},"/XaMediaComplete/fieldset/field",FieldName,FieldValue);
+    //CreateExecute("XaMedia",FieldName,FieldValue);
+    
+    FieldNameMedia.push_back("XaTable");
+    FieldValueMedia.push_back(HTTP.GetHttpParam("XaTable"));
+    FieldNameMedia.push_back("XaField_ID");
+    FieldValueMedia.push_back(HTTP.GetHttpParam("XaField_ID"));
+    FieldNameMedia.push_back("XaDomainMediaCategory_ID");
+    FieldValueMedia.push_back(HTTP.GetHttpParam("XaDomainMediaCategory_ID"));
+    FieldNameMedia.push_back("preferred");
+    FieldValueMedia.push_back("2");
+    
+    int MediaId=CreateExecute("XaMedia",FieldNameMedia,FieldValueMedia);
+    
+    //unique_ptr<XaLibChar> LibChar (new XaLibChar());
+    
+    string XaMediaId=FromIntToString(MediaId);
+    //string File=LibChar->B64Decode(HTTP.GetHttpParam("data","B64"));
+    
+    string File=HTTP.GetHttpParam("data","B64");
+    
+    int FileSize=File.size();
+    double KFileSize = round(FileSize/1024);
+    string KSize = FromDoubleToString(KFileSize);
+    
+    string FileName = ComposeFileName(XaMediaId);
+    
+    FieldNameData.push_back("XaMedia_ID");
+    FieldValueData.push_back(XaMediaId);
+    
+    FieldNameData.push_back("file_name");
+    FieldValueData.push_back(FileName);
+    
+    FieldNameData.push_back("data");
+    FieldValueData.push_back(File);
+    
+    FieldNameData.push_back("ksize");
+    FieldValueData.push_back(KSize);
+
+    int DataId=CreateExecute("XaMediaData",FieldNameData,FieldValueData);
+    
+    RESPONSE.Content="<create_media><id>"+FromIntToString(MediaId)+"</id></create_media><create_data><id>"+FromIntToString(DataId)+"</id></create_data>";
+}
+
 void XaMedia::Delete(){
 
     int DeletedId = DeleteExecute("XaMedia",HTTP.GetHttpParam("id"));
     RESPONSE.Content = DeleteResponse(DeletedId);
+};
+
+string XaMedia::ComposeFileName(string XaMediaId){
+	
+    string Prefix = XaMediaId + "_";
+    
+    unique_ptr<XaLibTime> LibTime (new XaLibTime());
+    
+    string NowTimeMysql=LibTime->GetDateTimeMySql();
+    string Suffix=NowTimeMysql.substr(14,2);
+    string Name = ClearDate(NowTimeMysql);
+
+    string FileName = Prefix + Name + Suffix;
+
+    return FileName;
+
+};
+
+string XaMedia::ClearDate(string StringToClear){
+    int pos;
+
+    pos=0;
+    pos=StringToClear.find("-");
+
+    if (pos !=-1) {
+
+        while (pos!=-1){
+
+            StringToClear.replace(pos,1,"");
+            pos=StringToClear.find("-",pos+1);
+        }
+
+    }
+
+    pos=0;
+    pos=StringToClear.find(":");
+
+    if (pos !=-1) {
+
+        while (pos!=-1){
+
+            StringToClear.replace(pos,1,"");
+            pos=StringToClear.find(":",pos+1);
+        }
+
+    }
+
+    pos=0;
+    pos=StringToClear.find(" ");
+
+    if (pos !=-1) {
+
+        while (pos!=-1){
+
+            StringToClear.replace(pos,1,"");
+            pos=StringToClear.find(" ",pos+1);
+        }
+    }
+
+    return StringToClear;
 };
 
 XaMedia::~XaMedia(){
