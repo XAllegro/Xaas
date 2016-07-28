@@ -702,5 +702,26 @@ class XaLibApi {
         //$this->CheckApiError($result);
     }
 
+	protected function Media(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+		$ParamsArray=json_decode($this->params, true);
+
+        $url=$this->GetBaseUrl($Conf,$this->object);
+		$data="Data=<WsData>";
+        $data.=$this->GetLoginSection($HTTP);
+        $data.="<operation><object>".$this->object."</object>";
+		$data.="<event>".$ParamsArray['event']."</event></operation>";
+        $data.= $this->GetParamsSection($this->params);
+        $data.="</WsData>";
+
+        $WsData=XaLibCurl::CallPost($url,$data,"Array",$Conf);
+
+        //$this->CheckApiError($WsData);
+
+        //print_r ($WsData['create_media']['id']);
+		return $WsData;
+    }
+
 }
 ?>

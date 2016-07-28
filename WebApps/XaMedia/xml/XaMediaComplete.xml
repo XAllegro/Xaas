@@ -64,7 +64,7 @@
 		</options>
 		<placeholder></placeholder>
 		<default></default>
-		<required>yes</required>
+		<required>no</required>
 		<read>yes</read>
 		<list>yes</list>
 		<update>yes</update>
@@ -79,6 +79,34 @@
 		<placeholder>contenuto&#32;binario&#32;del&#32;file&#32;in&#32;base64</placeholder>
 		<default></default>
 		<required>yes</required>
+		<read>yes</read>
+		<list>yes</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
+	<field>
+		<id>type</id>
+		<name>type</name>
+		<type>input-text</type>
+		<label>type</label>
+		<placeholder></placeholder>
+		<default></default>
+		<required>no</required>
+		<read>yes</read>
+		<list>yes</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
+	<field>
+		<id>name</id>
+		<name>name</name>
+		<type>input-text</type>
+		<label>name</label>
+		<placeholder></placeholder>
+		<default></default>
+		<required>no</required>
 		<read>yes</read>
 		<list>yes</list>
 		<update>no</update>

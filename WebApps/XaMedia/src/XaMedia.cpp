@@ -160,6 +160,16 @@ void XaMedia::Create(){
 
 void XaMedia::CreateComplete(){
 
+    string Type=HTTP.GetHttpParam("type");
+    string Name=HTTP.GetHttpParam("name");
+    string XaDomainMediaCategoryId="";
+    
+    if (Type.substr(0,5)=="image") {
+        XaDomainMediaCategoryId="854";
+    } else {
+        XaDomainMediaCategoryId="857";
+    }
+    
     vector<string> FieldName;	
     vector<string> FieldValue;
 
@@ -177,7 +187,8 @@ void XaMedia::CreateComplete(){
     FieldNameMedia.push_back("XaField_ID");
     FieldValueMedia.push_back(HTTP.GetHttpParam("XaField_ID"));
     FieldNameMedia.push_back("XaDomainMediaCategory_ID");
-    FieldValueMedia.push_back(HTTP.GetHttpParam("XaDomainMediaCategory_ID"));
+    //FieldValueMedia.push_back(HTTP.GetHttpParam("XaDomainMediaCategory_ID"));
+    FieldValueMedia.push_back(XaDomainMediaCategoryId);
     FieldNameMedia.push_back("preferred");
     FieldValueMedia.push_back("2");
     
@@ -207,6 +218,12 @@ void XaMedia::CreateComplete(){
     
     FieldNameData.push_back("ksize");
     FieldValueData.push_back(KSize);
+    
+    FieldNameData.push_back("type");
+    FieldValueData.push_back(Type);
+    
+    FieldNameData.push_back("name");
+    FieldValueData.push_back(Name);
 
     int DataId=CreateExecute("XaMediaData",FieldNameData,FieldValueData);
     
