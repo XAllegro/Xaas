@@ -304,7 +304,7 @@ class XaLibApi {
             $url.="<params>";
             $url.="<p><n>domain</n><v>".$domain."</v></p>";
             $url.="<p><n>tree_parent_ID</n><v>".$tree_parent_ID."</v></p>";
-            $url.="<p><n></n><v></v></p>";
+            $url.="<p><n>status</n><v>1</v></p>";
             $url.="</params>";
             $url.="</WsData>";
     
