@@ -434,12 +434,12 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const vector<strin
 	for (auto i=0;i<FieldsNum;i++) {
 
 		string FUpdate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/update");
+		string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
 
 		if (FUpdate=="yes") {
 
 			// add field only if updatable
 
-			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
 			string FType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/type");
 			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
 			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
@@ -467,7 +467,12 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const vector<strin
 				}
 			}
 
-        }
+        } else if (FUpdate=="clear") {
+
+			// clear field value to correct front-end tampering
+
+			FieldNullName.push_back(FName);
+		}
 	}
 };
 
