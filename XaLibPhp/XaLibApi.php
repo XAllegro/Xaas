@@ -717,10 +717,10 @@ class XaLibApi {
 
         $WsData=XaLibCurl::CallPost($url,$data,"Array",$Conf);
 
-        //$this->CheckApiError($WsData);
-
-        //print_r ($WsData['create_media']['id']);
+		//print_r ($WsData);
+		echo ("{\"files\": [".json_encode($WsData)."]}");
 		return $WsData;
+		
     }
 
 }
