@@ -31,7 +31,7 @@
       <default/>
       <required>yes</required>
       <create>yes</create>
-      <read>yes</read>
+      <read>no</read>
       <list>yes</list>
       <update>no</update>
       <search>yes</search>
@@ -65,6 +65,7 @@
 		<placeholder></placeholder>
 		<default></default>
 		<required>no</required>
+		<create>yes</create>
 		<read>yes</read>
 		<list>yes</list>
 		<update>yes</update>
@@ -79,6 +80,7 @@
 		<placeholder>contenuto&#32;binario&#32;del&#32;file&#32;in&#32;base64</placeholder>
 		<default></default>
 		<required>yes</required>
+		<create>yes</create>
 		<read>yes</read>
 		<list>yes</list>
 		<update>no</update>
@@ -93,6 +95,7 @@
 		<placeholder></placeholder>
 		<default></default>
 		<required>no</required>
+		<create>yes</create>
 		<read>yes</read>
 		<list>yes</list>
 		<update>no</update>
@@ -107,6 +110,52 @@
 		<placeholder></placeholder>
 		<default></default>
 		<required>no</required>
+		<create>yes</create>
+		<read>no</read>
+		<list>yes</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
+	<field>
+		<id>preferred</id>
+		<name>preferred</name>
+		<type>input-text</type>
+		<label>preferred</label>
+		<placeholder></placeholder>
+		<default></default>
+		<required>no</required>
+		<create>no</create>
+		<read>yes</read>
+		<list>yes</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
+	<field>
+		<id>position</id>
+		<name>position</name>
+		<type>input-text</type>
+		<label>position</label>
+		<placeholder></placeholder>
+		<default></default>
+		<required>no</required>
+		<create>no</create>
+		<read>yes</read>
+		<list>yes</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
+	<field>
+		<id>file_name</id>
+		<name>file_name</name>
+		<type>input-text</type>
+		<label>file_name</label>
+		<placeholder></placeholder>
+		<default></default>
+		<required>no</required>
+		<create>no</create>
 		<read>yes</read>
 		<list>yes</list>
 		<update>no</update>

@@ -13,6 +13,8 @@ void XaMedia::Dispatcher(const string &CalledEvent) {
         this->List();
     }else if (CalledEvent=="Read"){
         this->Read();
+    }else if (CalledEvent=="View"){
+        this->View();
     }else if (CalledEvent=="Create"){
         this->Create();
     }else if (CalledEvent=="CreateComplete"){
@@ -146,6 +148,22 @@ void XaMedia::Read(){
 	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
+void XaMedia::View(){
+
+	string Id=HTTP.GetHttpParam("id");
+	
+	string Qry="SELECT M.id,M.XaField_ID,M.preferred,M.position,M.XaDomainMediaCategory_ID,M.XaDomainMediaDescription_ID,D.file_name,CONCAT('data:',D.type,';base64,',D.data) data,D.type "
+                   "FROM XaMedia M LEFT JOIN XaMediaData D ON D.XaMedia_ID=M.id WHERE M.status=1 AND M.id="+Id;
+
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Query ->"+Qry);
+
+        DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+
+	vector<string> ReadFields=ReadPrepare({"XaMediaComplete"},"/XaMediaComplete/fieldset/field",0);
+
+	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
+};
+
 void XaMedia::Create(){
 
     vector<string> FieldName;	
@@ -200,6 +218,7 @@ void XaMedia::CreateComplete(){
     //string File=LibChar->B64Decode(HTTP.GetHttpParam("data","B64"));
     
     string File=HTTP.GetHttpParam("data","B64");
+    File=AddPlus(File);
     
     int FileSize=File.size();
     double KFileSize = round(FileSize/1024);
@@ -294,6 +313,18 @@ string XaMedia::ClearDate(string StringToClear){
     }
 
     return StringToClear;
+};
+
+string XaMedia::AddPlus(string StringToDecode) {
+
+	unsigned pos=StringToDecode.find_first_of(" ");
+
+	while (pos!=-1){
+		StringToDecode.replace(pos,1,"+");
+		pos=StringToDecode.find_first_of(" ",pos+1);
+	}
+
+return StringToDecode;
 };
 
 XaMedia::~XaMedia(){
