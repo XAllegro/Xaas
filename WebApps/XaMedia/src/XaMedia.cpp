@@ -209,6 +209,8 @@ void XaMedia::CreateComplete(){
     FieldValueMedia.push_back(XaDomainMediaCategoryId);
     FieldNameMedia.push_back("preferred");
     FieldValueMedia.push_back("2");
+    FieldNameMedia.push_back("marked");
+    FieldValueMedia.push_back("2");
     
     int MediaId=CreateExecute("XaMedia",FieldNameMedia,FieldValueMedia);
     
@@ -219,6 +221,14 @@ void XaMedia::CreateComplete(){
     
     string File=HTTP.GetHttpParam("data","B64");
     File=AddPlus(File);
+    
+    string Thumbnail=HTTP.GetHttpParam("thumbnail","B64");
+    
+    if (Thumbnail=="NoHttpParam") {
+        Thumbnail="";
+    } else {
+        Thumbnail=AddPlus(Thumbnail);
+    }
     
     int FileSize=File.size();
     double KFileSize = round(FileSize/1024);
@@ -234,6 +244,9 @@ void XaMedia::CreateComplete(){
     
     FieldNameData.push_back("data");
     FieldValueData.push_back(File);
+    
+    FieldNameData.push_back("thumbnail");
+    FieldValueData.push_back(Thumbnail);
     
     FieldNameData.push_back("ksize");
     FieldValueData.push_back(KSize);

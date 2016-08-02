@@ -162,5 +162,20 @@
 		<search>no</search>
 		<size></size>
 	</field>
+	<field>
+		<id>thumbnail</id>
+		<name>thumbnail</name>
+		<type>input-text</type>
+		<label>thumbnail</label>
+		<placeholder>contenuto&#32;binario&#32;thumbnail&#32;in&#32;base64</placeholder>
+		<default></default>
+		<required>no</required>
+		<create>yes</create>
+		<read>no</read>
+		<list>no</list>
+		<update>no</update>
+		<search>no</search>
+		<size></size>
+	</field>
   </fieldset>
 </XaMediaComplete>
