@@ -1,5 +1,5 @@
 ##  Makefile
-##  App: XaMedia
+##  Project: XaMedia
 ##  Alessandro Mariotti
 ##  alex@xallegro.com
 

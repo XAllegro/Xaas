@@ -1,5 +1,5 @@
 ##  Makefile
-##  App: XaMedia
+##  Project: XAAS
 ##  Alessandro Mariotti
 ##  alex@xallegro.com
 
@@ -23,12 +23,13 @@ ifeq ($(UNAME_S),Darwin)
     include Makefile_Mac.mk
 endif
 
-#User OBJ
-OBJ=$(OBJDIR)Controller.o $(OBJDIR)XaMedia.o $(OBJDIR)XaMediaData.o
+#Media OBJ
+OBJ=$(OBJDIR)Controller.o \
+    $(OBJDIR)XaMedia.o $(OBJDIR)XaMediaData.o
 
 #MACROS
 .PHONY: all all-before all-after clean print-varialbes
-all:print-varialbes $(BIN) all-after
+all:print-varialbes $(BIN) #all-after
 
 clean:
 	${RM} $(OBJ) print-varialbes $(BIN)
