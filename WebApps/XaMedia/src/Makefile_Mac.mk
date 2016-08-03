@@ -1,5 +1,5 @@
 ##  Makefile
-##  Project: XAAS
+##  Project: XaMedia
 ##  Alessandro Mariotti
 ##  alex@xallegro.com
 
