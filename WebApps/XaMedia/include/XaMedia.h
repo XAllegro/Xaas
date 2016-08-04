@@ -15,6 +15,8 @@ class XaMedia : public XaLibModel {
         void Create();
         void Delete();
         void CreateComplete();
+        void ListComplete();
+        void DeleteComplete();
         
         string ComposeFileName(string XaMediaId);
         string ClearDate(string StringToClear);

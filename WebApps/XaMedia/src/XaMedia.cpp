@@ -11,6 +11,8 @@ void XaMedia::Dispatcher(const string &CalledEvent) {
         this->GetXmlModel();
     }else if (CalledEvent=="List"){
         this->List();
+    }else if (CalledEvent=="ListComplete"){
+        this->ListComplete();
     }else if (CalledEvent=="Read"){
         this->Read();
     }else if (CalledEvent=="View"){
@@ -21,6 +23,8 @@ void XaMedia::Dispatcher(const string &CalledEvent) {
         this->CreateComplete();
     }else if (CalledEvent=="Delete"){
 	this->Delete();
+    }else if (CalledEvent=="DeleteComplete"){
+	this->DeleteComplete();
     }else {
 	LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-42 Requested Event Does Not Exists -> "+CalledEvent);
 	throw 42;
@@ -164,6 +168,26 @@ void XaMedia::View(){
 	RESPONSE.Content=ReadResponse(DbRes,ReadFields);
 };
 
+void XaMedia::ListComplete(){
+
+	string XaDomainMediaCategory_ID=HTTP.GetHttpParam("XaDomainMediaCategory_ID");
+        string XaField_ID=HTTP.GetHttpParam("XaField_ID");
+        string XaTable=HTTP.GetHttpParam("XaTable");
+	
+	// inserire la condizione su marked=1 per area non logati (XaUser_ID non valorizzato)
+        
+        string Qry="SELECT M.id,M.XaField_ID,M.preferred,M.position,CONCAT('data:',D.type,';base64,',D.thumbnail) thumbnail,D.type "
+                   "FROM XaMedia M LEFT JOIN XaMediaData D ON D.XaMedia_ID=M.id WHERE M.status=1  AND M.XaField_ID="+XaField_ID+" AND M.XaTable='"+XaTable+"' AND M.XaDomainMediaCategory_ID="+XaDomainMediaCategory_ID;
+
+	LOG.Write("INF", __FILE__, __FUNCTION__,__LINE__,"Query ->"+Qry);
+
+        DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+
+	vector<string> ListFields=ListPrepare({"XaMediaComplete"},"/XaMediaComplete/fieldset/field",0);
+
+	RESPONSE.Content=ListResponse(DbRes,ListFields);
+};
+
 void XaMedia::Create(){
 
     vector<string> FieldName;	
@@ -265,6 +289,22 @@ void XaMedia::CreateComplete(){
 void XaMedia::Delete(){
 
     int DeletedId = DeleteExecute("XaMedia",HTTP.GetHttpParam("id"));
+    RESPONSE.Content = DeleteResponse(DeletedId);
+};
+
+void XaMedia::DeleteComplete(){
+
+    string Id = HTTP.GetHttpParam("id"); // id della tabella XaMedia
+    
+    string Qry="SELECT id FROM XaMediaData WHERE status=1 AND XaMedia_ID="+Id;
+                
+    DbResMap DbRes=XaLibSql::FreeQuerySelect(DB_READ,Qry);
+    
+    string IdData = DbRes[0]["id"]; // id della tabella XaMediaData
+    
+    DeleteExecute("XaMediaData",IdData);
+    
+    int DeletedId = DeleteExecute("XaMedia",Id);
     RESPONSE.Content = DeleteResponse(DeletedId);
 };
 

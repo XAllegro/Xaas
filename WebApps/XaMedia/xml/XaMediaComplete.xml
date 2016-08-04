@@ -32,7 +32,7 @@
       <required>yes</required>
       <create>yes</create>
       <read>no</read>
-      <list>yes</list>
+      <list>no</list>
       <update>no</update>
       <search>yes</search>
       <size/>
@@ -67,7 +67,7 @@
 		<required>no</required>
 		<create>yes</create>
 		<read>yes</read>
-		<list>yes</list>
+		<list>no</list>
 		<update>yes</update>
 		<search>yes</search>
 		<size></size>
@@ -82,7 +82,7 @@
 		<required>yes</required>
 		<create>yes</create>
 		<read>yes</read>
-		<list>yes</list>
+		<list>no</list>
 		<update>no</update>
 		<search>no</search>
 		<size></size>
@@ -97,7 +97,7 @@
 		<required>no</required>
 		<create>yes</create>
 		<read>yes</read>
-		<list>yes</list>
+		<list>no</list>
 		<update>no</update>
 		<search>no</search>
 		<size></size>
@@ -112,7 +112,7 @@
 		<required>no</required>
 		<create>yes</create>
 		<read>no</read>
-		<list>yes</list>
+		<list>no</list>
 		<update>no</update>
 		<search>no</search>
 		<size></size>
@@ -157,7 +157,7 @@
 		<required>no</required>
 		<create>no</create>
 		<read>yes</read>
-		<list>yes</list>
+		<list>no</list>
 		<update>no</update>
 		<search>no</search>
 		<size></size>
@@ -172,7 +172,7 @@
 		<required>no</required>
 		<create>yes</create>
 		<read>no</read>
-		<list>no</list>
+		<list>yes</list>
 		<update>no</update>
 		<search>no</search>
 		<size></size>
