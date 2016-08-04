@@ -85,6 +85,55 @@ void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const string& XPat
 	};
 };
 
+void XaLibModel::CreatePrepare(const vector<string>& XmlFiles,const vector<string>& XmlStrings,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue){
+
+	vector <string> Properties ={"name","db_type","size","create","required"};
+
+	//LOAD XML FOR MODEL
+	xmlDocPtr XmlDomDoc=XaLibDom::DomFromStringAndFile(AddXmlFile(XmlFiles),XmlStrings,0);
+
+	//GET NUMBER OF FILEDS
+	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);
+
+	/*For Each Field Check Properties and Load Value*/
+	for (auto i=0;i<FieldsNum;i++) {
+
+		string FCreate=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/create");
+		
+        if (FCreate=="yes") {
+
+			// add field only if creatable
+
+			string FName=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/name");
+			string FType=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/type");
+			string FSize=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/size");
+			string FRequired=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/required");
+
+            string FValue=HTTP.GetHttpParam(FName);
+
+			if (FValue!="NoHttpParam") {
+				// add field only if not empty
+				// check field value
+				if (FType=="select-single-domain") {
+					string Domain=XaLibDom::GetElementValueByXPath(XmlDomDoc,XPathExpr+"["+ to_string(i+1) + "]/options/domain");
+					CheckDomain(FValue,Domain);
+				}
+				FieldName.push_back(FName);
+				FieldValue.push_back(FValue);
+			} else {
+				// empty field is skipped from add
+				if (FRequired=="yes") {
+					// error if field is empty and required
+					LOG.Write("ERR", __FILE__, __FUNCTION__,__LINE__,"ERROR-205 Required Parameter is Missing -> "+FName);
+					throw 205;
+				}
+			}
+
+        }
+		
+	};
+};
+
 int XaLibModel::CreateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue) {
 
 	FieldName.push_back("status");
@@ -423,9 +472,7 @@ void XaLibModel::UpdatePrepare(const vector<string>& XmlFiles,const vector<strin
 	vector <string> Properties ={"name","db_type","size","create","required"};
 	
 	//LOAD XML FOR MODEL
-	//////xmlDocPtr XmlDomDoc=XaLibDom::DomFromFile(AddXmlFile(XmlFiles),0);
 	xmlDocPtr XmlDomDoc=XaLibDom::DomFromStringAndFile(AddXmlFile(XmlFiles),XmlStrings,0);
-	
 
 	//GET NUMBER OF FILEDS
 	int FieldsNum=XaLibDom::GetNumRowByXPathInt(XmlDomDoc,XPathExpr);

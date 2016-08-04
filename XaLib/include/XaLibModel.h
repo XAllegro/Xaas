@@ -34,6 +34,7 @@ class XaLibModel : protected XaLibBase {
         vector<string> AddXmlFile(const vector<string>& FileName);
 
         void CreatePrepare(const vector<string>& XmlFiles,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
+		void CreatePrepare(const vector<string>& XmlFiles,const vector<string>& XmlStrings,const string& XPathExpr,vector <string>& FieldName,vector <string>& FieldValue);
         int CreateExecute(const string& DbTable,vector <string>& FieldName,vector <string>& FieldValue);
         string CreateResponse(const int& NextId);
 
