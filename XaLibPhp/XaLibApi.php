@@ -723,5 +723,54 @@ class XaLibApi {
 		
     }
 
+	public function ListWithFilters(array &$Conf,XaLibHttp &$HTTP):array {
+
+        $this->GetParams($HTTP);
+
+        if ($HTTP->CookieGet("XaSessionId")!="") {
+
+            $url=$this->GetBaseUrl($Conf,$this->object)."&Data=<WsData>";
+            $url.=$this->GetLoginSection($HTTP);
+            $url.="<operation><object>".$this->object."</object><event>List</event></operation>";
+            //$url.= $this->GetParamsSection($this->params);
+			
+			$url.="<params>";
+      
+			  foreach($HTTP->GetHttpRequest() as $n=>$v) {
+				if ($n!='obj' && $n!='evt') {
+				  if(is_array($v)){
+					$value="";
+					for ($i = 0; $i < count($v); $i++) {
+					  if($v[$i]!=""){
+						$value.=$v[$i].",";
+					  }
+					}
+					$value=substr($value, 0, -1); 
+					$url.="<p><n>".$n."</n><v>".$value."</v></p>";
+				  }else{
+					$url.="<p><n>".$n."</n><v>".$this->ClearParamValue($v)."</v></p>";
+				  }
+				}
+			  }
+
+      
+
+			$url.="</params>";
+
+
+
+            $url.="</WsData>";
+
+            $WsData=$this->GetCurlResAsArray($url); 
+            $this->RearrangeListResultArray($WsData);
+
+            return $WsData;
+            //GESTIRE CASO XML O JSON
+            //$this->CheckApiError($result);
+        } else {
+            //MANDARE LOGIN
+        }
+    }
+
 }
 ?>
