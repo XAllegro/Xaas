@@ -753,7 +753,15 @@ class XaLibApi {
 				}
 			  }
 
-      
+			  if($this->_params!=""){
+				$json_array=json_decode($this->_params, true);
+				
+				foreach($json_array as $a=>$b){
+				  $url.="<p><n>".$a."</n><v>".$b."</v></p>";
+				}
+			  }else{
+				$url.="<p><n></n><v></v></p>";
+			  }
 
 			$url.="</params>";
 
